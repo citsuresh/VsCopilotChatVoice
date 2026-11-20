@@ -37,7 +37,7 @@ No main-instance deployment was performed.
 
 ### Chat-bridge PoC in progress
 
-The 0.2.8 diagnostic build adds an opt-in, read-only binding-metadata probe, not production
+The 0.2.10 diagnostic build adds an opt-in, read-only binding/state probe, not production
 dictation/reply delivery. It is enabled only in Debug, with `/RootSuffix Exp` and the
 launch-process environment variable `VSCOPILOTCHATVOICE_BRIDGE_POC=1`. All toolbar controls
 remain disabled. The current-user-only pipe accepts only `inspect`; the read helper verifies
@@ -91,6 +91,34 @@ Atomic draft-revision/busy/target guards and native completed-reply delivery are
 PoC 1 is incomplete. Stable checkpoint `50938af`
 saves the reviewed 0.2.7 diagnostic and plan locally; nothing was pushed.
 
+Checkpoint `1755792` saves the reviewed 0.2.8 typed-identity and live smoke evidence.
+The next 0.2.9 increment passively observes exactly one verified native chat root: a fresh
+observation epoch, monotonic Prompt-change notifications (without reading draft text), and
+trust/responding streams. Unknown states stay null; replacement, hiding, unloading and ended
+feeds invalidate the epoch. Read-only/transcript flags are reported separately. Disposal
+removes subscriptions and ignores late callbacks. These are observations, not authorization
+to insert/send; atomic command guards and reply delivery remain pending. Build and 138 bridge
+probe/IPC plus 62 toolbar assertions pass. Review reproduced a 0.2.9 lifetime defect: closed
+targets retained subscriptions until another inspection/disposal. The 0.2.10 fix automatically
+tears down terminal observations, defers constructor-time cleanup until handles are assigned,
+preserves the terminal reason and releases native/model references. A new close-without-inspection
+regression failed on the unfixed DLL and now passes alongside synchronous/background terminal
+callback checks. Independent 0.2.10 re-review passed 138/62 checks with no new in-scope findings;
+an isolated background bridge-disposal test also verified subscription/reference release and
+pipe-worker completion. Exp-only installation and configuration refresh exited 0, and the
+installed manifest/package/DLL match version 0.2.10 (SHA256
+`7246031262823FC2F9FE93BFDB5BAA07DED5CBA578EFDE26EFC1A32CD6AB0BDA`).
+Live native observation verified Trust once false-to-true, content-free draft revisions across
+A-B-A edits and clearing (11, 23, 35, 36), and responding true-to-false after one generated
+submission. The exact reply `POC_BRIDGE_STATE_OK` appeared and the draft cleared with unchanged
+native identity/epoch. History navigation returned NoNativeTarget; reopening only the generated
+chat preserved its native identity/reply and created a fresh epoch with revision zero.
+UIA entry required settled TextPattern read-back; no uncertain submission was retried. These
+are controlled native-state/UIA proofs, not native guarded send or automatic reply delivery.
+Installed SDK metadata confirms the root and prompt notify changes, but the composer does not.
+`HasInputReplacementNotifications` reports that missing capability explicitly; complete native
+input-replacement coverage is not established, so this is not a command guard.
+
 Incremental packaging retained manifest version 0.2.4 after the source was bumped to 0.2.5.
 An explicit no-deploy VSIX Rebuild corrected it. The actual ZIP now reports 0.2.5 and contains
 the identical independently reviewed DLL (SHA256 `0810376689126D67D228C496ADFE80F1D76BB47701EF8E1E68DAF66599EB4516`).
@@ -137,10 +165,15 @@ integration assertions with seven live progress mappings. A successful build pro
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
 
-The isolated `--bridge-probe` route passes 84 assertions for opt-in gating, binding metadata,
+The isolated `--bridge-probe` route passes 138 assertions for opt-in gating, binding metadata,
 no unrelated content getter reads, hidden windows and the actual listener with a test capture
 callback. IPC checks cover malformed/early-disconnected/unterminated requests, idle/partial
 request deadlines, oversized responses, next-client recovery and clean shutdown. They do not
+read a draft; passive-observation checks cover ABA/wildcard/background notifications, unknown
+and changed readiness, transient input replacement, ended feeds, partial construction,
+background-owner cleanup, revision exhaustion and late callbacks. VS uses joinable-thread
+switching for UI cleanup; the standalone observer harness supplies its WPF dispatcher.
+They do not
 prove live Copilot identity, insertion/send or automatic capture. The production deadline remains
 15 seconds; tests inject a one-second deadline, not a production setting change.
 
@@ -280,8 +313,8 @@ No automatic main-instance installation, commits or pushes.
   or committed worktree status.
   See `docs\PROJECT_STATE.md` for current validation results, including the intermittent
   preference-persistence harness failure observed before the first foundation commit.
-	The latest diagnostic incremental update analyzed two changed C# files across two projects:
-  260 nodes and 1,876 edges in 7.9 seconds. Metadata describes the analyzed working tree,
+  The latest diagnostic incremental update analyzed three changed C# files across two projects:
+  348 nodes and 2,243 edges in 14.1 seconds. Metadata describes the analyzed working tree,
   not a new commit.
 - Independent pre-commit review passed the solution build and both executable checks on
   their first audit runs. Its one viewer-wording finding was corrected in the upstream

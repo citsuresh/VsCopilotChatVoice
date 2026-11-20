@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -29,6 +30,7 @@ internal sealed class ChatBridgePoc : IDisposable
     private readonly TimeSpan connectionTimeout;
     private readonly Func<CancellationToken, Task<ProbeSnapshot>> capture;
     private NamedPipeServerStream? activePipe;
+    private ChatTargetObservation? observation;
     private readonly Task worker;
 
     internal static bool IsEnabled()
@@ -46,26 +48,84 @@ internal sealed class ChatBridgePoc : IDisposable
 
     internal ChatBridgePoc(Action<Exception> reportError)
         : this(reportError, "VsCopilotChatVoice.Poc." + Process.GetCurrentProcess().Id,
-            TimeSpan.FromSeconds(15), CaptureAsync)
+            TimeSpan.FromSeconds(15), null, true)
     {
     }
 
     internal ChatBridgePoc(Action<Exception> reportError, string pipeName, TimeSpan connectionTimeout,
         Func<CancellationToken, Task<ProbeSnapshot>> capture)
+        : this(reportError, pipeName, connectionTimeout, capture, false)
+    {
+    }
+
+    private ChatBridgePoc(Action<Exception> reportError, string pipeName, TimeSpan connectionTimeout,
+        Func<CancellationToken, Task<ProbeSnapshot>>? capture, bool nativeCapture)
     {
         this.reportError = reportError ?? throw new ArgumentNullException(nameof(reportError));
         this.pipeName = pipeName ?? throw new ArgumentNullException(nameof(pipeName));
         if (connectionTimeout <= TimeSpan.Zero || connectionTimeout > TimeSpan.FromMinutes(5))
             throw new ArgumentOutOfRangeException(nameof(connectionTimeout));
         this.connectionTimeout = connectionTimeout;
-        this.capture = capture ?? throw new ArgumentNullException(nameof(capture));
+        this.capture = nativeCapture ? CaptureAsync : capture ?? throw new ArgumentNullException(nameof(capture));
         worker = Task.Run(RunAsync);
     }
 
-    private static async Task<ProbeSnapshot> CaptureAsync(CancellationToken cancellationToken)
+    private async Task<ProbeSnapshot> CaptureAsync(CancellationToken cancellationToken)
     {
         await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-        return Inspect(Application.Current.Windows.Cast<Window>());
+        return CaptureOnUiThread(cancellationToken);
+    }
+
+    private ProbeSnapshot CaptureOnUiThread(CancellationToken cancellationToken)
+    {
+        ThreadHelper.ThrowIfNotOnUIThread();
+        lock (sync)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            lifetime.Token.ThrowIfCancellationRequested();
+            ProbeSnapshot snapshot = Inspect(Application.Current.Windows.Cast<Window>());
+            List<FrameworkElement> targets = snapshot.NativeTargets;
+            snapshot.TargetStatus = targets.Count == 0 ? "NoNativeTarget" : "AmbiguousNativeTarget";
+            if (targets.Count != 1)
+            {
+                observation?.Dispose();
+                observation = null;
+                return snapshot;
+            }
+            FrameworkElement anchor = targets[0];
+            object context = anchor.DataContext;
+            object session = ReadObservedBinding(context, "Session");
+            object composer = ReadObservedBinding(context, "Composer");
+            object input = ReadObservedBinding(composer, "PromptInput");
+            if (session.GetType().FullName != "Microsoft.VisualStudio.Conversations.Backends.CopilotSdk.CopilotSdkSession" ||
+                input.GetType().FullName != "Microsoft.VisualStudio.Copilot.UI.HarnessUi.Sessions.Composer.PromptTextInputViewModel" ||
+                !(context is INotifyPropertyChanged contextChanges) || !(input is INotifyPropertyChanged inputChanges) ||
+                !(ReadObservedBinding(session, "IsTrusted") is IObservable<bool> trusted) ||
+                !(ReadObservedBinding(session, "IsResponding") is IObservable<bool> responding))
+                throw new InvalidDataException("The native target observation contract is unsupported.");
+            bool isReadOnly = ReadObservedBinding(session, "IsReadOnly") is bool readOnly ? readOnly :
+                throw new InvalidDataException("The native read-only contract is unsupported.");
+            bool isTranscript = ReadObservedBinding(session, "IsTranscript") is bool transcript ? transcript :
+                throw new InvalidDataException("The native transcript contract is unsupported.");
+            if (observation == null || !observation.Matches(anchor, context, session, composer, input))
+            {
+                observation?.Dispose();
+                observation = null;
+                observation = new ChatTargetObservation(anchor, contextChanges, session, composer, inputChanges,
+                    trusted, responding, reportError, ScheduleOnUiThreadAsync);
+            }
+            snapshot.Target = observation.Snapshot();
+            snapshot.TargetStatus = "Observed";
+            snapshot.IsReadOnly = isReadOnly;
+            snapshot.IsTranscript = isTranscript;
+            return snapshot;
+        }
+    }
+
+    private static async Task ScheduleOnUiThreadAsync(Action action)
+    {
+        await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+        action();
     }
 
     private async Task RunAsync()
@@ -168,6 +228,9 @@ internal sealed class ChatBridgePoc : IDisposable
                 {
                     if (result.Controls.Count == 32) throw new InvalidOperationException("Too many probe controls.");
                     result.Controls.Add(Describe(element, id));
+                    if (element.GetType().FullName == "Microsoft.VisualStudio.Conversations.UI.Internal.ChatWindow.Controls.ChatSessionList" &&
+                        element.DataContext?.GetType().FullName == "Microsoft.VisualStudio.Copilot.UI.HarnessUi.HarnessSessionViewModel")
+                        result.NativeTargets.Add(element);
                 }
             }
             for (int child = VisualTreeHelper.GetChildrenCount(node) - 1; child >= 0; child--)
@@ -274,17 +337,37 @@ internal sealed class ChatBridgePoc : IDisposable
         return property;
     }
 
+    private static object ReadObservedBinding(object context, string name)
+    {
+        PropertyInfo? property = FindBindingProperty(context.GetType(), name);
+        if (property == null || property.GetMethod == null || !property.GetMethod.IsPublic)
+            throw new InvalidDataException("A required native observation getter is unavailable.");
+        return property.GetValue(context) ?? throw new InvalidDataException("A required native observation binding is unavailable.");
+    }
+
     public void Dispose()
     {
         lifetime.Cancel();
-        lock (sync) { activePipe?.Dispose(); }
+        lock (sync)
+        {
+            activePipe?.Dispose();
+            ChatTargetObservation? current = observation;
+            observation = null;
+            if (current == null) return;
+            current.RequestDisposal();
+        }
     }
 
     [DataContract]
     internal sealed class ProbeSnapshot
     {
+        internal List<FrameworkElement> NativeTargets { get; } = new List<FrameworkElement>();
         [DataMember] public int Visited { get; set; }
         [DataMember] public List<ProbeControl> Controls { get; set; } = new List<ProbeControl>();
+        [DataMember] public string TargetStatus { get; set; } = "NotObserved";
+        [DataMember] public ChatTargetObservation.ObservationSnapshot? Target { get; set; }
+        [DataMember] public bool? IsReadOnly { get; set; }
+        [DataMember] public bool? IsTranscript { get; set; }
     }
 
     [DataContract]

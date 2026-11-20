@@ -250,6 +250,29 @@ Proceed/adapt: use native UI-thread target/draft-revision/state guards rather th
 paste for production. Next PoC work is the guarded command prototype and completed-reply
 delivery/lifetime matrix. UIA smoke success does not prove those contracts or complete PoC 1.
 
+The 0.2.8 typed-identity increment is saved as local checkpoint `1755792`; no push.
+The next independently reviewable slice is passive target/state observation before mutation.
+Version 0.2.9 observes one exact native root, Prompt notifications without content reads,
+trust/responding streams and read-only/transcript flags. Observation epochs are invalidated
+by binding replacement, hiding/unloading and terminal feeds; unknown values remain unavailable.
+Build and 138 bridge probe/IPC + 62 toolbar assertions pass, including ABA changes and late
+callbacks. Independent 0.2.10 re-review and live SDK state validation pass. This does not yet prove
+atomic guarded insert/send, complete draft-change coverage in native VS or completed-reply delivery.
+Installed SDK metadata confirms the composer lacks PropertyChanged. Report this capability
+gap explicitly rather than assume input-replacement notifications; evaluate exact input lifetime
+and per-command reference validation before enabling mutation. The root and prompt do notify.
+Review reproduced closed-target subscription retention in 0.2.9. The approved autonomous
+0.2.10 fix queues teardown on terminal invalidation, handles constructor callbacks, releases
+native/model references and preserves primitive terminal diagnostics. The close-without-another-
+inspection regression failed before the fix and passes afterward. Independent re-review found
+no new in-scope findings and verified actual background bridge disposal. Exp installation/refresh
+exited 0 with matching 0.2.10 manifest/DLL. Native trust transitions, A-B-A draft revisions,
+busy-to-idle after one exact generated prompt/reply, cleared draft and unchanged chat identity
+passed. Leaving history invalidated the target; reopening preserved chat/reply identity with a
+fresh observation epoch. No Send retry occurred. Proceed with bounded native command/reply
+contract discovery; do not waive the input-replacement gap or infer native command acceptance
+from UIA smoke. PoC 1 is incomplete; the pipe remains inspect-only and other phases are not started.
+
 ### Production phases
 
 1. **Contracts, lifetime and capability probes.** Establish live VS/conversation identity,

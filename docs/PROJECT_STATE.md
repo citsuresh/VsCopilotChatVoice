@@ -4,6 +4,12 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
+Latest increment: independently reviewed 0.2.10 passive native observation and automatic
+terminal teardown are installed and live-validated in Exp. PoC 1 remains incomplete: native
+guarded insertion/send and completed-reply delivery are the next required capabilities.
+The following progress notes retain earlier checkpoints; the latest 0.2.10 results supersede
+their pending-review/install statuses. No microphone or later production phase has started.
+
 Foundation and approved toolbar preview are committed locally through `ee55bb6`; no push.
 The user ended the design discussion and requested an implementation plan. The new draft
 `docs/IMPLEMENTATION_PLAN.md` captures microphone modes/gestures/recovery, a native reader
@@ -55,6 +61,54 @@ live proof. Do not claim an atomic guarded native input/send or reply-delivery b
   prototype with target generation, monotonic draft revision and responding/trust readiness;
   then completed-reply delivery and negative/lifetime matrix. The diagnostic pipe is still
   inspect-only; PoC 1 remains incomplete. No new permission is needed for approved PoC work.
+- Local checkpoint `1755792` saves reviewed 0.2.8 source and live smoke evidence; installed
+  hash was reverified before commit. Worktree was clean and main-host foreground restored.
+- Current 0.2.9 slice adds passive `ChatTargetObservation`: observation epoch, content-free
+  Prompt-change counter, trust/responding streams and lifecycle invalidation. Unknown state
+  stays null; late callbacks cannot restore invalid targets. Build and 126 probe/IPC + 62
+  toolbar assertions pass. The standalone harness exposed a VS-only JIT dependency in disposal;
+	an injected UI scheduler preserves the SDK-free observer/IPC routes while native cleanup
+  uses VS joinable-thread switching. Background disposal, transient input replacement and
+  revision exhaustion pass. Only the two pre-existing analyzer warnings remain. Independent
+  review and live 0.2.9 SDK validation are pending. No command or draft/reply content API added.
+- Installed public SDK metadata confirms root/prompt PropertyChanged, but not composer
+  PropertyChanged. Initial composer-interface requirement was incompatible with native VS;
+  corrected to report HasInputReplacementNotifications=false without disabling other passive
+  observations. This gap is not waived for mutation. Input lifetime and atomic guards remain open.
+- User-authorized read-only reference check of CopilotUsageMeter confirmed UI-thread discovery,
+  active-chat polling and teardown patterns. Its read-only usage-context polling does not prove
+  safe prompt mutation; private identity/stringification logic was not copied or modified.
+- Independent review reproduced one medium 0.2.9 defect: target closure retained all five
+  subscriptions and native objects until a later inspect/disposal. The added closure regression
+  failed on the unfixed DLL. Version 0.2.10 automatically queues terminal teardown, defers it
+  during construction, clears native/model/scheduler references and preserves terminal reasons.
+  Build and 138 probe/IPC + 62 toolbar checks pass, including synchronous constructor completion
+	and background terminal cleanup without client activity. Independent re-review found no new
+  in-scope findings and reran 138/62 successfully. Its actual background ChatBridgePoc.Dispose
+  test verified observer-slot release, UI subscription/reference cleanup, OwnerDisposed/null
+  readiness, completed pipe worker and zero reported errors.
+- Official 0.2.10 Exp installer/configuration refresh exited 0. Manifest/package/installed DLL
+  match SHA256 `7246031262823FC2F9FE93BFDB5BAA07DED5CBA578EFDE26EFC1A32CD6AB0BDA`.
+  Transient task Exp PID 36168 / HWND 0x341460; reverify before reuse. Initial Sessions screen
+  returned NoNativeTarget/null state. A new disposable chat exposed trusted/responding false,
+  read-only/transcript false and HasInputReplacementNotifications=false. Trust once changed
+  trusted false-to-true without changing native Guid or observation epoch.
+- Native A-B-A draft edits produced monotonic revisions 11, 23, 35, then 36 after verified
+  clearing. Each generated draft was read back through TextPattern. Initial foreground entry
+  needed bounded recovery; a later immediate mismatch settled correctly on fresh read-back,
+  so it was not retyped. No RDP cause was inferred and no uncertain Send was retried.
+- One exact generated prompt returned POC_BRIDGE_STATE_OK. Its visible user/assistant entries
+  and empty draft were verified; responding changed true-to-false, revision remained 110 and
+  native Guid/client plus epoch stayed unchanged. Native history navigation returned
+  NoNativeTarget/null observation. A failed guessed history-label prefix caused no action;
+  filtered inspection recovered the observed Active session label. Reopening only that generated
+  chat preserved native identity/reply with a fresh epoch and revision zero. This is UIA smoke,
+  not automatic native reply delivery or command acceptance proof.
+- Original main host PID 29572 / HWND 0x311C0 was restored and verified foreground after the
+  live batch; the green UI cursor session was stopped. No normal-instance installation occurred.
+- Latest registered graph refresh analyzed three changed files: 348 nodes, 2,243 edges,
+  14.1 seconds. Generated dependencies were renamed immediately; commit metadata records
+	existing checkpoint 1755792 rather than a fabricated future commit. Only Exp was updated.
 This changes earlier planned architecture, not current code: the reader is still standalone
 and all three toolbar buttons remain disabled. Full Exp lifecycle/theme/DPI/accessibility
 checks remain pending. Approved lifecycle fix 1 passed independent re-review; test-only glyph
@@ -204,6 +258,9 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 
 ## Open tasks / limitations
 
+- PoC 1: resolve native command parameters/acceptance, exact input-replacement lifetime and
+  atomic target/draft/readiness guards; prove completed-reply delivery and negative/two-instance
+  matrix before declaring completion. The diagnostic pipe is inspect-only.
 - 0.2.3 Mic/Speaker/Settings controls are intentionally disabled; earlier placement/lifecycle
 	and grouped-style checks pass, but fresh Exp chat close/reopen and theme/DPI/accessibility matrix still
   need verification. Unsupported/ambiguous layouts report unavailable instead of unsafe insertion.
@@ -229,6 +286,10 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 
 ## Recently changed files
 
+- `ChatTargetObservation.cs`, `ChatBridgePoc.cs`, `BridgePocRegressionTests.cs` and VSIX manifest:
+  0.2.10 passive native-state observation, automatic terminal cleanup and 138 actual-DLL checks.
+- README, implementation plan, memory/flow docs and registered graph pair: reviewed behavior,
+  native trust/revision/busy/history evidence and unresolved guarded-send/reply boundaries.
 - `docs/IMPLEMENTATION_PLAN.md`: consolidated design scope, seven phases, acceptance gates,
   defaults, negative scenarios and optional experiment. Documentation-only; no new runtime tests.
 - `README.md`, `ROADMAP.md`, `DESIGN_DECISIONS.md` and contributor instructions: align planned

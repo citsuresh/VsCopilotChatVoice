@@ -21,10 +21,10 @@ theme/DPI/accessibility and chat-recreation matrix remains pending.
 No VoiceType source or engine/model assets have been copied.
 The reader retains prototype branding and a pale-yellow palette.
 
-The 0.2.8 diagnostic build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
+The 0.2.10 diagnostic build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
 gated to Debug + Exp + launch environment opt-in. Its current-user-only named pipe only inspects
 live WPF metadata through observed Session/Composer/ChatLog and composer-input/action paths,
-plus the inspected typed session-ID fields;
+plus inspected typed session-ID fields and passive draft-revision/trust/responding observation;
 it cannot insert/send or deliver replies. Production plans in
 IMPLEMENTATION_PLAN.md supersede optional-VoiceType-app discovery with selective external-host
 source reuse and move only reader presentation into a native VS tool window; neither is migrated.
@@ -38,6 +38,7 @@ source reuse and move only reader presentation into a native VS tool window; nei
 | `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; owns/disposes toolbar integration and provides dynamic VS resource references and activity logging. |
 | `ChatToolbarIntegration` | `src\VsCopilotChatVoice.VisualStudio\ChatToolbarIntegration.cs` | Bounded visible-picker discovery, conservative placement, disabled accessible controls, duplicate/lifetime handling; no speech or SDK dependencies. |
 | `ChatBridgePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatBridgePoc.cs` | Opt-in Exp-only read-only pipe; bounded WPF control discovery and binding/identity metadata inspection. No production input/reply protocol. |
+| `ChatTargetObservation` | `src\VsCopilotChatVoice.VisualStudio\ChatTargetObservation.cs` | Passive native-target epoch and draft-notification counter, trust/responding streams, automatic terminal teardown and primitive diagnostic retention. Does not read/write a draft or invoke commands. |
 
 ### VsCopilotChatVoice.Reader
 

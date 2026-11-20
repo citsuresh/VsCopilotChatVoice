@@ -161,3 +161,27 @@ Append-only dated log. Supersede a decision with a new entry rather than rewriti
 - **Alternatives:** Do not guess IDs, stringify arbitrary objects, read unrelated content, or
   enable insertion/send before identity, draft and state contracts are verified. Unsupported
   contracts remain explicit capability gaps rather than success-shaped fallbacks.
+
+## 2026-11-21 - Passive native state observations before command guards
+
+- **Decision:** Count Prompt notifications without reading draft content; associate them with a
+  fresh observation epoch and one exact native root. Subscribe to observed trust/responding
+  streams, leaving unavailable values null. Replacement, hiding, unloading or ended feeds
+  invalidate observations. Keep IPC inspect-only until native behavior and atomic guards pass.
+- **Rationale:** Text equality cannot detect an ABA edit, and absent readiness cannot safely
+  imply trusted/idle. Subscription lifetime and late callbacks need separate regression checks.
+- **Alternatives:** Foreground paste, guessed readiness, and treating observation as permission
+  to send remain rejected. Isolate VS-only cleanup scheduling from standalone IPC test execution.
+- **Native limitation:** Public installed metadata shows the composer does not notify property
+  changes. Expose missing input-replacement notifications explicitly; do not treat synthetic
+  notification fixtures as proof of native coverage or enable mutation on that assumption.
+
+## 2026-11-21 - Terminal observation cleanup independent of client activity
+
+- **Decision:** Terminal invalidation automatically queues UI teardown, deferred until constructor
+  subscriptions have returned their handles. Preserve primitive status/revision/capability values
+  but clear native/model references and subscriptions. Owner disposal shares the same cleanup.
+- **Rationale:** Independent review and a failing regression showed chat closure otherwise retained
+  all five subscriptions until another inspect. Background terminal events and synchronous
+  subscription completion also require cleanup without reviving an invalid epoch.
+- **Alternative:** Do not rely on future polling or owner shutdown to release a closed conversation.

@@ -7,6 +7,8 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 Latest increment: independently reviewed 0.2.10 passive native observation and automatic
 terminal teardown are installed and live-validated in Exp. PoC 1 remains incomplete: native
 guarded insertion/send and completed-reply delivery are the next required capabilities.
+Local checkpoint `b72d3dd` saves this reviewed increment and live evidence; no push. Subsequent
+read-only SDK contract research/helper work does not change the installed 0.2.10 bridge.
 The following progress notes retain earlier checkpoints; the latest 0.2.10 results supersede
 their pending-review/install statuses. No microphone or later production phase has started.
 
@@ -106,6 +108,19 @@ live proof. Do not claim an atomic guarded native input/send or reply-delivery b
   not automatic native reply delivery or command acceptance proof.
 - Original main host PID 29572 / HWND 0x311C0 was restored and verified foreground after the
   live batch; the green UI cursor session was stopped. No normal-instance installation occurred.
+- Read-only metadata resolution recovered the public backend Session interface and command
+  signatures using explicit installed Copilot/contract/framework folders. IBackendSession.SendAsync
+  accepts ChatSendRequest plus cancellation and returns Task<CopilotMessageResponse>; its
+  Content/Status/Error properties do not prove reply correlation or command acceptance.
+  ChatLog.Entries uses ChatContentPartViewModel with InteractionId/IsComplete/IsFromUser/Id.
+  No backend method or live reply-content getter was invoked.
+- Installed SDK 18.13.0.0 public PromptInput getter is nonvirtual, setter-free and a direct read
+  of a constructor-only instance field of the same type. This is metadata-only evidence for a
+  future fail-closed stable-input guard, not a shipped guard or global immutability guarantee.
+  The new reusable Read-PublicAssemblyContract helper preserves that optional check without
+  private value reads. Parsing, immutable-input/mutable-Prompt distinction and member-budget
+  rejection pass. Whole-assembly inventory hit unrelated System.Runtime 10 dependencies; that
+  mode was removed rather than returning partial success. Exact public-type reads pass.
 - Latest registered graph refresh analyzed three changed files: 348 nodes, 2,243 edges,
   14.1 seconds. Generated dependencies were renamed immediately; commit metadata records
 	existing checkpoint 1755792 rather than a fabricated future commit. Only Exp was updated.
@@ -261,6 +276,8 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 - PoC 1: resolve native command parameters/acceptance, exact input-replacement lifetime and
   atomic target/draft/readiness guards; prove completed-reply delivery and negative/two-instance
   matrix before declaring completion. The diagnostic pipe is inspect-only.
+  Metadata contracts and a version-specific constructor-only input-slot proof are now known;
+  their native runtime guard/feed integration is not implemented or live-validated.
 - 0.2.3 Mic/Speaker/Settings controls are intentionally disabled; earlier placement/lifecycle
 	and grouped-style checks pass, but fresh Exp chat close/reopen and theme/DPI/accessibility matrix still
   need verification. Unsupported/ambiguous layouts report unavailable instead of unsafe insertion.
@@ -290,6 +307,8 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
   0.2.10 passive native-state observation, automatic terminal cleanup and 138 actual-DLL checks.
 - README, implementation plan, memory/flow docs and registered graph pair: reviewed behavior,
   native trust/revision/busy/history evidence and unresolved guarded-send/reply boundaries.
+- `scripts\agent\Read-PublicAssemblyContract.ps1`, SCRIPTS and related README/state/plan docs:
+  reusable bounded, reflection-only exact public SDK metadata and constructor-only-slot checks.
 - `docs/IMPLEMENTATION_PLAN.md`: consolidated design scope, seven phases, acceptance gates,
   defaults, negative scenarios and optional experiment. Documentation-only; no new runtime tests.
 - `README.md`, `ROADMAP.md`, `DESIGN_DECISIONS.md` and contributor instructions: align planned

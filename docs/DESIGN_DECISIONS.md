@@ -185,3 +185,15 @@ Append-only dated log. Supersede a decision with a new entry rather than rewriti
   all five subscriptions until another inspect. Background terminal events and synchronous
   subscription completion also require cleanup without reviving an invalid epoch.
 - **Alternative:** Do not rely on future polling or owner shutdown to release a closed conversation.
+
+## 2026-11-21 - Version-specific immutable-input evidence, not notification inference
+
+- **Decision:** Treat the installed SDK's setter-free, nonvirtual PromptInput getter and direct
+  constructor-only field metadata as evidence for a future fail-closed stable-input check.
+  Keep reporting missing composer notifications; no runtime guard is enabled by this research.
+- **Rationale:** Getter-only alone does not prove an immutable binding. The exact getter/field
+  shape is verified without reading private values; changed SDK shapes must be unavailable
+  rather than assumed equivalent. Root/composer replacement and draft/state guards still apply.
+- **Alternatives:** Do not assume native lifetime from synthetic fixtures, blindly construct a
+  backend send request, infer completed-reply identity from response Content, or silently skip
+  metadata dependency failures. Use exact public-type reads instead of whole-assembly inventory.

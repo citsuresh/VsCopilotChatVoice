@@ -119,6 +119,17 @@ Installed SDK metadata confirms the root and prompt notify changes, but the comp
 `HasInputReplacementNotifications` reports that missing capability explicitly; complete native
 input-replacement coverage is not established, so this is not a command guard.
 
+Read-only installed SDK research now resolves the actual metadata dependencies. The public
+composer input getter has no setter and directly reads a constructor-only field in SDK
+18.13.0.0; this is version-specific lifetime evidence, not a shipped runtime guard. Backend
+`SendAsync(ChatSendRequest, CancellationToken)` returns `Task<CopilotMessageResponse>` with
+Content/Status/Error, while native log entries expose InteractionId, IsComplete and IsFromUser.
+No such method/getter was invoked on a live session. Command acceptance, reply correlation,
+native content extraction and the guarded protocol still need implementation/live validation.
+The reusable `scripts\agent\Read-PublicAssemblyContract.ps1` reads exact public type metadata
+in Windows PowerShell with explicit dependency folders and bounded member counts; its optional
+constructor-only-property check reads metadata, never private field values. See `docs/SCRIPTS.md`.
+
 Incremental packaging retained manifest version 0.2.4 after the source was bumped to 0.2.5.
 An explicit no-deploy VSIX Rebuild corrected it. The actual ZIP now reports 0.2.5 and contains
 the identical independently reviewed DLL (SHA256 `0810376689126D67D228C496ADFE80F1D76BB47701EF8E1E68DAF66599EB4516`).

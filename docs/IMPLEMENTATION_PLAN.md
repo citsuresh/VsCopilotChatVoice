@@ -273,6 +273,21 @@ fresh observation epoch. No Send retry occurred. Proceed with bounded native com
 contract discovery; do not waive the input-replacement gap or infer native command acceptance
 from UIA smoke. PoC 1 is incomplete; the pipe remains inspect-only and other phases are not started.
 
+Further read-only contract research resolves the earlier blank property-type lookup: public
+metadata requires the installed Copilot contracts plus PublicAssemblies/PrivateAssemblies
+dependency folders. In SDK 18.13.0.0, the nonvirtual public PromptInput getter has no setter,
+and its direct field-read body references a constructor-only instance field of the same type.
+This can inform a fail-closed, per-loaded-SDK stable-input capability check; it is not currently
+implemented in the bridge and does not waive root/composer reference or draft-revision checks.
+The backend exposes SendAsync(ChatSendRequest, CancellationToken) returning
+Task<CopilotMessageResponse>; response Content/Status/Error alone do not establish interaction
+identity or acceptance semantics. Native ChatLog.Entries contains ChatContentPartViewModel
+with typed InteractionId, IsComplete, IsFromUser and content-part Id. These are metadata only:
+no live content getter/feed or backend send was used. Verify the native composer-command path,
+acceptance, completed-entry correlation and content behavior before enabling the guarded protocol.
+Avoid whole-assembly inventory: unrelated .NET 10 exports require different dependencies;
+the reusable helper intentionally reads exact requested types and reports failures explicitly.
+
 ### Production phases
 
 1. **Contracts, lifetime and capability probes.** Establish live VS/conversation identity,

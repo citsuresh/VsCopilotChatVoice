@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/VsCopilotChatVoice.Reader/VsCopilotChatVoice.Reader.csproj" />
+    <Project Path="src/VsCopilotChatVoice.VisualStudio/VsCopilotChatVoice.VisualStudio.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/VsCopilotChatVoice.Reader.Tests/VsCopilotChatVoice.Reader.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <VSSDKBuildToolsAutoSetup>true</VSSDKBuildToolsAutoSetup>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <DeployExtension>false</DeployExtension>
+    <VsixDeployOnDebug>false</VsixDeployOnDebug>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.14.40265" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.9.820" PrivateAssets="all" />
+    <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="source.extension.vsixmanifest" SubType="Designer" />
+    <Content Include="..\VsCopilotChatVoice.Reader\bin\$(Configuration)\net48\VsCopilotChatVoice.Reader.exe" Link="Reader\VsCopilotChatVoice.Reader.exe" IncludeInVSIX="true" />
+    <Content Include="..\VsCopilotChatVoice.Reader\bin\$(Configuration)\net48\VsCopilotChatVoice.Reader.exe.config" Link="Reader\VsCopilotChatVoice.Reader.exe.config" IncludeInVSIX="true" />
+  </ItemGroup>
+</Project>

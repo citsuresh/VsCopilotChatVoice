@@ -37,7 +37,7 @@ No main-instance deployment was performed.
 
 ### Chat-bridge PoC in progress
 
-The 0.2.7 diagnostic build adds an opt-in, read-only binding-metadata probe, not production
+The 0.2.8 diagnostic build adds an opt-in, read-only binding-metadata probe, not production
 dictation/reply delivery. It is enabled only in Debug, with `/RootSuffix Exp` and the
 launch-process environment variable `VSCOPILOTCHATVOICE_BRIDGE_POC=1`. All toolbar controls
 remain disabled. The current-user-only pipe accepts only `inspect`; the read helper verifies
@@ -77,8 +77,19 @@ the finding resolved, reruns all 78/62 checks successfully, and reports no new i
 The 0.2.7 Exp installer/refresh both exited 0; its installed DLL matches the reviewed package.
 Live inspection reaches the disposable chat's real session/composer/log bindings. The session
 uses `CopilotSessionId`, not a primitive ID: inspected SDK metadata exposes a public Guid plus
-`ClientId.Id`. PromptInput and ChatEvents are also exposed; their routing/content contracts are
-not yet validated. Stable identity and safe input/send/delivery remain unproved; PoC 1 is incomplete.
+`ClientId.Id`. The 0.2.8 probe reads only these verified identity fields and inventories the
+observed Composer.PromptInput/ActionButton paths, without stringifying arbitrary objects or
+reading a draft/reply. Expanded 84 probe/IPC and unchanged 62 toolbar checks pass; exact package
+version/hash are verified. Independent review reran both routes and reported no high-confidence
+findings. The 0.2.8 Exp installer/refresh exited 0, and live SDK identity extraction succeeded.
+A harmless generated prompt was entered through UIA, read back exactly, submitted once, and
+returned exactly `POC_BRIDGE_OK`; the draft cleared. Native Guid/client identity survived trust,
+title changes, submission, switching and history reopen, while another chat had a distinct Guid.
+SDK metadata also confirms Prompt has a public setter and PropertyChanged notifications.
+These are controlled capability proofs, not a voice-delivery bridge: the pipe remains read-only.
+Atomic draft-revision/busy/target guards and native completed-reply delivery are still pending;
+PoC 1 is incomplete. Stable checkpoint `50938af`
+saves the reviewed 0.2.7 diagnostic and plan locally; nothing was pushed.
 
 Incremental packaging retained manifest version 0.2.4 after the source was bumped to 0.2.5.
 An explicit no-deploy VSIX Rebuild corrected it. The actual ZIP now reports 0.2.5 and contains
@@ -126,7 +137,7 @@ integration assertions with seven live progress mappings. A successful build pro
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
 
-The isolated `--bridge-probe` route passes 78 assertions for opt-in gating, binding metadata,
+The isolated `--bridge-probe` route passes 84 assertions for opt-in gating, binding metadata,
 no unrelated content getter reads, hidden windows and the actual listener with a test capture
 callback. IPC checks cover malformed/early-disconnected/unterminated requests, idle/partial
 request deadlines, oversized responses, next-client recovery and clean shutdown. They do not
@@ -270,7 +281,7 @@ No automatic main-instance installation, commits or pushes.
   See `docs\PROJECT_STATE.md` for current validation results, including the intermittent
   preference-persistence harness failure observed before the first foundation commit.
 	The latest diagnostic incremental update analyzed two changed C# files across two projects:
-	237 nodes and 1,813 edges in 15.1 seconds. Metadata describes the analyzed working tree,
+  260 nodes and 1,876 edges in 7.9 seconds. Metadata describes the analyzed working tree,
   not a new commit.
 - Independent pre-commit review passed the solution build and both executable checks on
   their first audit runs. Its one viewer-wording finding was corrected in the upstream

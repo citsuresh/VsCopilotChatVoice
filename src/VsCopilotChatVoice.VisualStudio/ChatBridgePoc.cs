@@ -194,7 +194,15 @@ internal sealed class ChatBridgePoc : IDisposable
         {
             PropertyInfo? property = FindBindingProperty(context.GetType(), name);
             if (property == null || property.GetMethod == null || !property.GetMethod.IsPublic) continue;
-            control.Bindings.Add(DescribeBinding(property.GetValue(context), name, property.PropertyType));
+            object? related = property.GetValue(context);
+            control.Bindings.Add(DescribeBinding(related, name, property.PropertyType));
+            if (name != "Composer" || related == null) continue;
+            foreach (string childName in new[] { "PromptInput", "ActionButton" })
+            {
+                PropertyInfo? child = FindBindingProperty(related.GetType(), childName);
+                if (child == null || child.GetMethod == null || !child.GetMethod.IsPublic) continue;
+                control.Bindings.Add(DescribeBinding(child.GetValue(related), name + "." + childName, child.PropertyType));
+            }
         }
         return control;
     }
@@ -233,6 +241,22 @@ internal sealed class ChatBridgePoc : IDisposable
             if (property.GetMethod == null || !property.GetMethod.IsPublic) continue;
             if (!(property.Name == "Id" || property.Name == "SessionId" || property.Name == "ConversationId" ||
                 property.Name == "ChatId")) continue;
+            if (property.PropertyType.IsValueType && property.PropertyType.FullName == "Microsoft.VisualStudio.Copilot.CopilotSessionId")
+            {
+                object typedValue = property.GetValue(context) ?? throw new InvalidDataException("The typed session identity is unavailable.");
+                PropertyInfo guid = RequireIdentityProperty(property.PropertyType, "Guid", typeof(Guid));
+                binding.Identities.Add(property.Name + ".Guid=" + guid.GetValue(typedValue));
+                PropertyInfo? client = FindBindingProperty(property.PropertyType, "ClientId");
+                if (client == null || client.GetMethod == null || !client.GetMethod.IsPublic ||
+                    client.PropertyType.FullName != "Microsoft.VisualStudio.Copilot.CopilotClientId")
+                    throw new InvalidDataException("The typed session client contract is unsupported.");
+                object? clientValue = client.GetValue(typedValue);
+                string clientText = clientValue == null ? "(null)" :
+                    (string?)RequireIdentityProperty(client.PropertyType, "Id", typeof(string)).GetValue(clientValue) ?? "(null)";
+                if (clientText.Length > 256) throw new InvalidDataException("Identity exceeds the probe limit.");
+                binding.Identities.Add(property.Name + ".ClientId.Id=" + clientText);
+                continue;
+            }
             if (property.PropertyType != typeof(string) && property.PropertyType != typeof(Guid)) continue;
             object? value = property.GetValue(context);
             string text = value?.ToString() ?? "(null)";
@@ -240,6 +264,14 @@ internal sealed class ChatBridgePoc : IDisposable
             binding.Identities.Add(property.Name + "=" + text);
         }
         return binding;
+    }
+
+    private static PropertyInfo RequireIdentityProperty(Type type, string name, Type valueType)
+    {
+        PropertyInfo? property = FindBindingProperty(type, name);
+        if (property == null || property.GetMethod == null || !property.GetMethod.IsPublic || property.PropertyType != valueType)
+            throw new InvalidDataException("The typed identity property contract is unsupported.");
+        return property;
     }
 
     public void Dispose()

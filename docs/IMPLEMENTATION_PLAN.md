@@ -237,6 +237,18 @@ Session.ChatEvents and SessionCommands. These observed contracts are the next bo
 targets, not verified production APIs. Stable identity and guarded input/send/delivery still
 require actual evidence. The user also permits copying required VoiceType source when the
 microphone phase is reached; no source/models have been copied and no later phase was started.
+Reviewed 0.2.7 work is saved in local checkpoint `50938af` with user approval; no push.
+The 0.2.8 read-only increment extracts only inspected Guid/client-ID fields and inventories
+the two observed composer paths; 84 probe/IPC + 62 toolbar checks pass and independent review
+reports no high-confidence findings. Exp installation/refresh exited 0. Live extraction proves
+Guid/client identity remains stable through trust, renamed title, submission, switch and reopen;
+another conversation has a different Guid. A uniquely targeted, generated UIA prompt was read
+back exactly, sent once and answered exactly POC_BRIDGE_OK; cleared draft confirms acceptance.
+No existing chats were used, no repository code was submitted, and no voice/pipe mutation API
+was enabled. Prompt has a public setter and INotifyPropertyChanged in inspected SDK metadata.
+Proceed/adapt: use native UI-thread target/draft-revision/state guards rather than foreground
+paste for production. Next PoC work is the guarded command prototype and completed-reply
+delivery/lifetime matrix. UIA smoke success does not prove those contracts or complete PoC 1.
 
 ### Production phases
 

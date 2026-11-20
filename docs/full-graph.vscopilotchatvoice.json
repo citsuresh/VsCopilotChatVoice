@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-11-20T19:10:42.1064131Z",
+  "generatedAt": "2026-11-20T19:29:03.1899021Z",
   "solutionPath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\VsCopilotChatVoice.slnx",
   "mode": "incremental",
-  "commitSha": "ee55bb68dc8966fc22ec02fd2a820aa25b256799",
+  "commitSha": "50938af73589e649f8c3cefc5c1a69d0f2411f6b",
   "nodes": [
     {
       "id": "ReadAlongTrial.WordAnchor",
@@ -2028,7 +2028,7 @@
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
       "startLine": 23,
-      "endLine": 277,
+      "endLine": 309,
       "accessibility": "internal",
       "isStatic": false,
       "isAbstract": false
@@ -2223,7 +2223,7 @@
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
       "startLine": 180,
-      "endLine": 200,
+      "endLine": 208,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2235,8 +2235,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 202,
-      "endLine": 212,
+      "startLine": 210,
+      "endLine": 220,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2248,8 +2248,21 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 214,
-      "endLine": 243,
+      "startLine": 222,
+      "endLine": 267,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.RequireIdentityProperty(Type,string,Type)",
+      "kind": "method",
+      "name": "RequireIdentityProperty",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "startLine": 269,
+      "endLine": 275,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2261,8 +2274,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 245,
-      "endLine": 249,
+      "startLine": 277,
+      "endLine": 281,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2274,8 +2287,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 251,
-      "endLine": 256,
+      "startLine": 283,
+      "endLine": 288,
       "accessibility": "internal",
       "isStatic": false,
       "isAbstract": false
@@ -2287,8 +2300,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeSnapshot",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 254,
-      "endLine": 254,
+      "startLine": 286,
+      "endLine": 286,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2300,8 +2313,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeSnapshot",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 255,
-      "endLine": 255,
+      "startLine": 287,
+      "endLine": 287,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2313,8 +2326,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 258,
-      "endLine": 267,
+      "startLine": 290,
+      "endLine": 299,
       "accessibility": "internal",
       "isStatic": false,
       "isAbstract": false
@@ -2326,8 +2339,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 261,
-      "endLine": 261,
+      "startLine": 293,
+      "endLine": 293,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2339,8 +2352,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 262,
-      "endLine": 262,
+      "startLine": 294,
+      "endLine": 294,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2352,8 +2365,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 263,
-      "endLine": 263,
+      "startLine": 295,
+      "endLine": 295,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2365,8 +2378,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 264,
-      "endLine": 264,
+      "startLine": 296,
+      "endLine": 296,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2378,8 +2391,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 265,
-      "endLine": 265,
+      "startLine": 297,
+      "endLine": 297,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2391,8 +2404,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 266,
-      "endLine": 266,
+      "startLine": 298,
+      "endLine": 298,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2404,8 +2417,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 269,
-      "endLine": 276,
+      "startLine": 301,
+      "endLine": 308,
       "accessibility": "internal",
       "isStatic": false,
       "isAbstract": false
@@ -2417,8 +2430,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 272,
-      "endLine": 272,
+      "startLine": 304,
+      "endLine": 304,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2430,8 +2443,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 273,
-      "endLine": 273,
+      "startLine": 305,
+      "endLine": 305,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2443,8 +2456,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 274,
-      "endLine": 274,
+      "startLine": 306,
+      "endLine": 306,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2456,8 +2469,8 @@
       "containingType": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding",
       "project": "VsCopilotChatVoice.VisualStudio",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "startLine": 275,
-      "endLine": 275,
+      "startLine": 307,
+      "endLine": 307,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2470,7 +2483,7 @@
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "startLine": 15,
-      "endLine": 352,
+      "endLine": 412,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2496,7 +2509,7 @@
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "startLine": 19,
-      "endLine": 112,
+      "endLine": 143,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2508,8 +2521,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 114,
-      "endLine": 208,
+      "startLine": 145,
+      "endLine": 239,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2521,8 +2534,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 210,
-      "endLine": 210,
+      "startLine": 241,
+      "endLine": 241,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2534,8 +2547,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 211,
-      "endLine": 211,
+      "startLine": 242,
+      "endLine": 242,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2547,8 +2560,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 213,
-      "endLine": 227,
+      "startLine": 244,
+      "endLine": 258,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2560,8 +2573,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 229,
-      "endLine": 235,
+      "startLine": 260,
+      "endLine": 266,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2573,8 +2586,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 237,
-      "endLine": 243,
+      "startLine": 268,
+      "endLine": 274,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2586,8 +2599,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 245,
-      "endLine": 253,
+      "startLine": 276,
+      "endLine": 284,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2599,8 +2612,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 255,
-      "endLine": 262,
+      "startLine": 286,
+      "endLine": 293,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2612,8 +2625,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 264,
-      "endLine": 269,
+      "startLine": 295,
+      "endLine": 300,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2625,8 +2638,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 271,
-      "endLine": 277,
+      "startLine": 302,
+      "endLine": 308,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2638,8 +2651,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 279,
-      "endLine": 279,
+      "startLine": 310,
+      "endLine": 310,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2651,8 +2664,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 281,
-      "endLine": 285,
+      "startLine": 312,
+      "endLine": 316,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -2664,8 +2677,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 287,
-      "endLine": 293,
+      "startLine": 318,
+      "endLine": 324,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2677,8 +2690,8 @@
       "containingType": "BridgePocRegressionTests.Context",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 289,
-      "endLine": 289,
+      "startLine": 320,
+      "endLine": 320,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2690,8 +2703,8 @@
       "containingType": "BridgePocRegressionTests.Context",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 290,
-      "endLine": 290,
+      "startLine": 321,
+      "endLine": 321,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2703,8 +2716,8 @@
       "containingType": "BridgePocRegressionTests.Context",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 291,
-      "endLine": 291,
+      "startLine": 322,
+      "endLine": 322,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2716,8 +2729,8 @@
       "containingType": "BridgePocRegressionTests.Context",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 292,
-      "endLine": 292,
+      "startLine": 323,
+      "endLine": 323,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2729,8 +2742,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 295,
-      "endLine": 295,
+      "startLine": 326,
+      "endLine": 326,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": true
@@ -2742,8 +2755,8 @@
       "containingType": "BridgePocRegressionTests.IIdentityContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 295,
-      "endLine": 295,
+      "startLine": 326,
+      "endLine": 326,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": true
@@ -2755,8 +2768,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 296,
-      "endLine": 296,
+      "startLine": 327,
+      "endLine": 327,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": true
@@ -2768,8 +2781,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 298,
-      "endLine": 305,
+      "startLine": 329,
+      "endLine": 336,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2781,8 +2794,8 @@
       "containingType": "BridgePocRegressionTests.BindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 300,
-      "endLine": 300,
+      "startLine": 331,
+      "endLine": 331,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2794,8 +2807,8 @@
       "containingType": "BridgePocRegressionTests.BindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 301,
-      "endLine": 301,
+      "startLine": 332,
+      "endLine": 332,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2807,8 +2820,8 @@
       "containingType": "BridgePocRegressionTests.BindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 302,
-      "endLine": 302,
+      "startLine": 333,
+      "endLine": 333,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2820,8 +2833,8 @@
       "containingType": "BridgePocRegressionTests.BindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 303,
-      "endLine": 303,
+      "startLine": 334,
+      "endLine": 334,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2833,8 +2846,8 @@
       "containingType": "BridgePocRegressionTests.BindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 304,
-      "endLine": 304,
+      "startLine": 335,
+      "endLine": 335,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2846,8 +2859,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 307,
-      "endLine": 313,
+      "startLine": 338,
+      "endLine": 344,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2859,8 +2872,8 @@
       "containingType": "BridgePocRegressionTests.SessionContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 309,
-      "endLine": 309,
+      "startLine": 340,
+      "endLine": 340,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2872,8 +2885,8 @@
       "containingType": "BridgePocRegressionTests.SessionContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 310,
-      "endLine": 310,
+      "startLine": 341,
+      "endLine": 341,
       "accessibility": "private",
       "isStatic": false,
       "isAbstract": false
@@ -2885,8 +2898,8 @@
       "containingType": "BridgePocRegressionTests.SessionContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 311,
-      "endLine": 311,
+      "startLine": 342,
+      "endLine": 342,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2898,8 +2911,8 @@
       "containingType": "BridgePocRegressionTests.SessionContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 312,
-      "endLine": 312,
+      "startLine": 343,
+      "endLine": 343,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2911,8 +2924,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 315,
-      "endLine": 323,
+      "startLine": 346,
+      "endLine": 354,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2924,8 +2937,8 @@
       "containingType": "BridgePocRegressionTests.ComposerContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 317,
-      "endLine": 317,
+      "startLine": 348,
+      "endLine": 348,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2937,8 +2950,8 @@
       "containingType": "BridgePocRegressionTests.ComposerContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 318,
-      "endLine": 322,
+      "startLine": 349,
+      "endLine": 353,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2950,8 +2963,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 325,
-      "endLine": 329,
+      "startLine": 356,
+      "endLine": 360,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2963,8 +2976,8 @@
       "containingType": "BridgePocRegressionTests.BaseBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 327,
-      "endLine": 327,
+      "startLine": 358,
+      "endLine": 358,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -2976,8 +2989,8 @@
       "containingType": "BridgePocRegressionTests.BaseBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 328,
-      "endLine": 328,
+      "startLine": 359,
+      "endLine": 359,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -2989,8 +3002,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 331,
-      "endLine": 334,
+      "startLine": 362,
+      "endLine": 365,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3002,8 +3015,8 @@
       "containingType": "BridgePocRegressionTests.DerivedBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 333,
-      "endLine": 333,
+      "startLine": 364,
+      "endLine": 364,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3015,8 +3028,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 336,
-      "endLine": 344,
+      "startLine": 367,
+      "endLine": 375,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3028,8 +3041,8 @@
       "containingType": "BridgePocRegressionTests.PrivateBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 338,
-      "endLine": 338,
+      "startLine": 369,
+      "endLine": 369,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -3041,8 +3054,8 @@
       "containingType": "BridgePocRegressionTests.PrivateBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 339,
-      "endLine": 343,
+      "startLine": 370,
+      "endLine": 374,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3054,8 +3067,8 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 346,
-      "endLine": 349,
+      "startLine": 377,
+      "endLine": 380,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3067,8 +3080,8 @@
       "containingType": "BridgePocRegressionTests.PublicBindingContext",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 348,
-      "endLine": 348,
+      "startLine": 379,
+      "endLine": 379,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -3080,8 +3093,294 @@
       "containingType": "BridgePocRegressionTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "startLine": 351,
-      "endLine": 351,
+      "startLine": 382,
+      "endLine": 382,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.TypedIdentityContext",
+      "kind": "class",
+      "name": "TypedIdentityContext",
+      "containingType": "BridgePocRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 384,
+      "endLine": 392,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.TypedIdentityContext..ctor(string)",
+      "kind": "constructor",
+      "name": ".ctor",
+      "containingType": "BridgePocRegressionTests.TypedIdentityContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 386,
+      "endLine": 390,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.TypedIdentityContext.SessionId",
+      "kind": "property",
+      "name": "SessionId",
+      "containingType": "BridgePocRegressionTests.TypedIdentityContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 391,
+      "endLine": 391,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptBindingContext",
+      "kind": "class",
+      "name": "PromptBindingContext",
+      "containingType": "BridgePocRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 394,
+      "endLine": 397,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptBindingContext.Composer",
+      "kind": "property",
+      "name": "Composer",
+      "containingType": "BridgePocRegressionTests.PromptBindingContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 396,
+      "endLine": 396,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptComposerContext",
+      "kind": "class",
+      "name": "PromptComposerContext",
+      "containingType": "BridgePocRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 399,
+      "endLine": 405,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptComposerContext.UnrelatedReads",
+      "kind": "field",
+      "name": "UnrelatedReads",
+      "containingType": "BridgePocRegressionTests.PromptComposerContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 401,
+      "endLine": 401,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptComposerContext.PromptInput",
+      "kind": "property",
+      "name": "PromptInput",
+      "containingType": "BridgePocRegressionTests.PromptComposerContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 402,
+      "endLine": 402,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptComposerContext.ActionButton",
+      "kind": "property",
+      "name": "ActionButton",
+      "containingType": "BridgePocRegressionTests.PromptComposerContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 403,
+      "endLine": 403,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptComposerContext.Unrelated",
+      "kind": "property",
+      "name": "Unrelated",
+      "containingType": "BridgePocRegressionTests.PromptComposerContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 404,
+      "endLine": 404,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptInputContext",
+      "kind": "class",
+      "name": "PromptInputContext",
+      "containingType": "BridgePocRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 407,
+      "endLine": 411,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptInputContext.ContentReads",
+      "kind": "field",
+      "name": "ContentReads",
+      "containingType": "BridgePocRegressionTests.PromptInputContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 409,
+      "endLine": 409,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "BridgePocRegressionTests.PromptInputContext.Text",
+      "kind": "property",
+      "name": "Text",
+      "containingType": "BridgePocRegressionTests.PromptInputContext",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 410,
+      "endLine": 410,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "kind": "struct",
+      "name": "CopilotSessionId",
+      "containingType": null,
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 416,
+      "endLine": 423,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId.Stringifications",
+      "kind": "field",
+      "name": "Stringifications",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 418,
+      "endLine": 418,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId..ctor(Guid,CopilotClientId)",
+      "kind": "constructor",
+      "name": ".ctor",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 419,
+      "endLine": 419,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId.Guid",
+      "kind": "property",
+      "name": "Guid",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 420,
+      "endLine": 420,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId.ClientId",
+      "kind": "property",
+      "name": "ClientId",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 421,
+      "endLine": 421,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotSessionId.ToString()",
+      "kind": "method",
+      "name": "ToString",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 422,
+      "endLine": 422,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotClientId",
+      "kind": "class",
+      "name": "CopilotClientId",
+      "containingType": null,
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 425,
+      "endLine": 429,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotClientId..ctor(string)",
+      "kind": "constructor",
+      "name": ".ctor",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotClientId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 427,
+      "endLine": 427,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "Microsoft.VisualStudio.Copilot.CopilotClientId.Id",
+      "kind": "property",
+      "name": "Id",
+      "containingType": "Microsoft.VisualStudio.Copilot.CopilotClientId",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "startLine": 428,
+      "endLine": 428,
       "accessibility": "public",
       "isStatic": false,
       "isAbstract": false
@@ -13598,23 +13897,58 @@
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
-      "targetId": "System.Collections.Generic.List\u003CVsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding\u003E.Add(ProbeBinding)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
       "line": 197
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
+      "targetId": "System.Collections.Generic.List\u003CVsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding\u003E.Add(ProbeBinding)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 198
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
       "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 197
+      "line": 198
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 202
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
+      "targetId": "object.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 202
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
+      "targetId": "System.Collections.Generic.List\u003CVsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding\u003E.Add(ProbeBinding)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 204
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 204
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Describe(FrameworkElement,string)",
       "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 197
+      "line": 204
     },
     {
       "type": "uses",
@@ -13628,259 +13962,357 @@
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
       "targetId": "System.Linq.Enumerable.ToArray\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 206
+      "line": 214
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
       "targetId": "System.Linq.Enumerable.Where\u00601(Func\u003CPropertyInfo, bool\u003E)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 206
+      "line": 214
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
       "targetId": "System.Type.GetProperties(BindingFlags)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 206
+      "line": 214
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
       "targetId": "System.Reflection.PropertyInfo.GetIndexParameters()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 207
+      "line": 215
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
       "targetId": "System.Reflection.AmbiguousMatchException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 208
+      "line": 216
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "targetId": "object.GetType()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 219
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Type.GetProperties(BindingFlags)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 222
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "object.GetType()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 222
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Concat\u00601(IEnumerable\u003CPropertyInfo\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Concat\u00601(IEnumerable\u003CPropertyInfo\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Type.GetProperties()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.SelectMany\u00602(Func\u003CType, IEnumerable\u003CPropertyInfo\u003E\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Type.GetInterfaces()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Type.GetProperties()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 224
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.ToArray\u00601()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Take\u00601(int)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.OrderBy\u00602(Func\u003CPropertyInfo, string\u003E,IComparer\u003Cstring\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Select\u00602(Func\u003CIGrouping\u003Cstring, PropertyInfo\u003E, PropertyInfo\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.GroupBy\u00602(Func\u003CPropertyInfo, string\u003E,IEqualityComparer\u003Cstring\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Where\u00601(Func\u003CPropertyInfo, bool\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 226
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Reflection.PropertyInfo.GetIndexParameters()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
       "line": 227
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.First\u00601()",
+      "targetId": "System.Type.GetProperties(BindingFlags)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 228
+      "line": 230
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "object.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 230
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.Concat\u00601(IEnumerable\u003CPropertyInfo\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.Concat\u00601(IEnumerable\u003CPropertyInfo\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Type.GetProperties()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.SelectMany\u00602(Func\u003CType, IEnumerable\u003CPropertyInfo\u003E\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Type.GetInterfaces()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Type.GetProperties()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 232
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "targetId": "System.Linq.Enumerable.ToArray\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 230
+      "line": 234
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Linq.Enumerable.Select\u00602(Func\u003CPropertyInfo, string\u003E)",
+      "targetId": "System.Linq.Enumerable.Take\u00601(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 230
+      "line": 234
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "targetId": "System.Linq.Enumerable.OrderBy\u00602(Func\u003CPropertyInfo, string\u003E,IComparer\u003Cstring\u003E)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 237
+      "line": 234
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
-      "targetId": "object.ToString()",
+      "targetId": "System.Linq.Enumerable.Select\u00602(Func\u003CIGrouping\u003Cstring, PropertyInfo\u003E, PropertyInfo\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 234
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.GroupBy\u00602(Func\u003CPropertyInfo, string\u003E,IEqualityComparer\u003Cstring\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 234
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.Where\u00601(Func\u003CPropertyInfo, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 234
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetIndexParameters()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 235
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.First\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 236
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.ToArray\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
       "line": 238
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Linq.Enumerable.Select\u00602(Func\u003CPropertyInfo, string\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 238
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 246
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.RequireIdentityProperty(Type,string,Type)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 247
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "targetId": "System.Collections.Generic.List\u003Cstring\u003E.Add(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 240
+      "line": 248
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 248
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 249
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 253
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 255
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.RequireIdentityProperty(Type,string,Type)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 255
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Collections.Generic.List\u003Cstring\u003E.Add(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 257
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 261
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "object.ToString()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 262
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.Collections.Generic.List\u003Cstring\u003E.Add(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 264
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 216
+      "line": 224
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
       "targetId": "System.IO.InvalidDataException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 239
+      "line": 246
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.IO.InvalidDataException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 252
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.IO.InvalidDataException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 256
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.DescribeBinding(object?,string,Type)",
+      "targetId": "System.IO.InvalidDataException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 263
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.RequireIdentityProperty(Type,string,Type)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.FindBindingProperty(Type,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 271
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.RequireIdentityProperty(Type,string,Type)",
+      "targetId": "System.IO.InvalidDataException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
+      "line": 273
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Dispose()",
       "targetId": "System.Threading.CancellationTokenSource.Cancel()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 247
+      "line": 279
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.Dispose()",
       "targetId": "System.IO.Stream.Dispose()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 248
+      "line": 280
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeSnapshot.Controls",
       "targetId": "System.Collections.Generic.List\u003CVsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 255
+      "line": 287
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl.Properties",
       "targetId": "System.Array.Empty\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 264
+      "line": 296
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl.Identities",
       "targetId": "System.Collections.Generic.List\u003Cstring\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 265
+      "line": 297
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeControl.Bindings",
       "targetId": "System.Collections.Generic.List\u003CVsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 266
+      "line": 298
     },
     {
       "type": "calls",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding.Properties",
       "targetId": "System.Array.Empty\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 274
+      "line": 306
     },
     {
       "type": "uses",
       "sourceId": "VsCopilotChatVoice.VisualStudio.ChatBridgePoc.ProbeBinding.Identities",
       "targetId": "System.Collections.Generic.List\u003Cstring\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatBridgePoc.cs",
-      "line": 275
+      "line": 307
     },
     {
       "type": "calls",
@@ -14585,6 +15017,20 @@
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.SequenceEqual\u00601(IEnumerable\u003Cstring\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 97
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 97
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "BridgePocRegressionTests.Property(object,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 97
@@ -14594,34 +15040,6 @@
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 98
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.Run(string)",
-      "targetId": "System.Linq.Enumerable.Any\u00601()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 98
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.Run(string)",
-      "targetId": "System.Linq.Enumerable.Cast\u00601()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 98
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.Run(string)",
-      "targetId": "BridgePocRegressionTests.Property(object,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 98
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.Run(string)",
-      "targetId": "System.Windows.Window.Hide()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 100
     },
     {
@@ -14629,63 +15047,266 @@
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "System.Reflection.MethodBase.Invoke(object,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 101
+      "line": 105
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 102
+      "line": 110
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
-      "targetId": "System.Linq.Enumerable.Any\u00601()",
+      "targetId": "System.Reflection.MethodBase.Invoke(object,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 102
+      "line": 114
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Single\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 115
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "System.Linq.Enumerable.Cast\u00601()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 102
+      "line": 115
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "BridgePocRegressionTests.Property(object,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 102
+      "line": 115
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.ToArray\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 116
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 116
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 116
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.SequenceEqual\u00601(IEnumerable\u003Cstring\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Select\u00602(Func\u003Cobject, string\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Any\u00601(Func\u003Cstring, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "string.StartsWith(string,StringComparison)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 122
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Reflection.MethodBase.Invoke(object,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 126
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Single\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 127
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 127
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 127
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 128
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 128
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Any\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Hide()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 131
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Reflection.MethodBase.Invoke(object,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 132
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 133
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Any\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 133
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 133
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.Property(object,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 133
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 103
+      "line": 134
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "System.Console.WriteLine(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 104
+      "line": 135
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "System.Environment.SetEnvironmentVariable(string,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 109
+      "line": 140
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Run(string)",
       "targetId": "System.Windows.Window.Close()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 110
+      "line": 141
     },
     {
       "type": "uses",
@@ -14744,389 +15365,235 @@
       "line": 87
     },
     {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.TypedIdentityContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 94
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.TypedIdentityContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 102
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "string",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 102
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "System.InvalidOperationException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 106
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.Run(string)",
+      "targetId": "BridgePocRegressionTests.PromptBindingContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 113
+    },
+    {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Reflection.Assembly.GetType(string,bool)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 116
+      "line": 147
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Type.MakeGenericType(Type[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 117
+      "line": 148
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Type.MakeGenericType(Type[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 117
+      "line": 148
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Reflection.MethodInfo.MakeGenericMethod(Type[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 118
+      "line": 149
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Type.GetMethod(string,BindingFlags)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 118
+      "line": 149
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Delegate.CreateDelegate(Type,MethodInfo)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 120
+      "line": 151
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Type.GetConstructor(BindingFlags,Binder,Type[],ParameterModifier[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 121
+      "line": 152
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Guid.ToString(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 123
+      "line": 154
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Guid.NewGuid()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 123
+      "line": 154
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Reflection.ConstructorInfo.Invoke(object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 127
+      "line": 158
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Collections.Concurrent.ConcurrentQueue\u003CSystem.Exception\u003E.Enqueue(Exception)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 129
+      "line": 160
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Threading.SemaphoreSlim.Release()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 129
+      "line": 160
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.TimeSpan.FromSeconds(double)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 130
+      "line": 161
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Reflection.FieldInfo.GetValue(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 132
+      "line": 163
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Type.GetField(string,BindingFlags)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 132
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 135
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "string.Contains(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 135
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ValidReply(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 135
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Connect(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 136
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 138
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 139
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 139
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 141
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 142
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "string.Contains(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 142
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ValidReply(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 142
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Connect(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 144
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 145
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 146
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "string.Contains(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 146
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ValidReply(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 146
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Connect(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 148
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 148
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 149
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 150
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "string.Contains(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 150
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ValidReply(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 150
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Connect(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 152
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "System.Diagnostics.Stopwatch.StartNew()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 154
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 155
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 156
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 157
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "string.Contains(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 157
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ValidReply(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 157
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Connect(string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 159
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 161
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 162
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 163
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 166
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "string.Contains(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 163
+      "line": 166
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.ValidReply(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 163
+      "line": 166
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 167
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 169
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 171
-    },
-    {
-      "type": "calls",
-      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 172
+      "line": 170
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 172
+      "line": 170
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 174
+      "line": 172
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 173
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 173
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ValidReply(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 173
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 175
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 176
     },
     {
       "type": "calls",
@@ -15154,26 +15621,54 @@
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Connect(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 182
+      "line": 179
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 184
+      "line": 179
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 180
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 185
+      "line": 181
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 181
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ValidReply(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 181
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 183
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "System.Diagnostics.Stopwatch.StartNew()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 185
     },
@@ -15181,6 +15676,13 @@
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 186
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 187
     },
@@ -15189,595 +15691,833 @@
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 190
+      "line": 188
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "string.Contains(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 190
+      "line": 188
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.ValidReply(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 190
+      "line": 188
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 190
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 192
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "System.IDisposable.Dispose()",
+      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 193
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
       "line": 194
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "targetId": "string.Contains(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 195
+      "line": 194
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
-      "targetId": "System.Threading.Tasks.Task.Wait(int)",
+      "targetId": "BridgePocRegressionTests.ValidReply(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 195
+      "line": 194
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 200
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 202
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 196
+      "line": 203
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 203
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 205
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 198
+      "line": 208
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 208
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ValidReply(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 208
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 213
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 215
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 216
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 216
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 218
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.ValidReply(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Connect(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 223
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.IDisposable.Dispose()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 204
+      "line": 225
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 226
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Threading.Tasks.Task.Wait(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 205
+      "line": 226
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 227
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "BridgePocRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 229
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "System.IDisposable.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 235
+    },
+    {
+      "type": "calls",
+      "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
+      "targetId": "System.Threading.Tasks.Task.Wait(int)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 236
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Collections.Concurrent.ConcurrentQueue\u003CSystem.Exception\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 124
+      "line": 155
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.Threading.SemaphoreSlim",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 125
+      "line": 156
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.VerifyConnections(Type)",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 205
+      "line": 236
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Threading.CancellationToken.ThrowIfCancellationRequested()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 215
+      "line": 246
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Threading.Tasks.Task.FromException\u00601(Exception)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 216
+      "line": 247
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Activator.CreateInstance(Type,bool)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 217
+      "line": 248
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Reflection.PropertyInfo.SetValue(object,object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 218
+      "line": 249
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Type.GetProperty(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 218
+      "line": 249
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Reflection.Assembly.GetType(string,bool)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 221
+      "line": 252
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Activator.CreateInstance(Type,bool)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 222
+      "line": 253
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Reflection.PropertyInfo.SetValue(object,object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 223
+      "line": 254
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Type.GetProperty(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 223
+      "line": 254
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Collections.IList.Add(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 224
+      "line": 255
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 224
+      "line": 255
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Type.GetProperty(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 224
+      "line": 255
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Threading.Tasks.Task.FromResult\u00601(T)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 226
+      "line": 257
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "System.Reflection.AmbiguousMatchException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 216
+      "line": 247
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Capture\u00601(CancellationToken)",
       "targetId": "string",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 223
+      "line": 254
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Connect(string)",
       "targetId": "System.IO.Pipes.NamedPipeClientStream.Connect(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 233
+      "line": 264
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Connect(string)",
       "targetId": "System.IO.Stream.Dispose()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 234
+      "line": 265
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Connect(string)",
       "targetId": "System.IO.Pipes.NamedPipeClientStream",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 231
+      "line": 262
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Text.Encoding.GetBytes(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 239
+      "line": 270
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.IO.Stream.WriteAsync(byte[],int,int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 240
+      "line": 271
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 241
+      "line": 272
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Runtime.CompilerServices.TaskAwaiter\u003CSystem.Threading.Tasks.Task\u003E.GetResult()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 241
+      "line": 272
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Threading.Tasks.Task\u003CSystem.Threading.Tasks.Task\u003E.GetAwaiter()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 241
+      "line": 272
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Threading.Tasks.Task.WhenAny(Task[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 241
+      "line": 272
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Threading.Tasks.Task.Delay(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 241
+      "line": 272
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Runtime.CompilerServices.TaskAwaiter.GetResult()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 242
+      "line": 273
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "targetId": "System.Threading.Tasks.Task.GetAwaiter()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 242
+      "line": 273
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.IO.StreamReader.ReadToEndAsync()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 249
+      "line": 280
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 250
+      "line": 281
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Runtime.CompilerServices.TaskAwaiter\u003CSystem.Threading.Tasks.Task\u003E.GetResult()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 250
+      "line": 281
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Threading.Tasks.Task\u003CSystem.Threading.Tasks.Task\u003E.GetAwaiter()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 250
+      "line": 281
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Threading.Tasks.Task.WhenAny(Task[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 250
+      "line": 281
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Threading.Tasks.Task.Delay(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 250
+      "line": 281
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Runtime.CompilerServices.TaskAwaiter\u003Cstring\u003E.GetResult()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 251
+      "line": 282
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.Threading.Tasks.Task\u003Cstring\u003E.GetAwaiter()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 251
+      "line": 282
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "targetId": "System.IO.StreamReader",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 247
+      "line": 278
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ValidReply(string)",
       "targetId": "BridgePocRegressionTests.Connect(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 257
+      "line": 288
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ValidReply(string)",
       "targetId": "BridgePocRegressionTests.Write(NamedPipeClientStream,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 259
+      "line": 290
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ValidReply(string)",
       "targetId": "BridgePocRegressionTests.Read(NamedPipeClientStream)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 260
+      "line": 291
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 266
+      "line": 297
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "System.Threading.SemaphoreSlim.Wait(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 266
+      "line": 297
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 268
+      "line": 299
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectError\u00601(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "System.Collections.Concurrent.ConcurrentQueue\u003CSystem.Exception\u003E.TryDequeue(out Exception)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 268
+      "line": 299
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 273
+      "line": 304
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "System.Threading.SemaphoreSlim.Wait(int)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 273
+      "line": 304
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "BridgePocRegressionTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 275
+      "line": 306
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.ExpectDisconnect(ConcurrentQueue\u003CException\u003E,SemaphoreSlim)",
       "targetId": "System.Collections.Concurrent.ConcurrentQueue\u003CSystem.Exception\u003E.TryDequeue(out Exception)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 275
+      "line": 306
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Property(object,string)",
       "targetId": "System.Reflection.PropertyInfo.GetValue(object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 279
+      "line": 310
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Property(object,string)",
       "targetId": "System.Type.GetProperty(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 279
+      "line": 310
     },
     {
       "type": "calls",
       "sourceId": "BridgePocRegressionTests.Property(object,string)",
       "targetId": "object.GetType()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 279
+      "line": 310
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Check(bool,string)",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 284
+      "line": 315
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.Context.Sensitive",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 292
+      "line": 323
     },
     {
       "type": "implements",
       "sourceId": "BridgePocRegressionTests.ISessionContext",
       "targetId": "BridgePocRegressionTests.IIdentityContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 296
+      "line": 327
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BindingContext.Session",
       "targetId": "BridgePocRegressionTests.ISessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 301
+      "line": 332
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BindingContext.Session",
       "targetId": "BridgePocRegressionTests.SessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 301
+      "line": 332
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BindingContext.Composer",
       "targetId": "BridgePocRegressionTests.ComposerContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 302
+      "line": 333
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BindingContext.Composer",
       "targetId": "BridgePocRegressionTests.ComposerContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 302
+      "line": 333
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BindingContext.Unrelated",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 304
+      "line": 335
     },
     {
       "type": "implements",
       "sourceId": "BridgePocRegressionTests.SessionContext",
       "targetId": "BridgePocRegressionTests.ISessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 307
+      "line": 338
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.SessionContext.Sensitive",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 311
+      "line": 342
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.SessionContext.Session",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 312
+      "line": 343
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.ComposerContext.Id",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 320
+      "line": 351
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.BaseBindingContext.Session",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 328
+      "line": 359
     },
     {
       "type": "extends",
       "sourceId": "BridgePocRegressionTests.DerivedBindingContext",
       "targetId": "BridgePocRegressionTests.BaseBindingContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 331
+      "line": 362
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.DerivedBindingContext.Session",
       "targetId": "BridgePocRegressionTests.ISessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 333
+      "line": 364
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.DerivedBindingContext.Session",
       "targetId": "BridgePocRegressionTests.SessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 333
+      "line": 364
     },
     {
       "type": "extends",
       "sourceId": "BridgePocRegressionTests.PrivateBindingContext",
       "targetId": "BridgePocRegressionTests.BaseBindingContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 336
+      "line": 367
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.PrivateBindingContext.Session",
       "targetId": "System.InvalidOperationException",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 341
+      "line": 372
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.PublicBindingContext.Session",
       "targetId": "BridgePocRegressionTests.ISessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 348
+      "line": 379
     },
     {
       "type": "uses",
       "sourceId": "BridgePocRegressionTests.PublicBindingContext.Session",
       "targetId": "BridgePocRegressionTests.SessionContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 348
+      "line": 379
     },
     {
       "type": "extends",
       "sourceId": "BridgePocRegressionTests.InheritedBindingContext",
       "targetId": "BridgePocRegressionTests.PublicBindingContext",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
-      "line": 351
+      "line": 382
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.TypedIdentityContext..ctor(string)",
+      "targetId": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 388
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.TypedIdentityContext..ctor(string)",
+      "targetId": "Microsoft.VisualStudio.Copilot.CopilotClientId",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 389
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.TypedIdentityContext.SessionId",
+      "targetId": "Microsoft.VisualStudio.Copilot.CopilotSessionId",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 391
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptBindingContext.Composer",
+      "targetId": "BridgePocRegressionTests.PromptComposerContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 396
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptBindingContext.Composer",
+      "targetId": "BridgePocRegressionTests.PromptComposerContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 396
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptComposerContext.PromptInput",
+      "targetId": "BridgePocRegressionTests.PromptInputContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 402
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptComposerContext.PromptInput",
+      "targetId": "BridgePocRegressionTests.PromptInputContext",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 402
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptComposerContext.Unrelated",
+      "targetId": "System.InvalidOperationException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 404
+    },
+    {
+      "type": "uses",
+      "sourceId": "BridgePocRegressionTests.PromptInputContext.Text",
+      "targetId": "System.InvalidOperationException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 410
+    },
+    {
+      "type": "uses",
+      "sourceId": "Microsoft.VisualStudio.Copilot.CopilotSessionId.ClientId",
+      "targetId": "Microsoft.VisualStudio.Copilot.CopilotClientId",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 421
+    },
+    {
+      "type": "overrides",
+      "sourceId": "Microsoft.VisualStudio.Copilot.CopilotSessionId.ToString()",
+      "targetId": "System.ValueType.ToString()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 422
+    },
+    {
+      "type": "uses",
+      "sourceId": "Microsoft.VisualStudio.Copilot.CopilotSessionId.ToString()",
+      "targetId": "System.InvalidOperationException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\BridgePocRegressionTests.cs",
+      "line": 422
     }
   ]
 }

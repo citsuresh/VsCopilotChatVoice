@@ -91,6 +91,37 @@ internal static class BridgePocRegressionTests
             Check((string)Property(inheritedSession, "ContextType") == typeof(SessionContext).FullName,
                 "An unshadowed inherited public binding was omitted.");
 
+            control.DataContext = new TypedIdentityContext("test-client");
+            snapshot = inspect.Invoke(null, new object[] { new[] { window } });
+            object typed = ((IEnumerable)Property(snapshot, "Controls")).Cast<object>().Single();
+            Check(((IEnumerable)Property(typed, "Identities")).Cast<string>().SequenceEqual(new[]
+                { "SessionId.Guid=" + Context.Session, "SessionId.ClientId.Id=test-client" }),
+                "Typed session identity lost its Guid or client namespace.");
+            Check(Microsoft.VisualStudio.Copilot.CopilotSessionId.Stringifications == 0,
+                "Probe stringified an arbitrary typed identity.");
+            control.DataContext = new TypedIdentityContext(new string('x', 257));
+            try
+            {
+                inspect.Invoke(null, new object[] { new[] { window } });
+                throw new InvalidOperationException("Oversized typed client identity was accepted.");
+            }
+            catch (TargetInvocationException error)
+            {
+                Check(error.InnerException is InvalidDataException, "Oversized typed identity was not explicitly rejected.");
+            }
+
+            control.DataContext = new PromptBindingContext();
+            snapshot = inspect.Invoke(null, new object[] { new[] { window } });
+            object prompt = ((IEnumerable)Property(snapshot, "Controls")).Cast<object>().Single();
+            object[] promptBindings = ((IEnumerable)Property(prompt, "Bindings")).Cast<object>().ToArray();
+            Check(promptBindings.Select(value => (string)Property(value, "Name"))
+                .SequenceEqual(new[] { "Composer", "Composer.PromptInput", "Composer.ActionButton" }),
+                "Composer inspection followed unapproved paths or lost the observed children.");
+            Check(((string[])Property(promptBindings[1], "Properties")).Any(value => value.StartsWith("Text:", StringComparison.Ordinal)),
+                "Prompt metadata was not inventoried.");
+            Check(PromptInputContext.ContentReads == 0 && PromptComposerContext.UnrelatedReads == 0,
+                "Composer inspection read a draft or followed unrelated content.");
+
             control.DataContext = null;
             snapshot = inspect.Invoke(null, new object[] { new[] { window } });
             object empty = ((IEnumerable)Property(snapshot, "Controls")).Cast<object>().Single();
@@ -349,4 +380,51 @@ internal static class BridgePocRegressionTests
     }
 
     public sealed class InheritedBindingContext : PublicBindingContext { }
+
+    public sealed class TypedIdentityContext
+    {
+        public TypedIdentityContext(string clientId)
+        {
+            SessionId = new Microsoft.VisualStudio.Copilot.CopilotSessionId(Context.Session,
+                new Microsoft.VisualStudio.Copilot.CopilotClientId(clientId));
+        }
+        public Microsoft.VisualStudio.Copilot.CopilotSessionId SessionId { get; }
+    }
+
+    public sealed class PromptBindingContext
+    {
+        public PromptComposerContext Composer { get; } = new PromptComposerContext();
+    }
+
+    public sealed class PromptComposerContext
+    {
+        internal static int UnrelatedReads;
+        public PromptInputContext PromptInput { get; } = new PromptInputContext();
+        public object ActionButton => null;
+        public object Unrelated { get { UnrelatedReads++; throw new InvalidOperationException("Must not follow unrelated composer paths."); } }
+    }
+
+    public sealed class PromptInputContext
+    {
+        internal static int ContentReads;
+        public string Text { get { ContentReads++; throw new InvalidOperationException("Must not read a draft."); } }
+    }
+}
+
+namespace Microsoft.VisualStudio.Copilot
+{
+    public readonly struct CopilotSessionId
+    {
+        internal static int Stringifications;
+        public CopilotSessionId(Guid guid, CopilotClientId clientId) { Guid = guid; ClientId = clientId; }
+        public Guid Guid { get; }
+        public CopilotClientId ClientId { get; }
+        public override string ToString() { Stringifications++; throw new InvalidOperationException("Must read only verified identity fields."); }
+    }
+
+    public sealed class CopilotClientId
+    {
+        public CopilotClientId(string id) { Id = id; }
+        public string Id { get; }
+    }
 }

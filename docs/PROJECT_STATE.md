@@ -22,8 +22,39 @@ The 0.2.6 read-only diagnostic now inspects the three observed binding paths by 
 Independent review reproduced one new medium-severity inherited-property lookup defect;
 the user approved appropriate fixes autonomously. The 0.2.7 fix passes added regressions and
 independent re-review; it is hash-verified in Exp. Live bindings expose a typed CopilotSessionId,
-PromptInput and ChatEvents. Inspect these verified contracts next; do not claim stable conversation
-identity, safe insertion/send or reply delivery yet.
+PromptInput and ChatEvents. Native identity now survives submission, switching and reopen in the
+live proof. Do not claim an atomic guarded native input/send or reply-delivery bridge yet.
+- Stable local checkpoint `50938af` saves the independently reviewed 0.2.7 diagnostic, 78/62
+  passing checks, helper scripts, graph and agreed implementation plan. User authorized stable
+  checkpoint commits; no push performed. Worktree was clean immediately afterward.
+- The 0.2.8 increment extracts only verified CopilotSessionId.Guid/ClientId.Id and inventories
+  Composer.PromptInput/ActionButton; no draft/reply read or mutation. Synthetic shape fixtures
+  verify no arbitrary stringification, client-ID bounds and no draft/unrelated getter calls.
+  Build and 84 probe/IPC + 62 toolbar checks pass. Actual package/DLL SHA256:
+  `76611A1E5A14125E0688EBFC12083269EB4AD468BB038C47AF5C9BDB1C4D74BC`.
+  Independent review and Exp-only update are underway; tracked shell `bridge-poc-028-install`.
+  Read its result, rediscover the new Exp, verify native typed IDs and prompt-input metadata.
+- Latest 0.2.8 review: no high-confidence correctness/privacy/boundedness findings; independently
+  passed 84 probe/IPC + 62 toolbar assertions and verified package/hash. Exp installation/refresh
+  exited 0; tracked shell completed. Current transient Exp PID 3048 / HWND 0xB11380 (reverify).
+- Native typed identity extracted from a fresh disposable chat; remained identical after Trust
+  once, user-title change, one generated prompt submission, switching and history reopen. A
+  second fresh chat had a distinct Guid with the same client namespace. Asynchronous creation
+  required actual input/binding read-back rather than assuming an Invoke success was settled.
+- Controlled UIA smoke: exact harmless draft was read back through TextPattern, native target ID
+  checked before/after insertion and before Send, one enabled visible Send invoked, user prompt
+  appeared, draft cleared, and assistant returned exactly POC_BRIDGE_OK in the same chat. The
+  reply persisted after history reopen. No existing user conversation, repository code, tools,
+  recordings or models were used. This is not a native voice/pipe insertion/delivery API.
+- Foreground entry initially failed before typing; supported verified foreground fallback
+  recovered, with an empty-draft check before retry. A helper parameter name conflicted with a
+  script-local Session variable during trust read-back; recovered by renaming the variable,
+  not repeating the successful trust action. No submission was retried.
+- PromptTextInputViewModel.Prompt has public string getter/setter and INotifyPropertyChanged,
+  verified from installed SDK metadata. Next bounded step: native UI-thread guarded command
+  prototype with target generation, monotonic draft revision and responding/trust readiness;
+  then completed-reply delivery and negative/lifetime matrix. The diagnostic pipe is still
+  inspect-only; PoC 1 remains incomplete. No new permission is needed for approved PoC work.
 This changes earlier planned architecture, not current code: the reader is still standalone
 and all three toolbar buttons remain disabled. Full Exp lifecycle/theme/DPI/accessibility
 checks remain pending. Approved lifecycle fix 1 passed independent re-review; test-only glyph
@@ -122,6 +153,8 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
   21.33 seconds including the registered dependency rename. No stale unqualified output remains.
   Latest approved-fix update: two changed files, 237 nodes, 1,813 edges, 15.1 seconds including
   the registered dependency rename. Commit metadata reflects the pre-checkpoint HEAD.
+  Latest typed-ID update: two files, 260 nodes, 1,876 edges, 7.9 seconds including dependency
+  rename. Graph commit metadata references checkpoint 50938af, not a fabricated later commit.
 - Full solution/VSIX build and rebuild passed during foundation validation.
 - Grouped-toolbar solution build passed. Its isolated actual-VSIX harness passes 62 assertions;
   reader checks also pass 1,868 self-tests and 292 integration assertions/seven mappings.

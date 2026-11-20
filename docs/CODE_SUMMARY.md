@@ -21,9 +21,10 @@ theme/DPI/accessibility and chat-recreation matrix remains pending.
 No VoiceType source or engine/model assets have been copied.
 The reader retains prototype branding and a pale-yellow palette.
 
-The 0.2.7 diagnostic build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
+The 0.2.8 diagnostic build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
 gated to Debug + Exp + launch environment opt-in. Its current-user-only named pipe only inspects
-live WPF binding metadata plus one level of the observed Session/Composer/ChatLog bindings;
+live WPF metadata through observed Session/Composer/ChatLog and composer-input/action paths,
+plus the inspected typed session-ID fields;
 it cannot insert/send or deliver replies. Production plans in
 IMPLEMENTATION_PLAN.md supersede optional-VoiceType-app discovery with selective external-host
 source reuse and move only reader presentation into a native VS tool window; neither is migrated.

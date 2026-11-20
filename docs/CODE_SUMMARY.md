@@ -13,9 +13,13 @@ graph LR
 	Future[Planned toolkit and companion skill] -.->|not implemented| VSIX
 ```
 
-The VSIX currently logs initialization only; it neither launches the bundled reader nor
-injects chat controls. VoiceType is a separate optional future backend, not a dependency
-copied into this solution. The reader retains prototype branding and a pale-yellow palette.
+The 0.2.3 VSIX previews three disabled, flat toolbar icons beside Customize AI inside one
+themed border, using conservative WPF discovery. It does not launch the reader or provide a
+command bridge. Initial 0.2.0 attachment was verified; the user confirmed grouped icons look
+fine and approved the tighter 24-DIP group-height correction in Exp. The full native
+theme/DPI/accessibility and chat-recreation matrix remains pending.
+VoiceType remains a separate optional future backend.
+The reader retains prototype branding and a pale-yellow palette.
 
 ## Structural symbols
 
@@ -23,7 +27,8 @@ copied into this solution. The reader retains prototype branding and a pale-yell
 
 | Symbol | File | Responsibility |
 | --- | --- | --- |
-| `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; writes the foundation initialization activity-log entry. |
+| `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; owns/disposes toolbar integration and provides dynamic VS resource references and activity logging. |
+| `ChatToolbarIntegration` | `src\VsCopilotChatVoice.VisualStudio\ChatToolbarIntegration.cs` | Bounded visible-picker discovery, conservative placement, disabled accessible controls, duplicate/lifetime handling; no speech or SDK dependencies. |
 
 ### VsCopilotChatVoice.Reader
 
@@ -43,6 +48,7 @@ All reader symbols retain the `ReadAlongTrial` namespace.
 | Symbol | File | Responsibility |
 | --- | --- | --- |
 | `ReadAlongNavigationTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderRegressionTests.cs` | Executable WPF/navigation/preference/ownership and child-process regression checks; no Test Explorer adapter. |
+| `ToolbarRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ToolbarRegressionTests.cs` | Optional reflection-based checks against the actual VSIX toolbar class using offscreen synthetic WPF chat controls; no speech/preferences. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.
 

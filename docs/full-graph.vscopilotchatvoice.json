@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
-  "generatedAt": "2026-11-20T15:29:19.3308652Z",
+  "generatedAt": "2026-11-20T17:02:17.6275094Z",
   "solutionPath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\VsCopilotChatVoice.slnx",
-  "mode": "full",
-  "commitSha": "38a383c38fbe0b38d9bb09783a1c5cf98489c6e0",
+  "mode": "incremental",
+  "commitSha": "f06b0477b3f920e21c1fd3130a9b41af59e0092d",
   "nodes": [
     {
       "id": "ReadAlongTrial.WordAnchor",
@@ -1267,32 +1267,6 @@
       "isAbstract": false
     },
     {
-      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage",
-      "kind": "class",
-      "name": "VoicePackage",
-      "containingType": null,
-      "project": "VsCopilotChatVoice.VisualStudio",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "startLine": 10,
-      "endLine": 23,
-      "accessibility": "public",
-      "isStatic": false,
-      "isAbstract": false
-    },
-    {
-      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
-      "kind": "method",
-      "name": "InitializeAsync",
-      "containingType": "VsCopilotChatVoice.VisualStudio.VoicePackage",
-      "project": "VsCopilotChatVoice.VisualStudio",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "startLine": 16,
-      "endLine": 22,
-      "accessibility": "protected",
-      "isStatic": false,
-      "isAbstract": false
-    },
-    {
       "id": "ReadAlongNavigationTests",
       "kind": "class",
       "name": "ReadAlongNavigationTests",
@@ -1300,7 +1274,7 @@
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "startLine": 18,
-      "endLine": 478,
+      "endLine": 479,
       "accessibility": "internal",
       "isStatic": true,
       "isAbstract": false
@@ -1534,7 +1508,7 @@
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "startLine": 354,
-      "endLine": 378,
+      "endLine": 379,
       "accessibility": "private",
       "isStatic": true,
       "isAbstract": false
@@ -1546,10 +1520,491 @@
       "containingType": "ReadAlongNavigationTests",
       "project": "VsCopilotChatVoice.Reader.Tests",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "startLine": 380,
-      "endLine": 477,
+      "startLine": 381,
+      "endLine": 478,
       "accessibility": "private",
       "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "kind": "class",
+      "name": "VoicePackage",
+      "containingType": null,
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "startLine": 14,
+      "endLine": 53,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage.toolbar",
+      "kind": "field",
+      "name": "toolbar",
+      "containingType": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "startLine": 20,
+      "endLine": 20,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "kind": "method",
+      "name": "InitializeAsync",
+      "containingType": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "startLine": 22,
+      "endLine": 32,
+      "accessibility": "protected",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage.ConfigureTheme(FrameworkElement)",
+      "kind": "method",
+      "name": "ConfigureTheme",
+      "containingType": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "startLine": 34,
+      "endLine": 46,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.VoicePackage.Dispose(bool)",
+      "kind": "method",
+      "name": "Dispose",
+      "containingType": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "startLine": 48,
+      "endLine": 52,
+      "accessibility": "protected",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "kind": "class",
+      "name": "ChatToolbarIntegration",
+      "containingType": null,
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 13,
+      "endLine": 225,
+      "accessibility": "internal",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ToolbarId",
+      "kind": "field",
+      "name": "ToolbarId",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 15,
+      "endLine": 15,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.DiscoveryLimit",
+      "kind": "field",
+      "name": "DiscoveryLimit",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 16,
+      "endLine": 16,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.configureTheme",
+      "kind": "field",
+      "name": "configureTheme",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 17,
+      "endLine": 17,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.reportStatus",
+      "kind": "field",
+      "name": "reportStatus",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 18,
+      "endLine": 18,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.reportError",
+      "kind": "field",
+      "name": "reportError",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 19,
+      "endLine": 19,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.timer",
+      "kind": "field",
+      "name": "timer",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 20,
+      "endLine": 20,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.parent",
+      "kind": "field",
+      "name": "parent",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 21,
+      "endLine": 21,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.picker",
+      "kind": "field",
+      "name": "picker",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 22,
+      "endLine": 22,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.anchor",
+      "kind": "field",
+      "name": "anchor",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 23,
+      "endLine": 23,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.toolbar",
+      "kind": "field",
+      "name": "toolbar",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 24,
+      "endLine": 24,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.lastStatus",
+      "kind": "field",
+      "name": "lastStatus",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 25,
+      "endLine": 25,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.disposed",
+      "kind": "field",
+      "name": "disposed",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 26,
+      "endLine": 26,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "kind": "constructor",
+      "name": ".ctor",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 28,
+      "endLine": 37,
+      "accessibility": "internal",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Tick(object?,EventArgs)",
+      "kind": "method",
+      "name": "Tick",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 39,
+      "endLine": 47,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "kind": "method",
+      "name": "ReportFailure",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 49,
+      "endLine": 55,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "kind": "method",
+      "name": "Refresh",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 57,
+      "endLine": 131,
+      "accessibility": "internal",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.TryFindHost(FrameworkElement,out StackPanel?,out UIElement?)",
+      "kind": "method",
+      "name": "TryFindHost",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 133,
+      "endLine": 152,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "kind": "method",
+      "name": "CreateToolbar",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 154,
+      "endLine": 173,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "kind": "method",
+      "name": "AddButton",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 175,
+      "endLine": 198,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "kind": "method",
+      "name": "SetStatus",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 200,
+      "endLine": 205,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "kind": "method",
+      "name": "Detach",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 207,
+      "endLine": 214,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Dispose()",
+      "kind": "method",
+      "name": "Dispose",
+      "containingType": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "project": "VsCopilotChatVoice.VisualStudio",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "startLine": 216,
+      "endLine": 224,
+      "accessibility": "public",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests",
+      "kind": "class",
+      "name": "ToolbarRegressionTests",
+      "containingType": null,
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 13,
+      "endLine": 243,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.ToolbarId",
+      "kind": "field",
+      "name": "ToolbarId",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 15,
+      "endLine": 15,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.assertions",
+      "kind": "field",
+      "name": "assertions",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 16,
+      "endLine": 16,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.Run(string)",
+      "kind": "method",
+      "name": "Run",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 18,
+      "endLine": 217,
+      "accessibility": "internal",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "kind": "method",
+      "name": "FindToolbar",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 219,
+      "endLine": 222,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.TestWindow(UIElement)",
+      "kind": "method",
+      "name": "TestWindow",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 224,
+      "endLine": 231,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.Check(bool,string)",
+      "kind": "method",
+      "name": "Check",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 233,
+      "endLine": 237,
+      "accessibility": "private",
+      "isStatic": true,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.HarnessToolPicker",
+      "kind": "class",
+      "name": "HarnessToolPicker",
+      "containingType": "ToolbarRegressionTests",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 239,
+      "endLine": 242,
+      "accessibility": "private",
+      "isStatic": false,
+      "isAbstract": false
+    },
+    {
+      "id": "ToolbarRegressionTests.HarnessToolPicker..ctor()",
+      "kind": "constructor",
+      "name": ".ctor",
+      "containingType": "ToolbarRegressionTests.HarnessToolPicker",
+      "project": "VsCopilotChatVoice.Reader.Tests",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "startLine": 241,
+      "endLine": 241,
+      "accessibility": "internal",
+      "isStatic": false,
       "isAbstract": false
     }
   ],
@@ -5657,34 +6112,6 @@
       "line": 938
     },
     {
-      "type": "extends",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage",
-      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "line": 10
-    },
-    {
-      "type": "overrides",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
-      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "line": 16
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
-      "targetId": "Microsoft.VisualStudio.Threading.JoinableTaskFactory.SwitchToMainThreadAsync(CancellationToken)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "line": 19
-    },
-    {
-      "type": "calls",
-      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
-      "targetId": "Microsoft.VisualStudio.Shell.ActivityLog.LogInformation(string,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
-      "line": 20
-    },
-    {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.VerifyOwnership()",
       "targetId": "System.Windows.Interop.WindowInteropHelper.EnsureHandle()",
@@ -8277,30 +8704,23 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
+      "targetId": "ToolbarRegressionTests.Run(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 357
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "System.Speech.Synthesis.SpeechSynthesizer.SetOutputToNull()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 362
+      "line": 363
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 362
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 364
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 364
+      "line": 363
     },
     {
       "type": "calls",
@@ -8333,35 +8753,28 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 366
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "System.Windows.Window.Show()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 367
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 368
+      "line": 367
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 368
+      "line": 367
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "targetId": "System.Windows.Window.Show()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 368
     },
@@ -8396,7 +8809,7 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "string.StartsWith(string)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 370
     },
@@ -8410,98 +8823,112 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
-      "targetId": "System.Console.WriteLine(string)",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 371
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
+      "targetId": "string.StartsWith(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 371
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Main(string[])",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 371
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Main(string[])",
+      "targetId": "System.Console.WriteLine(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 372
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "System.Reflection.FieldInfo.SetValue(object,object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 374
+      "line": 375
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "System.Type.GetField(string,BindingFlags)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 374
+      "line": 375
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "System.Windows.Window.Close()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 374
+      "line": 375
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "ReadAlongNavigationTests.Run()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 376
+      "line": 377
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "System.IO.File.Delete(string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 377
+      "line": 378
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Main(string[])",
       "targetId": "ReadAlongTrial.ReaderWindow",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 359
+      "line": 360
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.VerifyOwnership()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 382
+      "line": 383
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.VerifyTransitions()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 383
+      "line": 384
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.VerifyVersions()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 384
+      "line": 385
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.VerifyPreferences()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 385
+      "line": 386
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 389
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Speech.Synthesis.SpeechSynthesizer.SetOutputToNull()",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 390
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "targetId": "System.Speech.Synthesis.SpeechSynthesizer.SetOutputToNull()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 391
     },
@@ -8515,70 +8942,70 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Windows.Media.Color.FromRgb(byte,byte,byte)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 392
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Windows.UIElement.RaiseEvent(RoutedEventArgs)",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 393
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Windows.Media.Color.FromRgb(byte,byte,byte)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 393
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Windows.UIElement.RaiseEvent(RoutedEventArgs)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 394
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 394
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 394
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 394
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 395
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 395
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 395
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 396
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 396
+      "line": 397
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 396
+      "line": 397
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 396
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.VerifyLayout(ReaderWindow,double,double)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 397
     },
@@ -8592,16 +9019,9 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Collections.Generic.List\u003CReadAlongTrial.Segment\u003E.Add(Segment)",
+      "targetId": "ReadAlongNavigationTests.VerifyLayout(ReaderWindow,double,double)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 402
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongTrial.DocumentBuilder.Add(FlowDocument,string,string,string,int)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 402
+      "line": 399
     },
     {
       "type": "calls",
@@ -8620,28 +9040,35 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "targetId": "System.Collections.Generic.List\u003CReadAlongTrial.Segment\u003E.Add(Segment)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 404
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Reflection.FieldInfo.SetValue(object,object)",
+      "targetId": "ReadAlongTrial.DocumentBuilder.Add(FlowDocument,string,string,string,int)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 404
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 405
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Reflection.FieldInfo.SetValue(object,object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 406
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Type.GetField(string,BindingFlags)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 405
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "string.IndexOf(string,StringComparison)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 406
     },
@@ -8669,28 +9096,14 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "string.IndexOf(string,StringComparison)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 410
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 411
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 412
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 412
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 412
     },
@@ -8711,224 +9124,217 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 413
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 414
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 415
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 415
+      "line": 414
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 415
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 416
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 417
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 417
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 417
+      "line": 416
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 417
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 418
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 419
+      "line": 418
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 419
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 419
+      "line": 418
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 419
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 420
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 421
+      "line": 420
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 421
+      "line": 420
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 423
+      "line": 421
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 424
+      "line": 422
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 424
+      "line": 422
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 424
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 425
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 426
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 426
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 427
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 427
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 428
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 428
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 428
+      "line": 425
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 426
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 427
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 427
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 428
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 428
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 429
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 430
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 430
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 430
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 431
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 431
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 429
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 429
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 430
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 431
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 431
     },
@@ -8949,30 +9355,51 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 434
+      "line": 432
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Windows.Threading.Dispatcher.BeginInvoke(Delegate,object[])",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 440
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "object.ReferenceEquals(object,object)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 442
+      "line": 432
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 442
+      "line": 432
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 433
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 435
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Windows.Threading.Dispatcher.BeginInvoke(Delegate,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 441
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "object.ReferenceEquals(object,object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 443
     },
     {
       "type": "calls",
@@ -8991,77 +9418,77 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongTrial.Segment.FindWord(int)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 445
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongTrial.Segment.FindWord(int)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 446
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 447
+      "line": 448
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "object.ReferenceEquals(object,object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 447
+      "line": 448
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 447
+      "line": 448
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 448
+      "line": 449
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 448
+      "line": 449
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 454
+      "line": 455
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.PumpUntil(Func\u003Cbool\u003E,TimeSpan)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 455
+      "line": 456
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 455
+      "line": 456
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.TimeSpan.FromSeconds(double)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 455
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 456
     },
@@ -9075,51 +9502,44 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 458
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 457
+      "line": 458
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 457
+      "line": 458
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 457
+      "line": 458
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 459
+      "line": 460
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 460
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 460
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 460
+      "line": 461
     },
     {
       "type": "calls",
@@ -9131,56 +9551,63 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 461
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 462
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 463
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 464
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "object.ReferenceEquals(object,object)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 463
+      "line": 464
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 463
+      "line": 464
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 464
+      "line": 465
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 464
+      "line": 465
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 464
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 465
     },
@@ -9194,85 +9621,64 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 467
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 467
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 467
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 467
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 467
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 468
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.DateTime.AddMilliseconds(double)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 468
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 468
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 468
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Call(ReaderWindow,string,object[])",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 469
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.PumpUntil(Func\u003Cbool\u003E,TimeSpan)",
+      "targetId": "System.DateTime.AddMilliseconds(double)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 470
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.PumpUntil(Func\u003Cbool\u003E,TimeSpan)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 471
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.TimeSpan.FromSeconds(double)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 470
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 471
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 471
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 471
-    },
-    {
-      "type": "calls",
-      "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
-      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 471
     },
     {
@@ -9299,65 +9705,2228 @@
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
-      "targetId": "System.Console.WriteLine(string)",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 472
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Check(bool,string)",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
       "line": 473
     },
     {
       "type": "calls",
       "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 473
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "ReadAlongNavigationTests.Field\u00601(ReaderWindow,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 473
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
+      "targetId": "System.Console.WriteLine(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
+      "line": 474
+    },
+    {
+      "type": "calls",
+      "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Windows.Window.Close()",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 476
+      "line": 477
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongTrial.ReaderWindow",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 386
+      "line": 387
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Windows.RoutedEventArgs",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 393
+      "line": 394
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Windows.Documents.FlowDocument",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 400
+      "line": 401
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "System.Collections.Generic.List\u003CReadAlongTrial.Segment\u003E",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 401
+      "line": 402
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongTrial.ReadingPosition",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 411
+      "line": 412
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongTrial.ReadingPosition",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 434
+      "line": 435
     },
     {
       "type": "uses",
       "sourceId": "ReadAlongNavigationTests.Run()",
       "targetId": "ReadAlongTrial.ReadingPosition",
       "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ReaderRegressionTests.cs",
-      "line": 462
+      "line": 463
+    },
+    {
+      "type": "extends",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage",
+      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 14
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.toolbar",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 20
+    },
+    {
+      "type": "overrides",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 22
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "Microsoft.VisualStudio.Threading.JoinableTaskFactory.SwitchToMainThreadAsync(CancellationToken)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 25
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "Microsoft.VisualStudio.Shell.ActivityLog.LogInformation(string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 27
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "Microsoft.VisualStudio.Shell.ActivityLog.LogError(string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 28
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "System.Exception.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 29
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "Microsoft.VisualStudio.Shell.ActivityLog.LogInformation(string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 30
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.InitializeAsync(CancellationToken,IProgress\u003CServiceProgressData\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 26
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.ConfigureTheme(FrameworkElement)",
+      "targetId": "System.Windows.FrameworkElement.SetResourceReference(DependencyProperty,object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 38
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.ConfigureTheme(FrameworkElement)",
+      "targetId": "System.Windows.FrameworkElement.SetResourceReference(DependencyProperty,object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 43
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.ConfigureTheme(FrameworkElement)",
+      "targetId": "System.Windows.FrameworkElement.SetResourceReference(DependencyProperty,object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 45
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.ConfigureTheme(FrameworkElement)",
+      "targetId": "System.ArgumentException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 42
+    },
+    {
+      "type": "overrides",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.Dispose(bool)",
+      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage.Dispose(bool)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 48
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.Dispose(bool)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 50
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.VoicePackage.Dispose(bool)",
+      "targetId": "Microsoft.VisualStudio.Shell.AsyncPackage.Dispose(bool)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\VoicePackage.cs",
+      "line": 51
+    },
+    {
+      "type": "implements",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration",
+      "targetId": "System.IDisposable",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 13
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.TimeSpan.FromSeconds(double)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 34
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.Windows.Threading.DispatcherTimer.Start()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 36
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.ArgumentNullException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 31
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.ArgumentNullException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 32
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.ArgumentNullException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 33
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration..ctor(Action\u003CFrameworkElement\u003E,Action\u003Cstring\u003E,Action\u003CException\u003E)",
+      "targetId": "System.Windows.Threading.DispatcherTimer",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 34
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Tick(object?,EventArgs)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 43
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Tick(object?,EventArgs)",
+      "targetId": "System.Linq.Enumerable.Cast\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 43
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Tick(object?,EventArgs)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 45
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Tick(object?,EventArgs)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 46
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 51
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "targetId": "System.Exception.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 52
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "targetId": "System.Exception.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 53
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.ReportFailure(Exception)",
+      "targetId": "System.Action\u003CSystem.Exception\u003E.Invoke(Exception)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 54
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Threading.Dispatcher.VerifyAccess()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 59
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.Stack\u003CSystem.Windows.DependencyObject\u003E.Push(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 67
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 72
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 73
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.Stack\u003CSystem.Windows.DependencyObject\u003E.Pop()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 76
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 79
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "object.GetType()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 80
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.List\u003CSystem.Windows.FrameworkElement\u003E.Add(FrameworkElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 82
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 85
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 86
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Media.VisualTreeHelper.GetChildrenCount(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 91
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.Stack\u003CSystem.Windows.DependencyObject\u003E.Push(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 92
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Media.VisualTreeHelper.GetChild(DependencyObject,int)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 92
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 98
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 99
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.TryFindHost(FrameworkElement,out StackPanel?,out UIElement?)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 104
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Linq.Enumerable.Any\u00601(Func\u003CFrameworkElement, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 106
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Linq.Enumerable.OfType\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 106
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 107
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 108
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 108
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 111
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.TryFindHost(FrameworkElement,out StackPanel?,out UIElement?)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 112
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 114
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Linq.Enumerable.Any\u00601(Func\u003CFrameworkElement, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Linq.Enumerable.OfType\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 117
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 118
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 124
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Insert(int,UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 125
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 125
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 130
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.List\u003CSystem.Windows.FrameworkElement\u003E",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 61
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Refresh(IEnumerable\u003CWindow\u003E)",
+      "targetId": "System.Collections.Generic.Stack\u003CSystem.Windows.DependencyObject\u003E",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 66
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.TryFindHost(FrameworkElement,out StackPanel?,out UIElement?)",
+      "targetId": "System.Windows.Media.VisualTreeHelper.GetParent(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 138
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.TryFindHost(FrameworkElement,out StackPanel?,out UIElement?)",
+      "targetId": "System.Windows.Media.VisualTreeHelper.GetChildrenCount(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 145
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetAutomationId(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 163
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetName(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 164
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Action\u003CSystem.Windows.FrameworkElement\u003E.Invoke(FrameworkElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 165
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 166
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 168
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 170
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Controls.StackPanel",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 156
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Controls.Border",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 157
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 159
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.CornerRadius",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 159
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 160
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 160
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 166
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Controls.Primitives.ToggleButton",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 168
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.CreateToolbar()",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 170
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetAutomationId(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 192
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetName(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 193
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetHelpText(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 194
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Controls.ToolTipService.SetShowOnDisabled(DependencyObject,bool)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 195
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Action\u003CSystem.Windows.FrameworkElement\u003E.Invoke(FrameworkElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 196
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 197
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 182
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 183
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 184
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Controls.TextBlock",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 187
+    },
+    {
+      "type": "uses",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.AddButton(Panel,ButtonBase,string,string,string,string)",
+      "targetId": "System.Windows.Media.FontFamily",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 189
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.SetStatus(string)",
+      "targetId": "System.Action\u003Cstring\u003E.Invoke(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 204
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 209
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Dispose()",
+      "targetId": "System.Windows.Threading.Dispatcher.VerifyAccess()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 218
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Dispose()",
+      "targetId": "System.Windows.Threading.DispatcherTimer.Stop()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Dispose()",
+      "targetId": "VsCopilotChatVoice.VisualStudio.ChatToolbarIntegration.Detach()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\src\\VsCopilotChatVoice.VisualStudio\\ChatToolbarIntegration.cs",
+      "line": 223
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.Assembly.LoadFrom(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 20
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.IO.Path.GetFullPath(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 20
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.Assembly.GetType(string,bool)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 21
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Type.GetConstructor(BindingFlags,Binder,Type[],ParameterModifier[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 22
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Type.GetMethod(string,BindingFlags)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 24
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Collections.ObjectModel.Collection\u003CSystem.Windows.SetterBase\u003E.Add(SetterBase)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 39
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Collections.ObjectModel.Collection\u003CSystem.Windows.SetterBase\u003E.Add(SetterBase)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 40
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.ConstructorInfo.Invoke(object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 43
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.MethodBase.Invoke(object,object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 49
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Threading.Dispatcher.Invoke(Action,DispatcherPriority)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 50
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 55
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 56
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.TestWindow(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 57
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Show()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 61
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 62
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 63
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 64
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 66
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 68
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 70
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 70
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 70
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 71
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 72
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 77
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 77
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 78
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 79
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 80
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 82
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 84
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.IsNullOrEmpty(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 84
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetName(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 84
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 85
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.IsNullOrEmpty(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 85
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetHelpText(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 85
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 86
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.ToolTipService.GetShowOnDisabled(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 86
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 88
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 91
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 92
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 92
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 93
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 95
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 97
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 98
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 98
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 98
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Last\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 98
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 101
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 102
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 102
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetAutomationId(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 105
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 106
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 106
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Insert(int,UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 107
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 108
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Count\u00601(Func\u003CFrameworkElement, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.OfType\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 109
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 111
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 111
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 111
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 113
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 113
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Last\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 113
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 114
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 115
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 116
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 116
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Insert(int,UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 119
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 119
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 120
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 121
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 121
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 121
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 121
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 122
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 122
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 123
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 124
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 125
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 125
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 125
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 127
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 128
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 129
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 131
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 133
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 134
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 135
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 136
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 136
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 136
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 136
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.IndexOf(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 136
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 138
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 138
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 140
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 141
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 142
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 142
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 142
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Last\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 142
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 144
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 144
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 144
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 146
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 147
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 148
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 148
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 149
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 150
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 151
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 152
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.IDisposable.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 154
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.IDisposable.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 155
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 156
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 156
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 156
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 157
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 158
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 158
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.ConstructorInfo.Invoke(object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 160
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.SetAutomationId(DependencyObject,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 165
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Insert(int,UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 166
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 167
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 168
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Count\u00601(Func\u003CFrameworkElement, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 168
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.OfType\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 168
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 168
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.IDisposable.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 170
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 171
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Contains(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 171
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Remove(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 172
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Reflection.ConstructorInfo.Invoke(object[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 174
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 179
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.TestWindow(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 180
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Show()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 181
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 182
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 183
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 183
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 183
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 184
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 184
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Last\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 184
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Close()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 185
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.UIElementCollection.Add(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 189
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 190
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 191
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 191
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "string.Contains(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 191
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Linq.Enumerable.Last\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 191
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 193
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 194
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 194
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.TestWindow(UIElement)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 195
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Show()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 196
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 197
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 198
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 198
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 198
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Close()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 199
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 201
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 202
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 202
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Hide()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 203
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Action\u003CSystem.Windows.Window[]\u003E.Invoke(Window[])",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 204
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 205
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 205
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.Check(bool,string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 206
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Console.WriteLine(string)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 207
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.IDisposable.Dispose()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 212
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Close()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 213
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Window.Close()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 214
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.GC.KeepAlive(object)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 215
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Application",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 25
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Collections.Generic.List\u003Cstring\u003E",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 26
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Collections.Generic.List\u003CSystem.Exception\u003E",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 27
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Style",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 38
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Setter",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 39
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Setter",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 40
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.StackPanel",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 52
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 53
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.HarnessToolPicker",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 54
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 66
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Thickness",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 82
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.StackPanel",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 104
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 118
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.HarnessToolPicker",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 126
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.Grid",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 132
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 139
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.StackPanel",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 164
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.StackPanel",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 178
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "ToolbarRegressionTests.HarnessToolPicker",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 179
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Run(string)",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 189
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "targetId": "System.Linq.Enumerable.SingleOrDefault\u00601(Func\u003CBorder, bool\u003E)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "targetId": "System.Linq.Enumerable.OfType\u00601()",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "calls",
+      "sourceId": "ToolbarRegressionTests.FindToolbar(Panel)",
+      "targetId": "System.Windows.Automation.AutomationProperties.GetAutomationId(DependencyObject)",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 221
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.TestWindow(UIElement)",
+      "targetId": "System.Windows.Window",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 226
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.Check(bool,string)",
+      "targetId": "System.InvalidOperationException",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 236
+    },
+    {
+      "type": "extends",
+      "sourceId": "ToolbarRegressionTests.HarnessToolPicker",
+      "targetId": "System.Windows.Controls.ContentControl",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 239
+    },
+    {
+      "type": "uses",
+      "sourceId": "ToolbarRegressionTests.HarnessToolPicker..ctor()",
+      "targetId": "System.Windows.Controls.Button",
+      "filePath": "C:\\MyFiles\\Git\\VsCopilotChatVoice\\tests\\VsCopilotChatVoice.Reader.Tests\\ToolbarRegressionTests.cs",
+      "line": 241
     }
   ]
 }

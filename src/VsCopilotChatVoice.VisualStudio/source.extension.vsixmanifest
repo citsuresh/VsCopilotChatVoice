@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="VsCopilotChatVoice.048978d7-5859-4691-8e64-d90e00c0462f" Version="0.1.0" Language="en-US" Publisher="VsCopilotChatVoice" />
+    <Identity Id="VsCopilotChatVoice.048978d7-5859-4691-8e64-d90e00c0462f" Version="0.2.3" Language="en-US" Publisher="VsCopilotChatVoice" />
     <DisplayName>VS Copilot Chat Voice (Preview)</DisplayName>
-    <Description xml:space="preserve">Independent voice interaction for Visual Studio Copilot Chat. Foundation preview: includes the reader companion; chat buttons and delivery bridge are not yet connected.</Description>
+    <Description xml:space="preserve">Independent voice interaction for Visual Studio Copilot Chat. Toolbar-shell preview: bundles the reader and adds unavailable-state voice controls; backends and delivery bridge are not yet connected.</Description>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,19.0)">

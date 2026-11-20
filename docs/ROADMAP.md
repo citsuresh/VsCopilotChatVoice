@@ -15,6 +15,8 @@ explicitly approved normal-instance installation.
 - [ ] Add native-themed Mic, Speaker toggle and Settings immediately left of Customize AI.
   Scope internal WPF discovery, handle chat close/reopen/new sessions without duplicate controls,
   detach/dispose cleanly and explicitly indicate unavailable backend functionality.
+	Grouped flat-icon shell is reviewed, deterministic checks pass, and the user approved the
+  final Exp appearance. Full Exp lifecycle/theme/DPI/accessibility checks remain pending.
 - [ ] Add a VS-instance-specific local bridge/toolkit and persistent explicit reply/progress delivery.
   Keep speech/reader execution outside the IDE and retain the latest reply while automatic mode is off.
 - [ ] Implement remembered Speaker on/off, production show/restore, temporary Minimize/X hide,
@@ -24,6 +26,8 @@ explicitly approved normal-instance installation.
   saved reading mode; synchronize settings and toolbar without changing Windows-wide settings.
 - [ ] Discover/launch optional VoiceType and direct dictation into the intended chat.
 - [ ] Implement the explicitly installed `vs-copilot-chat-voice` companion skill and document toolkit usage.
+	Policy source is authored/reviewed, installed and committed in the separate skills repository;
+  a verified production application bridge remains a separate pending step.
 
 ## Release gates / later
 

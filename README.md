@@ -3,7 +3,7 @@
 Independent voice input and synchronized read-aloud for Visual Studio Copilot Chat,
 with a themed reader and companion skill. Not an official Microsoft or GitHub product.
 
-## Current status: solution foundation
+## Current status: toolbar-shell preview under validation
 
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
@@ -11,17 +11,38 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | In-process VSIX package shell; bundles the reader under `Reader` but does not launch it yet. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with a disabled chat-toolbar preview; bundles the reader under `Reader` but does not launch it yet. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection. |
-| `tests\VsCopilotChatVoice.Reader.Tests` | Executable regression harness, including isolated preferences and cross-process auto-play checks; not a Test Explorer test adapter project. |
+| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader regression harness plus an isolated toolbar mode against the built VSIX; not a Test Explorer test adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
 VoiceType's dictation engine. The `ReadAlongTrial` namespace and sample labels are
 intentionally retained during this foundation migration to preserve behavior.
 The reader still uses the prototype's pale-yellow palette; VS theme synchronization
-is planned, not implemented. The VSIX currently logs its preview status only; it has
-no chat buttons or connected command bridge. Installation and package initialization
-are verified in VS Experimental. No main-instance deployment was performed.
+is planned, not implemented. The 0.2.3 VSIX adds a conservative internal-WPF toolbar shell:
+**Mic | Speaker toggle | Settings | Customize AI**, inside Chat below its message box,
+not in the main IDE toolbar. All three new controls are disabled with explanatory tooltips
+and accessible names; the unchecked Speaker is a preview, not a saved-state indicator.
+The compact, flat icon buttons use toolbar styles and share a subtle rounded border whose
+color follows VS theme resources; disabled glyphs use the system's gray-text resource.
+The group is 24 DIPs high with no vertical group padding, 28-by-22-DIP buttons and unchanged
+14-DIP glyphs, tightening the border to match the neighboring chat controls more closely.
+Reader theming is unchanged. No dictation, automatic
+speech, settings UI or delivery bridge is connected. Build and deterministic checks pass;
+The user approved the 0.2.3 appearance in Exp; the full chat-recreation/theme/DPI/accessibility
+matrix remains pending. Foundation 0.1.0 loading and initial
+0.2.0 toolbar attachment were verified; the latter exposed dialog-style minimum-width expansion,
+now covered by compact-dimension regression checks.
+No main-instance deployment was performed.
+
+Discovery checks visible WPF windows every two seconds with a 12,000-node budget. Placement
+requires one visible Copilot tool picker and a horizontal StackPanel reached only through
+single-child wrappers. Unsupported, ambiguous or over-budget layouts are explicitly logged
+and left without an inserted toolbar. Recreated/hidden chats, reordered controls and disposal
+are handled without deleting unrelated controls. Existing attachments revalidate the host,
+single-child wrapper branch and competing toolbar IDs on every refresh; supported placement
+recovers when an unsupported layout or competing toolbar is removed. Copilot's internal layout is not a public API;
+future VS changes may make placement unavailable rather than justify unsafe layout edits.
 
 No VoiceType source, Whisper binaries/models, personal settings or session replies
 are included. VoiceType remains a separate, optional dependency for future microphone
@@ -37,13 +58,24 @@ Use Visual Studio's MSBuild (Developer PowerShell), not `dotnet build`, for VSIX
 msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployExtension=false
 & .\src\VsCopilotChatVoice.Reader\bin\Debug\net48\VsCopilotChatVoice.Reader.exe --self-test
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --toolbar .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
 
 The harness suppresses speech output, uses temporary preferences, and briefly opens
-offscreen test windows. A successful build produces
+offscreen test windows. The separate `--toolbar <built-VSIX-DLL>` mode checks placement,
+control states/accessibility, theme callbacks, compact sizing, flat icons/shared border,
+duplicate suppression, reordering, chat recreation,
+ambiguity, hidden windows and disposal. It does not launch speech or access user preferences.
+Current checks pass: 62 toolbar assertions, 1,868 reader self-test assertions and 292 reader
+integration assertions with seven live progress mappings. A successful build produces
 `src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.vsix`.
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
+
+Independent review resolved the cached-placement finding after the approved fix. Its latest
+low-severity test-only finding remains unapplied: the glyph-height assertion does not prove
+unclipped rendering or detect a collapsed glyph. No production clipping defect was established;
+passing synthetic checks do not replace the remaining native appearance/accessibility matrix.
 
 ### Experimental smoke-test status
 
@@ -51,7 +83,16 @@ On 2026-11-20, installation and package initialization were verified in an isola
 `/RootSuffix Exp` instance. A fresh launch with the solution open produced an activity-log
 entry from `VsCopilotChatVoice`: **"Foundation preview loaded. Reader bundled; chat buttons
 and delivery bridge are not connected yet."** The experimental IDE was responsive.
-This verifies the package shell only, not chat controls, speech delivery or theme integration.
+This verifies the 0.1.0 package shell only, not the new controls, speech delivery or theme integration.
+An official 0.2.0 Exp update and waited refresh both exited 0; a fresh launch logged toolbar
+attachment and exposed all three disabled controls beside Customize AI, including Speaker off.
+The screenshot/layout check exposed oversized Mic/Settings buttons caused by dialog-style
+minimums. The 0.2.2 preview adds compact flat styling and the requested shared group border;
+the user confirmed the buttons look fine but the surrounding border is too tall. The 0.2.3
+preview reduces its outer height to 24 DIPs without shrinking the glyphs. Official Exp-only
+update and configuration refresh exited 0, the new package loaded, and the user approved
+the resulting appearance. Deterministic toolbar checks do not substitute
+for actual Copilot layout/appearance verification.
 
 The initial SDK deployment copied files but failed enablement with **VSSDK1031: extension
 could not be found**. Refreshing configuration after that failed deployment was insufficient.
@@ -124,10 +165,10 @@ file is distributed. Storage errors remain visible in the reader.
 
 ## Approved direction (not yet implemented)
 
-- Themed **Mic | Speaker toggle | Settings | Customize AI** order below the chat
-  textbox. Settings opens the extension's voice and speech configuration, not Customize AI.
-  Internal WPF insertion requires scoped discovery and safe handling of VS changes;
-  a supported public insertion API has not been established.
+- Activate the preview's **Mic | Speaker toggle | Settings | Customize AI** controls below
+  the chat textbox after their respective backends exist. Settings must open this extension's
+  configuration, not Customize AI. A supported public insertion API has not been established;
+  actual Exp layout, theme, high-contrast, keyboard and DPI checks remain release gates.
 - A local, VS-instance-specific command toolkit/bridge shared by the VSIX and companion
   `vs-copilot-chat-voice` skill. Skill setup will be explicit; installing a VSIX alone does
   not install an assistant skill or create an automatic response event hook.
@@ -159,6 +200,9 @@ No automatic main-instance installation, commits or pushes.
   register the per-solution graph/dependencies files. Open `docs\graph-viewer.html` and
   select or drag in the slug-named graph pair; its automatic loader uses legacy filenames.
 - Initial graph Bootstrap analyzed all three projects: 119 nodes and 1,115 edges.
+  The latest incremental border-height update analyzed two changed files: 154 nodes and
+  1,417 edges in 4.74 seconds. Graph metadata identifies the commit at generation, not clean
+  or committed worktree status.
   See `docs\PROJECT_STATE.md` for current validation results, including the intermittent
   preference-persistence harness failure observed before the first foundation commit.
 - Independent pre-commit review passed the solution build and both executable checks on

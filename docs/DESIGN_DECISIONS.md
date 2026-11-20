@@ -109,3 +109,55 @@ Append-only dated log. Supersede a decision with a new entry rather than rewriti
   border thickness from growing an auto-sized group beyond the measured target.
 - **Alternative:** Shrink icon glyphs or merely remove vertical padding; neither addresses
   the requested border alignment while preserving the approved icon appearance as directly.
+
+## 2026-11-20 - Native reader presentation with external audio execution (planned)
+
+- **Decision:** Replace the planned standalone production overlay with a native VS Tool Window,
+  floating on first use and thereafter following VS-managed docking/pinning/layout. Keep speech,
+  microphone capture and transcription outside devenv.exe. Selectively reuse VoiceType capture,
+  transcription and pill code in an extension-owned host; manually provision external Whisper
+  engine/models or Browse existing paths, with no model downloads through extension or skill.
+- **Rationale:** Native tool-window behavior meets the user's positioning/docking request without
+  reimplementing the VS window manager. Audio remains isolated; mic functionality does not require
+  the standalone VoiceType app or companion skill. Preserve existing reader CLI/tests during reuse.
+- **Supersedes:** The initial entirely external production-reader UI and optional VoiceType-app
+  discovery direction, not the current prototype implementation. See IMPLEMENTATION_PLAN.md;
+  its decomposition must be confirmed before production code changes.
+
+## 2026-11-20 - Explicit recording gestures, cancellation and recovery (planned)
+
+- **Decision:** Hold-to-talk defaults to release-on-Mic auto-send eligibility and release-outside
+  insert-only review; toggle mode follows the auto-send setting. Optional Chat-scoped solitary
+  Right Ctrl requests capture immediately, invalidating tentative Ctrl-combination gestures.
+  Esc cancels recording/transcription and invalidates late callbacks. Never overwrite changed
+  drafts, auto-send existing combined drafts, or route to arbitrary foreground controls.
+- **Rationale:** Preserve fast dictation with an intentional review gesture and safe shortcut
+  handling. Single-owner capture across instances prevents conflicting depressed mic states.
+- **Recovery:** Completed text for an unreachable originating chat is copied to the clipboard
+  with truthful pill confirmation; failed copying retains explicit recovery. Incomplete/cancelled
+  text never enters the draft. Error/fallback pills last at least 10 seconds, acknowledgements
+  3 seconds, active status until resolved; persistent setup failures retain accessible badges.
+
+## 2026-11-20 - Scoped personal settings and separate reply navigation (planned)
+
+- **Decision:** Global defaults < solution overrides < temporary VS-window overrides, selected
+  at the top of Settings. Durable personal settings are app-local rather than repo files;
+  same-solution instances can use distinct temporary voices. Native VS persists layout separately.
+- **Rationale:** Support simultaneous agents without forcing team-shared preferences or a complex
+  profile system. Inheritance is explicit; updates must not overwrite other scopes or trigger audio.
+- **Reader:** Capture replies separately with paired versions, labelled reply navigation distinct
+  from sentence/paragraph arrows, and configurable new-reply queue handling. Theme-based colors
+  allow personal overrides; High Contrast wins. Exact chat-scroll matching is optional/experimental
+  and will be dropped if unreliable. Unsettled working defaults are identified in the draft plan.
+
+## 2026-11-21 - Bounded read-only chat contract discovery before mutation
+
+- **Decision:** Keep the Debug/Exp/launch-gated probe read-only and follow only observed binding
+  paths. Resolve public properties from the nearest declaring type, preserve private-getter
+  refusal, and report reflection ambiguity per connection without terminating the listener.
+- **Rationale:** Live Copilot bindings expose typed session identity and observable chat events;
+  accessibility titles/runtime IDs do not prove identity. The inherited-property regression
+  first failed on the unfixed DLL, then passed alongside actual IPC recovery after the fix.
+- **Alternatives:** Do not guess IDs, stringify arbitrary objects, read unrelated content, or
+  enable insertion/send before identity, draft and state contracts are verified. Unsupported
+  contracts remain explicit capability gaps rather than success-shaped fallbacks.

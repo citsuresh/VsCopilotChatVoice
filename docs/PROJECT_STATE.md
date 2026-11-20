@@ -1,21 +1,127 @@
 # Project state
 
-Updated: 2026-11-20. This file is overwritten, not appended, at the end of each working session.
+Updated: 2026-11-21. This file is overwritten, not appended, at the end of each working session.
 
 ## Current focus
 
-Foundation committed locally as `f06b047`; no push. The approved toolbar-shell phase is now
-implemented with disabled controls and deterministic checks. Initial 0.2.0 placement in Exp
-was verified; the user requested matching flat icons and a shared border after seeing it.
-The user approved the final 0.2.3 appearance after the group was tightened to 24 DIPs, and
-explicitly authorized this toolbar checkpoint commit. Full Exp lifecycle/theme/DPI/accessibility
-checks remain pending. Independent review identified a cached
-attachment revalidation defect; the user approved fix 1, now implemented with regression
-checks. Independent re-review confirmed that fix resolved with no new findings. Only the task's Exp
-instance is an installation target; no normal-instance installation is authorized.
+Foundation and approved toolbar preview are committed locally through `ee55bb6`; no push.
+The user ended the design discussion and requested an implementation plan. The new draft
+`docs/IMPLEMENTATION_PLAN.md` captures microphone modes/gestures/recovery, a native reader
+Tool Window with external speech, scoped settings, reply policies/history and experimental
+chat synchronization. Confirm later phase gates before production migration. The user
+authorized PoC 1: a gated, read-only diagnostic bridge has been added; no microphone/reader
+migration has started.
+The user wants the plan to evolve during implementation/testing. Proposed Phase 1 PoCs cover
+exact chat bridge/identity, native tool-window/external speech, and safe Ctrl/capture lifecycle;
+the first is the highest-risk required capability. Optional gesture/scroll failures can defer
+those features without blocking the rest. The first PoC is partially validated; others have
+not been executed. Foreground access recovered after the desktop obstruction was removed.
+A new disposable Exp chat was created. A rendered workspace-trust warning initially blocked
+input/send testing; the user explicitly approved trust, and native Trust once removed it.
+The 0.2.6 read-only diagnostic now inspects the three observed binding paths by one level.
+Independent review reproduced one new medium-severity inherited-property lookup defect;
+the user approved appropriate fixes autonomously. The 0.2.7 fix passes added regressions and
+independent re-review; it is hash-verified in Exp. Live bindings expose a typed CopilotSessionId,
+PromptInput and ChatEvents. Inspect these verified contracts next; do not claim stable conversation
+identity, safe insertion/send or reply delivery yet.
+This changes earlier planned architecture, not current code: the reader is still standalone
+and all three toolbar buttons remain disabled. Full Exp lifecycle/theme/DPI/accessibility
+checks remain pending. Approved lifecycle fix 1 passed independent re-review; test-only glyph
+fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 
 ## Verified behavior
 
+- Diagnostic solution build and targeted checks pass: 56 probe/IPC assertions and 62 unchanged
+  toolbar assertions. Both PowerShell helpers parse. The new probe route is not a native
+  Test Explorer test; the existing executable harness remains the validation mechanism.
+- Official installer logs confirm 0.2.4 installed only under the Exp hive. Installer process
+  exit code was not reliably captured; do not claim an observed installer exit 0. A subsequent
+  waited Exp configuration refresh exited 0. Installed DLL SHA256 matches the tested build.
+- Fresh explicitly enabled Exp accepted a diagnostic pipe read through server-PID verification:
+  1,561 WPF nodes, zero matching conversation controls while Chat displayed the Sessions list.
+  This proves live pipe/UI-thread observation, not a stable conversation identity. No insertion,
+  submission, skill activation or automatic reply capture has been performed.
+- Main host PID 29572 was not closed/installed. Initial failed input attempts restored the
+  cursor indicator; a disposable chat was subsequently created after foreground access recovered.
+  Independent diagnostic audit found two medium-severity listener defects;
+  parent verification reproduced both and the user approved both fixes. The 0.2.5 source now
+  rejects per connection and disposes timed-out pipe operations; 56 actual probe/IPC assertions
+	and 62 unchanged toolbar assertions pass. Independent re-review confirms both resolved with
+	no new high-confidence findings. Both fixes are now verified in live fixed-build Exp.
+  The user reports the desktop obstruction removed and authorizes continuing Exp testing;
+  retry foreground access once and return focus to the main host before final handoff.
+- Foreground access subsequently succeeded. Task Exp exited normally for update. The first
+  update/refresh both exited 0, but the auditor identified the stale 0.2.4 packaged manifest.
+  Explicit no-deploy Rebuild corrected the actual VSIX to 0.2.5 with the same audited DLL hash;
+  56 probe/IPC and 62 toolbar assertions passed again. Rebuild emitted two existing VSTHRD010
+  warnings on toolbar refresh/package disposal; no unrelated edits made.
+- Corrected-package installation and configuration refresh both exited 0; the installed Exp
+  manifest is 0.2.5 and DLL SHA256 matches the audited package. Tracked installation shell
+  `bridge-poc-025-verified-install` completed; no installer remains pending.
+- Live Exp rejected a malformed request and remained available. Its production 15-second
+  deadline terminated an idle client after 15,006 ms; another inspection succeeded while
+  the idle client remained open. No test input was sent to Chat.
+- A new disposable chat exposes `HarnessSessionViewModel` with public `Session`, `Composer`,
+  `ChatLog` and `IsResponding` metadata. No stable identity is exposed by the shallow whitelist.
+  The trust-warning UIA element has rendered bounds (795 by 53 pixels), not just a hidden label:
+  "Chat is disabled because this workspace is not trusted." Trust was not changed. No prompt
+  was entered/submitted and no reply was captured. A scoped screenshot could not be viewed
+  by this session provider; it was deleted, and no visual claim relied on it.
+- The user then explicitly approved workspace trust and continued testing. Native Trust once
+  removed the warning; no permanent folder-trust action was used. No prompt has been entered/sent.
+- The 0.2.6 probe adds one-level Session/Composer/ChatLog binding metadata and public inherited
+  interface identities. New checks cover explicit-interface IDs, private getter exclusion,
+  missing bindings and no deeper/content reads. Build and 64 probe/IPC + 62 toolbar assertions
+  pass. Actual ZIP version 0.2.6 and DLL SHA256
+  `565E5D1A4E6C217542EF7B070477E1AA975B821D66EC544B95BFBB72FFBA3152` match.
+	Two existing VSTHRD010 warnings remain unchanged. Independent re-review reran both prebuilt
+  routes successfully and reproduced AmbiguousMatchException when a derived Session property
+  hides an inherited property with a different return type. Name-only lookup at lines 192-197
+  throws; the exception escapes listener handlers and permanently faults the worker. Proposed:
+  deterministic inherited-property resolution, per-connection containment and regression.
+  No fix applied; explicit user approval is required. No other high-confidence findings.
+- The user then authorized appropriate fixes without routine approval stops. The new hiding
+  regression failed against the actual 0.2.6 DLL, reproducing AmbiguousMatchException. Fixed
+  0.2.7 chooses nearest declared public bindings, refuses private shadowing getters without
+  falling back, and contains ambiguity per connection. All 78 probe/IPC and 62 toolbar assertions
+  pass, including injected reflection-capture failure and next-client recovery. Build succeeds;
+  the two existing analyzer warnings remain. Actual 0.2.7 package/DLL SHA256:
+  `B481058BF7C7289530A370B52A740264876E2ADAD38822711B0CE9D6C5232901`.
+  Independent re-review and Exp-only installation/refresh/launch are underway; tracked shell
+  `bridge-poc-027-install`. Read that result, rediscover its new PID/HWND, then inspect bindings.
+- The 0.2.7 re-review confirms the collision resolved with no new high-confidence in-scope
+  findings. Independently reran 78 probe/IPC + 62 toolbar assertions and verified package/hash.
+  Installation/refresh exited 0; `bridge-poc-027-install` completed. Installed DLL matches.
+  Transient current Exp: PID 42720 / HWND 0x4C1036. The prior startup modal disappeared naturally.
+- A disposable chat was created and verified by read-back after asynchronous creation settled.
+  Live session binding is CopilotSdkSession with SessionId: CopilotSessionId, ChatEvents and
+  SessionCommands; Composer exposes PromptInput and ActionButton, and ChatLog exposes Entries.
+  No draft/reply contents were read or changed. SDK metadata shows CopilotSessionId is a value
+  type exposing Guid and ClientId; CopilotClientId exposes public string Id. The two installed
+  SDK assembly copies match by SHA256. OS module enumeration omitted managed assemblies;
+  constrained installed-file discovery recovered the metadata without guessing a live ID.
+- User permits stable local checkpoint commits and recovery attempts; if an approved task is
+  genuinely blocked, record exact evidence and move to another approved task, not unapproved
+  production phases. Skills-repository agent interaction is permitted when needed; not needed yet.
+- Required VoiceType source-copy permission is granted for the microphone phase. No source or
+  models have been copied, no model download is authorized, and later production phases remain
+  planned rather than started. No normal-VS install, commit or push occurred.
+- Exp-only 0.2.6 installer/refresh exited 0; tracked `bridge-poc-026-install` completed.
+  Installed manifest/hash match. Initial live probe returned 1,621 nodes with no selected
+  conversation controls on the Sessions list. A small untitled modal window was discovered;
+  it was not dismissed or otherwise acted upon before the audit approval gate.
+- Transient targets, reverify before reuse: task Exp PID 42428 / HWND 0x9C12B6; its untitled
+  modal HWND 0x3C0FAE; main host PID 29572 / HWND 0x311C0. Old Exp PID 32656 closed normally.
+  Before trust approval, main-host foreground was restored through the verified fallback and
+	confirmed; the cursor indicator was cleared. Main-host foreground was restored and verified
+  again at the audit-approval handoff, with the cursor indicator cleared.
+- Diagnostic incremental graph refresh analyzed four changed files across two projects:
+  186 nodes, 1,567 edges. Dependencies were renamed to the registered slug; no commit metadata
+  was fabricated and no commit/push was performed. A subsequent incremental refresh after the
+  IPC/nested-binding changes analyzed two files across two projects: 224 nodes, 1,755 edges,
+  21.33 seconds including the registered dependency rename. No stale unqualified output remains.
+  Latest approved-fix update: two changed files, 237 nodes, 1,813 edges, 15.1 seconds including
+  the registered dependency rename. Commit metadata reflects the pre-checkpoint HEAD.
 - Full solution/VSIX build and rebuild passed during foundation validation.
 - Grouped-toolbar solution build passed. Its isolated actual-VSIX harness passes 62 assertions;
   reader checks also pass 1,868 self-tests and 292 integration assertions/seven mappings.
@@ -75,7 +181,11 @@ instance is an installation target; no normal-instance installation is authorize
 - Reader is still the separate prototype: pale-yellow theme, one prepared reply per launch,
   X closes rather than production hide behavior; no production show/hide/minimize protocol.
 - No voice/rate/volume settings window, automatic-read-aloud preference or VS theme sync.
-- VoiceType discovery/launch and correctly targeted dictation are pending.
+- Planned selective VoiceType source reuse supersedes optional-app discovery/launch; see the
+  draft plan for external host/model boundaries, gestures, ownership, cancellation and targeting.
+- Native reader presentation, external speech separation, scoped settings and captured-reply
+  history are planned only. Auto-send On, five-minute review stop, latest-on-enable and
+  finish-current-then-latest are explicitly provisional plan defaults, not separately confirmed.
 - Automatic Copilot-response capture has no verified mechanism; do not imply otherwise.
 - Intermittent preference-persistence harness failure needs investigation; no reader/test
 	fix made during documentation Bootstrap. Passing audit checks do not resolve that observation.
@@ -86,6 +196,10 @@ instance is an installation target; no normal-instance installation is authorize
 
 ## Recently changed files
 
+- `docs/IMPLEMENTATION_PLAN.md`: consolidated design scope, seven phases, acceptance gates,
+  defaults, negative scenarios and optional experiment. Documentation-only; no new runtime tests.
+- `README.md`, `ROADMAP.md`, `DESIGN_DECISIONS.md` and contributor instructions: align planned
+  native-tool-window/source-reuse boundaries and settings scope without describing them as shipped.
 - `src\VsCopilotChatVoice.VisualStudio\ChatToolbarIntegration.cs`, `VoicePackage.cs` and
 	`source.extension.vsixmanifest`: new controller, package lifetime/theming/logging and 0.2.3 identity.
 - `tests\VsCopilotChatVoice.Reader.Tests\ToolbarRegressionTests.cs`, `ReaderRegressionTests.cs`:

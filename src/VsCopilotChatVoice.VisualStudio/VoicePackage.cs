@@ -18,6 +18,7 @@ namespace VsCopilotChatVoice.VisualStudio;
 public sealed class VoicePackage : AsyncPackage
 {
     private ChatToolbarIntegration? toolbar;
+    private ChatBridgePoc? bridgePoc;
 
     protected override async Task InitializeAsync(CancellationToken cancellationToken,
         IProgress<ServiceProgressData> progress)
@@ -29,6 +30,12 @@ public sealed class VoicePackage : AsyncPackage
                 "Toolbar integration failed: " + error.GetType().FullName + " (" + error.HResult + ")."));
         ActivityLog.LogInformation(nameof(VsCopilotChatVoice),
             "Toolbar preview loaded. Reader bundled; voice backends and delivery bridge are not connected yet.");
+        if (ChatBridgePoc.IsEnabled())
+        {
+            bridgePoc = new ChatBridgePoc(error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
+                "Diagnostic bridge failed: " + error.GetType().FullName + " (" + error.HResult + ")."));
+            ActivityLog.LogInformation(nameof(VsCopilotChatVoice), "Exp-only read-only chat diagnostic bridge enabled.");
+        }
     }
 
     private static void ConfigureTheme(FrameworkElement element)
@@ -47,7 +54,11 @@ public sealed class VoicePackage : AsyncPackage
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing) toolbar?.Dispose();
+        if (disposing)
+        {
+            bridgePoc?.Dispose();
+            toolbar?.Dispose();
+        }
         base.Dispose(disposing);
     }
 }

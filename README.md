@@ -35,6 +35,58 @@ matrix remains pending. Foundation 0.1.0 loading and initial
 now covered by compact-dimension regression checks.
 No main-instance deployment was performed.
 
+### Chat-bridge PoC in progress
+
+The 0.2.7 diagnostic build adds an opt-in, read-only binding-metadata probe, not production
+dictation/reply delivery. It is enabled only in Debug, with `/RootSuffix Exp` and the
+launch-process environment variable `VSCOPILOTCHATVOICE_BRIDGE_POC=1`. All toolbar controls
+remain disabled. The current-user-only pipe accepts only `inspect`; the read helper verifies
+the server PID and bounds response size/time. See `docs/SCRIPTS.md`. Do not enable this in
+normal VS or treat accessibility runtime IDs/chat titles as stable conversation identities.
+Capability validation is in progress; insertion/send and automatic reply capture are not proved.
+The solution and targeted 56-probe/IPC and 62-toolbar checks pass. The corrected 0.2.5 Exp-only
+installer and configuration refresh both exited 0. The installed manifest and DLL hash match
+the independently reviewed package. Foreground access recovered after the desktop obstruction
+was removed, and a new disposable Exp chat was created without submitting anything.
+Independent review found two diagnostic defects: rejected requests could terminate the listener,
+and idle pipe reads ignored token cancellation on .NET Framework. The user approved both fixes:
+reject per connection and dispose the active pipe when its deadline expires. Check cancellation
+after reads/capture so timeout-induced EOF is not misreported as malformed input. The 0.2.5
+fixes pass 56 probe/IPC assertions, including next-client recovery. Independent re-review
+confirmed both resolved with no new high-confidence findings. Live Exp also recovered after a
+malformed request and terminated an idle client after 15,006 ms; the next inspection succeeded
+while that client remained open.
+
+The disposable chat exposes `HarnessSessionViewModel` with `Session`, `Composer`, `ChatLog`
+and `IsResponding` property metadata. The user explicitly approved workspace trust; native
+**Trust once** removed the rendered warning without selecting permanent folder trust. No
+prompt was entered/sent and no replies were captured.
+
+The 0.2.6 probe follows only those three observed bindings by one level. It inventories
+public properties, including inherited interface properties, and reads only the existing
+primitive identity whitelist through public getters. It does not read draft/reply content
+or recurse further. The expanded 78 probe/IPC assertions and unchanged 62 toolbar assertions
+pass. The 0.2.6 Exp installer/refresh both exited 0, and the installed version/hash match.
+Independent review found one medium-severity defect: name-only lookup of a hidden inherited
+binding property can throw `AmbiguousMatchException` and terminate the listener. The reviewer
+reproduced it against the current DLL; no other high-confidence findings were reported.
+The user approved appropriate fixes autonomously. A new regression reproduced that exception
+against 0.2.6. Version 0.2.7 resolves the nearest public declaration without falling back past a
+private getter, and reports remaining ambiguity per connection. Independent re-review confirms
+the finding resolved, reruns all 78/62 checks successfully, and reports no new in-scope findings.
+The 0.2.7 Exp installer/refresh both exited 0; its installed DLL matches the reviewed package.
+Live inspection reaches the disposable chat's real session/composer/log bindings. The session
+uses `CopilotSessionId`, not a primitive ID: inspected SDK metadata exposes a public Guid plus
+`ClientId.Id`. PromptInput and ChatEvents are also exposed; their routing/content contracts are
+not yet validated. Stable identity and safe input/send/delivery remain unproved; PoC 1 is incomplete.
+
+Incremental packaging retained manifest version 0.2.4 after the source was bumped to 0.2.5.
+An explicit no-deploy VSIX Rebuild corrected it. The actual ZIP now reports 0.2.5 and contains
+the identical independently reviewed DLL (SHA256 `0810376689126D67D228C496ADFE80F1D76BB47701EF8E1E68DAF66599EB4516`).
+The rebuild emitted two existing UI-thread analyzer warnings on toolbar refresh/package disposal;
+no unrelated warning suppression or fixes were applied. Always verify the packaged manifest,
+not just its source, before deploying an update.
+
 Discovery checks visible WPF windows every two seconds with a 12,000-node budget. Placement
 requires one visible Copilot tool picker and a horizontal StackPanel reached only through
 single-child wrappers. Unsupported, ambiguous or over-budget layouts are explicitly logged
@@ -45,8 +97,9 @@ recovers when an unsupported layout or competing toolbar is removed. Copilot's i
 future VS changes may make placement unavailable rather than justify unsafe layout edits.
 
 No VoiceType source, Whisper binaries/models, personal settings or session replies
-are included. VoiceType remains a separate, optional dependency for future microphone
-dictation; read-aloud uses the bundled reader and does not require VoiceType.
+are included. The new implementation plan proposes selectively reusing VoiceType microphone
+code in our own external host, not requiring the standalone VoiceType app. This is not yet
+implemented; read-aloud uses the bundled reader and does not require a transcription model.
 
 ## Build and verify
 
@@ -59,6 +112,7 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\src\VsCopilotChatVoice.Reader\bin\Debug\net48\VsCopilotChatVoice.Reader.exe --self-test
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --toolbar .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --bridge-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
 
 The harness suppresses speech output, uses temporary preferences, and briefly opens
@@ -71,6 +125,13 @@ integration assertions with seven live progress mappings. A successful build pro
 `src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.vsix`.
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
+
+The isolated `--bridge-probe` route passes 78 assertions for opt-in gating, binding metadata,
+no unrelated content getter reads, hidden windows and the actual listener with a test capture
+callback. IPC checks cover malformed/early-disconnected/unterminated requests, idle/partial
+request deadlines, oversized responses, next-client recovery and clean shutdown. They do not
+prove live Copilot identity, insertion/send or automatic capture. The production deadline remains
+15 seconds; tests inject a one-second deadline, not a production setting change.
 
 Independent review resolved the cached-placement finding after the approved fix. Its latest
 low-severity test-only finding remains unapplied: the glyph-height assertion does not prove
@@ -165,31 +226,34 @@ file is distributed. Storage errors remain visible in the reader.
 
 ## Approved direction (not yet implemented)
 
-- Activate the preview's **Mic | Speaker toggle | Settings | Customize AI** controls below
-  the chat textbox after their respective backends exist. Settings must open this extension's
-  configuration, not Customize AI. A supported public insertion API has not been established;
-  actual Exp layout, theme, high-contrast, keyboard and DPI checks remain release gates.
-- A local, VS-instance-specific command toolkit/bridge shared by the VSIX and companion
-  `vs-copilot-chat-voice` skill. Skill setup will be explicit; installing a VSIX alone does
-  not install an assistant skill or create an automatic response event hook.
-- Persistent reply/progress delivery and Speaker show/restore; Minimize hides the reader
-  while retaining its position, reading mode and playback state.
-- The reader's **X** also hides rather than terminates it, retaining the current reply,
-  position and Speaker toggle state. With Speaker still on, the next reply may reopen it;
-  turning Speaker off then on restores it manually. Speaker off stops speech as described
-  below. IDE/companion shutdown must still release reader and speech resources.
-- Speaker toggle: remember automatic read-aloud enablement across restarts;
-  pressed shows/restores the reader and enables opening/speech for new replies, while off
-	hides it, stops ongoing speech and suppresses automatic opening/speech. Minimize is
-  temporary and leaves automatic mode enabled. Retain the latest reply and reading preferences
-  while off; reopening must not silently enable automatic mode through another control.
-- Read the owning VS instance's theme colors and synchronize live theme changes, including
-  high-contrast checks. Keep reader/speech processing outside `devenv.exe`.
-- Isolated per-user voice, speed and volume settings, Preview and Reset; expose only voices
-	supported by the selected engine. Include the remembered Concise/Detailed reading mode and
-  automatic read-aloud toggle in the settings window. Never change Windows-wide speech settings.
-- VoiceType discovery/launch and dictation targeted at the correct chat; clearly report a
-  missing backend. Automatic Copilot-response capture still needs a verified mechanism.
+The discussion is consolidated in [the draft implementation plan](docs/IMPLEMENTATION_PLAN.md).
+Its phase breakdown needs confirmation before production code changes. Working defaults that
+were not explicitly settled are labelled in the plan; none of these features are shipped.
+The user has authorized PoC 1 only; its read-only diagnostic build is described above.
+The plan evolves with implementation/testing and approved enhancements. Start with bounded
+Exp proofs for exact chat routing/delivery, a native reader with external speech, and safe
+Ctrl-only capture before committing to the full migration; optional hooks may be dropped.
+
+- Activate the existing toolbar only as its backends become available; Settings remains
+  independent of model/skill availability. Report missing capabilities with accessible badges.
+- Native VS reader Tool Window, initially floating, with VS-managed docking/pinning/layout.
+  Only presentation moves inside the IDE; speech synthesis, capture and transcription stay
+  external. This supersedes the earlier entirely external production-reader UI direction.
+- Hold-to-talk/toggle microphone modes, optional Chat-only Ctrl gesture, Esc cancellation,
+  real audio-level Mic fill and VoiceType-style chat-local status pill. Preserve draft/target
+  safety and copy completed text to the clipboard if its originating chat is unreachable.
+- External Whisper engine/models, manually provisioned or selected through Browse. Neither
+  extension nor companion skill downloads models. Missing resources lead to setup, not recording.
+- Per-conversation captured-reply history, separate reply/within-reply navigation, queue policy,
+  scoped keyboard support, and preserved Concise/Detailed behavior. Speaker Off stops/hides
+  without discarding history; tool-window hide is distinct from changing automatic preference.
+- Global settings, solution overrides and temporary VS-window overrides, including different
+  voices for two agents in the same solution. User-local storage; no Windows-wide setting changes.
+- Live VS theme plus readable appearance overrides and supported voice/rate/volume controls;
+  pitch is conditional on actual backend support. Native tool-window chrome stays native.
+- A local instance/conversation-specific reply/progress bridge. A skill is not an automatic
+  response subscription; automatic capture requires a verified mechanism. Chat-scroll matching
+  is an optional experiment and will be dropped if unreliable.
 
 No automatic main-instance installation, commits or pushes.
 
@@ -205,6 +269,9 @@ No automatic main-instance installation, commits or pushes.
   or committed worktree status.
   See `docs\PROJECT_STATE.md` for current validation results, including the intermittent
   preference-persistence harness failure observed before the first foundation commit.
+	The latest diagnostic incremental update analyzed two changed C# files across two projects:
+	237 nodes and 1,813 edges in 15.1 seconds. Metadata describes the analyzed working tree,
+  not a new commit.
 - Independent pre-commit review passed the solution build and both executable checks on
   their first audit runs. Its one viewer-wording finding was corrected in the upstream
   skill template and refreshed here; no application behavior changed for that correction.

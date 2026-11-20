@@ -13,6 +13,7 @@
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Runtime.Serialization" />
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.14.40265" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.9.820" PrivateAssets="all" />
     <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />

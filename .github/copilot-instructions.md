@@ -4,8 +4,10 @@
 - Update README.md whenever repository changes are made, and review/update it again before
   every commit. Keep setup, project layout, build/test commands, behavior, limitations and
   pending features accurate. Distinguish planned capabilities from implemented ones.
-- Keep speech and reader execution outside devenv.exe. The VSIX is the thin IDE integration;
-  VoiceType remains a separate optional dictation backend, not a copied engine dependency.
+- Follow docs/IMPLEMENTATION_PLAN.md after its decomposition is confirmed. The planned native
+  reader Tool Window hosts presentation in devenv.exe only; keep speech synthesis, microphone
+  capture and transcription external. Selective VoiceType source reuse supersedes optional-app
+  discovery; do not bundle Whisper/models or download models. Current code is still a preview.
 - Preserve existing reader behavior during migration, including remembered Concise/Detailed
   choice and paused current-reply version switching. Tests must use isolated preference paths.
 - Build with Visual Studio MSBuild and run the relevant regression checks documented in README.md.

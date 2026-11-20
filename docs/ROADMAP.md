@@ -12,22 +12,21 @@ explicitly approved normal-instance installation.
 
 ## Near term (priority order)
 
-- [ ] Add native-themed Mic, Speaker toggle and Settings immediately left of Customize AI.
-  Scope internal WPF discovery, handle chat close/reopen/new sessions without duplicate controls,
-  detach/dispose cleanly and explicitly indicate unavailable backend functionality.
-	Grouped flat-icon shell is reviewed, deterministic checks pass, and the user approved the
-  final Exp appearance. Full Exp lifecycle/theme/DPI/accessibility checks remain pending.
-- [ ] Add a VS-instance-specific local bridge/toolkit and persistent explicit reply/progress delivery.
-  Keep speech/reader execution outside the IDE and retain the latest reply while automatic mode is off.
-- [ ] Implement remembered Speaker on/off, production show/restore, temporary Minimize/X hide,
-  off-stops-speech behavior and shutdown cleanup.
-- [ ] Synchronize owning VS theme/live theme changes; check high contrast, keyboard access and DPI.
-- [ ] Add settings for supported voice, rate, volume, Preview/Reset, automatic read-aloud and
-  saved reading mode; synchronize settings and toolbar without changing Windows-wide settings.
-- [ ] Discover/launch optional VoiceType and direct dictation into the intended chat.
-- [ ] Implement the explicitly installed `vs-copilot-chat-voice` companion skill and document toolkit usage.
-	Policy source is authored/reviewed, installed and committed in the separate skills repository;
-  a verified production application bridge remains a separate pending step.
+- [ ] Confirm the decomposition in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
+- [ ] Phase 1: instance/conversation contracts, local bridge/lifetime and capability probes.
+- [ ] Phase 2: native floating/dockable reader presentation with external speech, preserving
+  prototype regression behavior. VS manages layout; audio work stays outside the IDE.
+- [ ] Phase 3: global/solution/window settings, inheritance, supported speech controls and
+  accessible theme/font/color overrides, including distinct voices for same-solution instances.
+- [ ] Phase 4: external VoiceType-derived capture/transcription/pill, model discovery and
+  atomic recording ownership. Engine/models are external; no model downloads.
+- [ ] Phase 5: mouse/optional Ctrl modes, cancellation and safe originating-chat insert/send.
+- [ ] Phase 6: verified reply delivery, remembered Speaker, queue policies and captured history.
+  Companion policy is already authored/installed/committed in the separate skills repository;
+  production protocol coordination remains separate and must not invent an automatic hook.
+- [ ] Phase 7: optional precise chat-scroll experiment and final hardening. Drop scrolling if
+  unreliable; it must not block playback. Complete the toolbar lifecycle/theme/DPI/accessibility
+  matrix left pending after the user-approved 0.2.3 appearance.
 
 ## Release gates / later
 

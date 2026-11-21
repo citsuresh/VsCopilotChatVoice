@@ -165,8 +165,11 @@ selection with Ctrl+End and appends without replacing text; one Ctrl+Z removes a
 Exp behind another window gives `ExpNotForeground`; focus in the Exp code editor gives `ChatInputNotFocused`
 (editor untouched), and `-PlaceCaret` from that state refocuses the chat input and appends; with the Chat tab
 hidden behind another tab of its group (composer out of the UI tree) every mode refuses with
-`ChatInputNotVisible` and no tab is switched. Not yet tested (need the person to set up the state or
-approve tab/focus changes inside Exp): chat busy, two chat inputs,
+`ChatInputNotVisible` and no tab is switched; with the Chat tab closed, View > GitHub Copilot Chat (UIA
+Invoke) brought the composer back with the old draft intact (default mode `DraftNotEmpty`, append works);
+while a long reply was streaming (Send button replaced by Stop) the default, typed `-Append` and
+`-Append -Paste` modes all gave `Refused` / `SendButtonNotFound` with nothing typed, and insertion worked
+again once the reply finished. Not yet tested (need the person to set up the state): two chat inputs,
 `#file`/`/command`/attachment chips, an open autocomplete popup, typing during the call and the
 blocked-input Exp state. Still not atomic: text typed by the person during the few seconds of the call can
 interleave (reported, never cleared).

@@ -175,6 +175,25 @@ blocked-input Exp state. Still not atomic: text typed by the person during the f
 interleave (reported, never cleared).
 The orchestrator's own Send script clears the input, so it is unsuitable here.
 
+### Read-only completed-reply observation helper (experimental, not in the extension)
+
+`scripts\agent\Read-ChatRepliesUia.ps1 -Hwnd <Exp hwnd> [-IncludeText]` makes one toolkit `inspect` call
+and reads the chat transcript. It sends no key, click or paste and changes no focus, window, tab or draft.
+It refuses a non-Exp `devenv.exe` (unless `-AllowMainInstance`), a missing transcript, more than one
+transcript (`AmbiguousChat`) and a truncated tree. Observed on Exp (2026-11-21): the transcript is a
+`ChatSessionList` of `ChatMessageItem` ListItems that is not virtualized (earlier messages stay in the tree).
+Items alternate header, body: a short item (name up to 60 characters, at most 2 children) in the header
+position is an author header (`GitHub Copilot` precedes an assistant reply), the next item is the message
+body whatever its length, and its full text is the item's UIA Name. An item in the header position that
+does not look like a header is reported `Unknown`. An item named "The response
+used ..." after a reply is the completion footer. A reply is reported `Complete` only when that footer is
+present and the SendButton exists (a missing SendButton means busy). The UI exposes no per-message
+AutomationId, so reply identity is its position plus length and SHA-256. Default output is lengths and
+hashes only; `-IncludeText` adds the last reply text. Live check: a finished 45,096-character reply gave
+one user message, one assistant reply with `Complete: true` and a text length equal to the reported length;
+the main host was refused. Not yet observed: the streaming state (footer absent while a reply arrives), tool
+or approval items in the transcript, a second chat, and very long transcripts.
+
 ### Atomic-insertion capability probe (0.2.12)
 
 Set the additional **launch-process-only** gate `VSCOPILOTCHATVOICE_DRAFT_POC=1` in Debug Exp

@@ -4,7 +4,14 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
-Latest (user decisions 2026-11-21): insertion fallback is guarded UIA typing with read-back; Exp
+Latest: added read-only `scripts\agent\Read-ChatRepliesUia.ps1` (one inspect call, no input or focus
+change, Exp-only). It reads the `ChatSessionList` transcript, reports message roles, lengths, SHA-256 and
+completion (footer "The response used ..." plus SendButton present), and was live-checked on a finished
+45,096-character reply. Streaming state, tool/approval items and a second chat are not yet observed.
+Insertion helper additions since: relaunch-chat-tab and chat-busy scenarios passed (see README); all
+work is pushed to origin/main up to 35b6ab9, the reply helper is uncommitted until reviewed.
+
+Earlier (user decisions 2026-11-21): insertion fallback is guarded UIA typing with read-back; Exp
 installs/tests and stable local commits are approved. Live proof on a restarted Exp (the earlier Exp was
 in a blocked-input state that dropped Ctrl/End and moved focus to Git Changes): paste into an empty draft,
 and `-Append -PlaceCaret` onto 1-, 2- and 14-line drafts (end scrolled out of view) all read back exactly,

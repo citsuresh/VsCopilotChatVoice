@@ -131,6 +131,19 @@ The reusable `scripts\agent\Read-PublicAssemblyContract.ps1` reads exact public 
 in Windows PowerShell with explicit dependency folders and bounded member counts; its optional
 constructor-only-property check reads metadata, never private field values. See `docs/SCRIPTS.md`.
 
+### Guarded UIA insertion helper (experimental, not in the extension)
+
+Because native atomic editing is unproven, `scripts\agent\Insert-ChatDraftUia.ps1` is the approved
+fallback experiment (see `docs/SCRIPTS.md`). It wraps the AgentDebugToolkit paste-with-read-back
+primitive and refuses unless the target is an Exp `devenv.exe`, the chat input is showing, no
+trust/folder banner is shown and the Send button is disabled (empty, idle draft). It never clears
+or sends, and re-checks the Send button right before typing. It is not atomic: on a verify mismatch
+it reports `DraftChanged`, does not clear, and our text may remain inside the person's draft. If the
+input exposes a writable ValuePattern the primitive replaces the whole draft (the method is reported),
+so text typed after the final check would be lost. Verified so far: parse, stale-handle, control-character and main-instance refusals.
+Not yet proved: a positive insertion; a fresh Exp instance showed no chat composer, so that needs
+a signed-in Exp chat. The orchestrator's own Send script clears the input, so it is unsuitable here.
+
 ### Atomic-insertion capability probe (0.2.12)
 
 Set the additional **launch-process-only** gate `VSCOPILOTCHATVOICE_DRAFT_POC=1` in Debug Exp

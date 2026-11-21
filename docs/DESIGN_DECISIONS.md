@@ -227,3 +227,18 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   A real non-reading-peer test verifies backpressure and elapsed disposal, not just parsing.
 - **Boundary:** Test safe refusal only, save the verified increment and stop as requested. Native
   insertion remains blocked; no send, reply delivery, microphone or production migration is enabled.
+
+## 2026-11-21 - Guarded external UIA insertion as the PoC 1 fallback
+
+- **Decision:** The user chose guarded UIA typing with read-back while native atomic editing stays
+  unproven. `scripts\agent\Insert-ChatDraftUia.ps1` reuses the AgentDebugToolkit `type --paste --verify`
+  primitive (clipboard snapshot/restore, history exclusion, read-back) that the agent-orchestrator's
+  Send script already relies on, but adds the draft guard that script lacks: it refuses unless the
+  Send button exists and is disabled (empty draft, not busy), refuses non-Exp targets and trust/folder
+  banners, never clears, never clicks Send and reports a mismatch as `DraftChanged`.
+- **Rejected:** Reusing `Send-CopilotPrompt.ps1` unchanged (it clears the input, destroying a draft, and
+  sends); backend `SendAsync` (bypasses the draft and changes product behavior).
+- **Limit:** Not atomic. The Send button is re-checked right before typing, but text typed after that is
+  detected only afterwards: a clipboard paste keeps it and adds ours (reported, never cleared), while a
+  writable ValuePattern would replace the whole draft (method reported). It also needs foreground focus and the clipboard. It stays an external experiment and
+  is not a production insertion path until a live Exp proof and user approval exist.

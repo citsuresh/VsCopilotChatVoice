@@ -4,6 +4,14 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
+Latest (user decisions 2026-11-21): insertion fallback is guarded UIA typing with read-back; Exp
+installs/tests and stable local commits are approved. Added `scripts\agent\Insert-ChatDraftUia.ps1`
+(Exp-only, empty-draft/idle/banner guards via the Send button, read-back, never clears or sends).
+Parse and refusal paths verified (stale handle, control character, main instance). No positive live
+insertion: a fresh Exp instance (closed gracefully) had no chat composer, so a signed-in Exp chat is
+needed. The orchestrator Send script was assessed: its paste/verify primitive is sound, but it clears
+the input, so it is not reused as is. No extension runtime change; version stays 0.2.12.
+
 Current 0.2.12 source removes the unsafe 0.2.11 native draft transaction. Independent review
 reproduced trust/busy and concurrent-draft races after final snapshot capture. All valid insertion
 requests now explicitly refuse unproved atomic editing; no draft getter/setter path remains.

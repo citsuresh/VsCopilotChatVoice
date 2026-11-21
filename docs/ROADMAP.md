@@ -17,6 +17,10 @@ native insertion requires an authoritative atomic-edit contract; copied snapshot
 input-slot metadata are insufficient. Do not resume send/reply/microphone or later phases without
 a new user request.
 
+User decision 2026-11-21: use guarded UIA typing with read-back (`Insert-ChatDraftUia.ps1`) as the
+insertion fallback; positive live Exp proof (needs a signed-in Exp chat) and read-only completed-reply
+observation remain next.
+
 - [ ] Confirm the decomposition in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 - [ ] Phase 1: instance/conversation contracts, local bridge/lifetime and capability probes.
 - [ ] Phase 2: native floating/dockable reader presentation with external speech, preserving

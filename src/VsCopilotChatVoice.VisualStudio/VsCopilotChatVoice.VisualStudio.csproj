@@ -19,6 +19,7 @@
     <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\ReaderDocument.cs" Link="Shared\ReaderDocument.cs" />
     <Compile Include="..\Shared\ChatBridgeContracts.cs" Link="Shared\ChatBridgeContracts.cs" />
     <Compile Include="..\Shared\ChatMetadataServer.cs" Link="Shared\ChatMetadataServer.cs" />
     <Compile Include="..\Shared\PipePeerIdentity.cs" Link="Shared\PipePeerIdentity.cs" />

@@ -18,6 +18,12 @@ tests passed independent audit closure. Exp installation, native instance checks
 conversation's identity/status/epoch checks passed. Two distinct live chats, bidirectional instance
 isolation and graceful task-instance shutdown now pass; Phase 1 metadata-only verification is complete.
 No production reader migration, microphone, delivery or main-instance installation is enabled.
+Phase 1 is committed and pushed as `9fca48c`. Phase 2 preparation has started: section 6 of
+IMPLEMENTATION_PLAN.md now contains the approved source-grounded reader-migration breakdown.
+It covers shared document/navigation/preference reuse, external pause/resume/seek, native presentation
+and Exp acceptance. Part 1 extracts the existing speech-free document/navigation/preference types into
+linked shared source (0.4.1, verified extraction). The standalone window and native sample preview are
+unchanged; external pause/resume and migrated native controls remain unimplemented.
 
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
@@ -25,10 +31,10 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.0) with disabled chat-toolbar controls, native reader preview and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.1) with disabled chat-toolbar controls, native reader preview, shared reader model and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
-| `src\Shared` | Speech framing compiled into Reader/VSIX/tests; speech host, pipe identity, metadata contracts/server, Ctrl detector and recording mutex compiled into VSIX/tests. Not a separate assembly. |
-| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture and metadata-contract regression routes; not a Test Explorer adapter project. |
+| `src\Shared` | Reader document/navigation/preference source compiled into Reader/VSIX; speech framing into Reader/VSIX/tests; speech host, pipe identity, metadata contracts/server, Ctrl detector and recording mutex into VSIX/tests. Not a separate assembly. |
+| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture, metadata-contract and shared-reader-model regression routes; not a Test Explorer adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
 VoiceType's dictation engine. The `ReadAlongTrial` namespace and sample labels are
@@ -165,6 +171,28 @@ and prints bounded metadata JSON. No capture, speech or UI input is performed by
 `--metadata-status <Exp-PID> <instance-guid> <session-guid> <client-id> <epoch-guid>` performs the
 same bounded, peer/lifetime-checked handshake followed by an exact-target status request. It prints
 the correlated response and exits 0 for `Ok`, 1 for refusal/failure. It never edits or sends.
+
+### Phase 2 part 1 shared reader extraction (0.4.1; verified)
+
+The approved first increment moves the original document/section/word/navigation/preference types
+to `src\Shared\ReaderDocument.cs`, compiled into Reader and VSIX. Public names/signatures and
+standalone assembly identity are preserved. `ReaderWindow`, System.Speech, CLI/window lifetime and
+the original palette remain external; VSIX has no System.Speech or Reader assembly reference.
+The native tool window still shows its original sample, with unchanged Speak/Cancel behavior.
+
+`--reader-model-probe <VSIX-DLL>` passes 379 assertions against both built and installed DLLs:
+type ownership/dependencies, document/sample parity, reordered/malformed versions, spoken step
+prefixes, word/sentence/paragraph/text-pointer positions and isolated cross-consumer preferences.
+All seven earlier routes pass with their unchanged counts. VS MSBuild and IDE builds pass with
+only the existing toolbar warning. The independent targeted regression audit has no outstanding finding.
+
+The official 0.4.1 Exp install/configuration refresh exited 0. Packaged/installed manifests, VSIX
+DLL and bundled Reader matched the build; installed Reader self-tests pass 1,868 assertions.
+A fresh task Exp loaded the package and metadata gate, served a bounded hello/list and logged zero
+package errors. It closed gracefully; its endpoint disappeared while protected main VS remained.
+No reader speech, chat insertion/Send or microphone was initiated. This validates extraction/loading,
+not full Phase 2: external pause/resume/seek, migrated controls, frame/layout/focus/theme/DPI and
+two-instance playback acceptance remain ahead. The new reader-preview gate is still only proposed.
 
 ### PoC 1 bridge research and fallback proof (historical native increments)
 
@@ -422,6 +450,7 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --speech-worker-probe
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --gesture-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --contracts-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --reader-model-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
 
 `--gesture-probe [built-VSIX-DLL]` checks the pure detector with a fake capture owner,
@@ -565,6 +594,8 @@ The production decomposition was approved 2026-11-21. Section 6 decomposes Phase
 target lifetime, metadata-only IPC and Exp acceptance. Its 0.4.0 metadata-only foundation is verified as
 described above; full production functionality is not implemented. Working defaults not explicitly
 settled remain labelled in the plan, and later phases require their own acceptance gates.
+Phase 2's detailed breakdown is confirmed; shared reader extraction is the first increment;
+it does not authorize microphone capture, Settings, Speaker activation or reply delivery/history.
 The plan evolves with implementation/testing and approved enhancements. Start with bounded
 production increments under their acceptance gates; do not reopen accepted PoCs
 or treat their completion as automatic approval of the full migration.

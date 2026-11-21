@@ -15,8 +15,9 @@ explicitly approved normal-instance installation.
 
 ## Near term (priority order)
 
-All three bounded proofs are complete and pushed through `64451c8` (0.3.2). Current continuation
-is the approved Phase 1 metadata foundation (0.4.0), not microphone or reader migration. PoC 1's
+All three bounded proofs are complete and pushed through `64451c8` (0.3.2). Verified Phase 1
+metadata foundation (0.4.0) is committed/pushed as `9fca48c`; current continuation is Phase 2
+reader-migration preparation, not microphone or reply delivery. PoC 1's
 external guarded UIA fallback/observer is accepted with parked edge cases; native
 atomic insertion and a production reply feed remain unsupported. PoC 2 is accepted with caveats.
 PoC 3's detector, user-local mutex and log-only native observer pass 209 checks and are installed
@@ -39,8 +40,10 @@ retirement/reopen epoch changes, old-epoch refusal and next-client recovery. Bla
 without a supported live binding remain unavailable. Two distinct live SDK chats now pass own-target
 status, old-conversation refusal and bidirectional cross-instance isolation; graceful task-instance
 shutdown and endpoint disappearance are verified. Phase 1 metadata-only verification is complete.
-Local commit is explicitly approved; next is push approval or a separately reviewable Phase 2 reader migration increment;
-do not skip directly to microphone capture or reader/delivery integration.
+The user approved its push and starting the next phase. Phase 2's source-grounded breakdown in
+IMPLEMENTATION_PLAN section 6 is confirmed before runtime changes: shared reader
+types, external playback/lifetime, native view/frame behavior and regression/Exp acceptance.
+Do not skip directly to microphone capture, Settings or reply delivery.
 
 User decision 2026-11-21: use guarded UIA typing with read-back (`Insert-ChatDraftUia.ps1`) as the
 insertion fallback; positive live Exp proof is done (paste and `-Append -PlaceCaret` on fresh Exp).
@@ -59,6 +62,9 @@ reply, Deny outcome, second chat, very long transcript.
 - [x] Phase 1: metadata-only instance/conversation contracts, local bridge/lifetime and capability probes; live SDK bindings verified, blank/history-only surfaces remain unavailable.
 - [ ] Phase 2: native floating/dockable reader presentation with external speech, preserving
   prototype regression behavior. VS manages layout; audio work stays outside the IDE.
+	Detailed implementation breakdown approved 2026-11-21; part 1 shared-reader extraction verified:
+  model 379 plus seven preserved routes, independent audit closure and Exp 0.4.1 package/load proof.
+  Next: external playback/lifetime, then migrated native view and full runtime acceptance.
   PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp;
   still to prove: docking/pinning, keyboard focus without activation stealing, live theme change, two instances,
   and migration of the real reader features (navigation, Concise/Detailed, pause/resume).

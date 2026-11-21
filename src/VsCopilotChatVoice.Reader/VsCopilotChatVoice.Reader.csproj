@@ -10,6 +10,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\ReaderDocument.cs" Link="Shared\ReaderDocument.cs" />
     <Compile Include="..\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
   </ItemGroup>
   <ItemGroup>

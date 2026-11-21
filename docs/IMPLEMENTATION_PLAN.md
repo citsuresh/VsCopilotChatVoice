@@ -2,8 +2,9 @@
 
 Draft: 2026-11-20. Records the design discussion after toolbar checkpoint `ee55bb6`.
 Updated: 2026-11-21. All three bounded PoCs are accepted with recorded limitations and pushed
-through `64451c8`. Production decomposition approved 2026-11-21; Phase 1 is now under implementation
-and validation. Later phase acceptance gates still apply. Implement one independently
+through `64451c8`; verified metadata-only Phase 1 is committed/pushed as `9fca48c`.
+Production decomposition approved 2026-11-21; Phase 2 preparation has started with the detailed
+breakdown below approved. Later phase acceptance gates still apply. Implement one independently
 reviewable phase at a time, keeping it within approved scope.
 This is a living plan: update it from implementation/testing evidence and user-approved
 enhancements as work proceeds. Do not treat every design suggestion as approved scope.
@@ -521,8 +522,110 @@ into delivery integration rather than auto-send a probe to make a session appear
 Native ambiguity/capacity/timeouts and pending-IPC shutdown are still automated/child-process proof,
 not live-VS failure-injection claims. No bridge Send is used to create a session.
 Phase 1's regression, targeted audit closure and required native origin/lifetime gates pass. Phase 2
-has not started. Changes are manually reviewed and the user explicitly approved a local commit;
-no additional push or main-instance deployment is approved.
+runtime has not started. The user approved the local commit and subsequently the push; `9fca48c`
+is verified on remote main. No main-instance deployment is approved.
+
+### Phase 2 implementation decomposition (approved 2026-11-21)
+
+Purpose: migrate the actual single-reply reading experience into the native tool window, with
+all synthesis still in the external worker. The user requested starting the next phase after
+pushing Phase 1. This breakdown is the confirmation boundary before changing production reader
+code; the user confirmed it before implementation. It is not an additional PoC or permission to implement later phases. Implement/review the
+parts in order, preserving the standalone reader and the existing ungated sample preview.
+
+**Current-source evidence.** `ReaderPrototype.cs` contains the reusable `WordAnchor`, `Segment`,
+`ReadingPosition`, `ReadingNavigation`, `ReplyBlock`, `DocumentBuilder` and `ReplyVersionPreference`
+alongside the speech-owning `ReaderWindow`. Version switching cancels the old prompt, maps by
+section ID (including differently ordered variants), selects that section's first word and remains
+paused. Seek uses segment-relative offsets; live progress adds `promptOffset`. Stop retains the
+selected position, while Play after completion restarts at the beginning. The native PoC control
+instead renders one plain sample with `ReplyText`, always follows its highlight, and offers only
+Speak/Cancel. The current worker protocol has speak/cancel/shutdown but no pause/resume or state
+acknowledgements. Its host writes can wait synchronously; do not run those waits on the IDE UI
+thread in the migrated reader. Graph queries confirm the original switch/seek flow, but the graph
+does not list the newer native reader/worker symbols; current source is authoritative for those.
+
+1. **Shared document/navigation/preference extraction.** Move only the reusable types above into
+   shared source compiled by Reader and VSIX, following existing Compile-link patterns. Keep names,
+   public signatures, parsing/formatting, sentence detection, spoken step prefixes and section matching
+   unchanged. Keep `ReaderWindow`, its System.Speech owner, CLI/window hooks, animations and standalone
+   palette in the Reader project. No VSIX reference to System.Speech or the speech-owning executable
+   assembly. Reuse the existing preference path/load/save semantics, not a second saved choice or a
+   new settings schema. Test reorder/malformed/missing variants, word/prefix offsets and source-file
+   immutability before connecting native playback. Characterize existing behavior rather than silently
+   fixing unrelated prototype defects or the known preference flake.
+2. **External playback and lifecycle.** Extend the speech-only protocol/host/worker narrowly with
+   generation-correlated pause/resume commands and state acknowledgements. Pause preserves the actual
+   prompt; do not simulate it by cancel/re-speak or claim paused before the worker confirms. Keep
+   speak/cancel/shutdown/progress/completed behavior and bounds compatible with prior routes. Serialize
+   outbound operations off the UI thread, bound writes/reads and close the actual owned pipe on failure
+   or cancellation. The native playback owner tracks reply/version lifetime, segment/selected position,
+   prompt-relative base offset and speech generation separately. Completed segments advance exactly
+   once; selected-word seeking and navigation cancel the old generation and submit the selected suffix
+   only when currently playing. Stop/hide/disposal invalidate queued UI callbacks and retain position;
+   finished Play restarts. Version switch cancels, maps by section ID and remains paused until Play.
+   A cancelled/hidden start cannot attach a late worker or begin speaking after launch completes. Reject
+   stale progress/completion/state acknowledgements at both pipe and UI boundaries; explicit worker
+   failure updates status and allows a deliberate retry, never an automatic audio restart.
+3. **Native presentation and frame lifetime.** Add the migrated view behind a Debug + exact Exp +
+   launch-only reader-preview gate (proposed `VSCOPILOTCHATVOICE_READER_PREVIEW=1`), retaining the old
+   prepared-sample PoC when off until acceptance. Use an explicitly labelled prepared Detailed/Concise
+   fixture, not an assumed Copilot reply source or a new text-bearing metadata endpoint. Provide accessible
+   Play/Pause/Resume, Stop, distinct sentence/paragraph controls, word seeking, Follow and version choices.
+   Load the saved choice before playback; absent Concise shows Detailed with a notice without rewriting
+   saved Concise. Explicit choice saves immediately, with visible load/save failures. Tests and native
+   proof inject isolated preference paths (constructor/test configuration; any launch override remains
+   Debug/Exp-only). All WPF access and cleanup marshal to the UI thread. Manual wheel/scrollbar browsing
+   suspends Follow; explicit Follow/seek restores it, without stealing Chat/editor focus.
+   Bind content, markers, highlights and accessible states to owning VS/system resources; custom
+   appearance/font controls and scoped settings remain Phase 3. Use focused-reader-only keyboard handling
+   for transport/navigation and Tab; respect version/control key handling and avoid double invocation.
+   Esc and tool-window X stop/hide but retain the reply/position; opening manually never starts speech.
+   Distinguish explicit close/hide from docking, tabbing, auto-hide and temporary WPF unload/reparenting;
+   do not dispose or change a future Speaker preference merely because a docked view changes visibility.
+   VS owns floating-first and later layout persistence; no custom geometry or forced refloating.
+4. **Regression, review and Exp acceptance.** Extend the existing executable harness rather than adding
+   a framework/project. Add a native-reader route against the actual DLL with injected fake playback,
+   dispatcher/lifetime checks and isolated preferences. Extend silent real-worker tests for genuine
+   pause/resume (progress stops, same prompt continues), segment/seek offsets, cancellation and independent
+   hosts; deterministic fake-peer tests cover late/out-of-order acknowledgements, startup/hide/disposal
+   races and stalled writes. Preserve all seven current routes (contracts 136, gesture 209, speech 51,
+   toolbar 62, bridge 209, self-test 1,868, integration 292); update counts only from executed results.
+   Build with VS MSBuild and DeployExtension=false, bump the manifest for runtime changes, verify the
+   packaged/installed version and DLL, then use the official Exp-only installation route. Independent
+   regression audit is required; surface its findings and obtain approval before applying audit fixes.
+   Native gates: floating first use, manual docking/pinning/tabbing and restored layout, keyboard-only
+   transport/focus scope, paused section-aware version switch and reopen, seek/highlight/Follow, theme/
+   High Contrast/readability at narrow or high-DPI sizes, no activation theft, close/hide/startup races,
+   external-worker cleanup and two same-solution instances with isolated state/preferences/workers.
+   Record untested cases honestly; request manual docking/theme/second-instance help only if automation
+   cannot prove the case. Do not claim native frame semantics from offscreen WPF tests alone.
+
+**Exit gate:** the migrated single-reply view preserves the prototype's document/navigation/version
+and preference behavior, native layout/focus/lifetime gates pass and audio remains external. Required
+frame/focus/playback failures need a reported adapt/drop decision, not a workaround affecting the IDE.
+Phase 1 metadata stays content-free and disabled toolbar controls stay disabled. No microphone, capture,
+VoiceType copying, models, scoped Settings/voice controls, Speaker activation, automatic opening/delivery,
+reply history/queue policy or chat-scroll synchronization in this increment. No main-instance install,
+automatic deployment, new commit or push without their separate explicit approvals.
+
+Preparation checkpoint: push of `9fca48c` is verified against remote main. No Phase 2 runtime/test/project
+file was changed, no Exp launched and no build was needed for this documentation-only decomposition.
+CODE_SUMMARY/KEY_FLOWS remain unchanged because no structure or runtime flow has changed.
+
+Part 1 implementation checkpoint (0.4.1): the approved extraction moves the existing seven public types
+unchanged to Shared\ReaderDocument.cs, linked into Reader/VSIX without a System.Speech/Reader assembly
+reference in VSIX. ReaderWindow/CLI remain in the Reader assembly. --reader-model-probe adds actual-DLL
+model/navigation/preference checks; manifest 0.4.1 reflects the expanded assembly. VS MSBuild and IDE
+build pass; model 379 and all seven prior routes pass unchanged on the first run. Independent targeted
+regression audit reports no outstanding finding. Native sample view, speech protocol and metadata runtime
+are unchanged. Official Exp install/configuration refresh exited 0, packaged/installed manifests are
+0.4.1 and VSIX DLL/bundled Reader match build hashes. Model 379 against the installed DLL and installed
+Reader self 1,868 pass. A fresh task Exp logs package/metadata initialization, serves hello/list and
+has zero package errors; graceful close/wait removes the endpoint while protected main stays running.
+No speech, draft/Send or microphone started. This is an extraction/load checkpoint, not full Phase 2
+layout/focus/playback acceptance. Keep the next parts and their required native gates open. The user
+approved the reviewed local extraction checkpoint; no additional push is approved.
 
 **Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
 extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA

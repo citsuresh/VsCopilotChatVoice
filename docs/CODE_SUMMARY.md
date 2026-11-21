@@ -20,6 +20,13 @@ fine and approved the tighter 24-DIP group-height correction in Exp. The full na
 theme/DPI/accessibility and chat-recreation matrix remains pending.
 No VoiceType source or engine/model assets have been copied.
 The reader retains prototype branding and a pale-yellow palette.
+Phase 2 part 1 moves its speech-free document/navigation/preference types into
+`src\Shared\ReaderDocument.cs`, compiled into Reader and VSIX. Their public names/behavior and
+standalone assembly identity remain unchanged; the speech-owning ReaderWindow/CLI stay external.
+The native PoC view still uses its original sample; migrated playback/presentation remain pending.
+Actual built/installed model checks pass 379 assertions; all seven earlier routes and the targeted
+independent audit pass. Exp 0.4.1 package/metadata loading and clean graceful shutdown are verified,
+not migrated reader/layout/playback acceptance.
 
 The 0.2.12 PoC build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
 gated to Debug + Exp + launch environment opt-in. Its current-user-only named pipe defaults to inspecting
@@ -86,7 +93,7 @@ Blank/history-only surfaces without a live supported binding still expose no tar
 Gesture sources are compiled into VSIX and Tests only:
 
 Metadata contracts/server and `PipePeerIdentity` are also compiled into VSIX/Tests; only the
-bounded speech/framing source is compiled into the Reader. `ChatBridgeContracts.cs` defines
+bounded speech/framing and shared reader model sources are compiled into the Reader. `ChatBridgeContracts.cs` defines
 `BridgeRequest`, `BridgeTarget`, `BridgeResponse` and strict bounded schema parsing;
 `ChatMetadataServer.cs` defines the owned endpoint and read-only peer/lifetime-verifying client.
 `PipePeerIdentity.cs` shares current-user pipe ACL and safe-handle kernel peer checks with speech.
@@ -98,16 +105,18 @@ bounded speech/framing source is compiled into the Reader. `ChatBridgeContracts.
 
 ### VsCopilotChatVoice.Reader
 
-All reader symbols retain the `ReadAlongTrial` namespace.
+All reader symbols retain the `ReadAlongTrial` namespace. The document/navigation/preference
+symbols now live in `src\Shared\ReaderDocument.cs` and are also compiled into VSIX; the table's
+ReaderPrototype locations below apply only to Program/ReaderWindow.
 
 | Symbol | File | Responsibility |
 | --- | --- | --- |
 | `Program` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | STA entry point, ordered CLI validation, live owner HWND validation, self-tests. |
 | `ReaderWindow` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | Reader UI, playback lifetime, highlighting, Follow and version switching. |
-| `DocumentBuilder` / `ReplyBlock` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | JSON block validation, display/spoken document construction and cross-version section matching. |
-| `ReadingNavigation` / `ReadingPosition` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | Sentence/paragraph movement and text-pointer seeking. |
-| `Segment` / `WordAnchor` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | Section identity and spoken-offset-to-display mapping. |
-| `ReplyVersionPreference` | `src\VsCopilotChatVoice.Reader\ReaderPrototype.cs` | Immediate, atomic Concise/Detailed preference persistence. |
+| `DocumentBuilder` / `ReplyBlock` | `src\Shared\ReaderDocument.cs` | JSON block validation, display/spoken document construction and cross-version section matching. |
+| `ReadingNavigation` / `ReadingPosition` | `src\Shared\ReaderDocument.cs` | Sentence/paragraph movement and text-pointer seeking. |
+| `Segment` / `WordAnchor` | `src\Shared\ReaderDocument.cs` | Section identity and spoken-offset-to-display mapping. |
+| `ReplyVersionPreference` | `src\Shared\ReaderDocument.cs` | Immediate, atomic Concise/Detailed preference persistence. |
 | `SpeechWorker` | `src\VsCopilotChatVoice.Reader\SpeechWorker.cs` | Headless pipe client (`--speech-worker <pipe> [--silent]`): speaks, reports progress, ignores events from superseded prompts. |
 
 ### VsCopilotChatVoice.Reader.Tests
@@ -120,6 +129,7 @@ All reader symbols retain the `ReadAlongTrial` namespace.
 | `SpeechWorkerRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\SpeechWorkerRegressionTests.cs` | `--speech-worker-probe`: protocol, word model, fake and real silent worker (progress/cancel/replace), fault paths, disposal. 51 assertions. |
 | `GestureRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\GestureRegressionTests.cs` | `--gesture-probe [VSIX-DLL]`: pure/fake lifecycle including suppressed key-down and both release orders, real two-process contention/abandonment and actual-DLL WPF observer; 196 / 209 assertions. Isolated mutex names; no microphone. |
 | `ContractRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ContractRegressionTests.cs` | `--contracts-probe [VSIX-DLL]`: schema/framing, lifetime/target/order/replay guards, real peer/process isolation, cancellation/late-provider, ambiguity recovery, capacity and acknowledgement tests plus DLL gates; 131 / 136 assertions. `--metadata-inspect` and exact-target `--metadata-status` are read-only. |
+| `ReaderModelRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderModelRegressionTests.cs` | `--reader-model-probe <VSIX-DLL>`: 379 actual shared type ownership/dependency, document parity, step/word/sentence navigation, malformed-variant and isolated interoperable-preference assertions. |
 | `DraftPocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\DraftPocRegressionTests.cs` | Actual-VSIX mutation-surface removal, capability refusal, validation, cancellation, deduplication/conflicts/capacity and immutable-slot checks; no live VS input. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.

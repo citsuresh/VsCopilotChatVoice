@@ -409,3 +409,37 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
 - **Commit boundary:** Source/project/doc changes are reviewed and uncommitted. Local commit and
   push require explicit approval; no personal settings, reply/audio contents or proof logs belong in it.
 - **Approval:** The user subsequently approved the local Phase 1 commit only; no push approval.
+
+## 2026-11-21 - Phase 1 pushed; Phase 2 reader reuse breakdown prepared
+
+- **Evidence:** The user approved pushing and starting the next phase. Remote main was verified
+  exactly at `9fca48c`; the working tree was clean before Phase 2 documentation preparation.
+- **Proposed boundary (awaiting confirmation):** Extract the existing document/navigation/preference
+  types through Compile links, keeping the speech-owning ReaderWindow and standalone behavior outside
+  VS. Reuse the saved reading choice, map reordered variants by section ID and keep switches paused.
+  Add actual external pause/resume acknowledgement and asynchronous bounded transport rather than
+  blocking the IDE or simulating pause through cancellation. Preserve separate playback/UI lifetimes.
+- **Presentation/acceptance:** An Exp-only opt-in migrated single-reply view uses prepared paired
+  content and isolated proof preferences, never a fabricated reply feed. Native frame close/hide,
+  docking/auto-hide and reparenting need separate runtime proof; generic visibility loss is not owner
+  destruction. Manual open does not start speech or change future Speaker state. VS persists layout.
+- **Deferred:** Scoped settings/voice/appearance overrides, automatic Speaker/history/queues, reply
+  delivery, microphone/VoiceType/model work and main installation. No new runtime change, commit or
+  push is implied by preparing the breakdown; implementation follows its confirmation gate.
+
+## 2026-11-21 - Phase 2 confirmed; preserve shared reader implementation first
+
+- **Decision:** The user confirmed the Phase 2 breakdown. Start with a literal extraction of
+  existing speech-free document/navigation/preference types through Reader/VSIX Compile links;
+  keep ReaderWindow, System.Speech, CLI/window lifetime and palette unchanged in the Reader.
+- **Rationale:** Reuse tested step-prefix/word offsets, reordered section matching and atomic
+  choice persistence without two diverging implementations or a speech-bearing VSIX dependency.
+  Shared WPF document types are presentation data, not microphone/synthesis execution.
+- **Validation boundary:** Actual-DLL model parity checks and the seven existing regression routes
+  precede external playback/native integration. No pause/resume or native UI migration is claimed
+  by extraction. Existing nullable behavior is retained under #nullable disable in shared source.
+- **Result:** Model 379 and all seven preserved routes pass; VS MSBuild/IDE build and independent
+  targeted regression audit pass. Exp 0.4.1 manifests/DLL/bundled Reader match, installed model and
+  self-tests pass, package/metadata loading has zero package errors, and graceful task-only shutdown
+  removes the endpoint. This accepts extraction, not full native reader/layout/playback migration.
+- **Checkpoint:** The user explicitly approved a local reviewed extraction commit only; no new push.

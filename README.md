@@ -22,11 +22,14 @@ Phase 1 is committed and pushed as `9fca48c`. Phase 2 preparation has started: s
 IMPLEMENTATION_PLAN.md now contains the approved source-grounded reader-migration breakdown.
 It covers shared document/navigation/preference reuse, external pause/resume/seek, native presentation
 and Exp acceptance. Part 1 extracts the existing speech-free document/navigation/preference types into
-linked shared source (0.4.1, verified extraction). The standalone window and native sample preview are
-unchanged; migrated native playback ownership and controls remain unimplemented.
-The user approved/pushed part 1 as `da8fd78`, then requested continuation. The next transport
-increment (0.4.2, under validation) adds asynchronous bounded speech commands and actual external
-pause/resume acknowledgements; the native PoC controls still do not expose these new operations.
+shared source compiled into Reader and VSIX. The standalone window and native sample preview are
+unchanged; the unwired ownership increment is described below, while migrated native controls remain
+unimplemented.
+The user approved/pushed part 1 as `da8fd78`, then requested continuation. Transport 0.4.2 adds
+asynchronous bounded speech commands and actual external pause/resume acknowledgements; it is
+verified and committed locally as `bdb1328`, not pushed. The next bounded increment (0.4.3)
+adds an unwired single-reply playback controller and actual-DLL regression route. The visible
+native reader/PoC controls and tool-window frame are unchanged; native acceptance remains open.
 
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
@@ -34,10 +37,10 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.2, validation pending) with disabled chat-toolbar controls, native reader preview, shared reader model and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.3, uninstalled controller increment) with disabled chat-toolbar controls, unchanged native reader PoC, shared model, unwired single-reply playback owner and independently gated gesture/metadata foundations; bundles the reader as the external speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
 | `src\Shared` | Reader document/navigation/preference source compiled into Reader/VSIX; speech framing into Reader/VSIX/tests; speech host, pipe identity, metadata contracts/server, Ctrl detector and recording mutex into VSIX/tests. Not a separate assembly. |
-| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture, metadata-contract and shared-reader-model regression routes; not a Test Explorer adapter project. |
+| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture, metadata-contract, shared-reader-model and actual-DLL playback regression routes; not a Test Explorer adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
 VoiceType's dictation engine. The `ReadAlongTrial` namespace and sample labels are
@@ -208,9 +211,60 @@ VS MSBuild/IDE builds and all eight routes pass. Both independently reproduced a
 fixed with approval: a cancellation epoch rejects earlier queued starts (including idle first starts),
 and legacy Cancel preserves its existing exception contract. Exact silent regressions and independent
 closure pass. The unchanged isolated model preference File.Replace failed twice before a passing
-rerun; no preference fix was made. No 0.4.2 Exp deployment or native playback acceptance is claimed;
-installed Exp remains 0.4.1. The user approved a local transport checkpoint and continuation, not a
-push. Finish Phase 2 before Settings; a combined cross-phase review follows all implementation phases.
+rerun; no preference fix was made. The verified transport is local checkpoint `bdb1328`, not pushed.
+The parent independently installed a fixed 0.4.2 package snapshot in Exp: installer/configuration
+refresh exited 0; manifests/DLL/Reader matched; peer-checked metadata hello/list, installed Reader
+self 1,868 and actual installed-worker pause silence/resume/clean shutdown passed. The unchanged
+native preview reached Speaking/Finished twice. Its Cancel UI attempt raced silent completion and
+did not prove native Cancel; no package defect is inferred. Task Exp/worker shutdown and endpoint
+refusal passed, package activity errors were zero, and main VS stayed untouched. This is transport/
+old-preview evidence, not migrated controller/view/frame acceptance. Installed Exp is 0.4.2; the
+0.4.3 source increment remains uninstalled. Finish Phase 2 before Settings; a combined cross-phase
+review follows all implementation phases.
+
+### Phase 2 playback owner increment (0.4.3; unwired)
+
+`ReaderPlaybackController` owns one supplied reply on an explicit WPF dispatcher. It separates
+reply/version/operation lifetimes, segment/selected-word position, prompt-base offset and external
+speech generation. Play reads the selected suffix; sequential completion advances exactly once
+and finished Play restarts. Seek/sentence/paragraph navigation speaks only while already speaking.
+Pause/Resume publishes final state only after backend acknowledgement and retains the same prompt.
+Version switching cancels, maps reordered variants by section ID, selects the first word and stays
+paused. Stop/hide retains position; disposal/startup/queued callbacks cannot revive playback.
+Expected operational failures are explicit and require deliberate Play to retry. Unexpected
+programmer exceptions fault the returned task rather than becoming success-completed Error results.
+Coalesced worker events are bounded,
+including progress/completion before asynchronous Speak returns; obsolete launches dispose only
+their own returned resources. Later starts await retirement of the owner's previous session
+asynchronously; ignored-cancellation obsolete launches do not block or own newer sessions.
+A typed internal adapter owns the real external worker, with no
+System.Speech or Reader assembly reference in VSIX.
+
+`--reader-playback-probe <VSIX-DLL>` loads the actual controller and adapter from that DLL. Internal
+typed fake sessions (BCL RealProxy) exercise ordering, races, dispatcher affinity without a test
+SynchronizationContext, independent owners and exact cleanup; silent real workers exercise the
+actual adapter, same-prompt pause/resume, suffix offsets and independent-process teardown. No new
+project/package, settings schema or preference location is added. The owner accepts the already
+loaded choice; the following view increment will use the existing shared preference model.
+No visible reader, tool-window frame, native preview control, toolbar, focus/activation/scroll
+behavior or deployment is changed. Native layout/theme/keyboard/Follow and 0.4.3 Exp gates remain
+open; synthetic/controller/child-worker checks do not establish native acceptance. Independent
+targeted review is obtained by the parent before further migration. Final VS MSBuild passes with
+only the existing toolbar warning. After the approved completion-race correction the new route passed 220 assertions
+first, then all eight preserved routes passed serially: speech 110, toolbar 62, bridge 209, gesture
+209, contracts 136, model 379, Reader self 1,868 and integration 292/seven live mappings. All exit
+codes were zero on that final run; no preference flake occurred. The known preference File.Replace
+flake remains unchanged/unresolved, not fixed by this increment.
+The exception-boundary fixtures distinguish expected operational failures from unexpected programmer
+exceptions in launch/speak/pause/resume/cancel, including stale-launch fencing and exact cleanup.
+Independent review passed the original 190-assertion route but reproduced a pending Pause/Resume
+cancellation arriving before normal completion and incorrectly producing Error instead of advancing.
+The approved correction carries an explicit internal state result: confirmed state versus the exact
+prompt's natural completion. Completion advances independently of callback ordering; genuine cancelled
+acknowledgements remain errors. Tests cover both orders, final/intermediate sections, duplicates and
+requests racing completion. Independent closure passes playback220/speech110 and additional actual-DLL
+host/adapter/controller protocol-injection checks. No significant coupled finding remains. Native
+view/frame integration and its Exp acceptance are still required; this owner checkpoint is unwired.
 
 ### PoC 1 bridge research and fallback proof (historical native increments)
 
@@ -469,6 +523,7 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --gesture-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --contracts-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --reader-model-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --reader-playback-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
 
 `--gesture-probe [built-VSIX-DLL]` checks the pure detector with a fake capture owner,
@@ -491,6 +546,8 @@ integration assertions with seven live progress mappings. A successful build pro
 `src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.vsix`.
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
+`scripts\agent\Test-VsixInstallation.ps1` independently verifies package/install identity,
+version and binary matches without installation or UI access; see `docs\SCRIPTS.md`.
 
 Clear inherited `DOTNET_ROOT` before invoking the installed VS MSBuild, as in the task's
 Developer PowerShell environment. The existing preference-save flake remains unresolved;

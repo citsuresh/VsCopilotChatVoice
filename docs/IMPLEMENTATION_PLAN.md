@@ -651,6 +651,62 @@ review of integration, lifecycle/ownership, compatibility, error paths and regre
 This supplements existing per-phase independent checks; do not postpone a known blocker until that
 final review or mark later phases complete without their own implementation and acceptance gates.
 
+Bounded continuation (0.4.3): transport checkpoint `bdb1328` is committed locally, not pushed. The
+parent independently installed a fixed 0.4.2 snapshot in Exp: version/binary matches, peer-checked
+metadata hello/list, installed Reader self 1,868, installed-worker genuine pause silence/resume and
+clean shutdown, unchanged preview Speaking/Finished twice, zero package activity errors and task-only
+VS/worker/endpoint cleanup passed. Native Cancel UI raced silent completion and is not positively
+proved. This accepts transport/loading evidence only; it does not accept migrated view/frame behavior.
+
+The next approved owner increment adds `ReaderPlaybackController` and internal typed
+`ReaderSpeechBackend`/session adapter, with an actual-VSIX-DLL `--reader-playback-probe` executable
+route. It implements distinct reply/version/operation/generation fences, dispatcher-bound model/state
+even without a test SynchronizationContext, suffix/step offsets, exactly-once sequential completion,
+backend-acknowledged same-prompt pause/resume, paused section-ID version mapping, deliberate error
+retry and exact-resource Stop/hide/disposal/startup cancellation. Events coalesce with bounded early
+generation slots and one queued dispatcher callback; obsolete launches cannot attach/dispose a newer
+session. Tests use internal typed RealProxy fakes and the actual external-worker adapter without new
+packages/projects or public APIs. Choice injection uses the existing shared model; visible preference
+load/save/controls follow later, with no new schema or preference location.
+
+The native PoC control and standalone ReaderWindow are untouched. Owner automation is not migrated
+presentation or native Exp acceptance: part 3 (gated view/frame/keyboard/Follow/theme/preferences) and
+the full part 4 native matrix remain open. 0.4.3 is uninstalled; no deployment/UI automation, commit,
+staging or push is part of this owner increment. Parent obtains independent targeted review before
+continuing. Leave Phase 2's exit gate unchecked until migrated view/native gates pass.
+
+Final owner automation: VS MSBuild with DeployExtension=false passes with the existing toolbar
+warning only. After the last source change, actual-DLL playback 190 passed first, followed serially
+by speech 104, toolbar 62, bridge 209, gesture 209, contracts 136, model 379, Reader self 1,868 and
+integration 292/seven live mappings; all exit codes zero. No preference flake occurred on that run;
+the unchanged known File.Replace flake remains unresolved. No 0.4.3 native runtime acceptance or
+independent review closure is claimed by these results.
+The pre-audit contributor-contract correction narrows startup/state/cancellation exception handlers
+to expected operational failures. Unexpected programmer exceptions propagate through faulted tasks,
+with precise fake launch/speak/pause/resume/cancel and stale-launch cases; resource/fencing semantics
+remain unchanged. No unrestricted production Exception handler or generalized exception framework
+is added.
+
+Independent owner review passed playback190 but reproduced one Medium race in both Pause and Resume:
+the host cancels a pending state acknowledgement before raising normal completion; cancellation-first
+dispatcher ordering produced Error at section0 and discarded legitimate completion. Primary reproduced
+both actual-DLL cases. The user approved relevant audit fixes and commits when required, with no push
+or main-instance installation approval. Blocked items may be parked while independent work continues;
+parked gates are not passed and dependent safety checks must not be bypassed.
+
+The correction uses an internal Task<bool> state outcome: true confirms state, false identifies natural
+completion of the exact prompt. Matching requests racing already processed completion also return false;
+unrelated stale/cancelled generations still refuse and genuine cancelled acknowledgements still fail.
+The controller leaves Pausing/Resuming until matching completion advances exactly once. Both callback
+orders, Pause/Resume, final/intermediate sections, duplicates and real-host terminal/refusal behavior
+pass. Final VS MSBuild/IDE build and all nine serial routes pass: playback220, speech110, toolbar62,
+bridge209, gesture209, contracts136, model379, self1,868 and integration292/seven mappings. No flake.
+Independent narrow closure passes playback220/speech110 and extra actual-DLL host/session/controller
+protocol injections for pending and completed-before-request Pause/Resume, terminal outcome before
+completion, duplicate/final completion, genuine cancellation and Stop/Dispose fencing. No significant
+coupled issue remains. This is deterministic ordering/ownership proof, not natural race frequency;
+no migrated view or 0.4.3 native acceptance is claimed. Proceed to the gated native-view increment.
+
 **Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
 extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA
 helpers proved on Exp; Phase 6 may reuse their findings, not their code path as a production feed.

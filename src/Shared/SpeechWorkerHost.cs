@@ -26,6 +26,7 @@ internal sealed class SpeechWorkerHost : IDisposable
     private int? expectedClientProcessId;
     private Process? process;
     private long generation;
+    private long completedGeneration;
     private long cancellationEpoch;
     private bool active;
     private int activeLength;
@@ -156,7 +157,8 @@ internal sealed class SpeechWorkerHost : IDisposable
                 deadline.Token.ThrowIfCancellationRequested();
                 if (startEpoch != cancellationEpoch) throw new OperationCanceledException("The queued speech start was cancelled.");
                 generation = gen;
-                CancelPendingState();
+                completedGeneration = 0;
+                EndPendingState();
                 active = true;
                 paused = false;
                 activeLength = text.Length;
@@ -188,11 +190,12 @@ internal sealed class SpeechWorkerHost : IDisposable
         {
             if (disposed || faulted) return false;
             cancellationEpoch++;
+            completedGeneration = 0;
             if (!active) return false;
             active = false;
             paused = false;
             gen = generation;
-            CancelPendingState();
+            EndPendingState();
         }
         using var timeout = new CancellationTokenSource(WriteTimeout);
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token, cancellation, timeout.Token);
@@ -217,10 +220,11 @@ internal sealed class SpeechWorkerHost : IDisposable
         finally { if (acquired) sendGate.Release(); }
     }
 
-    public Task PauseAsync(long gen, CancellationToken cancellation = default) => ChangeStateAsync(gen, true, cancellation);
-    public Task ResumeAsync(long gen, CancellationToken cancellation = default) => ChangeStateAsync(gen, false, cancellation);
+    // True confirms the requested state; false means this exact prompt completed naturally.
+    public Task<bool> PauseAsync(long gen, CancellationToken cancellation = default) => ChangeStateAsync(gen, true, cancellation);
+    public Task<bool> ResumeAsync(long gen, CancellationToken cancellation = default) => ChangeStateAsync(gen, false, cancellation);
 
-    private async Task ChangeStateAsync(long gen, bool pause, CancellationToken cancellation)
+    private async Task<bool> ChangeStateAsync(long gen, bool pause, CancellationToken cancellation)
     {
         if (gen < 1) throw new ArgumentOutOfRangeException(nameof(gen));
         cancellation.ThrowIfCancellationRequested();
@@ -236,9 +240,10 @@ internal sealed class SpeechWorkerHost : IDisposable
             lock (sync)
             {
                 EnsureUsable();
+                if (!active && gen == completedGeneration) return false;
                 if (!active || gen != generation) throw new InvalidOperationException("The speech generation is no longer active.");
                 if (pendingState != null) throw new InvalidOperationException("A speech state change is already pending.");
-                if (paused == pause) return;
+                if (paused == pause) return true;
                 request = new StateRequest { Generation = gen, Command = ++command, Paused = pause };
                 pendingState = request;
             }
@@ -251,7 +256,7 @@ internal sealed class SpeechWorkerHost : IDisposable
             acquired = false;
             using var cancelWait = deadline.Token.Register(() => request.Completion.TrySetCanceled());
 #pragma warning disable VSTHRD003 // The pipe reader completes this deadline-bounded task without UI work.
-            await request.Completion.Task.ConfigureAwait(false);
+            return await request.Completion.Task.ConfigureAwait(false);
 #pragma warning restore VSTHRD003
         }
         catch (OperationCanceledException) when (timeout.IsCancellationRequested || cancellation.IsCancellationRequested)
@@ -267,9 +272,10 @@ internal sealed class SpeechWorkerHost : IDisposable
         }
     }
 
-    private void CancelPendingState()
+    private void EndPendingState(bool completed = false)
     {
-        pendingState?.Completion.TrySetCanceled();
+        if (completed) pendingState?.Completion.TrySetResult(false);
+        else pendingState?.Completion.TrySetCanceled();
         pendingState = null;
     }
 
@@ -342,7 +348,8 @@ internal sealed class SpeechWorkerHost : IDisposable
                     {
                         active = false;
                         paused = false;
-                        CancelPendingState();
+                        completedGeneration = generation;
+                        EndPendingState(true);
                         long gen = message.Generation;
                         raise = () => Completed?.Invoke(gen);
                     }
@@ -363,7 +370,7 @@ internal sealed class SpeechWorkerHost : IDisposable
                     break;
                 case WorkerProtocol.Cancelled:
                     // A confirmation of our own cancel is expected and ignored; an unrequested stop is a fault.
-                    if (active && message.Generation == generation) { active = false; paused = false; CancelPendingState(); raise = () => Faulted?.Invoke("The speech worker stopped speech unexpectedly."); }
+                    if (active && message.Generation == generation) { active = false; paused = false; EndPendingState(); raise = () => Faulted?.Invoke("The speech worker stopped speech unexpectedly."); }
                     break;
                 case WorkerProtocol.Error:
                     if ((message.Command == 0 || (pendingState != null && message.Command == pendingState.Command)) &&
@@ -371,7 +378,8 @@ internal sealed class SpeechWorkerHost : IDisposable
                     {
                         active = false;
                         paused = false;
-                        CancelPendingState();
+                        completedGeneration = 0;
+                        EndPendingState();
                         string text = message.Message ?? "Speech failed.";
                         raise = () => Faulted?.Invoke(text);
                     }
@@ -395,7 +403,8 @@ internal sealed class SpeechWorkerHost : IDisposable
             faulted = true;
             active = false;
             paused = false;
-            CancelPendingState();
+            completedGeneration = 0;
+            EndPendingState();
         }
         Faulted?.Invoke(reason);
         Teardown(false);
@@ -410,7 +419,8 @@ internal sealed class SpeechWorkerHost : IDisposable
             disposed = true;
             active = false;
             paused = false;
-            CancelPendingState();
+            completedGeneration = 0;
+            EndPendingState();
             wasConnected = connected && !faulted;
         }
         // The shutdown handshake and process wait can take seconds, so they never run on the caller (UI) thread.

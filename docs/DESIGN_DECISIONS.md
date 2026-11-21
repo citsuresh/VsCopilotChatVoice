@@ -472,3 +472,60 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
 - **Approval/review:** The user approved a local transport commit and continuation, not push. Finish
   the confirmed Phase 2 reader before later phases. The requested combined review follows all
   implementation phases and supplements, rather than replaces, per-phase checks and blocker closure.
+
+## 2026-11-21 - Bounded unwired single-reply playback owner before native view
+
+- **Decision:** Add an internal VSIX controller and typed external-worker/session adapter, not the
+  visible view or frame. Keep one supplied reply, separate reply/version/operation/prompt-generation
+  fences and explicit owning-dispatcher access, including continuations without SynchronizationContext.
+  The owner accepts the already loaded Concise/Detailed choice; preference load/save and controls
+  remain the following view's responsibility through the existing shared model.
+- **Rationale:** Isolate exactly-once sequential completion, suffix/step offsets, acknowledged true
+  pause/resume, section-ID mapping and Stop/hide/startup races before native layout/focus migration.
+  Retired sessions are cancelled/disposed by exact local identity; a launch ignoring cancellation
+  may clean only its own returned resource. Normal completed segments reuse the same session.
+  A later start awaits the owner's existing-session retirement asynchronously, without a UI wait
+  or dependence on an obsolete launch that ignored cancellation.
+- **Bounds:** Coalesce progress monotonically with sticky completion, at most 16 generation slots
+  before Speak returns and one queued dispatcher callback per prompt; overflow is an explicit error.
+  No synchronous UI waits, automatic error retries or controller activation/scroll/focus effects.
+- **Alternatives:** Duplicate Compile-linked controller tests, BCL-only untyped production delegates,
+  an over-general playback framework and new test packages/projects were rejected. Internal typed
+  interfaces plus framework RealProxy test injection exercise the actual VSIX DLL without public APIs.
+- **Acceptance boundary:** 0.4.3 is uninstalled and the native PoC/ReaderWindow are unchanged. The parent
+  independently verified a fixed 0.4.2 transport package in Exp; that is not 0.4.3 controller/view/frame
+  acceptance. The new executable route covers actual adapter/child workers, not native layout or UI.
+  Parent-owned independent targeted review and the next native-view/Exp gates remain required.
+- **Automated evidence:** Final no-deploy VS MSBuild passes (existing toolbar warning only).
+  Actual-DLL playback 148 passed before eight serial routes: speech 104, toolbar 62, bridge 209,
+  gesture 209, contracts 136, model 379, self 1,868 and integration 292/seven mappings. No flake
+  occurred on that final run; the pre-existing preference issue is unchanged, not resolved.
+
+## 2026-11-21 - Pre-audit operational exception boundary correction
+
+- **Decision:** Narrow controller startup/state/cancellation catches to expected IO, invalid/disposed
+  state, cancellation and timeout failures, with access/Win32 failures at startup. Unexpected
+  programmer exceptions fault operation tasks rather than being converted to successful Error results.
+- **Evidence:** New fake cases reproduce the former swallowed launch programmer exception and cover
+  launch/speak/pause/resume/cancel plus stale launch/resource fences. Final no-deploy VS MSBuild and
+  all nine serial routes pass: playback 190; eight prior route counts remain unchanged. Independent
+  review and unwired native-view/Exp gates remain pending; no deployment or preference fix occurred.
+
+## 2026-11-21 - Explicit natural-completion outcome for pending state changes
+
+- **Decision:** Internal Pause/Resume tasks return true for confirmed state and false when their exact
+  prompt completed naturally. Track the last completed generation for a request racing completion;
+  keep explicit cancellation, stale-generation refusal, timeouts and faults distinct.
+- **Evidence:** Independent review and primary reproduction found cancellation-first Pause/Resume
+  callbacks could discard legitimate completion and leave section0 in Error. Both completion/outcome
+  orders, intermediate/final sections, duplicates and real-host exact-generation cases now pass:
+  playback220, speech110 and all seven preserved routes; no-deploy MSBuild/IDE builds pass.
+- **Alternative:** Ignore every OperationCanceledException, delay the handler or rely on dispatcher
+  scheduling order; rejected because these hide genuine failures or retain the race. No wire-schema
+  change or new exception framework is needed; independent targeted closure remains required.
+- **Workflow approval:** The user approved relevant audit corrections and commits when required.
+  Continue all remaining phases autonomously; park blockers and continue independent items without
+  treating parked gates as passed. Push/main-instance installation still require separate approval.
+- **Closure:** Independent playback220/speech110 and actual-DLL host/adapter/controller injections
+  close the finding, with genuine cancellation, duplicate completion and Stop/Dispose cleanup intact.
+  No significant coupled issue remains; natural race frequency and native presentation remain unproved.

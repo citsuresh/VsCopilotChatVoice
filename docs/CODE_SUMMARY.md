@@ -23,7 +23,12 @@ The reader retains prototype branding and a pale-yellow palette.
 Phase 2 part 1 moves its speech-free document/navigation/preference types into
 `src\Shared\ReaderDocument.cs`, compiled into Reader and VSIX. Their public names/behavior and
 standalone assembly identity remain unchanged; the speech-owning ReaderWindow/CLI stay external.
-The native PoC view still uses its original sample; migrated playback/presentation remain pending.
+The native PoC view still uses its original sample. The 0.4.3 single-reply playback controller and
+typed external-worker adapter are implemented but unwired; migrated presentation/frame behavior
+remain pending. The owner separates reply/version/operation and speech-generation lifetimes,
+dispatcher-bound selection/state, true acknowledged pause/resume and bounded event coalescing.
+It has no preference-file, scrolling, activation or focus side effects. The following view increment
+will load/save through the existing shared preference model; no new preference schema is added.
 Actual built/installed model checks pass 379 assertions; all seven earlier routes and the targeted
 independent audit pass. Exp 0.4.1 package/metadata loading and clean graceful shutdown are verified,
 not migrated reader/layout/playback acceptance.
@@ -81,6 +86,8 @@ Blank/history-only surfaces without a live supported binding still expose no tar
 
 | `ReaderToolWindow` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindow.cs` | `ToolWindowPane` registered `Style=Float`; hosts the control and disposes it. |
 | `ReaderToolWindowControl` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindowControl.cs` | Code-built WPF: Speak/Cancel, status, sample reply, VS-themed word highlight, lazy worker launch, UI-thread generation guard. No speech in-process. |
+| `ReaderPlaybackController` / `ReaderPlaybackPhase` | `src\VsCopilotChatVoice.VisualStudio\ReaderPlaybackController.cs` | Unwired single-reply owner: explicit dispatcher affinity, segment/suffix/word selection, section-ID variant mapping, acknowledged pause/resume, exactly-once completion, bounded early-event coalescing and launch/session/operation teardown fences. No visible reader/frame integration. |
+| `ReaderSpeechBackend` / `IReaderSpeechBackend` / `IReaderSpeechSession` | `src\VsCopilotChatVoice.VisualStudio\ReaderSpeechBackend.cs` | Internal typed test seam and real adapter over SpeechWorkerHost; cancellable external startup, prompt generation and owned session cleanup, without System.Speech or Reader assembly reference. |
 | `VoiceCommands.vsct` | `src\VsCopilotChatVoice.VisualStudio\VoiceCommands.vsct` | View > Other Windows menu command that shows the tool window. |
 
 ### Shared (compiled into VSIX, Reader and Tests)
@@ -126,10 +133,11 @@ ReaderPrototype locations below apply only to Program/ReaderWindow.
 | `ReadAlongNavigationTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderRegressionTests.cs` | Executable WPF/navigation/preference/ownership and child-process regression checks; no Test Explorer adapter. |
 | `ToolbarRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ToolbarRegressionTests.cs` | Optional reflection-based checks against the actual VSIX toolbar class using offscreen synthetic WPF chat controls; no speech/preferences. |
 | `BridgePocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\BridgePocRegressionTests.cs` | Optional actual-VSIX checks for gating, metadata, public/interface identity fields, private/content getter exclusion and hidden windows, plus isolated real-listener timeout/recovery/shutdown checks. No VS input/speech/preferences. |
-| `SpeechWorkerRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\SpeechWorkerRegressionTests.cs` | `--speech-worker-probe`: 104 protocol/model/fake-peer/real silent-worker assertions, correlated state, raw pause silence/resume, deadlines, cancelled/late startup, queued-start cancellation, legacy timeout compatibility and disposal. Independent targeted audit closure passes. |
+| `SpeechWorkerRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\SpeechWorkerRegressionTests.cs` | `--speech-worker-probe`: 110 protocol/model/fake-peer/real silent-worker assertions, correlated state, explicit natural-completion outcome, raw pause silence/resume, deadlines, cancelled/late startup, queued-start cancellation, legacy timeout compatibility and disposal. Transport and completion-outcome audit closure pass. |
 | `GestureRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\GestureRegressionTests.cs` | `--gesture-probe [VSIX-DLL]`: pure/fake lifecycle including suppressed key-down and both release orders, real two-process contention/abandonment and actual-DLL WPF observer; 196 / 209 assertions. Isolated mutex names; no microphone. |
 | `ContractRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ContractRegressionTests.cs` | `--contracts-probe [VSIX-DLL]`: schema/framing, lifetime/target/order/replay guards, real peer/process isolation, cancellation/late-provider, ambiguity recovery, capacity and acknowledgement tests plus DLL gates; 131 / 136 assertions. `--metadata-inspect` and exact-target `--metadata-status` are read-only. |
 | `ReaderModelRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderModelRegressionTests.cs` | `--reader-model-probe <VSIX-DLL>`: 379 actual shared type ownership/dependency, document parity, step/word/sentence navigation, malformed-variant and isolated interoperable-preference assertions. |
+| `ReaderPlaybackRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderPlaybackRegressionTests.cs` | `--reader-playback-probe <VSIX-DLL>`: 220 actual controller/internal typed RealProxy seam and real silent external-worker adapter assertions; suffix/step offsets, variant mapping, completion/state-outcome orders, bounded early events, cancellation/late resources, dispatcher affinity without SynchronizationContext, independent owners and operational-vs-programmer exception boundaries. No Compile-linked controller or VS UI. |
 | `DraftPocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\DraftPocRegressionTests.cs` | Actual-VSIX mutation-surface removal, capability refusal, validation, cancellation, deduplication/conflicts/capacity and immutable-slot checks; no live VS input. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.

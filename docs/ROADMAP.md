@@ -66,8 +66,15 @@ reply, Deny outcome, second chat, very long transcript.
   model 379 plus seven preserved routes, independent audit closure and Exp 0.4.1 package/load proof.
 	Extraction checkpoint `da8fd78` is pushed. External transport 0.4.2 builds and passes all eight
 	routes (speech 104); both approved queued-cancel/legacy-timeout fixes pass independent closure.
-  Local transport checkpoint/continuation approved, not push. Next: playback ownership/lifetime,
-  then native view/full acceptance. Exp remains 0.4.1; no full Phase 2 acceptance is claimed.
+	Local transport checkpoint `bdb1328`/continuation approved, not push. Parent independently
+  verified fixed-snapshot 0.4.2 transport/loading, actual installed-worker pause/resume and old
+  preview completion/cleanup in Exp (native Cancel UI remains unproved). Installed Exp is 0.4.2.
+  The bounded 0.4.3 single-reply owner and typed real-worker adapter are implemented but unwired;
+	actual-DLL playback 220 and all eight preserved routes pass (speech110), with VS MSBuild/DeployExtension=false
+  and only the existing toolbar warning. Independent review reproduced a completion/state race;
+	the approved explicit terminal-outcome correction and independent actual-host/controller closure pass.
+  Next: gated native
+  view/preferences/frame and full acceptance. No full Phase 2 or 0.4.3 Exp acceptance is claimed.
   PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp;
   still to prove: docking/pinning, keyboard focus without activation stealing, live theme change, two instances,
   and migration of the real reader features (navigation, Concise/Detailed, pause/resume).

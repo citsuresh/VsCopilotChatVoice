@@ -180,14 +180,36 @@ internal static class SpeechWorkerRegressionTests
             Thread.Sleep(100);
             Check(!host.IsActive && !host.IsPaused, "A late acknowledgement revived cancelled speech.");
             long replacement = host.SpeakAsync("fresh words").GetAwaiter().GetResult(); Receive(reader);
-            Task completingPause = host.PauseAsync(replacement); Receive(reader);
+            Task<bool> completingPause = host.PauseAsync(replacement); Receive(reader);
             Send(client, new WorkerMessage { Type = WorkerProtocol.Completed, Generation = replacement });
-            Check(WaitFor(() => completingPause.IsCanceled, 2000) && !host.IsActive, "Completion left a state request pending.");
+            Check(completingPause.Wait(2000) && !completingPause.Result && !host.IsActive,
+                "Natural completion did not return a distinct terminal state outcome.");
+            Check(!host.PauseAsync(replacement).GetAwaiter().GetResult() && !host.ResumeAsync(replacement).GetAwaiter().GetResult(),
+                "A state command racing an already completed exact generation became an operational error.");
+            bool staleRefused = false;
+            try { host.PauseAsync(gen).GetAwaiter().GetResult(); }
+            catch (InvalidOperationException) { staleRefused = true; }
+            Check(staleRefused, "Natural completion concealed an unrelated stale-generation request.");
+            Check(WaitFor(() => capture.Has("C:" + replacement), 2000) && !capture.Has("F:"),
+                "The terminal state outcome lost completion or published a fault.");
+            long resumingGeneration = host.SpeakAsync("resuming words").GetAwaiter().GetResult(); Receive(reader);
+            Task<bool> confirmedPause = host.PauseAsync(resumingGeneration); WorkerMessage pauseRequest = Receive(reader);
+            Send(client, new WorkerMessage { Type = WorkerProtocol.Paused, Generation = resumingGeneration, Command = pauseRequest.Command });
+            Check(confirmedPause.Wait(2000) && confirmedPause.Result, "A genuine acknowledgement lost its confirmed outcome.");
+            Task<bool> completingResume = host.ResumeAsync(resumingGeneration); Receive(reader);
+            Send(client, new WorkerMessage { Type = WorkerProtocol.Completed, Generation = resumingGeneration });
+            Check(completingResume.Wait(2000) && !completingResume.Result && !host.IsActive && !host.IsPaused,
+                "Natural completion during Resume was mistaken for cancellation or acknowledgement.");
+            host.CancelAsync().GetAwaiter().GetResult();
+            bool cancelledRefused = false;
+            try { host.ResumeAsync(resumingGeneration).GetAwaiter().GetResult(); }
+            catch (InvalidOperationException) { cancelledRefused = true; }
+            Check(cancelledRefused, "Explicit cancellation retained a completed-generation success outcome.");
             using (var cancelled = new CancellationTokenSource())
             {
                 cancelled.Cancel();
                 Task<long> skipped = host.SpeakAsync("must not start", cancelled.Token);
-                Check(skipped.IsCanceled && host.CurrentGeneration == replacement, "A pre-cancelled start allocated a generation.");
+                Check(skipped.IsCanceled && host.CurrentGeneration == resumingGeneration, "A pre-cancelled start allocated a generation.");
             }
             long final = host.SpeakAsync("final words").GetAwaiter().GetResult(); Receive(reader);
             Task disposedPause = host.PauseAsync(final); Receive(reader);

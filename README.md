@@ -141,8 +141,33 @@ or sends, and re-checks the Send button right before typing. It is not atomic: o
 it reports `DraftChanged`, does not clear, and our text may remain inside the person's draft. If the
 input exposes a writable ValuePattern the primitive replaces the whole draft (the method is reported),
 so text typed after the final check would be lost. Verified so far: parse, stale-handle, control-character and main-instance refusals.
-Not yet proved: a positive insertion; a fresh Exp instance showed no chat composer, so that needs
-a signed-in Exp chat. The orchestrator's own Send script clears the input, so it is unsuitable here.
+Live Exp results (signed-in chat, 2026-11-21): an Exp instance that reported "an operation is blocking
+user input" dropped Ctrl chords and End and moved focus to Git Changes, so paste read-back failed; the
+Send button was also an unreliable emptiness signal there. After restarting Exp the helper proved, with
+TextPattern read-back and nothing sent: paste into an empty draft; `-Append -PlaceCaret` onto a one-line,
+a two-line and a 14-line draft whose end was scrolled out of view (previous text preserved, marker at the
+end). TextPattern text is the read-back signal. `-Append` without `-PlaceCaret` is passive (it does not switch window/tab or move focus itself; typed mode
+sends only the text, `-Paste` sends Ctrl+V, and both let the toolkit re-activate Exp, so text could land in
+Exp's current control if the person moves focus during the call); you must have Exp foreground, the input focused and the
+caret at the end, else it refuses. `-PlaceCaret` sends one Ctrl+End after bringing Exp forward and refuses
+if the input leaves the UI tree, the text changes or the caret is not at the end. `-Append -Paste` delivers
+up to 20000 characters (one line, no control characters or double quote, not starting with a hyphen or ending with a backslash) with the
+toolkit's `paste-text` verb (clipboard snapshot restored) at the caret, with the same guards and exact
+read-back; an 11,091-character paste onto a 14-line draft was proved live and nothing was sent. When the
+draft is not empty, `-Append -Paste` starts the pasted text with a line break so the new prompt begins on its
+own line (`-NoLeadingNewline` opts out; typed `-Append` never adds one, since a typed Enter would send).
+Additional live scenarios on Exp (unattended, nothing sent), all exact read-back or the intended refusal:
+accents, CJK, emoji, shell/SendKeys special characters and padded spaces via paste; a 20,000-character
+paste (20,001 refused); clipboard text, image and file-list contents restored after a paste (a text
+clipboard regains synthesized `System.String`/`Text` formats); a clipboard locked by another process gives
+`Failed` with the draft verified unchanged; a caret placed mid-draft gives `CaretNotAtEnd`. Not yet tested
+(need the person to set up the state or approve focus/tab changes): selected text, input not focused, Exp in
+the background, chat tab hidden, chat busy, two chat inputs, `#file`/`/command`/attachment chips, an open
+autocomplete popup, undo of a long paste, typing during the call and the blocked-input Exp state.
+Still not
+atomic: text
+typed by the person during the few seconds of the call can interleave (reported, never cleared).
+The orchestrator's own Send script clears the input, so it is unsuitable here.
 
 ### Atomic-insertion capability probe (0.2.12)
 

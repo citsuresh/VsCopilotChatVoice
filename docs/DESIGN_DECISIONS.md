@@ -242,3 +242,22 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   detected only afterwards: a clipboard paste keeps it and adds ours (reported, never cleared), while a
   writable ValuePattern would replace the whole draft (method reported). It also needs foreground focus and the clipboard. It stays an external experiment and
   is not a production insertion path until a live Exp proof and user approval exist.
+- **Live result and reversal (same day):** In a signed-in Exp chat that reported "an operation is
+  blocking user input", the guards passed but paste read-back never landed, Ctrl chords and End were
+  dropped and focus moved to Git Changes. The Send button proved unreliable as an emptiness signal, so
+  TextPattern text is the read-back signal. A first `-Append` design (foreground switch, SetFocus,
+  Ctrl+End) was withdrawn after two runs failed there, and `-Append` became passive (user prepares
+  focus and caret). A probe showed the toolkit's Ctrl chords work in a normal window, and the main VS
+  chat accepts Ctrl+End, so the fault was that Exp instance. After restarting Exp, paste into an empty
+  draft worked, and `-Append -PlaceCaret` (opt-in; one Ctrl+End after focusing, refusing if the input
+  leaves the tree, text changes or the caret is not at the end) appended correctly to 1-, 2- and 14-line
+  drafts with the end scrolled out of view. Nothing was sent. Added `-Append -Paste` for long text: it
+  uses the toolkit's `paste-text` verb (current caret, no click, clipboard restored) after the same
+  guards, polls the read-back for up to 5 s, and was proved live with 11,091 characters. A review also
+  led to: UIA read errors map to `Failed`, text starting with a hyphen is refused (CLI option parsing)
+  and plain `-Append` is passive only unless the person changes focus during the call. By user request,
+  `-Append -Paste` onto a non-empty draft now prepends a line break (read-back accepts LF, CRLF or CR);
+  `-NoLeadingNewline` opts out. The break is part of the pasted text, never a typed Enter, because Enter
+  would send the message. Proved live on Exp. Still not
+  atomic and still an external
+  experiment; a native editor-buffer edit remains an unresearched alternative.

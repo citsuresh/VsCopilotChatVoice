@@ -5,11 +5,17 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 ## Current focus
 
 Latest (user decisions 2026-11-21): insertion fallback is guarded UIA typing with read-back; Exp
-installs/tests and stable local commits are approved. Added `scripts\agent\Insert-ChatDraftUia.ps1`
+installs/tests and stable local commits are approved. Live proof on a restarted Exp (the earlier Exp was
+in a blocked-input state that dropped Ctrl/End and moved focus to Git Changes): paste into an empty draft,
+and `-Append -PlaceCaret` onto 1-, 2- and 14-line drafts (end scrolled out of view) all read back exactly,
+nothing sent. Plain `-Append` is passive (user sets focus/caret). Still external and not atomic. The Exp
+instance (PID 33032) is running with a disposable test draft (about 31,650 characters). `-Append -Paste`
+now prepends a line break on a non-empty draft (`-NoLeadingNewline` opts out). Unattended scenario run
+passed (non-ASCII, specials, 20,000 characters, clipboard restore, locked clipboard, mid-draft caret);
+the remaining scenarios are listed under "Not yet tested" in the README helper section. Added `scripts\agent\Insert-ChatDraftUia.ps1`
 (Exp-only, empty-draft/idle/banner guards via the Send button, read-back, never clears or sends).
-Parse and refusal paths verified (stale handle, control character, main instance). No positive live
-insertion: a fresh Exp instance (closed gracefully) had no chat composer, so a signed-in Exp chat is
-needed. The orchestrator Send script was assessed: its paste/verify primitive is sound, but it clears
+Parse and refusal paths verified (stale handle, control character, main instance); positive live
+insertion is proved above on a restarted, signed-in Exp. The orchestrator Send script was assessed: its paste/verify primitive is sound, but it clears
 the input, so it is not reused as is. No extension runtime change; version stays 0.2.12.
 
 Current 0.2.12 source removes the unsafe 0.2.11 native draft transaction. Independent review

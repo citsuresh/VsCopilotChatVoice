@@ -333,6 +333,29 @@ Current testing is complete: stop as requested; do not advance to send, reply fe
    scrolling; remove/defer it if unreliable. Complete multi-instance, hardware, lifecycle,
    keyboard/accessibility, theme/high-contrast/DPI, deployment and failure-matrix checks.
 
+**Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
+extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA
+helpers proved on Exp; Phase 6 may reuse their findings, not their code path as a production feed.
+
+- Observed identity inputs: the transcript exposes no stable reply id. A reply is the last assistant turn
+  (headed `GitHub Copilot`) up to its completion footer; it can hold several bodies and tool items. Identity
+  is therefore content-derived: SHA-256 of the joined body text, plus the conversation identity from Phase 1
+  and the turn ordinal seen in that tree window.
+- Completion rule: footer present (`PART_LikeButton`, or the cost/model footer text when the Like button is
+  absent), Send visible with Cancel offscreen, no later turn, and the same hash on two consecutive polls.
+  Never speak a partial stream; a pending approval keeps the chat busy, so it blocks delivery rather than
+  completing it.
+- Duplicates: an identical-text reply (for example `Done`) matches the previous hash, so a hash alone cannot
+  prove novelty. Accept it only when the chat was seen busy or a newer turn appeared since the baseline.
+  Deduplicate deliveries on (conversation, hash, turn ordinal), not hash alone.
+- Limits to carry into Phase 6: the tree is virtualized, so turn ordinals and `MessageCount` shift between
+  calls and old replies cannot be enumerated (matches "do not imply access to uncaptured old messages");
+  cancelled replies, Deny outcomes, a second chat and very long transcripts are not yet observed; one Exp
+  build only; UIA polling is an observation fallback, not the "verified explicit bridge/feed" this phase
+  requires. Report honest capability status when only this fallback is available.
+- Concise/Detailed variants are not derivable from the transcript; they still have to be supplied by the
+  explicit delivery path. The observer never fabricates them.
+
 For every meaningful phase: build only affected projects initially, run the smallest existing
 regression route covering it, then have an independent regression audit. Surface findings and
 obtain approval for audit fixes; do not silently apply them. Escalate to full suites where shared

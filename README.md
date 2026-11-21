@@ -215,8 +215,11 @@ observer. A new reply with text identical to `-AfterSha256` is accepted only aft
 or a newer turn. `-PollSeconds` must be at most half of `-TimeoutSeconds`; a wait can overrun its timeout by
 one observer call, and a hung inspect call is not interrupted. Verified on Exp against an idle finished chat
 only: delivery after two polls, the duplicate guard timing out, a different hash delivering, bad input and a
-stale handle refused, no text unless requested. Not
-yet verified: waiting across a live streaming reply (needs an approved send).
+stale handle refused, no text unless requested. It was also run across a live reply sent to Exp with the
+current last-reply hash as `-AfterSha256`: it returned `Completed` after 24 seconds and 2 polls with a new
+hash. That reply was short, so a long-running streaming reply and an approval pause mid-wait are not yet
+observed. How these findings could feed Phase 6 reply identity is a design note in
+[the implementation plan](docs/IMPLEMENTATION_PLAN.md); it is not implemented in the extension.
 
 ### Atomic-insertion capability probe (0.2.12)
 

@@ -21,9 +21,10 @@ User decision 2026-11-21: use guarded UIA typing with read-back (`Insert-ChatDra
 insertion fallback; positive live Exp proof is done (paste and `-Append -PlaceCaret` on fresh Exp).
 Read-only completed-reply observation (`Read-ChatRepliesUia.ps1`) is live-proved on finished replies,
 streaming (Send offscreen, Cancel visible), an approval item and multi-body tool turns.
-Next: decide how reply identity feeds Phase 6.
-Added `Wait-ChatReplyUia.ps1` (new-reply wait with duplicate guard); next is a live streaming wait, which
-needs an approved send.
+Reply identity for Phase 6 is drafted as a design note in IMPLEMENTATION_PLAN.md section 6 (content-hash identity,
+completion rule, duplicate handling, limits); it is design input only, not implemented in the extension.
+Added `Wait-ChatReplyUia.ps1` (new-reply wait with duplicate guard); live-run on a short Exp reply
+(`Completed`, 24 s). A long streaming reply and an approval pause mid-wait are not yet observed.
 Parked (2026-11-21, user decision; revisit only on request): reply observer cases not yet observed - cancelled
 reply, Deny outcome, second chat, very long transcript.
 

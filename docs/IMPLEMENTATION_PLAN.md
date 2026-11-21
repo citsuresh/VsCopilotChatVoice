@@ -343,7 +343,8 @@ helpers proved on Exp; Phase 6 may reuse their findings, not their code path as 
   and the turn ordinal seen in that tree window.
 - Completion rule: footer present (`PART_LikeButton`, or the cost/model footer text when the Like button is
   absent), Send visible with Cancel offscreen, no later turn, and the same hash on two consecutive polls.
-  Never speak a partial stream; a pending approval keeps the chat busy, so it blocks delivery rather than
+  Never speak a partial stream (one live poll showed a short partial body as Complete while idle, so settle
+  across several polls and do not trust a single observation); a pending approval keeps the chat busy, so it blocks delivery rather than
   completing it.
 - Duplicates: an identical-text reply (for example `Done`) matches the previous hash, so a hash alone cannot
   prove novelty. Accept it only when the chat was seen busy or a newer turn appeared since the baseline.

@@ -207,10 +207,10 @@ reply; a 22,252-character reply that followed a run-command approval (Allow clic
 three-body, two-tool-item turn reporting `Complete: true`. The main host is refused. Not yet observed: a
 second chat, a cancelled reply, a Deny outcome, and very long transcripts (parked by user decision).
 
-`scripts\agent\Wait-ChatReplyUia.ps1 -Hwnd <Exp hwnd> [-AfterSha256 <hash>] [-TimeoutSeconds 120] [-IncludeText]`
+`scripts\agent\Wait-ChatReplyUia.ps1 -Hwnd <Exp hwnd> [-AfterSha256 <hash>] [-TimeoutSeconds 120] [-SettlePolls 2] [-IncludeText]`
 polls the observer (read-only, one inspect per poll) until the last reply is `Complete`, differs from
 `-AfterSha256` (the duplicate-delivery guard: pass the hash seen before sending) and the same hash was seen
-on two consecutive polls. Statuses: `Completed`, `TimedOut`, and an immediate `Refused`/`Failed` from the
+on `-SettlePolls` consecutive polls (default 2, range 2-10). Statuses: `Completed`, `TimedOut`, and an immediate `Refused`/`Failed` from the
 observer. A new reply with text identical to `-AfterSha256` is accepted only after the wait saw the chat busy
 or a newer turn. `-PollSeconds` must be at most half of `-TimeoutSeconds`; a wait can overrun its timeout by
 one observer call, and a hung inspect call is not interrupted. Verified on Exp against an idle finished chat
@@ -219,8 +219,14 @@ stale handle refused, no text unless requested. It was also run across a live re
 current last-reply hash as `-AfterSha256`: it returned `Completed` after 24 seconds and 2 polls with a new
 hash. A second live run with a 4321-character text-only reply also returned `Completed` after 3 polls with a
 new hash; the send call outlasted most of the streaming, so mid-stream polling was not seen, and the visible
-transcript window shrank from 6 to 3 messages with turn ordinals restarting (virtualization). An approval pause
-mid-wait and an in-progress streaming poll are not yet observed. How these findings could feed Phase 6 reply identity is a design note in
+transcript window shrank from 6 to 3 messages with turn ordinals restarting (virtualization). Two further
+live runs started the wait before sending (4321-char and 9573-char replies) and both delivered the correct
+final reply (`Completed`, 3 polls). A side sampler during a third long reply (8869 chars) caught one transient
+observation, about 16 seconds after the send, of a 76-character body with an 87-character footer, an idle
+chat and `Complete` true, followed by the real reply on the next sample; the settle rule kept it from being
+delivered, but a stream stalled across two polls could still slip through, so `-SettlePolls` can be raised
+(checked with a mock observer only). An approval pause mid-wait is not yet observed. How these findings could
+feed Phase 6 reply identity is a design note in
 [the implementation plan](docs/IMPLEMENTATION_PLAN.md); it is not implemented in the extension.
 
 ### Atomic-insertion capability probe (0.2.12)

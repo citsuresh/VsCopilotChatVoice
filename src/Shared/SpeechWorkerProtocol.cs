@@ -20,6 +20,7 @@ internal sealed class WorkerMessage
 {
     [DataMember(Name = "type", IsRequired = true)] public string Type = "";
     [DataMember(Name = "gen")] public long Generation;
+    [DataMember(Name = "command")] public long Command;
     [DataMember(Name = "offset")] public int Offset;
     [DataMember(Name = "text")] public string? Text;
     [DataMember(Name = "message")] public string? Message;
@@ -30,6 +31,10 @@ internal static class WorkerProtocol
 {
     public const string Speak = "speak";
     public const string Cancel = "cancel";
+    public const string Pause = "pause";
+    public const string Resume = "resume";
+    public const string Paused = "paused";
+    public const string Resumed = "resumed";
     public const string Shutdown = "shutdown";
     public const string Progress = "progress";
     public const string Completed = "completed";
@@ -75,10 +80,15 @@ internal static class WorkerProtocol
                 case Completed:
                 case Cancelled:
                     return message.Generation < 1 ? null : message;
+                case Pause:
+                case Resume:
+                case Paused:
+                case Resumed:
+                    return message.Generation < 1 || message.Command < 1 ? null : message;
                 case Progress:
                     return message.Generation < 1 || message.Offset < 0 ? null : message;
                 case Error:
-                    if (message.Generation < 0) return null;
+                    if (message.Generation < 0 || message.Command < 0) return null;
                     if (message.Message != null && message.Message.Length > MaxMessageChars)
                         message.Message = message.Message.Substring(0, MaxMessageChars);
                     return message;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="VsCopilotChatVoice.048978d7-5859-4691-8e64-d90e00c0462f" Version="0.4.1" Language="en-US" Publisher="VsCopilotChatVoice" />
+    <Identity Id="VsCopilotChatVoice.048978d7-5859-4691-8e64-d90e00c0462f" Version="0.4.2" Language="en-US" Publisher="VsCopilotChatVoice" />
     <DisplayName>VS Copilot Chat Voice (Preview)</DisplayName>
     <Description xml:space="preserve">Independent voice interaction for Visual Studio Copilot Chat. Toolbar-shell preview: bundles the reader and adds unavailable-state voice controls; backends and delivery bridge are not yet connected. View > Other Windows > Copilot Voice Reader (Preview) opens a proof-of-concept native reader window that shows a sample reply and highlights words reported by the external speech worker.</Description>
   </Metadata>

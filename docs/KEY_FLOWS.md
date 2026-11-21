@@ -23,6 +23,11 @@
 - `ReaderToolWindowControl.Cancel -> uiGeneration = 0 -> SpeechWorkerHost.Cancel (deactivates generation, writes cancel) -> late progress/completed dropped`
 - `SpeechWorkerHost fault (EOF / bad line / PID mismatch / unrequested cancelled) -> Faulted -> ReaderToolWindowControl.OnWorkerFaulted -> DropHost -> SpeechWorkerHost.Dispose -> Task.Run shutdown handshake, then kill`
 - `ReaderToolWindow.Dispose -> ReaderToolWindowControl.Dispose -> DropHost -> SpeechWorkerHost.Dispose`
+- `SpeechWorkerHost.PauseAsync / ResumeAsync -> ChangeStateAsync -> sendGate -> bounded WriteAsync -> SpeechWorker.ChangeState -> SpeechSynthesizer.Pause / Resume (outside callback lock) -> correlated Paused / Resumed -> SpeechWorkerHost.Handle -> pending completion + StateChanged (0.4.2; not wired to native controls)`
+- `SpeechWorkerHost.SpeakAsync -> sendGate -> prospective bounded frame -> active generation -> WriteAsync; deadline -> actual pipe disposal -> Fault -> inactive generation + pending-state cancellation -> owned worker teardown`
+- `SpeechWorkerHost.ConnectAsync(cancellation) -> linked deadline -> actual pipe disposal -> cancelled startup; later worker connection refused (isolated fixture proof)`
+- `SpeechWorkerHost.CancelAsync -> cancellation epoch increment + immediate active-state invalidation -> earlier queued SpeakAsync epoch mismatch -> cancelled task/no new generation; later deliberate Speak uses current epoch`
+- `SpeechWorkerHost.Cancel -> CancelAsync actual write deadline -> TimeoutException -> legacy InvalidOperationException wrapper -> existing preview UI failure filter (silent backpressure regression)`
 - `VoicePackage.InitializeAsync -> ChatGesturePoc.IsEnabled -> ChatGesturePoc -> DispatcherTimer.Tick -> ChatToolbarIntegration.ChatPicker -> FindChatRoot -> AddHandler(PreviewKeyDown/PreviewKeyUp, handledEventsToo)`
 - `ChatGesturePoc.KeyDown -> active-window/chat-focus check -> OtherInputsHeld -> CtrlGestureDetector.KeyDown -> RequestCapture -> RecordingOwnership.TryAcquire(WaitOne(0)) -> queued fake CaptureReady`
 - `ChatGesturePoc.KeyUp -> CtrlGestureDetector.KeyUp -> FinalizeCapture (or ReleaseBeforeReady -> CaptureReady -> FinalizeCapture) -> queued fake CaptureStopped -> RecordingOwnership.Release -> queued ResultReady -> log-only AcceptResult`

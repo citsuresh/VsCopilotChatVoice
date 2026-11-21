@@ -443,3 +443,32 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   self-tests pass, package/metadata loading has zero package errors, and graceful task-only shutdown
   removes the endpoint. This accepts extraction, not full native reader/layout/playback migration.
 - **Checkpoint:** The user explicitly approved a local reviewed extraction commit only; no new push.
+
+## 2026-11-21 - Extraction pushed; bounded external state acknowledgements next
+
+- **Approval:** The user explicitly pushed `da8fd78` and requested continuing the confirmed Phase 2.
+- **Implementation boundary:** Keep native preview/probe synchronous wrappers for compatibility,
+  but new playback uses asynchronous serialized/bounded pipe writes and genuine external pause/resume.
+  Correlate state acknowledgements with speech generation and a separate command ID; never publish
+  paused/resumed from command submission alone or let stale state errors alter current speech.
+- **Validation:** Include raw silent-worker observation to prove progress actually stops rather than
+  relying on the host's paused-event filter. Full native reader/controller integration remains later;
+	0.4.2 VS MSBuild/IDE builds and all eight routes pass (speech 93); native loading remains pending.
+- **Audit gate:** Independent silent reproducers found queued replacement Speak can outrun Cancel,
+  and legacy Cancel's new TimeoutException escapes its UI handler. Obtain explicit fix approval,
+  add those exact regression cases and re-audit before native playback wiring/deployment. Passing
+  the current suites is not acceptance of these uncovered interleavings or exception contracts.
+
+## 2026-11-21 - Approved transport audit fixes and final combined review
+
+- **Decision:** The user approved both reproduced fixes. Increment a cancellation epoch even when
+  idle and check the start's captured epoch under the mutation lock; reject earlier queued starts
+  without allocating speech generations, but permit later deliberate Play. Preserve legacy Cancel's
+  InvalidOperationException contract while keeping asynchronous timeout information explicit.
+- **Evidence:** Exact queued replacement/idle-start and actual non-reading-pipe timeout tests pass;
+  independent narrow closure closes both findings with no significant new directly coupled issue.
+  All eight routes pass, speech 104. Unchanged isolated model preference File.Replace failed twice
+  before a passing rerun; it was not fixed. No 0.4.2 Exp or native-reader acceptance is claimed.
+- **Approval/review:** The user approved a local transport commit and continuation, not push. Finish
+  the confirmed Phase 2 reader before later phases. The requested combined review follows all
+  implementation phases and supplements, rather than replaces, per-phase checks and blocker closure.

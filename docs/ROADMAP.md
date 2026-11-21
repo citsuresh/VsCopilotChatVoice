@@ -64,7 +64,10 @@ reply, Deny outcome, second chat, very long transcript.
   prototype regression behavior. VS manages layout; audio work stays outside the IDE.
 	Detailed implementation breakdown approved 2026-11-21; part 1 shared-reader extraction verified:
   model 379 plus seven preserved routes, independent audit closure and Exp 0.4.1 package/load proof.
-  Next: external playback/lifetime, then migrated native view and full runtime acceptance.
+	Extraction checkpoint `da8fd78` is pushed. External transport 0.4.2 builds and passes all eight
+	routes (speech 104); both approved queued-cancel/legacy-timeout fixes pass independent closure.
+  Local transport checkpoint/continuation approved, not push. Next: playback ownership/lifetime,
+  then native view/full acceptance. Exp remains 0.4.1; no full Phase 2 acceptance is claimed.
   PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp;
   still to prove: docking/pinning, keyboard focus without activation stealing, live theme change, two instances,
   and migration of the real reader features (navigation, Concise/Detailed, pause/resume).
@@ -82,6 +85,8 @@ reply, Deny outcome, second chat, very long transcript.
 
 ## Release gates / later
 
+- [ ] Combined cross-phase review after all implementation phases (requested 2026-11-21), covering
+  integration, lifecycle/ownership, compatibility, errors and regression/runtime evidence; retain per-phase checks.
 - [ ] Verify a mechanism before offering automatic Copilot-response capture; explicit prepared
   delivery remains distinct from automatic capture.
 - [ ] Exercise multiple VS instances, chat recreation, bridge failures, reader lifetime and backend absence.

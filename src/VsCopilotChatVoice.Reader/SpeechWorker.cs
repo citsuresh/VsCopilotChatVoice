@@ -44,7 +44,9 @@ namespace ReadAlongTrial
                         if (message.Type == WorkerProtocol.Shutdown) break;
                         Handle(synthesizer, message);
                     }
-                    lock (SpeechLock) { currentPrompt = null; synthesizer.SpeakAsyncCancelAll(); }
+                    lock (SpeechLock) { currentPrompt = null; }
+                    synthesizer.SpeakAsyncCancelAll();
+                    if (synthesizer.State == SynthesizerState.Paused) synthesizer.Resume();
                     synthesizer.SpeakProgress -= OnProgress;
                     synthesizer.SpeakCompleted -= OnCompleted;
                 }
@@ -59,27 +61,69 @@ namespace ReadAlongTrial
 
         private static void Handle(SpeechSynthesizer synthesizer, WorkerMessage message)
         {
-            lock (SpeechLock)
+            if (message.Type == WorkerProtocol.Pause || message.Type == WorkerProtocol.Resume)
             {
-                if (message.Type == WorkerProtocol.Speak)
+                ChangeState(synthesizer, message);
+                return;
+            }
+            if (message.Type == WorkerProtocol.Speak)
+            {
+                lock (SpeechLock) { currentPrompt = null; }
+                synthesizer.SpeakAsyncCancelAll();
+                if (synthesizer.State == SynthesizerState.Paused) synthesizer.Resume();
+                Prompt prompt = new Prompt(message.Text);
+                lock (SpeechLock)
                 {
-                    // A new request replaces the previous prompt; the old prompt's events are then ignored.
-                    currentPrompt = null;
-                    synthesizer.SpeakAsyncCancelAll();
                     currentGeneration = message.Generation;
-                    Prompt prompt = new Prompt(message.Text);
                     currentPrompt = prompt;
-                    try { synthesizer.SpeakAsync(prompt); }
-                    catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
-                    {
-                        currentPrompt = null;
-                        Send(WorkerProtocol.Error, message.Generation, 0, "Speech could not start: " + ex.GetType().Name);
-                    }
                 }
-                else if (message.Type == WorkerProtocol.Cancel && message.Generation == currentGeneration && currentPrompt != null)
+                try { synthesizer.SpeakAsync(prompt); }
+                catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
                 {
-                    synthesizer.SpeakAsyncCancelAll();
+                    lock (SpeechLock) { if (currentPrompt == prompt) currentPrompt = null; }
+                    Send(WorkerProtocol.Error, message.Generation, 0, "Speech could not start: " + ex.GetType().Name);
                 }
+            }
+            else if (message.Type == WorkerProtocol.Cancel)
+            {
+                bool cancel;
+                lock (SpeechLock) { cancel = message.Generation == currentGeneration && currentPrompt != null; }
+                if (!cancel) return;
+                synthesizer.SpeakAsyncCancelAll();
+                if (synthesizer.State == SynthesizerState.Paused) synthesizer.Resume();
+            }
+        }
+
+        private static void ChangeState(SpeechSynthesizer synthesizer, WorkerMessage message)
+        {
+            Prompt prompt;
+            lock (SpeechLock) { prompt = message.Generation == currentGeneration ? currentPrompt : null; }
+            if (prompt == null)
+            {
+                Send(WorkerProtocol.Error, message.Generation, 0, "The speech generation is no longer active.", message.Command);
+                return;
+            }
+            try
+            {
+                // Pause can wait for synthesis callbacks; do not hold the lock those callbacks need.
+                bool pause = message.Type == WorkerProtocol.Pause;
+                if (pause) synthesizer.Pause();
+                else synthesizer.Resume();
+                bool current;
+                lock (SpeechLock) { current = currentPrompt == prompt && currentGeneration == message.Generation; }
+                if (!current)
+                {
+                    if (synthesizer.State == SynthesizerState.Paused) synthesizer.Resume();
+                    Send(WorkerProtocol.Error, message.Generation, 0, "Speech completed before the state change.", message.Command);
+                    return;
+                }
+                if ((synthesizer.State == SynthesizerState.Paused) != pause)
+                    throw new InvalidOperationException("The requested speech state was not reached.");
+                Send(pause ? WorkerProtocol.Paused : WorkerProtocol.Resumed, message.Generation, 0, null, message.Command);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Send(WorkerProtocol.Error, message.Generation, 0, "Speech state change failed: " + ex.GetType().Name, message.Command);
             }
         }
 
@@ -108,9 +152,9 @@ namespace ReadAlongTrial
             else Send(WorkerProtocol.Completed, generation, 0, null);
         }
 
-        private static void Send(string type, long generation, int offset, string text)
+        private static void Send(string type, long generation, int offset, string text, long command = 0)
         {
-            WorkerMessage message = new WorkerMessage { Type = type, Generation = generation, Offset = offset, Message = text };
+            WorkerMessage message = new WorkerMessage { Type = type, Generation = generation, Command = command, Offset = offset, Message = text };
             byte[] bytes = WorkerProtocol.Serialize(message);
             try
             {

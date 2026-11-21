@@ -23,7 +23,10 @@ IMPLEMENTATION_PLAN.md now contains the approved source-grounded reader-migratio
 It covers shared document/navigation/preference reuse, external pause/resume/seek, native presentation
 and Exp acceptance. Part 1 extracts the existing speech-free document/navigation/preference types into
 linked shared source (0.4.1, verified extraction). The standalone window and native sample preview are
-unchanged; external pause/resume and migrated native controls remain unimplemented.
+unchanged; migrated native playback ownership and controls remain unimplemented.
+The user approved/pushed part 1 as `da8fd78`, then requested continuation. The next transport
+increment (0.4.2, under validation) adds asynchronous bounded speech commands and actual external
+pause/resume acknowledgements; the native PoC controls still do not expose these new operations.
 
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
@@ -31,7 +34,7 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.1) with disabled chat-toolbar controls, native reader preview, shared reader model and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.2, validation pending) with disabled chat-toolbar controls, native reader preview, shared reader model and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
 | `src\Shared` | Reader document/navigation/preference source compiled into Reader/VSIX; speech framing into Reader/VSIX/tests; speech host, pipe identity, metadata contracts/server, Ctrl detector and recording mutex into VSIX/tests. Not a separate assembly. |
 | `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture, metadata-contract and shared-reader-model regression routes; not a Test Explorer adapter project. |
@@ -193,6 +196,21 @@ package errors. It closed gracefully; its endpoint disappeared while protected m
 No reader speech, chat insertion/Send or microphone was initiated. This validates extraction/loading,
 not full Phase 2: external pause/resume/seek, migrated controls, frame/layout/focus/theme/DPI and
 two-instance playback acceptance remain ahead. The new reader-preview gate is still only proposed.
+
+### Phase 2 external transport increment (0.4.2; automated checks and audit closure pass)
+
+The worker now supports real prompt-preserving pause/resume with generation/command-correlated
+acknowledgements. New host entry points serialize asynchronous writes with a five-second deadline,
+cancel pending state requests and support cancelled startup; legacy preview wrappers remain.
+`--speech-worker-probe` passes 104 assertions, including raw worker silence while paused, same-prompt
+resume, missing acknowledgements, cancelled/late startup and actual non-reading-pipe backpressure.
+VS MSBuild/IDE builds and all eight routes pass. Both independently reproduced audit findings were
+fixed with approval: a cancellation epoch rejects earlier queued starts (including idle first starts),
+and legacy Cancel preserves its existing exception contract. Exact silent regressions and independent
+closure pass. The unchanged isolated model preference File.Replace failed twice before a passing
+rerun; no preference fix was made. No 0.4.2 Exp deployment or native playback acceptance is claimed;
+installed Exp remains 0.4.1. The user approved a local transport checkpoint and continuation, not a
+push. Finish Phase 2 before Settings; a combined cross-phase review follows all implementation phases.
 
 ### PoC 1 bridge research and fallback proof (historical native increments)
 

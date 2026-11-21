@@ -1,12 +1,12 @@
 # Project state
 
-Updated: 2026-11-21. Phase 1 pushed; Phase 2 part 1 verified and local checkpoint approved, not pushed.
+Updated: 2026-11-21. Transport checks/audit closure pass; local commit and continuation approved, not push.
 
 ## Current focus
 
-All three bounded PoCs are complete and accepted with documented caveats. Metadata-only Phase 1 (0.4.0) is committed/pushed as 9fca48c. Remote main was verified exactly at 9fca48c80e353248fb0aae440ef63a4f14b08485. The new extraction checkpoint is local only; no new push is approved.
+All three bounded PoCs and metadata-only Phase 1 are complete/pushed. Extraction da8fd78 is pushed; remote main was verified at da8fd781c0181b108120eb3c57373877129a62b3. The user approved a local transport commit and continuation, not push. This snapshot records that approved checkpoint; consult git log/status for its resulting commit.
 
-The user confirmed Phase 2's detailed breakdown before implementation. Part 1 is complete: the original seven speech-free public document/navigation/preference types are extracted to Shared\ReaderDocument.cs and linked into Reader/VSIX. Standalone ReaderWindow/CLI, palette, native sample view and speech/metadata protocols are unchanged. Manifest 0.4.1 reflects the expanded VSIX assembly. Next parts: external playback/lifetime, migrated native presentation, full regression/native acceptance. Phase 2 as a whole is not complete.
+Part 1's shared model/navigation/preference types remain unchanged. Transport 0.4.2 adds real external pause/resume, correlated state and bounded async commands/cancellable startup. Both independently reproduced audit findings were fixed with user approval and independently closed. All eight routes pass (speech104). Standalone ReaderWindow/CLI/palette, native sample controls and metadata protocol are unchanged. Next: native playback ownership/lifetime, presentation and full Phase 2 acceptance before Settings.
 
 ## Runtime
 
@@ -24,21 +24,23 @@ The user confirmed Phase 2's detailed breakdown before implementation. Part 1 is
 - Native blank/history-only surfaces without a supported live SDK binding remain unavailable, cause unconfirmed. Native ambiguity/capacity/timeouts/pending-IPC failure injection remains fixture proof, not live injection. PoC limits and detailed evidence remain in IMPLEMENTATION_PLAN/DESIGN_DECISIONS.
 - Phase 2 part 1 VS MSBuild and IDE build pass with only existing toolbar VSTHRD010. New --reader-model-probe passes 379 against built and installed VSIX DLLs; all seven prior routes passed unchanged on first run after extraction. Installed Reader self-test also passes 1,868. Independent targeted regression audit reports no outstanding finding.
 - Official 0.4.1 Exp installer/configuration refresh exited 0. Packaged/installed manifests are 0.4.1. VSIX DLL SHA256 82D73110D63D0234A37B0BDE43F563D345B54AA30024862410734087ACD48154 and bundled Reader SHA256 482E9E11C749FEEAF77E43B1DFDD3370B6C56FCD69DDC6CE0B58394E366957AF match build/installation. Fresh task Exp loaded the package/metadata gate, served hello/list and logged zero package errors. It accepted CloseMainWindow, completed waited exit and its endpoint became unavailable; main35204 remained present. No exit-code claim for closure, reader speech, draft/Send or microphone.
-- This is extraction/loading proof, not migrated UI/layout/playback acceptance. Native PoC still lacks real document/navigation/version controls and external pause/resume. Existing host synchronous waits must move off the UI thread in part 2. Retain the paused section-aware switch, segment/prompt offset and isolated preference invariants without fixing unrelated flakes.
+- This is extraction/loading proof, not migrated UI/layout/playback acceptance. Native PoC still lacks real document/navigation/version controls and does not expose the new external pause/resume APIs. Preserve paused section-aware switching, segment/prompt offsets and isolated preference invariants; do not fix unrelated flakes.
+- Transport VS MSBuild and IDE build pass; all eight final routes pass: speech104, toolbar62, bridge209, gesture209, contracts136, model379, Reader self1,868, integration292/seven mappings. Raw worker proof observes actual paused silence/same-prompt resume without host filtering; fixtures cover missing acknowledgements, actual five-second backpressure and cancelled/late startup. Only existing toolbar VSTHRD010; narrow VSTHRD003 suppression documents the UI-independent bounded acknowledgement task.
+- Both approved audit findings are closed: cancellation epochs reject earlier queued replacements and idle first starts while preserving later deliberate Play; legacy Cancel wraps timeout in the existing InvalidOperationException contract. Exact silent regressions and independent closure pass (104 assertions). Unchanged model preference File.Replace failed twice before passing on a later rerun; no preference implementation/test changes.
 
 ## This continuation
 
-Only Phase 1 commit 9fca48c was pushed. The user approved a local extraction checkpoint containing14 intended files: README; CODE_SUMMARY, DESIGN_DECISIONS, IMPLEMENTATION_PLAN, KEY_FLOWS, PROJECT_STATE, ROADMAP; new Shared\ReaderDocument.cs; ReaderPrototype removal and Reader csproj link; VSIX csproj link and manifest0.4.1; new ReaderModelRegressionTests and ReaderRegressionTests dispatch. This state belongs to that verified checkpoint; see git log/status for its resulting commit. No reusable script or settings/content/model artifact authored.
+Extraction da8fd78 was explicitly pushed and tracking verified. Twelve files currently changed for the transport/audit checkpoint: README; CODE_SUMMARY, DESIGN_DECISIONS, IMPLEMENTATION_PLAN, KEY_FLOWS, PROJECT_STATE, ROADMAP; Shared\SpeechWorkerHost.cs and SpeechWorkerProtocol.cs; Reader\SpeechWorker.cs; VSIX manifest0.4.2; SpeechWorkerRegressionTests.cs. No native control/controller or metadata changes. No reusable script or settings/content/model artifact authored.
 
-The user explicitly approved the local extraction commit after verification/review, not a push. Exclude docs\history-of-astronomy.md, personal settings, reply/audio, proof logs, models, artifacts and secrets. Only a task-owned Exp was installed/launched/closed through the documented route; main35204 remains protected/untouched, skills repo/installed skills unchanged, no update/fetch.
+Local transport commit/continuation approved, not push. Exclude docs\history-of-astronomy.md, personal settings, reply/audio, proof logs, models, artifacts and secrets. No 0.4.2 Exp deployment/launch occurred. Main35204 remains protected/untouched; skills repo/installed skills unchanged, no update/fetch.
 
 All prior/task Exp are closed. The 0.4.1 task was PID26460; never reuse it or prior handles/identity tuples. Re-identify before future live actions. Logs stay outside the repo: session-state\files\p2-041-extraction-exp.xml plus retained p1-040-metadata-exp-a.xml/b.xml. No UI input was needed for this load proof; no screenshot or active UI cursor session.
 
-All eight routes ran after the last source change; final edits only record validated results/approval. No redundant rebuild for those documentation-only updates. Source/project extraction received independent targeted review and final manual documentation/whitespace review; local commit approved with required trailer and exact file staging.
+All eight routes ran after the final transport source/test change; final edits record results, closure and approval. No redundant rebuild for documentation-only edits. Speech104 passed in both primary verification and independent closure. No reusable script authored; no UI input or settings/content artifact created. The requested combined cross-phase review is tracked in the plan/roadmap after all implementation phases; per-phase checks remain required.
 
 ## Next gate
 
-Local extraction checkpoint is approved; no push. The Phase 2 breakdown is already confirmed. Next: external playback/lifetime, then native presentation/full acceptance in order. No Phase 3 Settings/Phase 6 delivery, main installation or automatic new commit/push.
+Commit only the approved reviewed transport checkpoint with its required trailer; do not push. Continue confirmed Phase 2 native playback ownership/lifetime, then presentation/full Exp acceptance. Do not skip to Phase 3 Settings/Phase 6 delivery or main installation. Later commits/pushes still require separate approval; the combined review is a final cross-phase gate, not deferred blocker handling.
 
 Reader proof preferences must be isolated. Required native frame/focus/playback failures need an architecture decision; synthetic tests cannot establish dock/auto-hide/close semantics. Request manual docking/pinning/theme/second-instance help only when necessary.
 

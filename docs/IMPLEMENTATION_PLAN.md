@@ -627,6 +627,30 @@ No speech, draft/Send or microphone started. This is an extraction/load checkpoi
 layout/focus/playback acceptance. Keep the next parts and their required native gates open. The user
 approved the reviewed local extraction checkpoint; no additional push is approved.
 
+Subsequent user approval pushed extraction checkpoint `da8fd78` (verified on remote main) and
+continued the next increment. External transport changes are under validation as 0.4.2: asynchronous
+bounded commands, cancellable launch/connect and generation/command-correlated real pause/resume.
+Legacy preview/probe wrappers remain; migrated native playback ownership/presentation are not yet
+connected. VS MSBuild/IDE builds and all eight routes pass: speech 104, toolbar 62, bridge 209,
+gesture 209, contracts 136, model 379, self-test 1,868 and integration 292/seven mappings.
+The extended route proves raw real-worker pause silence/same-prompt resume, actual five-second
+backpressure/state deadlines and cancelled/late startup. Initial regression failures were corrected
+by preserving explicit fault refusal and distinguishing actual backpressure from scheduling latency.
+Independent targeted audit independently reproduced two introduced regressions: queued replacement
+Speak can reactivate after Cancel captures the old generation (High), and legacy Cancel now exposes
+TimeoutException outside the existing UI filter (Medium). The user approved both fixes. Cancellation
+epochs reject earlier queued replacements/first starts while allowing later deliberate Play; the
+legacy Cancel wrapper preserves InvalidOperationException with the timeout as its inner cause.
+Exact silent regressions and independent narrow closure pass (104 speech assertions). The unchanged
+isolated model File.Replace failed twice, then passed; no preference code/test was changed.
+Installed Exp remains 0.4.1; 0.4.2 native loading/full playback acceptance are not claimed. The user
+approved a local transport checkpoint and continuation, not a push or main-instance installation.
+
+User request 2026-11-21: after completing all implementation phases, perform a combined cross-phase
+review of integration, lifecycle/ownership, compatibility, error paths and regression/runtime evidence.
+This supplements existing per-phase independent checks; do not postpone a known blocker until that
+final review or mark later phases complete without their own implementation and acceptance gates.
+
 **Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
 extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA
 helpers proved on Exp; Phase 6 may reuse their findings, not their code path as a production feed.

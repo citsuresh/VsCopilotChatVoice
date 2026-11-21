@@ -795,6 +795,12 @@ namespace ReadAlongTrial
         public static int Main(string[] args)
         {
             if (args.Length == 1 && args[0] == "--self-test") return SelfTest();
+            if (args.Length >= 2 && args[0] == "--speech-worker")
+            {
+                if (args.Length > 3 || (args.Length == 3 && args[2] != "--silent"))
+                { Console.Error.WriteLine("Use --speech-worker <pipe-name> [--silent]."); return 2; }
+                return SpeechWorker.Run(args[1], args.Length == 3);
+            }
             if ((args.Length != 4 && args.Length != 6 && args.Length != 8) || args[0] != "--status" || args[2] != "--owner" ||
                 (args.Length >= 6 && args[4] != "--reply") || (args.Length == 8 && args[6] != "--concise"))
             {

@@ -261,3 +261,25 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   would send the message. Proved live on Exp. Still not
   atomic and still an external
   experiment; a native editor-buffer edit remains an unresearched alternative.
+
+## 2026-11-21 - PoC 2: native tool window with an external speech worker over a named pipe
+
+- **Decision:** The reader presentation is a native VS tool window (`ToolWindowPane`, floating-first). Speech
+  runs in the bundled Reader exe started as `--speech-worker <pipe>`; the package owns a current-user-only
+  `NamedPipeServerStream` and exchanges JSON lines (`speak {gen,text}`, `cancel {gen}`, `shutdown` out;
+  `progress {gen,offset}`, `completed`, `cancelled`, `error` back). The window highlights words from the
+  worker's offsets, so devenv never synthesizes speech or opens an audio device.
+- **Safety rules:** one active generation; the host drops any message not matching it, and `Cancel()`
+  deactivates immediately so late progress cannot revive speech; the control re-checks its own generation on the
+  UI thread after the marshal. EOF, an invalid or oversize line (262,144 bytes), a host-bound message type from the
+  worker, an unrequested `cancelled` or a pipe client PID different from the started worker fault the host and tear
+  it down. Writes are bounded (5 s). `Dispose` does the shutdown handshake and kill on a background task so the UI
+  thread never waits.
+- **Rejected:** In-process `SpeechSynthesizer` (the IDE would own audio and its failures); stdout/stdin pipes
+  (no PID/identity check, mixes with diagnostics); reusing the full reader window as the presentation (not
+  dockable, own theme); a lazily auto-started worker per reply (kept lazy per first Speak, reused after).
+- **Gotchas found:** `AutomationProperties.Name` on the status TextBlock hides its displayed text from UIA, so it
+  was removed and the status is read as the control's text. An intermittent failure (1 in 7 runs) of the existing
+  integration check "Selecting Detailed did not replace Concise on disk" (preference-save test, unrelated to this
+  change) appeared once; two later runs passed. Not investigated here.
+- **Result:** Proceed with caveats; see IMPLEMENTATION_PLAN.md section 6 for what was and was not tested live.

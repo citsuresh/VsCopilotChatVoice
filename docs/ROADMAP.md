@@ -34,6 +34,9 @@ reply, Deny outcome, second chat, very long transcript.
 - [ ] Phase 1: instance/conversation contracts, local bridge/lifetime and capability probes.
 - [ ] Phase 2: native floating/dockable reader presentation with external speech, preserving
   prototype regression behavior. VS manages layout; audio work stays outside the IDE.
+  PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp;
+  still to prove: docking/pinning, keyboard focus without activation stealing, live theme change, two instances,
+  and migration of the real reader features (navigation, Concise/Detailed, pause/resume).
 - [ ] Phase 3: global/solution/window settings, inheritance, supported speech controls and
   accessible theme/font/color overrides, including distinct voices for same-solution instances.
 - [ ] Phase 4: external VoiceType-derived capture/transcription/pill, model discovery and

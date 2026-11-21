@@ -16,3 +16,9 @@
 - `ChatBridgePoc.RunAsync -> ChatBridgePoc.ReadExactlyAsync -> ChatBridgePoc.InsertDraftAsync -> ChatDraftPoc.RejectInsert -> InsertResult (NativeAtomicInsertionUnsupported; no draft access)`
 - `Invoke-GuardedChatDraftPoc -> shared deadline -> Write-PocFrame -> WriteAsync / bounded Wait -> ReadAsync / bounded Wait -> acknowledgement; timeout -> actual pipe disposal -> unknown outcome, no retry`
 - `ChatBridgePoc.CaptureOnUiThread -> ChatDraftPoc.HasConstructorOnlyBinding -> FieldInfo metadata validation`
+- `View > Other Windows command -> VoicePackage.ShowToolWindowAsync -> VoicePackage.InitializeToolWindowAsync -> ReaderToolWindow -> ReaderToolWindowControl`
+- `ReaderToolWindowControl.Speak -> SpeechWorkerHost.Attach(worker Process) / WaitForConnection + GetNamedPipeClientProcessId check -> SpeechWorkerHost.Speak (new generation, pipe write) -> SpeechWorker.Run -> SpeechSynthesizer.SpeakAsync`
+- `SpeechSynthesizer.SpeakProgress -> SpeechWorker progress message -> SpeechWorkerHost generation filter -> ReaderToolWindowControl.OnWorkerProgress -> JoinableTaskFactory.SwitchToMainThreadAsync -> uiGeneration check -> ReplyText.FindWord -> SetHighlight`
+- `ReaderToolWindowControl.Cancel -> uiGeneration = 0 -> SpeechWorkerHost.Cancel (deactivates generation, writes cancel) -> late progress/completed dropped`
+- `SpeechWorkerHost fault (EOF / bad line / PID mismatch / unrequested cancelled) -> Faulted -> ReaderToolWindowControl.OnWorkerFaulted -> DropHost -> SpeechWorkerHost.Dispose -> Task.Run shutdown handshake, then kill`
+- `ReaderToolWindow.Dispose -> ReaderToolWindowControl.Dispose -> DropHost -> SpeechWorkerHost.Dispose`

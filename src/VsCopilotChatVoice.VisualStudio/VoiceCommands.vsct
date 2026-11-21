@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+  <Commands package="guidVoicePackage">
+    <Buttons>
+      <Button guid="guidVoiceCmdSet" id="ShowReaderToolWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Strings>
+          <ButtonText>Copilot Voice Reader (Preview)</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+  <Symbols>
+    <GuidSymbol name="guidVoicePackage" value="{048978d7-5859-4691-8e64-d90e00c0462f}" />
+    <GuidSymbol name="guidVoiceCmdSet" value="{6f2c4b1a-3d5e-4f7a-9b8c-1e2d3c4b5a69}">
+      <IDSymbol name="ShowReaderToolWindowCommandId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

@@ -8,6 +8,10 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
+    <Compile Include="..\..\src\Shared\SpeechWorkerHost.cs" Link="Shared\SpeechWorkerHost.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Runtime.Serialization" />

@@ -10,6 +10,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Speech" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="UIAutomationClient" />

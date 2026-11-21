@@ -288,6 +288,30 @@ acceptance, completed-entry correlation and content behavior before enabling the
 Avoid whole-assembly inventory: unrelated .NET 10 exports require different dependencies;
 the reusable helper intentionally reads exact requested types and reports failures explicitly.
 
+PoC 2 result (2026-11-21, 0.3.0, Exp only; the user authorized the next scope): **proceed with caveats.**
+Built: a native floating tool window (View > Other Windows > Copilot Voice Reader (Preview)) with Speak/Cancel,
+a status line and a sample reply in a themed `FlowDocumentScrollViewer`, driven by an external headless
+speech worker (`VsCopilotChatVoice.Reader.exe --speech-worker <pipe>`) over a current-user-only named pipe
+(JSON lines; `speak`/`cancel`/`shutdown` out, `progress`/`completed`/`cancelled`/`error` back). devenv hosts
+presentation only; synthesis stays in the worker. The host keeps one active generation and drops everything
+else, so a late `progress`/`completed` cannot revive cancelled speech; the control re-checks its own generation
+on the UI thread. Unrequested `cancelled`, wrong-direction messages, EOF, bad or oversize lines and a worker PID
+that is not the pipe client fault the host and tear it down; teardown runs off the UI thread.
+Tested: 51 `--speech-worker-probe` assertions (protocol, word model, fake worker, malformed/oversize lines, PID
+mismatch, a real silent worker with progress/cancel/replace, kill-worker fault, dispose kills worker). Live in Exp:
+the menu command is registered and opens the window floating; the status showed Speaking, "Speaking: word N of
+56" and Finished; Cancel gave Cancelled and stayed Cancelled for 4 s while the worker went on; a second Speak
+after Cancel ran to word 56 of 56; the user heard the speech and saw the highlight follow it; the Exp activity
+log shows the package and window loading with no error from this package; the worker process is gone after
+the Exp IDE closes (checked twice); the floating window came back on the next launch (layout restoration for
+the floating case).
+Not yet tested: docking and pinning by the user, user-activated keyboard focus and absence of activation
+stealing, live theme switching (brushes are `EnvironmentColors` resource references, not observed changing),
+two IDE instances at once, high DPI, and worker crash recovery in the live window (probed only). Unsupported
+or not attempted: speech from a worker the package did not start, and an automatic reply feed (PoC 1 supplies
+the identity side). Decision: proceed to the production reader phase on this design; adapt by adding the
+docking/focus/theme checks to that phase's acceptance gates. Does not start PoC 3 or any later phase.
+
 ### Production phases
 
 Current bounded testing increment: 0.2.12 withdraws 0.2.11's unfenced native insertion after

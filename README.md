@@ -11,8 +11,9 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with a disabled chat-toolbar preview; bundles the reader under `Reader` but does not launch it yet. |
-| `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with a disabled chat-toolbar preview and a preview native reader tool window (0.3.0, View > Other Windows); bundles the reader under `Reader` and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
+| `src\Shared` | Speech-worker protocol and host source files, compiled into the VSIX, the Reader and the tests (not a separate assembly). |
 | `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader regression harness plus an isolated toolbar mode against the built VSIX; not a Test Explorer test adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
@@ -34,6 +35,21 @@ matrix remains pending. Foundation 0.1.0 loading and initial
 0.2.0 toolbar attachment were verified; the latter exposed dialog-style minimum-width expansion,
 now covered by compact-dimension regression checks.
 No main-instance deployment was performed.
+
+### Native reader tool window PoC 2 (0.3.0 preview, Exp-verified)
+
+**View > Other Windows > Copilot Voice Reader (Preview)** opens a floating tool window with Speak, Cancel,
+a status line and a sample reply. Speak starts the bundled `VsCopilotChatVoice.Reader.exe --speech-worker <pipe>`
+(on the first click) and the window highlights each word as the worker reports progress; Cancel stops speech
+and ignores late worker messages. The IDE does not synthesize speech. It shows a prepared sample, not a
+Copilot reply, and is not connected to the toolbar, the bridge or any microphone.
+`VSCOPILOTCHATVOICE_SPEECH_SILENT=1` (set before launching VS) makes the worker synthesize to a null output for tests.
+Verified in Exp on 2026-11-21: the command appears and opens the window floating; Speaking / "word N of 56" /
+Finished / Cancelled status transitions; a second Speak after Cancel; audible speech with the highlight
+following it (confirmed by the user); no error from this package in the activity log; the worker exits when
+the Exp IDE closes; the floating window is restored on the next launch. Not yet tested: docking and
+pinning, keyboard focus, live theme change, two instances, high DPI. See IMPLEMENTATION_PLAN.md section 6.
+Installed only into Exp; no main-instance install.
 
 ### Chat-bridge PoC in progress
 
@@ -288,6 +304,7 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --toolbar .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --bridge-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --speech-worker-probe
 ```
 
 The harness suppresses speech output, uses temporary preferences, and briefly opens

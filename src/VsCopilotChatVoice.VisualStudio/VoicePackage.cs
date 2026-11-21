@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows.Controls.Primitives;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 
 namespace VsCopilotChatVoice.VisualStudio;
 
@@ -15,15 +17,33 @@ namespace VsCopilotChatVoice.VisualStudio;
 [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
 [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
 [Guid("048978d7-5859-4691-8e64-d90e00c0462f")]
+[ProvideMenuResource("Menus.ctmenu", 1)]
+[ProvideToolWindow(typeof(ReaderToolWindow), Style = VsDockStyle.Float)]
 public sealed class VoicePackage : AsyncPackage
 {
+    private static readonly Guid CommandSet = new Guid("6f2c4b1a-3d5e-4f7a-9b8c-1e2d3c4b5a69");
+    private const int ShowReaderToolWindowCommandId = 0x0100;
+
     private ChatToolbarIntegration? toolbar;
     private ChatBridgePoc? bridgePoc;
+
+    public override IVsAsyncToolWindowFactory? GetAsyncToolWindowFactory(Guid toolWindowType) =>
+        toolWindowType == typeof(ReaderToolWindow).GUID ? this : null;
+
+    protected override string GetToolWindowTitle(Type toolWindowType, int id) =>
+        toolWindowType == typeof(ReaderToolWindow) ? "Copilot Voice Reader (Preview)" : base.GetToolWindowTitle(toolWindowType, id);
+
+    protected override Task<object?> InitializeToolWindowAsync(Type toolWindowType, int id, CancellationToken cancellationToken) =>
+        Task.FromResult<object?>(null);
 
     protected override async Task InitializeAsync(CancellationToken cancellationToken,
         IProgress<ServiceProgressData> progress)
     {
         await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+        if (await GetServiceAsync(typeof(IMenuCommandService)) is IMenuCommandService commands)
+            commands.AddCommand(new MenuCommand(
+                (sender, args) => JoinableTaskFactory.RunAsync(ShowReaderToolWindowAsync).Task.Forget(),
+                new CommandID(CommandSet, ShowReaderToolWindowCommandId)));
         toolbar = new ChatToolbarIntegration(ConfigureTheme,
             message => ActivityLog.LogInformation(nameof(VsCopilotChatVoice), message),
             error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
@@ -37,6 +57,16 @@ public sealed class VoicePackage : AsyncPackage
             ActivityLog.LogInformation(nameof(VsCopilotChatVoice), ChatBridgePoc.IsDraftEnabled()
                 ? "Exp-only atomic-insertion capability probe enabled; native edits and send remain unsupported."
                 : "Exp-only read-only chat diagnostic bridge enabled.");
+        }
+    }
+
+    private async Task ShowReaderToolWindowAsync()
+    {
+        try { await ShowToolWindowAsync(typeof(ReaderToolWindow), 0, true, DisposalToken); }
+        catch (Exception ex) when (!(ex is OperationCanceledException))
+        {
+            ActivityLog.LogError(nameof(VsCopilotChatVoice),
+                "Reader tool window failed: " + ex.GetType().FullName + " (" + ex.HResult + ").");
         }
     }
 

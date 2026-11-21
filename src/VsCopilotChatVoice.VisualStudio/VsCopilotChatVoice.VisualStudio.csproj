@@ -19,6 +19,13 @@
     <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
+    <Compile Include="..\Shared\SpeechWorkerHost.cs" Link="Shared\SpeechWorkerHost.cs" />
+    <VSCTCompile Include="VoiceCommands.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="source.extension.vsixmanifest" SubType="Designer" />
     <Content Include="..\VsCopilotChatVoice.Reader\bin\$(Configuration)\net48\VsCopilotChatVoice.Reader.exe" Link="Reader\VsCopilotChatVoice.Reader.exe" IncludeInVSIX="true" />
     <Content Include="..\VsCopilotChatVoice.Reader\bin\$(Configuration)\net48\VsCopilotChatVoice.Reader.exe.config" Link="Reader\VsCopilotChatVoice.Reader.exe.config" IncludeInVSIX="true" />

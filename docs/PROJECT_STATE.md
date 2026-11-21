@@ -376,3 +376,18 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 Read `README.md`, `CODE_SUMMARY.md`, `DESIGN_DECISIONS.md` and `ROADMAP.md` before implementing.
 Use the graph registry in `.github\copilot-instructions.md` for C# symbol lookups.
 Re-identify VS windows/processes after restart; do not persist or reuse transient HWNDs/PIDs.
+
+Next step when resumed (PoC 3, Ctrl-only gesture; user said "go on autopilot", nothing written yet). Planned
+bounded design, no global hooks, no recording, no model downloads:
+- `src\Shared\CtrlGestureDetector.cs`: pure state machine (Right Ctrl default). Capture requested on key-down;
+  ignore auto-repeat and keys/modifiers already held; any other key or mouse button cancels a tentative
+  gesture without being handled; hold mode finalizes on release; toggle mode confirms a solitary tap on key-up and
+  stays running (Ctrl+C must not stop it); Esc and focus loss cancel and later releases do nothing.
+- `src\Shared\RecordingOwnership.cs`: one owner across VS instances using a named `Local\` Mutex with
+  non-blocking acquire, `AbandonedMutexException` treated as a crashed previous owner, and a real two-process test.
+- `--gesture-probe` test mode with a fake capture owner covering startup/release races.
+- A log-only VSIX observer gated like `ChatBridgePoc` (Debug + `/RootSuffix Exp` + an env var), attached with
+  `AddHandler(PreviewKeyDownEvent, handledEventsToo: true)` on the chat panel root (nearest ancestor of
+  `HarnessToolPicker` containing the chat), never setting `Handled`, accepting only when keyboard focus is inside it.
+- Live Exp proof of real Right Ctrl events in the chat box and normal Ctrl shortcuts; then update the plan's
+  PoC 3 proceed/adapt/drop decision, README and docs. Optional gesture failing must not block mouse input.

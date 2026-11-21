@@ -8,6 +8,13 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Shared\ReaderBlockValidation.cs" Link="Shared\ReaderBlockValidation.cs" />
+    <Compile Include="..\..\src\Shared\CapturedReplyCatalog.cs" Link="Shared\CapturedReplyCatalog.cs" />
+    <Compile Include="..\..\src\Shared\SpeechOptions.cs" Link="Shared\SpeechOptions.cs" />
+    <Compile Include="..\..\src\Shared\SpeechCapabilities.cs" Link="Shared\SpeechCapabilities.cs" />
+    <Compile Include="..\..\src\Shared\SpeechCapabilityQuery.cs" Link="Shared\SpeechCapabilityQuery.cs" />
+    <Compile Include="..\..\src\Shared\SettingsIdentity.cs" Link="Shared\SettingsIdentity.cs" />
+    <Compile Include="..\..\src\Shared\ScopedVoiceSettings.cs" Link="Shared\ScopedVoiceSettings.cs" />
     <Compile Include="..\..\src\Shared\ChatBridgeContracts.cs" Link="Shared\ChatBridgeContracts.cs" />
     <Compile Include="..\..\src\Shared\ChatMetadataServer.cs" Link="Shared\ChatMetadataServer.cs" />
     <Compile Include="..\..\src\Shared\PipePeerIdentity.cs" Link="Shared\PipePeerIdentity.cs" />

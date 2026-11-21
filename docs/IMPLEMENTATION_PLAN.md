@@ -568,7 +568,7 @@ does not list the newer native reader/worker symbols; current source is authorit
    stale progress/completion/state acknowledgements at both pipe and UI boundaries; explicit worker
    failure updates status and allows a deliberate retry, never an automatic audio restart.
 3. **Native presentation and frame lifetime.** Add the migrated view behind a Debug + exact Exp +
-   launch-only reader-preview gate (proposed `VSCOPILOTCHATVOICE_READER_PREVIEW=1`), retaining the old
+	  launch-only reader-preview gate (`VSCOPILOTCHATVOICE_READER_PREVIEW=1`), retaining the old
    prepared-sample PoC when off until acceptance. Use an explicitly labelled prepared Detailed/Concise
    fixture, not an assumed Copilot reply source or a new text-bearing metadata endpoint. Provide accessible
    Play/Pause/Resume, Stop, distinct sentence/paragraph controls, word seeking, Follow and version choices.
@@ -706,6 +706,387 @@ protocol injections for pending and completed-before-request Pause/Resume, termi
 completion, duplicate/final completion, genuine cancellation and Stop/Dispose fencing. No significant
 coupled issue remains. This is deterministic ordering/ownership proof, not natural race frequency;
 no migrated view or 0.4.3 native acceptance is claimed. Proceed to the gated native-view increment.
+
+Parent frozen-owner checkpoint (0.4.3): official Exp installer/UpdateConfiguration exited 0;
+packaged/installed manifests and VSIX DLL/bundled Reader hashes matched the frozen package.
+Installed actual-DLL owner220, Reader self1,868 and the actual installed-worker raw 300 ms pause
+silence/same-prompt resume/child shutdown passed. Fresh task Exp served pinned metadata hello/list
+with no supported targets, restored the old preview without speech/input/Send and logged four package
+entries with zero errors. Graceful close/wait removed the task and endpoint while protected main VS
+remained responding. Layout was restored, not reset. This proves frozen-owner loading/transport only;
+source 0.4.4 is uninstalled and migrated native acceptance remains separate.
+
+Part 3 source checkpoint (0.4.4): the existing float-first ToolWindowPane selects NativeReaderView only
+under Debug + exact /RootSuffix Exp + VSCOPILOTCHATVOICE_READER_PREVIEW=1. Gate off preserves the old
+PoC control; standalone ReaderWindow/synthesis/CLI are unchanged. A labelled five-section paired fixture,
+shared document/navigation/preference types and the audited owner provide accessible native transport,
+sentence/paragraph navigation, word seeking, Follow and paused section-ID version switching. Choice is
+loaded before any speech; missing Concise does not rewrite saved intent. Explicit radio Click saves
+immediately, including already-selected Detailed, with expected load/save/access/invalid-data failures
+visible. The existing preference path remains; an isolated launch override is honored only under the
+same Debug/Exp gate. Dynamic owning VS/system content/highlight/selection/error/disabled/focus resources
+switch to opaque system High Contrast rendering; text and controls wrap. Manual wheel/scrollbar gestures
+suspend Follow, explicit seek/Follow restores it, and focused-text-only keyboard handling respects native
+control focus, handled/repeat/modifiers and Tab. No Chat/editor scrolling or activation is introduced.
+
+Owner Changed notifications run on its explicit dispatcher; queued drains/autonomous operations and
+UI tasks are observed through FileAndForget or injected test reporting, without polling. Unexpected
+programmer faults remain task failures and visible/reported; intentionally aborted stale drains do not
+produce false errors. An owned IVsWindowFrame2.Advise sink implements Notify/Notify2/Notify3 without
+replacing VSFPROPID_ViewHelper. The project's referenced SDK requires OnClose(ref uint), not the earlier
+out preflight spelling; incoming save flags are unchanged. Explicit close requests asynchronous Stop
+while permitting VS's close contract; Esc requests Stop/Hide without waiting. Show/move/size/dock,
+visibility/unload/reparent/tab/auto-hide do not dispose or stop. Missing/failed registration disables Play.
+Shutdown disposes the exact owned controller/sink and base pane even if sink retirement fails.
+
+The actual-DLL --native-reader-probe adds 179 synthetic assertions in the existing executable project,
+reusing the internal typed playback fake seam and isolated repo-local preference paths. It covers gates,
+preferences/failures, silent construction, progress/completion/pending-state presentation, reordered
+versions, word/prefix offsets, Follow, keyboard scope, theme/High Contrast/narrow wrapping and synthetic
+frame/startup/hide/shutdown races. Playback220 and all eight earlier routes remain required: speech110,
+toolbar62, bridge209, gesture209, contracts136, model379, Reader self1,868, integration292/seven mappings.
+Run all ten serially after the final edit with VS MSBuild/DeployExtension=false. No new package/project,
+Compile-linked controller, schema, microphone, Speaker, reply feed or auto playback was added.
+
+Part 4 remains open: parent independent targeted review and Exp native close subscription delivery/
+retention, floating/docking/pinning/tabbing/auto-hide/layout, keyboard focus without activation theft,
+paused versions/seek/Follow, live themes/High Contrast/DPI/narrow readability, external-worker cleanup
+and two-instance isolation. Synthetic sinks are not proof of native frame semantics. No 0.4.4 deployment,
+VS launch, main-instance changes, staging, commit/push or later Settings/capture phase is part of this
+source task. Keep the Phase 2 exit gate unchecked; park any native blocker honestly.
+
+Approved part 3 reentrancy correction (0.4.5): independent review found a Medium introduced defect when
+Drain published progress synchronously through Changed -> Refresh -> highlighted Run.RequestBringIntoView.
+A one-shot handler closing the view retired the prompt, but the same Drain still consumed queued completion
+and launched the next section. Before any production correction, the permanent actual-DLL test was built
+against the unchanged 0.4.4 DLL and failed with during=Stopped, after=Speaking, launches=2.
+
+The root correction strengthens current-prompt checks with operation/version identity and revalidates after
+Notify before completion, automatic Seek restart, backend Pause/Resume submission and accepted-start Ready.
+Completion captures its invalidation epoch before callbacks and revalidates after BackgroundWork observers
+before advancing. No delay, broad framework, duplicated owner or suppression of legitimate notifications/
+completion was introduced. A same-prompt reentrant Pause still processes sticky early completion; later
+deliberate Play remains allowed. Tightly coupled view continuation tests also reproduced an older version
+save overwriting a newer explicit choice after reentry; view guards now preserve that version intent, skip
+shutdown preference writes and avoid stale Follow/navigation or retired-frame hiding after close/disposal.
+
+Native actual-DLL checks now pass 301 synthetic assertions, including synchronous Run close/Stop/Dispose/
+version/seek, seek restart, Starting/accepted Ready, pending Pause/Resume, background-task completion
+notifications and relevant view continuations. Preserved actual-DLL playback220 and speech110 pass;
+all ten serial routes remain required after the final source edit. Manifest is 0.4.5; source is uninstalled.
+Independent narrow review closure and all native Exp gates remain pending. These are deterministic synthetic
+reentrancy proofs, not native close delivery, runtime race frequency, layout/theme/focus or Phase 2 acceptance.
+No parent-owned project-state/scripts/helpers, Phase 4 comparison content, deployment, VS UI, staging or
+commit/push is changed by this correction.
+
+Subsequent 0.4.5 result: independent reentrancy closure passed with Stopped/one launch/exact cleanup,
+native301/playback220 and no significant coupled issue. Parent official frozen-0.4.5 Exp installation
+matched manifests/hashes; installed native301/playback220/Reader self1,868 passed. The restored gated
+floating view had enabled Play (frame advice available) and started its actual installed non-silent worker.
+Native X removed the floating HWND and worker; the actual View > Other Windows command reopened a new
+floating HWND without a worker/autoplay. Graceful task Exp close/wait removed all workers and preserved
+protected main VS. Accept that bounded floating close/cleanup/reopen case only; retained position and the
+remaining docking/theme/focus/keyboard/version/two-instance matrix are not established by it.
+
+Approved accessibility correction (0.4.6): native UIA found generic fixed status/warning Names and no
+usable text/value pattern exposing their actual phase/section/error. Permanent actual WPF peer tests
+were first compiled against the unchanged 0.4.5 DLL: status GetName returned Playback status rather than
+displayed Stopped/section text, and SelectionItemProvider.Select set Concise IsChecked=true while the
+model stayed Detailed and no preference was saved. This confirms the synthetic non-click selection
+path; it is not a native toolkit selection proof. That tool refused before action for a missing selection
+container (actionAttempted=false). A physical radio click was separately blocked by foreground interference;
+native version/input proof is parked, not diagnosed as a package defect.
+
+Status/preference/frame Names now bind directly to displayed Text with their stable IDs and polite live
+settings. Word-only progress leaves status Name unchanged. Native radio non-click Checked selection
+applies/saves through the existing view/owner; a small private RadioButton subtype distinguishes native
+OnClick so Checked plus Click cannot duplicate work, while already-selected Detailed Click still saves
+fallback intent. It inherits the native peer/selection role/style/keyboard/focus; no custom provider, polling
+or speculative mouse-focus change is introduced. The owner, speech transport and standalone reader are
+unchanged. Actual-DLL native checks pass 348 synthetic assertions, covering peer Names for state/section,
+visible load/save/frame/operational/unexpected errors, cleared warnings, quiet word progress, native radio
+Select/OnClick, paused section mapping/worker retirement, disabled versions and no automatic speech.
+
+Manifest/source is 0.4.6, uninstalled. Prescribed no-deploy VS MSBuild/package and all ten routes passed
+serially after the final source edit; native348/playback220/speech110 and prior counts match. Packaged DLL
+matches the tested DLL. An initial five-second RealAdapter worker-start timeout left no worker; isolated
+playback and the complete serial rerun passed without source/timeout changes. New independent
+narrow closure and parent live read-only accessibility proof remain pending. Keep full Phase 2 unchecked
+and native version/input/layout/theme/focus cases parked where blocked. No deployment/VS UI/staging/
+commit/push, parent state/helpers/index or Phase 4 comparison is changed by this source correction.
+
+Approved directly coupled accessible-choice correction (0.4.7): independent 0.4.6 closure reproduced
+Detailed speech -> highlighted Run.RequestBringIntoView -> actual Concise SelectionItemProvider.Select.
+Refresh's global flag remained set through Follow and suppressed genuine Checked with no subsequent Click.
+The permanent actual-WPF-peer test first failed on unchanged 0.4.6 (DLL SHA256
+5143FCE1BBBD3F03FED48D26D11D6A3FA302037B5BE61B06F54E0FADA0F76056) with
+checked=True, modelConcise=False, Speaking, cancels=0. No 0.4.6 installation occurred.
+
+Remove refresh-wide suppression. Checked already matching controller mode is model synchronization;
+otherwise a live non-native-toggle selection applies/saves synchronously, even within Follow callbacks.
+Native Click is never emitted by model synchronization. Limit native Checked/Click deduplication to
+VersionChoice.OnToggle, not the full Click call stack, so a later same-radio peer choice during an older
+Click is not swallowed. Preserve already-selected Detailed fallback/save and all existing operation/version/
+lifetime continuation fences. A tightly coupled permanent test also reproduced selection against an already
+disposed controller during final Refresh; mark view intent retired before owner shutdown notifications.
+Final/late disabled peer selection refuses, and native late Click/Checked do not submit work/save.
+
+Actual-DLL native412 retains native348 plus 64 synchronous peer/Click Follow, nested newer/same-radio choice,
+preference/save-failure, stopped/closed/disposed lifetime, model-sync/no-save and stale-event assertions.
+No owner/transport/standalone changes, delayed/deferred intent, broad guard, mouse-focus workaround or
+new settings/schema are introduced. Source/manifest 0.4.7 remains uninstalled; independent narrow closure
+and parent live read-only accessibility/input proof remain pending. Prescribed no-deploy MSBuild/package
+and all ten final serial routes passed: native412/playback220/speech110/toolbar62/bridge209/gesture209/
+contracts136/model379/Reader self1,868/integration292/seven mappings. Only the pre-existing toolbar warning
+appeared on source rebuild. One initial existing fallback-save assertion passed on rerun with diagnostic-only
+test text changed, not production preference/layout code; its cause remains unconfirmed. Preserve parent
+state/helper/index and the following Phase 4 comparison; no UI/deployment/staging/
+commit/push or later implementation phase is part of this correction.
+
+Final bounded selection/keyboard correction (0.4.8): independent 0.4.7 Follow selection closure passed,
+but native Concise.Checked -> actual peer Detailed.Select still lost to older unconditional Concise.Click;
+reverse direction failed too. Before production changes, permanent actual-DLL probes on unchanged 0.4.7
+(SHA256 6EBB28CEBF4D61D9CF57FE7BA2FCBB670183C837807D8F420638F660E4B2084B) reproduced
+version1 -> version2/opposite mode/Paused/cancel1 in both directions. Owned Play/radio Esc returned false,
+hide0/Speaking/cancel0, contradicting section 3's focused-reader stop/hide contract. No 0.4.7 install occurred.
+
+Use explicit tightly scoped setter/native event origins, not model equality: VersionChoice consumes each
+origin in OnChecked before RadioButton group callbacks, ignoring only native's own paired Checked and the
+model write's own Checked. Nested peer events on that same control while OnToggle remains stacked are
+genuine, including matching-model persistence. Capture a monotonic request revision before native OnClick;
+commit Click only when still current and fence same-version save continuations against newer requests.
+No delay, drop of current intent, custom automation provider, broad toggle/refresh suppression, preference
+schema, owner/transport change or speculative word-click focus change is added.
+
+Native560 retains prior presentation/lifetime evidence plus both-direction exact two-peer sequences,
+longer round trips, third nested native clicks on either radio, later Click peers, nested model Checked/
+Unchecked callbacks, genuine same-mode saves, same-version expected save-failure retention, fallback and
+disposal. Radio fixtures use actual WPF OnClick, not bare RaiseEvent bypassing native intent tagging.
+Unmodified/unhandled/nonrepeat Esc accepts the owned reader surface/text/buttons/radios, stops/hides once
+and retains reply/position. All other button keys/Tab and dropdown/edit/scrollbar/slider/outside-view/native
+handled-repeat-modifier paths remain untouched; permanent actual-DLL tests include exact cleanup and late
+events after every owned-control Esc. These are synthetic controls/frame tests, not native input proof.
+
+Source/manifest 0.4.8 is uninstalled; scoped independent closure and all parked live/manual gates remain
+separate. Run prescribed no-deploy MSBuild/package and all ten final routes serially, retaining playback220/
+speech110/toolbar62/bridge209/gesture209/contracts136/model379/Reader self1,868/integration292/seven mappings.
+Preserve parent state/SCRIPTS/helpers/comparison. No UI/deployment/staging/commit/push, agents or next-phase
+implementation occurs here. Parent's intermittent cleared-warning assertion remains cause-unconfirmed;
+no blanket retries, silent success, binding workaround or preference/layout edits are introduced.
+
+0.4.8 stop checkpoint: prescribed no-deploy build/package passes; isolated native560 passes. Both final
+serial attempts passed playback220/speech110/toolbar62/bridge209/gesture209/contracts136/model379/
+Reader self1,868/integration292/seven mappings, but failed native. First precise new-sequence snapshot:
+Detailed model/radio correct, saved Concise, visible save error `Unable to remove the file to be replaced.`
+The unchanged shared Save's File.Replace is inspected; underlying cause remains unconfirmed. Unchanged
+isolated native560 passed again, then the last serial attempt failed its nested peer round-trip saved-choice/
+radio assertion; last failure cause is unconfirmed. Stop before further speculative loops, assertion weakening,
+binding workarounds or preference edits. All-ten source closure is not passed; 0.4.8 remains uninstalled.
+
+### Phase 3 independent foundation (0.5.0; storage/model only)
+
+User-approved adaptation: park native0.4.8's two final verification failures and continue independent
+work. Its verified frozen package remains outside the repository and is not installed. Current0.5.0
+source retains that native gate unchanged and adds no active UI/audio consumer.
+
+Part1 implements immutable reading-mode/desired-Speaker/voice/rate/volume overrides with explicit
+inheritance origins (built-in < global < solution < temporary window), structural validation and
+selected-field patches. App-local versioned XML uses global/canonical-solution-hash files, bounded
+exclusive empty file-handle locks, latest-snapshot merging, flushed adjacent temporaries and atomic
+replacement/move. Window values never persist. First explicit global access imports legacy mode once
+through the original helper without rewriting it; corrupt/invalid/access/save/cleanup/watcher failures
+surface, not reset/fallback. Watchers invalidate exact relevant scopes without reading or applying values.
+
+Build/package with DeployExtension=false and IDE build pass. --settings-probe passes126 linked/253
+combined actual-DLL assertions, including real two-child merged updates/revisions, live-owner contention,
+release/crash recovery, five/eight-second lock bounds, strict schema/DTD/size/access negatives, atomic-save
+retention/temporary cleanup and watcher lifecycle. All ten preserved routes pass once on0.5.0 source:
+native560/playback220/speech110/toolbar62/bridge209/gesture209/contracts136/model379/Reader1868/
+integration292/seven mappings. Native560's one pass does not close the earlier native reliability issue.
+Fresh independent settings verification then failed at `SettingsRegressionTests.VerifyProcesses`,
+the real two-child rate/volume update: `ScopedSettingsStore.Save`/`File.Replace` reported
+`Unable to remove the file to be replaced.` The output did not identify the child or linked/actual-DLL
+leg. The supplied DLL hash matched; the reviewer ran once without retry and removed isolated roots.
+Park the 0.5.0 persistence gate and retain its verified frozen package outside the repository. Its cause
+is unconfirmed, including whether it shares any cause with the native preference failures. No speculative
+atomic-primitive replacement, retries, acceptance, installation or checkpoint commit is authorized by
+the earlier single passing run. Reliable independent closure remains required.
+
+Next independent parts: external-worker actual voice/capability/options contract; additional appearance,
+mic/model/user-wide resource fields; scoped Settings UI and safe owning-window synchronization. Voice
+availability and supported pitch are not inferred; changing desired defaults cannot activate another
+window's Speaker/audio. Storage stays off the UI thread and observer dispatch is asynchronous. No current
+reader, toolbar or worker calls the store. Full Phase3/native Exp gates remain unchecked.
+
+**Phase boundary clarification (2026-11-21):** The reader's automatic reopen when a hidden or unpinned
+window receives a new reply, and acceptance of Concise/Detailed behavior against live Copilot replies,
+require the real reply-delivery path. They are Phase 6/integration acceptance items, not Phase 3 blockers.
+Phase 3 may validate settings and persistence with prepared fixtures, but must not claim those live-chat
+behaviors until the delivery path exists.
+
+#### Part 2 external read-only capabilities (0.5.2; targeted review closed, unwired)
+
+The Reader-only `--speech-capabilities` branch runs before window construction and owns/disposes
+System.Speech without Speak, voice selection or preference changes. One strict bounded schema1 JSON
+report identifies engine/installed name+canonical culture+enabled/default metadata, rate -10..10,
+volume0..100 and unsupported pitch. Names remain private to local callers, not proof summaries.
+Internal DTO/parser and owned-child query are source-linked into Reader/VSIX/Tests; synthesis-bearing
+discovery is Reader-only. Remembered-name availability is explicit, without silent substitution.
+No current Settings/Speaker/backend consumer, Preview audio or voice-option application is activated.
+
+Limits: 65,536-byte stdout, 8,192-byte stderr, 64 voices, 256-code-unit names, 85-code-unit cultures;
+caller timeout above zero/up to30 seconds, two-second shared cleanup wait budget. Direct CLI discovery
+has no independent watchdog and synchronous native Start/Kill/dispose calls are not preemptible by
+the timer. Do not claim an unconditional whole-call wall-clock guarantee.
+
+No-deploy MSBuild/package and capability136 pass; independent baseline136 also passes. The final
+serial settings route failed File.Replace at VerifyStore151; ten other preserved routes pass unchanged.
+Native/storage gates remain parked. Earlier first real-child query timed out at its configured ten
+seconds; exact elapsed/PID/exit/substage were not recorded. Later direct execution375ms and unchanged
+probes passed; cause and reliable cold-start behavior remain unconfirmed.
+
+Independent review reproduced one Medium, high-confidence scheduling defect against the exact DLL:
+sole worker occupied3.5s, a100ms query remained incomplete250ms then failed3554ms with Win32Exception,
+not TimeoutException. Timeout/cancellation accounting starts inside queued Task.Run; queued work can
+outlive the deadline and launch afterward. Authorized narrowly scoped correction: establish deadline/
+cancel ownership at API entry, reject expired/retired launch, complete promptly without depending on
+a starved pool, preserve exact child cleanup/errors and add permanent isolated actual-DLL starvation
+regressions. Target0.5.2; no parked-code edits or installation. Reuse the retained reviewer for narrow
+closure after final once-serial verification, without repeating cold/IO failures to green.
+
+Correction0.5.2 captures the API-entry deadline and uses dedicated orchestration/drain threads,
+pool-independent deadline/cancel waits and a prelaunch expiry fence. Native calls remain nonpreemptible.
+No-deploy MSBuild/package and parent IDE build pass. Final capability152 and retained-reviewer
+baseline152 pass once. Independent isolated sole-worker starvation3503ms yields nonexistent-path
+Win32Exception15ms (within100ms budget), hanging-child timeout127ms, cancellation127ms, exact child
+exit and expired-entry0ms/zero starts even after callbacks release. Original finding CLOSED/high
+confidence; no new significant thread/drain/cleanup finding. Supplemental checks blocked by fixture
+scheduling/reflection did not execute and were not retried. Zero review children/fixtures remained.
+Final settings failed again in its real child at VerifyProcesses270; all ten other preserved routes
+passed unchanged. Keep native/storage/cold-start/fullPhase3 gates separate and source uninstalled.
+
+#### Part 3 external speech-option boundary (next independent item)
+
+Implement only the planned voice/rate/volume execution boundary, not Settings/toolbar activation.
+Use a speech-free immutable snapshot (empty/default voice, rate -10..10, volume0..100, no pitch)
+and a distinct bounded configured-speech command so older workers refuse rather than ignore options.
+Apply each explicit snapshot in the external worker at replacement-prompt boundaries; no mid-prompt
+changes, Windows-wide setting mutation, missing/disabled/ambiguous voice substitution or default bleed
+into legacy Speak. Preserve existing host signatures, framing, generation/command fences, prompt offsets,
+true pause/resume, cancellation epochs and legacy CLI/wire behavior.
+
+Validate structural inputs before enqueue, confirm actual installed/enabled unique selection in the
+worker and surface generation-correlated errors explicitly. Add a uniquely named typed host entrypoint
+without introducing reflection-overload ambiguity. Use minimal correlated applied-option evidence for
+silent real-worker tests; queued writes are not a claim that speech/configuration succeeded.
+Verify actual voice/rate/volume/default restoration, exact scalar limits, invalid/unavailable selections,
+replacement/paused/state/completion/cancellation races and legacy behavior using null output, no names in
+proof summaries. No speech-bearing code in VSIX/tests, no store consumer, UI Preview, audio playback
+activation, capture/models/source copying or installation. Preserve thirteen existing routes and review
+the new boundary independently; native/storage/Exp/fullPhase3 gates remain parked.
+
+Implemented0.5.4 with immutable SpeechOptionsSnapshot, unique Host.SpeakWithOptionsAsync and distinct
+speak-options/applied/query framing. Worker retires the previous prompt before mutation, verifies actual
+enabled unique voice and getters, reports correlated applied evidence and restores initial voice/rate/volume
+for legacy Speak. Ack confirms properties, not successful speech completion. No store/UI/backend consumer.
+No-deploy build/package and options422 pass; thirteen preserved routes ran once, settings child File.Replace
+failed unchanged, other twelve passed. Initial raw fixture's first-frame assumption was corrected to
+current-generation metadata ordering, preserving real generation fences. Independent review is pending;
+source uninstalled and fullPhase3/native/storage gates remain open.
+
+Independent once-probe422/source review now passes without significant finding; binary/harness copies
+matched and no owned Readers/fixtures remain. Parent IDE build passes. Split186linked/187actual-DLL/
+49shared worker-dependency checks. Applied command0 must match pending/current generation and getters;
+query positive-command acknowledgements cannot complete a configured start. Empty voice selects initial
+identity only; requested rate/volume remain explicit. Legacy restores all three initialization values.
+Retirement waits5000ms outside the callback lock; timeout closes the worker, while ordinary option refusal
+signals current generation and allows deliberate recovery. Native calls are not preemptible. No actual
+voice uninstall/disable, audible, nativeExp, storage or fullPhase3 acceptance is claimed.
+
+### Phase 4 source comparison preparation (read-only; implementation pending)
+
+Local VoiceType revision `7c0b6f8` was inspected without running it, reading personal configuration,
+recording, provisioning models or copying source. This is a preliminary source comparison, not a
+runtime parity audit or Phase 4 acceptance.
+
+| Area | Observed VoiceType approach | Boundary for this repository |
+| --- | --- | --- |
+| Capture/WAV/amplitude | NAudio 16 kHz, 16-bit mono capture with PCM RMS and WAV writing. | Potential selective reuse in an external host only; readiness, stop/finalization, bounded data and cancellation still need tests and hardware proof. |
+| Transcription/process | External runner, sequential output drains, stdout-derived text and model fallback. | Require bounded cancellable process ownership, concurrent output drains, an explicit successful transcript contract and refusal of missing/invalid selected models. Do not copy silent fallback or binary/model packaging. |
+| Gesture ownership | Global hotkey hooks and shortcut suppression. | Retain the chat-scoped detector and nonblocking current-user/session mutex; no global hooks or suppression. Native release-side limits remain explicit. |
+| Pill placement/appearance | Compact overlay positions at primary-screen bottom center; invalid color parsing silently falls back. | Anchor the external non-focus-stealing pill to the originating chat and validate placement/DPI; hide when misplaced. Report invalid settings and preserve High Contrast, rather than adopting silent defaults or fixed primary-screen geometry. |
+| Clipboard | Text-only backup/restore, swallowed backup/restore failures and blocking retry sleeps. | Do not reuse this helper for guarded insertion/recovery. Preserve verified target/read-back rules, truthful clipboard failure reporting and explicit completed-transcript recovery. |
+
+No tracked LICENSE/NOTICE/COPYING was found during the bounded provenance check. Establish source
+permission and required notices before any copying; absence of a license is not permission. Park this
+source-reuse gate for user review while continuing independent reader/settings work. Do not edit
+VoiceType, the skills repository or installed skills. No capture/transcription/pill is implemented by
+this comparison.
+
+**Update 2026-11-21:** the user explicitly granted permission to selectively copy VoiceType source for this
+phase (see DESIGN_DECISIONS). The gate is closed; the scope limits above still apply.
+
+### Phase 4a external capture core (0.5.5 baseline; unwired, bounded)
+
+Prove the capture lifecycle independent of any UI, VSIX wiring, model or transcription.
+
+- New external net48 project `src\VsCopilotChatVoice.Capture` (net48 avoids requiring a separate .NET runtime
+  on user machines; VoiceType itself is net8.0-windows, so copied code is adapted, not referenced). NAudio 2.1.0
+  is the only package; no models, engines or downloads beyond that package.
+- Pure `CaptureSession` state machine over an `IAudioSource`: Idle, Starting, Recording, Stopping, Completed,
+  Cancelled, Failed. Handle stop before the source is ready, cancel at every state, duplicate Start/Stop, late
+  data or completion after cancel (ignored), source failure, and explicit duration and byte ceilings. Cancel never
+  yields a result. Cancellation must reach the source and writer, not only the state flag.
+- Copied/adapted from VoiceType only: 16 kHz 16-bit mono capture, PCM RMS level meter, WAV session writing.
+  Writer targets a caller-supplied isolated path, bounds size, finalizes the header on stop, and deletes the file
+  on cancel or failure. Keep provenance comments naming the source revision (7c0b6f8).
+- `--capture-probe` in the test exe uses a synthetic source only (no microphone) and covers the lifecycle,
+  bounds, WAV correctness (header/length/RMS), cancel cleanup and no leaked files/handles/processes.
+- A separate `--capture-hardware-probe`, gated by env `VSCOPILOTCHATVOICE_CAPTURE_HW=1`, records at most 3 seconds
+  from the default microphone into an isolated temp file, prints only duration, byte count and peak/RMS level,
+  then deletes the file. It is run only with the user's go-ahead; audio and transcripts are never stored or logged.
+- Not in this increment: transcription, model/engine discovery, pill UI, gestures, VSIX bundling or wiring, insert/send.
+
+### Independent Phase 6 captured-history data foundation (0.5.3; unused, bounded review passed)
+
+Under the user's park-and-continue instruction, active Settings/appearance depends on the parked
+native/persistence gates; VoiceType reuse depends on permission/hardware; production insert/send
+and reply feeds remain unsupported. Advance only the independent speech-free in-memory history
+model from section3, not those integrations or full Phase6 acceptance.
+
+- Bind one catalog to immutable instance-lifetime/native-session/client conversation identity,
+  not a PID, solution path or arbitrary foreground window. Transport epoch/trust/completion proof
+  remains the future verified producer's responsibility; this model creates no capture authority.
+- Store caller-supplied completed Detailed and optional Concise blocks as defensive immutable
+  values. Reuse existing readability/section-pair validation without retaining WPF documents,
+  changing standalone parsing or fabricating Concise. Reject incomplete/malformed/wrong-origin items.
+- Stable supplied reply IDs deduplicate only identical payloads; conflicting reuse refuses atomically.
+  Distinct IDs with identical text remain distinct. Arrival order stays explicit; no persistent text.
+- Bound history at64 replies,1,000,000 retained UTF16 text units,128 blocks per variant and100,000
+  text units per block. Capacity rejects without eviction/partial mutation; never silently drop.
+- Previous/Next/Latest are explicit catalog selection only. Arrivals do not force an older selection
+  to jump. Retain a manual-browsing/new-arrival indicator until explicit Latest. Do not activate
+  Speaker, auto-play, queue policies, toolbar/view or delivery; those need separate integration.
+- Verify linked/actual-DLL immutable snapshots, identity/dedup/conflicts/pairs/capacity boundaries,
+  independent same-solution instance models, navigation and clear/disposal. Add one existing-harness
+  route, preserve all twelve current routes, then independent bounded review. No new test framework,
+  models, recording, source copying, installation or push. This is an unused data foundation only.
+
+Implemented0.5.3 with CapturedReplyCatalog/immutable values plus an internal ReaderBlockValidation
+helper preserving old Reader behavior. Catalog/helper link into VSIX/Tests; only helper links into Reader.
+Production-only IDs/body/non-step-number restrictions do not change legacy parsing/permissiveness.
+Capture validates caller origin/completion, copies/validates both variants, matches section IDs, then
+returns Added/Duplicate/ConflictingReplyId/CapacityExceeded atomically. Metadata is nullable/max1024;
+IDs/anchors max128, client IDs max256 through the existing BridgeProtocol check. Text budget counts
+raw Text.Length across both variants, including markup/whitespace, excluding separately bounded metadata.
+Arrivals never move existing selection; Previous/Next mark manual even at bounds; only Latest clears
+manual/new-arrival flags. Future consumers must surface enum refusals; none currently exists.
+
+Build/package and parent IDE build pass. History651 (318linked/319actual-DLL/14legacy) and retained
+eleven unaffected routes pass; settings fails its existing child File.Replace/VerifyProcesses270, without
+retry/fix. Independent once-baseline651/source comparison found no significant issue or legacy order/
+message/format/offset change. No review fixture/process was created. This is bounded data review only,
+not epoch/trust/native completion, feed, queue policy, Speaker, Exp/audio or fullPhase6 acceptance.
 
 **Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
 extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA

@@ -2,6 +2,7 @@
 
 | Script | Purpose | How to call | Access | Date |
 | --- | --- | --- | --- | --- |
+| `scripts\agent\Test-VsPackageActivity.ps1` | Verify exact package-source activity-log entry/error counts without emitting descriptions or chat content. | `& .\scripts\agent\Test-VsPackageActivity.ps1 -LogPath '<dedicated Exp log>' [-Source 'VsCopilotChatVoice'] [-MinimumEntries 1] [-ExpectedErrors 0]` | Read-only; no VS/UI, file modification or deletion. | 2026-11-21 |
 | `scripts\agent\Test-VsixInstallation.ps1` | Verify packaged/installed manifest identity/version and exact DLL/Reader SHA256 hashes without extracting/installing. | `& .\scripts\agent\Test-VsixInstallation.ps1 -VsixPath '<VSIX>' -InstalledDirectory '<extension folder>' -ExpectedVersion '0.4.2' [-BinaryNames '<binary>']` | Read-only; no VS/UI, file modification or deletion. | 2026-11-21 |
 | `scripts\agent\Read-ChatBridgeSurface.ps1` | Bounded, chat-scoped UIA identity/control research; output may contain chat text and must stay local. | `& .\scripts\agent\Read-ChatBridgeSurface.ps1 -Hwnd 0x1234 -MaxDepth 5` | Read-only; no focus/input/scroll changes. | 2026-11-21 |
 | `scripts\agent\Read-ChatBridgePoc.ps1` | Read the gated Exp diagnostic bridge with explicit server-PID verification; inspect binding/identity metadata. | `& .\scripts\agent\Read-ChatBridgePoc.ps1 -TargetProcessId 12345` | Read-only; requires the Debug/Exp probe explicitly enabled at VS launch. | 2026-11-21 |

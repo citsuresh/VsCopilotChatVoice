@@ -534,6 +534,11 @@ namespace ReadAlongTrial
         [STAThread]
         public static int Main(string[] args)
         {
+            if (args.Length >= 1 && args[0] == "--speech-capabilities")
+            {
+                if (args.Length != 1) { Console.Error.WriteLine("Use --speech-capabilities without other arguments."); return 2; }
+                return SpeechCapabilityDiscovery.Run();
+            }
             if (args.Length == 1 && args[0] == "--self-test") return SelfTest();
             if (args.Length >= 2 && args[0] == "--speech-worker")
             {

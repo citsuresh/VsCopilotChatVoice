@@ -529,3 +529,309 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
 - **Closure:** Independent playback220/speech110 and actual-DLL host/adapter/controller injections
   close the finding, with genuine cancellation, duplicate completion and Stop/Dispose cleanup intact.
   No significant coupled issue remains; natural race frequency and native presentation remain unproved.
+
+## 2026-11-21 - Gated native prepared-reply presentation and owned frame advice
+
+- **Decision:** Wire the audited single-reply owner only into a new internal native view selected by
+  Debug + exact /RootSuffix Exp + launch VSCOPILOTCHATVOICE_READER_PREVIEW=1. Preserve the old ungated
+  Speak/Cancel control and standalone ReaderWindow. The only supplied production content is an explicitly
+  labelled five-section paired fixture; no Copilot feed or text-bearing metadata is implied.
+- **Reuse:** DocumentBuilder, ReadingNavigation and ReplyVersionPreference retain their shared behavior
+  and existing preference location. Load before playback; missing Concise keeps saved intent and reports
+  fallback. Explicit radio Click, including an already-selected Detailed fallback, saves immediately.
+  Expected I/O/access/invalid-data failures remain visible; tests/native proof can inject isolated paths,
+  with any runtime path override restricted to the same Debug/Exp gate. No new schema/settings exists.
+- **Presentation:** Dispatcher-bound Changed notification plus observed task-only background work avoid
+  polling and duplicated playback ownership. FileAndForget/injected reporting preserves unexpected task
+  faults, including autonomous advance/queued drain failures. Intentionally aborted stale dispatcher
+  drains are expected lifetime cancellation, not false UI errors. Shared word/step offsets, paused
+  reordered-version selection, Follow suspension/restoration and native keyboard scope are reused.
+- **Frame:** Keep float-first registration and VS-managed layout. IVsWindowFrame2.Advise adds an owned
+  Notify/Notify2/Notify3 sink rather than replacing VSFPROPID_ViewHelper. The referenced compile-time SDK
+  requires OnClose(ref uint); preserve incoming options. Explicit close requests asynchronous Stop;
+  Esc requests Stop/Hide. Other frame notifications and WPF unload/visibility/reparent/auto-hide are not
+  disposal or Stop. Missing/failed advice disables Play rather than claiming close safety. Pane teardown
+  retires the exact subscription/view/controller/base pane without synchronously waiting for cancellation.
+- **Appearance/focus:** Use dynamic owning VS/system resources for content/markers/highlight/selection,
+  warnings/disabled/focus; opaque system High Contrast overrides theme. Native controls and text wrap.
+  Manual wheel/scrollbar browsing suspends Follow; explicit Follow/seek restores it without focusing
+  Chat/editor. Reader-text-only Space/arrows/bounds/Esc do not intercept native controls, Tab, modified,
+  already-handled or repeated keys; no global keyboard handlers or geometry persistence was added.
+- **Rejected:** Instantiate/reference the synthesis-owning ReaderWindow in VS, duplicate/Compile-link
+  the owner, stop/dispose on generic WPF visibility changes, blindly displace frame helpers, block the UI
+  for cancellation, fabricate Concise/reply feeds, or add Settings/Speaker/microphone in this increment.
+- **Evidence/limits:** Actual-DLL native route179 reuses playback typed fakes and isolated repo-local
+  preferences for synthetic presentation/resource/keyboard/frame/startup/hide/shutdown checks. Parent
+  frozen 0.4.3 Exp loading/transport (owner220/self1,868/raw paused worker/clean task exit) is verified,
+  but current 0.4.4 remains uninstalled. Parent independent targeted review and all native frame/layout/
+  keyboard/theme/DPI/two-instance gates remain open; synthetic success never passes native acceptance.
+
+## 2026-11-21 - Fence synchronous presentation/task-observer reentrancy (0.4.5)
+
+- **Evidence:** Independent review found a Medium introduced defect: one mailbox contained progress and
+  completion; highlighting synchronously raised Run.RequestBringIntoView, whose handler called FrameClosed.
+  Drain continued after Stop and started the next section. The permanent test first failed against the
+  unchanged 0.4.4 actual DLL with during=Stopped, after=Speaking, launches=2. User approved related fixes.
+- **Decision:** Treat Changed/BackgroundWork observers as reentrancy boundaries. Revalidate current prompt,
+  operation and version before old completion/automatic Seek restart/state-command submission/accepted
+  Ready continues. Capture invalidation operation before callbacks and check again after background-task
+  observers before advancing; only the current lifetime may perform follow-on work.
+- **Coupled view boundary:** Synchronous version notification also reproduced an older save overwriting a
+  newer explicit preference. Retain newer version intent, skip preference writes after disposal, and fence
+  Follow/navigation and explicit frame hiding after synchronous close/disposal. Do not reinterpret a simple
+  Stop as an unrelated version change; a still-current explicit version choice remains persistable.
+- **Alternatives rejected:** Delay notifications/completion, suppress BringIntoView, block/retry on the UI,
+  ignore every cancellation, or duplicate the controller. Reentrant same-prompt Pause must still allow valid
+  early completion, and later explicit Play must remain available.
+- **Synthetic evidence:** Actual native route301 covers exact highlighted-Run close and Stop/Dispose/version/
+  seek reentrancy across progress/completion, seek restart, Starting/accepted Ready, pending Pause/Resume,
+  background-task observers and view continuations. Playback220/speech110 remain unchanged. No native VS
+  launch/deployment or parent helper/state changes occurred; independent narrow closure and every migrated
+  native runtime gate remain pending. Manifest 0.4.5 identifies this runtime correction, not native acceptance.
+
+## 2026-11-21 - Native accessible text and supported non-click radio selection (0.4.6)
+
+- **Prior closure/native boundary:** Independent 0.4.5 reentrancy closure passed (Stopped, one launch/exact
+  cleanup; native301/playback220), with no significant coupled issue. Parent frozen official Exp installation
+  matched binaries and installed checks; restored gated Play/frame advice, actual non-silent worker, floating
+  X/worker cleanup, actual menu reopen without worker/autoplay and graceful task/worker exit are verified.
+  This is bounded close/reopen proof, not full layout/focus/theme/version or retained-position acceptance.
+- **Reproduced defect:** Native UIA could not obtain actual status/warning content: fixed generic Names
+  overrode it, with no usable text/value pattern. Before changes, actual WPF peer tests on unchanged 0.4.5
+  returned Playback status instead of displayed Stopped/section text. The actual radio selection provider
+  also changed IsChecked without applying/saving Concise. Both observations are permanent regressions.
+- **Decision:** Bind status/preference/frame accessible Names one-way to displayed Text; preserve IDs and
+  polite live settings. Stable per-word status text does not change Name or cause per-word live-property
+  updates. Handle non-click Checked version selection through the existing owner/preference path. A small
+  private RadioButton subtype marks native OnClick, avoiding Checked/Click double execution while retaining
+  explicit already-selected Detailed fallback/save. Inherit native automation peer/role/style/focus/keyboard;
+  do not add a custom provider, polling, owner, or speculative mouse-focus workaround.
+- **Synthetic evidence:** Actual-DLL native348 includes existing reentrancy checks plus held peer Name/state/
+  section changes, visible load/save/frame/operational/unexpected errors, cleared warning Names, quiet word
+  progress, actual SelectionItemProvider.Select and native OnClick, disabled variant refusal, paused section
+  mapping/exact worker retirement and no automatic speech. Source/manifest is 0.4.6, uninstalled; new narrow
+  independent closure and live read-only accessibility proof remain pending.
+- **Parked native input:** Toolkit select-item refused before action because its selection container was
+  missing (actionAttempted=false); it never mutated a native version. Foreground interference separately
+  blocked a physical radio click. Do not call either a native version proof or an established package defect.
+  Preserve parent comparison/state/helper/index and keep later Settings/capture/main installation out of scope.
+
+## 2026-11-21 - Preserve genuine accessible choice through synchronous refresh (0.4.7)
+
+- **Original evidence:** Independent 0.4.6 closure found a Medium directly coupled defect. While Detailed
+  spoke, highlighted Run.RequestBringIntoView invoked the actual Concise SelectionItemProvider.Select;
+  Refresh still held its broad flag, so genuine Checked was suppressed with no Click fallback. A permanent
+  test first failed on the unchanged actual 0.4.6 DLL: checked=True/modelConcise=False/Speaking/cancels=0.
+  Ordinary native348/playback220 passed; 0.4.6 was never installed. This is reproducible source behavior,
+  separate from the parent's blocked live input/toolkit selection-container cases.
+- **Decision:** Suppress model synchronization by the desired choice already matching controller mode,
+  not by a refresh-wide boolean. Genuine peer changes and native Click run synchronously from Follow;
+  no dropping, queuing, delay or global guard. Deduplicate only native OnToggle's Checked from later Click,
+  leaving the Click handler's nested same-radio peer intent available. Preserve exactly-once native Click,
+  already-selected Detailed fallback/save and existing owner/view version/operation/lifetime fences.
+- **Coupled shutdown:** Permanent actual-peer test reproduced a still-enabled choice during controller
+  disposal notification after its model was already Disposed. Retire view intent before controller.Dispose;
+  final Refresh disables controls, peer Select refuses, and late native Click/Checked submit nothing/save
+  nothing. This changes view ordering only; the audited owner and its task-failure semantics are unchanged.
+- **Synthetic evidence:** Native412 preserves native348 plus 64 actual peer/native Click synchronous Follow,
+  nested newer/same-radio preference, Stop/close/disposal, expected save-failure, no-save model synchronization
+  and stale-event/shutdown/late negatives. Native role/style/focus/keyboard and accessible Names stay intact.
+  Source/manifest is 0.4.7, uninstalled; new independent narrow closure and live accessibility/input gates
+  remain pending. No synthesis, owner duplication, schema, mouse-focus workaround, deployment, VS UI or
+  parent state/helper/index/comparison change is introduced.
+
+## 2026-11-21 - Explicit selection origins/revisions and owned-control Escape (0.4.8)
+
+- **Original proof:** Independent 0.4.7 Follow closure passed, but a native Checked callback's actual peer
+  request matching the original model was ignored; older unconditional Click then overwrote it. Permanent
+  original-DLL tests reproduced both directions (version1 -> version2/opposite mode/Paused/cancel1) and
+  owned Play/radio Esc refusal (handledFalse/hide0/Speaking/cancel0). No 0.4.7 installation occurred.
+- **Decision:** Model equality does not establish origin: genuine same-mode Checked may request immediate
+  persistence. The private VersionChoice marks only model setter/native's originating Checked event and
+  consumes its marker before base RadioButton group callbacks. Nested peer Checked on the original radio
+  within stacked OnToggle remains genuine. Capture a monotonic selection request before native OnClick;
+  reject superseded Click and same-version save continuations, preserving newest intent/failure notices.
+  Only native's own paired Checked waits for its once-only Click. Inherit native automation/focus/style;
+  do not add custom providers, broad suppression, delays, retries or preference/schema/owner changes.
+- **Keyboard contract:** Section 3 approves focused-reader Esc stop/hide, not text-only Escape. Accept owned
+  buttons/radios/surface/text only for unmodified/unhandled/nonrepeat Esc, retaining reply/position. Keep
+  all other native button keys/Tab, dropdown/edit/scrollbar/slider and outside-view handling untouched.
+  No speculative word-click focus intervention is introduced.
+- **Synthetic evidence:** Native560 includes both-direction exact two-peer/longer round trips, a third
+  nested native click on either radio, later Click peers, nested model Checked/Unchecked, immediate matching-
+  mode persistence, same-version locked-file expected save-failure retention, fallback/disposal and every
+  owned-control Esc/cleanup/retained-position/late-event path. Radio fixtures call actual WPF OnClick;
+  bare synthetic Click cannot bypass revision tagging. Source/manifest 0.4.8 is uninstalled; independent
+  scoped closure and native input/accessibility/layout acceptance remain pending. Existing warning-name
+  intermittency is unconfirmed, not evidence for an IO blame, blanket retry or unrelated preference fix.
+- **Verification stop:** Isolated native560 passes, but both final serial native attempts failed; all nine
+  other routes retain their passing counts. One recorded latest model/radio agreed while File.Replace save
+  reported `Unable to remove the file to be replaced.`; underlying cause is unconfirmed. The last serial
+  round-trip saved-choice/radio assertion also failed without a precise state snapshot, so its cause is not
+  assigned. Stop before installation rather than relax assertions, add retries or speculate about binding/
+  preferences. Source0.4.8 all-ten/reliable selection closure is blocked, not complete.
+
+## 2026-11-21 - Independent scoped voice storage while native acceptance is parked (0.5.0)
+
+- **Boundary:** Follow the user's instruction to park blockers and continue independent work. Preserve
+  uninstalled native0.4.8 as a frozen session artifact; do not interpret subsequent passing native560
+  as closure of its two earlier failures. Implement storage/model only, without Settings/toolbar activation,
+  voice enumeration/application, microphone, reply delivery or main installation.
+- **Model:** Immutable nullable overrides distinguish inheritance from explicit false/zero and empty
+  engine-default voice. Resolve built-in < global < solution < window and retain each value's origin.
+  Initial fields are reading mode, desired Speaker, voice name, rate and volume; other Phase3 fields/UI
+  remain planned. Desired values are not active playback/Speaker state.
+- **Persistence:** App-local strict versioned XML, one global file and SHA256-normalized solution-path
+  files, avoid a dependency or duplicating metadata JSON parsing. Unknown/corrupt data refuses both read
+  and update. Selected-field patches reread under an exclusive empty lock-file handle; adjacent flushed
+  temporary files replace/move atomically. Kernel handle lifetime provides cross-process/session crash
+  release without persisted PID or live-owner takeover; five-second contention failures remain explicit.
+- **Migration/notifications:** First explicit global access imports only existing Concise/Detailed through
+  its unchanged helper; existing global data then wins. Do not rewrite/mirror the legacy file or persist
+  temporary window values. Owned filesystem notifications expose invalidation/error only, never automatic
+  playback, recording or control changes. Future UI performs storage off-thread and dispatches asynchronously.
+- **Alternatives rejected:** Whole-document/all-scope replacement risks unrelated lost updates; PID lock
+  files leave stale owners; silently resetting invalid data loses intent. Actual voice support remains an
+  external-worker capability gate, not inferred from a valid string or every Windows Settings voice.
+- **Evidence:** No-deploy VS MSBuild/package and IDE builds pass; linked126/combined actual-DLL253 settings
+  assertions and all ten preserved routes pass in one serial run. Real children prove merged field/revision
+  updates, refusal of live-owner takeover, release/crash recovery and empty owner metadata. Schema/access/
+  atomic-save/watcher failures and untouched legacy/window isolation pass. Independent settings review
+  remains pending; no native or full Phase3 acceptance, installation, commit or push is claimed.
+
+## 2026-11-21 - Park scoped persistence after fresh independent verification failure
+
+- **Evidence:** The parent 0.5.0 serial run passed settings253 and ten preserved routes. A fresh
+  independent settings run exited1 during the real two-child rate/volume merged-update check;
+  ScopedSettingsStore.Save/File.Replace reported `Unable to remove the file to be replaced.`
+  The child and linked/actual-DLL leg were not printed. DLL identity matched; no retry was run,
+  no source was changed and isolated roots were removed.
+- **Decision:** Park reliable persistence acceptance and retain the verified 0.5.0 package outside
+  the repository alongside blocked0.4.8. Continue independent external speech capability work
+  without activating the store, Settings or audio. Earlier passes do not close either reliability gate.
+- **Rationale/alternatives:** No underlying cause is established. Similar native/preference error text
+  does not establish a common cause. Do not replace atomic primitives, add repeat-to-green retries,
+  weaken assertions or blame the environment without evidence. Revisit retained failures with the user.
+
+## 2026-11-21 - Read-only external voice capabilities and queued-deadline correction
+
+- **Boundary:** Add Reader-only headless metadata discovery, not Settings activation or speech Preview.
+  System.Speech remains external; strict speech-free contracts/query are source-linked into consumers.
+  Report actual engine names/cultures/enabled/default identity and supported rate/volume/no pitch,
+  rather than assuming all Windows Settings voices are available or substituting missing selections.
+- **Process contract:** One bounded schema1 UTF8 report, concurrent bounded stdout/stderr drains,
+  nonzero discovery/output errors and exact owned-child cancellation/cleanup. Caller timeout is at most
+  30 seconds; cleanup waits share two seconds. Direct CLI has no watchdog; synchronous native calls
+  are not preempted. This is not an unconditional native wall-clock guarantee.
+- **Evidence:** Implementer/independent capability136 pass; final settings route fails unchanged
+  File.Replace at VerifyStore151, while ten other routes pass. An earlier ten-second real-child timeout
+  lacks elapsed/PID/substage evidence; later375ms direct execution/passing probes do not explain it.
+- **Authorized correction:** Independent actual-DLL starvation reproduces a100ms query completing
+  after3554ms with Win32Exception instead of timeout. Start deadline/cancellation ownership before
+  scheduling and prevent expired late launch; do not assume pool-based timers can run when the pool
+  is exhausted. Add isolated permanent deadline/cancellation starvation coverage and preserve exact
+  cleanup. Target0.5.2 needs retained-reviewer closure;0.5.1 is preserved uninstalled, not accepted.
+
+## 2026-11-21 - Close pool-independent capability scheduling correction (0.5.2)
+
+- **Decision:** Capture the absolute deadline at API entry and use narrowly owned dedicated
+  orchestration/drains with pool-independent waits and prelaunch expiry checks. Pool-based callbacks
+  cannot guarantee timely retirement under starvation. Preserve native-call nonpreemption and explicit
+  owned cleanup/errors; do not pretend a timeout can preempt synchronous Start/Kill/dispose.
+- **Evidence:** Build/package and parent IDE build pass. Implementer/retained-reviewer capability152
+  pass once. With a sole worker held3503ms, exact-DLL deadline/cancellation complete127ms, owned child
+  exits, and expired entry completes0ms with zero starts after late callbacks. Missing executable fails
+  legitimately15ms before expiry. Original finding closed/high confidence; no significant coupled finding.
+- **Limits:** Supplemental fixture/reflection checks never executed; cold-start ten-second timeout
+  cause remains unknown. Final settings concurrent child fails unchanged File.Replace; ten other routes
+  pass. No native/storage/fullPhase3 acceptance or installation follows this narrow closure.
+
+## 2026-11-21 - Advance history data independently of parked integrations
+
+- **Decision:** Follow the user's park-and-continue instruction with a bounded speech-free in-memory
+  captured-history model. Active Settings/appearance depends on native/persistence reliability;
+  selective capture reuse needs permission/hardware; production insertion and reply feeds remain
+  unsupported. Implement no dependent activation or fake completion claim to bypass those gates.
+- **Scope:** Immutable completed caller-supplied variants, instance/session/client identity, stable-ID
+  dedup/conflict refusal, explicit bounded capacity and navigation/manual-arrival state. No persisted
+  text, WPF document retention, fabricated Concise, queue policy, Speaker/audio, toolbar or delivery.
+- **Alternative:** Halt all work or activate unsupported integrations; neither follows the approved
+  independent-work boundary. Foundation tests/review do not establish native feed or Phase6 acceptance.
+
+## 2026-11-21 - Immutable captured-history model and shared legacy validation (0.5.3)
+
+- **Decision:** Bind a locked catalog to immutable instance/session/ordinal-client identity and copy
+  completed caller DTOs into immutable variants/snapshots. Completion remains caller-asserted, not SDK
+  authority. Exact ordered payload plus nullable metadata deduplicates a reused ID; conflicts/capacity
+  return distinct outcomes without mutation/eviction. Future callers must handle refusals visibly.
+- **Reuse:** Extract pure ReaderBlockValidation for catalog and ReaderDocument, preserving legacy
+  signatures, permissive IDs/numbers, prefix-only steps, error order, formatting and spoken offsets.
+  Stronger production bounds/readable-body checks remain confined to the new model.
+- **Bounds/lifecycle:**64 replies/1M raw Text units,128 blocks per variant/100K per block,128-unit IDs,
+  256-unit clients/1024-unit metadata. Separate navigation/manual-arrival flags clear only on Latest;
+  no arrival forces current selection, queue/audio or UI. Owned clear/dispose releases payload references.
+- **Evidence:** Implementer/independent history651 pass once and parent IDE build passes. HEAD review
+  confirms legacy parity, no significant finding. Settings child File.Replace remains failed/parked;
+  eleven other preserved routes pass. Source0.5.3 is uninstalled, data-only, not fullPhase6 acceptance.
+
+## 2026-11-21 - External immutable speech-option boundary (0.5.4, review pending)
+
+- **Decision:** Use a distinct configured-speech command and immutable voice/rate/volume snapshot;
+  older workers must refuse rather than silently ignore options. Keep selection/property mutation in
+  the external worker at replacement boundaries, after previous-prompt retirement. Default means the
+  worker-initial engine identity/rate/volume, restored for subsequent legacy Speak.
+- **Evidence contract:** Generation-correlated applied getters confirm configuration, not successful
+  speech completion. Preserve bounded command writes/acknowledgements, cancellation epochs, actual
+  pause/resume, offsets and legacy frame sequence; explicit read-only queries prove legacy defaults.
+  Missing/disabled/ambiguous choices fail without substitution. No Settings/backend/UI consumer is wired.
+- **Verification:** No-deploy build/options422 pass with real null-output worker. Twelve preserved
+  routes pass, existing settings child File.Replace fails without retry/fix. Independent boundary review
+  is pending; source is uninstalled, with no Windows-wide setting change or fullPhase3/native acceptance.
+
+## 2026-11-21 - External option review closure and precise default semantics
+
+- **Evidence:** Independent once-probe422/source review passes with no significant issue; binary and
+  harness copies match, zero owned Readers/fixtures remain. Parent IDE build passes. Null-output real
+  getters/default/reset/missing-name/lifetime proof is distinct from synthetic unavailable/ambiguous,
+  hostile acknowledgement and ordering cases.
+- **Clarification:** Empty voice chooses the worker-initial identity only; configured rate/volume are
+  explicit. Legacy Speak restores all initial values. Matched command0 evidence proves applied getters,
+  not synthesis-start/natural-completion success. Positive-command read-only queries cannot acknowledge
+  configured startup. Retirement waits5000ms outside callback locks; native calls are not preempted.
+- **Limits:** No consumer, actual voice uninstall/disable, audible/nativeExp, persistence or fullPhase3
+  acceptance follows this bounded closure. Keep source0.5.4 uninstalled and blockers parked.
+
+## 2026-11-21 - Atomic-save lock cause found; bounded retry (0.5.5)
+
+- **Evidence:** A standalone File.Replace stress in %TEMP% failed with Win32 1175 in about 1.5-3% of
+  back-to-back saves and 6-12% at 0.1-2s spacing, always recovering on retry (median 1ms, max 21ms).
+  MoveFileEx replace-existing failed at a similar rate (Win32 5), so swapping primitives does not help.
+  The same stress inside the repo bin folder had 0 failures in 3,000 saves plus 200 spaced saves. Restart
+  Manager reported no locker. Defender real-time, Defender for Endpoint and Search Indexer are active; the
+  location dependence fits scanner/indexer handles, but the process was not identified (no admin tooling).
+- **Decision:** New shared AtomicFileReplace.Publish retries only IOException Win32 1175/32/33 for a 1s
+  budget (2ms doubling to 100ms), leaving both files unchanged between attempts; other errors and budget
+  expiry surface unchanged. Both ReplyVersionPreference.Save and ScopedSettingsStore.Save use it. A
+  persistent lock can block the calling thread up to about 1s before the existing visible save warning.
+- **Result:** Deterministic integration checks (transient lock clears, persistent lock bounded and
+  non-destructive, non-transient error not retried) pass; integration is 298. Settings route passed 5 of
+  5 and native route 3 of 3 afterwards, versus repeated earlier failures. That is strong, not conclusive,
+  evidence for the 10% temp-folder rate; native Exp acceptance remains separate.
+
+## 2026-11-21 - VoiceType source reuse permitted
+
+- **Decision:** The user explicitly permits selective copying of the local VoiceType source (revision
+  7c0b6f8, no tracked LICENSE/NOTICE) into this repository for the Phase 4 external capture host. This
+  closes the permission gate; it does not widen scope. Copy only what the plan lists (capture, amplitude,
+  WAV session writing, bounded process ownership); never the tray, personal settings, history, hotkey hooks,
+  clipboard helper, models or binaries. Record provenance in the copied files and README.
+
+## 2026-11-21 - Defer live-chat reader acceptance to delivery integration
+
+- **Decision:** Do not block Phase 3 on automatic reader reopen after a hidden/unpinned window receives a
+  new reply or on Concise/Detailed acceptance against real replies. Both require the verified reply-delivery
+  path and belong to Phase 6/integration acceptance; Phase 3 uses prepared fixtures for settings and
+  persistence validation.
+- **Rationale:** The current reader preview has no real reply producer, so testing those behaviors now would
+  prove only a proxy. Keeping the boundary explicit prevents Phase 3 settings work from claiming live-chat
+  behavior while preserving the requirement for later delivery validation.

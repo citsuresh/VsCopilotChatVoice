@@ -27,6 +27,13 @@ internal static class ReaderPlaybackRegressionTests
     private const string Concise = "[{\"id\":\"b\",\"kind\":\"step\",\"text\":\"Brief step.\",\"number\":2}," +
         "{\"id\":\"a\",\"kind\":\"paragraph\",\"text\":\"  Brief alpha.\"}]";
 
+    // Native presentation checks reuse the actual-DLL typed fake boundary, not a linked production owner.
+    internal static void InitializeSeam(Assembly loaded)
+    {
+        backendType = loaded.GetType("VsCopilotChatVoice.VisualStudio.IReaderSpeechBackend", true);
+        sessionType = loaded.GetType("VsCopilotChatVoice.VisualStudio.IReaderSpeechSession", true);
+    }
+
     internal static int Run(string assemblyPath)
     {
         SynchronizationContext original = SynchronizationContext.Current;
@@ -64,7 +71,7 @@ internal static class ReaderPlaybackRegressionTests
         if (!value) throw new InvalidOperationException(description);
     }
 
-    private static void PumpUntil(Func<bool> condition, int milliseconds = 5000)
+    internal static void PumpUntil(Func<bool> condition, int milliseconds = 5000)
     {
         DateTime end = DateTime.UtcNow.AddMilliseconds(milliseconds);
         while (!condition() && DateTime.UtcNow < end)
@@ -79,8 +86,8 @@ internal static class ReaderPlaybackRegressionTests
         if (!condition()) throw new TimeoutException("Playback fixture did not settle within " + milliseconds + " ms.");
     }
 
-    private static void Settle() { DateTime end = DateTime.UtcNow.AddMilliseconds(60); PumpUntil(() => DateTime.UtcNow >= end); }
-    private static void Await(Task task) { PumpUntil(() => task.IsCompleted); task.GetAwaiter().GetResult(); }
+    internal static void Settle() { DateTime end = DateTime.UtcNow.AddMilliseconds(60); PumpUntil(() => DateTime.UtcNow >= end); }
+    internal static void Await(Task task) { PumpUntil(() => task.IsCompleted); task.GetAwaiter().GetResult(); }
     private static T Get<T>(object owner, string name) => (T)controllerType.GetProperty(name, Members).GetValue(owner);
     private static Task Call(object owner, string name, params object[] args) => (Task)controllerType.GetMethod(name, Members).Invoke(owner, args);
     private static void Dispose(object owner) => ((IDisposable)owner).Dispose();
@@ -130,7 +137,7 @@ internal static class ReaderPlaybackRegressionTests
         }
     }
 
-    private sealed class Launch
+    internal sealed class Launch
     {
         internal readonly FakeSession Session;
         internal readonly CancellationToken Token;
@@ -149,7 +156,7 @@ internal static class ReaderPlaybackRegressionTests
         }
     }
 
-    private sealed class FakeBackend
+    internal sealed class FakeBackend
     {
         internal readonly object Proxy;
         internal readonly List<Launch> Launches = new List<Launch>();
@@ -169,7 +176,7 @@ internal static class ReaderPlaybackRegressionTests
         internal FakeSession Latest => Launches.Last().Session;
     }
 
-    private sealed class Speech
+    internal sealed class Speech
     {
         internal readonly long Generation;
         internal readonly string Text;
@@ -178,7 +185,7 @@ internal static class ReaderPlaybackRegressionTests
         internal Speech(long generation, string text, CancellationToken token) { Generation = generation; Text = text; Token = token; }
     }
 
-    private sealed class FakeSession
+    internal sealed class FakeSession
     {
         internal readonly object Proxy;
         internal readonly List<Speech> Speeches = new List<Speech>();

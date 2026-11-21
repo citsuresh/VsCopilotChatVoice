@@ -96,11 +96,11 @@ namespace ReadAlongTrial
     {
         public static void ValidateVersions(List<Segment> detailed, List<Segment> concise)
         {
-            if (detailed.Count != concise.Count) throw new ArgumentException("Concise and Detailed must have matching section IDs.");
+            ReaderBlockValidation.ValidateSectionCount(detailed.Count, concise.Count);
             HashSet<string> ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (Segment segment in detailed) ids.Add(segment.Id);
             foreach (Segment segment in concise)
-                if (!ids.Remove(segment.Id)) throw new ArgumentException("Concise section has no matching Detailed section: " + segment.Id);
+                ReaderBlockValidation.MatchSectionId(ids, segment.Id);
         }
 
         public static List<Segment> LoadReply(FlowDocument document, Stream input)
@@ -120,7 +120,7 @@ namespace ReadAlongTrial
             foreach (ReplyBlock block in blocks)
             {
                 if (block == null) throw new ArgumentException("A reply block cannot be null.");
-                if (!ids.Add(block.Id)) throw new ArgumentException("Duplicate reply anchor: " + block.Id);
+                ReaderBlockValidation.AddSectionId(ids, block.Id);
                 segments.Add(Add(document, block.Id, block.Kind, block.Text, block.Number));
             }
             return segments;
@@ -163,10 +163,7 @@ namespace ReadAlongTrial
 
         public static Segment Add(FlowDocument document, string id, string kind, string text, int number)
         {
-            if (String.IsNullOrWhiteSpace(id)) throw new ArgumentException("An anchor ID is required.");
-            if (String.IsNullOrWhiteSpace(text)) throw new ArgumentException("Readable text is required in " + id);
-            if (kind != "heading" && kind != "paragraph" && kind != "bullet" && kind != "step")
-                throw new ArgumentException("Unsupported content kind: " + kind);
+            ReaderBlockValidation.ValidateHeader(id, kind, text);
             Segment segment = new Segment { Id = id, Paragraph = new Paragraph() };
             Paragraph paragraph = segment.Paragraph;
             paragraph.Margin = new Thickness(0, kind == "heading" ? 10 : 0, 0, 9);
@@ -175,7 +172,7 @@ namespace ReadAlongTrial
             string spokenPrefix = "";
             if (kind == "bullet" || kind == "step")
             {
-                if (kind == "step" && number < 1) throw new ArgumentOutOfRangeException("number");
+                ReaderBlockValidation.ValidateNumber(kind, number);
                 string marker = kind == "step" ? number.ToString(CultureInfo.InvariantCulture) + ". " : "\u2022 ";
                 Run markerRun = new Run(marker) { Foreground = Brushes.SteelBlue, FontWeight = FontWeights.Bold };
                 paragraph.Inlines.Add(markerRun);
@@ -187,23 +184,17 @@ namespace ReadAlongTrial
                 }
             }
             StringBuilder spoken = new StringBuilder(spokenPrefix);
-            bool bold = false;
-            foreach (string part in Regex.Split(text, "(\\*\\*)"))
+            foreach (ReaderBlockValidation.TextToken token in ReaderBlockValidation.ReadTokens(id, text))
             {
-                if (part == "**") { bold = !bold; continue; }
-                foreach (Match token in Regex.Matches(part, "\\s+|\\S+"))
-                {
-                    Run run = new Run(token.Value);
-                    if (bold) run.FontWeight = FontWeights.Bold;
-                    paragraph.Inlines.Add(run);
-                    if (!String.IsNullOrWhiteSpace(token.Value))
-                        segment.Words.Add(new WordAnchor { Start = spoken.Length, Length = token.Length, Display = run });
-                    spoken.Append(token.Value);
-                }
+                Run run = new Run(token.Text);
+                if (token.Bold) run.FontWeight = FontWeights.Bold;
+                paragraph.Inlines.Add(run);
+                if (!String.IsNullOrWhiteSpace(token.Text))
+                    segment.Words.Add(new WordAnchor { Start = spoken.Length, Length = token.Text.Length, Display = run });
+                spoken.Append(token.Text);
             }
-            if (bold) throw new ArgumentException("Unclosed bold marker in " + id);
             segment.Spoken = spoken.ToString();
-            if (segment.Words.Count == 0) throw new ArgumentException("Readable text is required in " + id);
+            ReaderBlockValidation.ValidateReadable(id, segment.Words.Count != 0);
             segment.SentenceStarts.Add(0);
             // Split the body only: the spoken "Step N." prefix belongs to its first sentence.
             foreach (Match ending in Regex.Matches(segment.Spoken.Substring(spokenPrefix.Length), "[.!?]+[\"'\u2019\u201D)\\]]*(?=\\s|$)"))
@@ -245,6 +236,41 @@ namespace ReadAlongTrial
         }
     }
 
+    public static class AtomicFileReplace
+    {
+        private static readonly TimeSpan DefaultBudget = TimeSpan.FromMilliseconds(1000);
+
+        public static void Publish(string pending, string path) { Publish(pending, path, DefaultBudget); }
+
+        // Scanners and indexers can briefly hold the target (Win32 1175/32/33). Those failures leave both files
+        // unchanged, so a bounded retry is safe; any other error, or an expired budget, surfaces unchanged.
+        public static void Publish(string pending, string path, TimeSpan budget)
+        {
+            System.Diagnostics.Stopwatch clock = System.Diagnostics.Stopwatch.StartNew();
+            int delay = 2;
+            while (true)
+            {
+                try
+                {
+                    if (File.Exists(path)) File.Replace(pending, path, null);
+                    else File.Move(pending, path);
+                    return;
+                }
+                catch (IOException ex) when (IsTransientLock(ex) && clock.Elapsed < budget)
+                {
+                    System.Threading.Thread.Sleep(delay);
+                    delay = Math.Min(delay * 2, 100);
+                }
+            }
+        }
+
+        private static bool IsTransientLock(IOException ex)
+        {
+            int code = ex.HResult & 0xffff;
+            return code == 1175 || code == 32 || code == 33;
+        }
+    }
+
     public static class ReplyVersionPreference
     {
         public static bool Load(string path)
@@ -266,8 +292,7 @@ namespace ReadAlongTrial
             try
             {
                 File.WriteAllText(pending, concise ? "Concise" : "Detailed", new UTF8Encoding(false));
-                if (File.Exists(path)) File.Replace(pending, path, null);
-                else File.Move(pending, path);
+                AtomicFileReplace.Publish(pending, path);
             }
             finally { File.Delete(pending); }
         }

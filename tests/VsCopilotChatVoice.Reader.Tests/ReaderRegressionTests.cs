@@ -255,6 +255,47 @@ internal static class ReadAlongNavigationTests
         Check(condition(), "Playback condition timed out");
     }
 
+    private static void VerifyAtomicPublish()
+    {
+        string directory = Path.Combine(Path.GetTempPath(), "ReadAlongAtomic-" + Guid.NewGuid().ToString("N"));
+        string target = Path.Combine(directory, "version.txt");
+        Directory.CreateDirectory(directory);
+        try
+        {
+            File.WriteAllText(target, "Detailed");
+            Stopwatch clock = Stopwatch.StartNew();
+            System.Threading.Tasks.Task release;
+            using (FileStream held = new FileStream(target, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                release = System.Threading.Tasks.Task.Run(() => { System.Threading.Thread.Sleep(200); held.Dispose(); });
+                ReplyVersionPreference.Save(target, true);
+                long elapsed = clock.ElapsedMilliseconds;
+                release.Wait();
+                Check(elapsed >= 150, "Save did not wait for the transient lock to clear");
+            }
+            Check(ReplyVersionPreference.Load(target), "Save after a transient lock did not persist the choice");
+            Check(Directory.GetFiles(directory, "*.tmp").Length == 0, "Retried save left a temporary file");
+
+            string pending = target + ".pending.tmp";
+            File.WriteAllText(pending, "Detailed");
+            clock.Restart();
+            using (new FileStream(target, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                try { AtomicFileReplace.Publish(pending, target, TimeSpan.FromMilliseconds(250)); Check(false, "A persistent lock did not surface"); }
+                catch (IOException) { }
+            }
+            Check(clock.ElapsedMilliseconds >= 200 && clock.ElapsedMilliseconds < 3000, "Persistent lock retry was not bounded");
+            Check(ReplyVersionPreference.Load(target) && File.Exists(pending), "Persistent lock changed the target or lost the pending file");
+            File.Delete(pending);
+
+            clock.Restart();
+            try { AtomicFileReplace.Publish(Path.Combine(directory, "missing.tmp"), target, TimeSpan.FromMilliseconds(1000)); Check(false, "A missing pending file did not surface"); }
+            catch (IOException) { }
+            Check(clock.ElapsedMilliseconds < 500, "A non-transient error was retried");
+        }
+        finally { try { Directory.Delete(directory, true); } catch (IOException) { } }
+    }
+
     private static void VerifyPreferences()
     {
         string directory = Path.Combine(Path.GetTempPath(), "ReadAlongPreferences-" + Guid.NewGuid().ToString("N"));
@@ -354,6 +395,14 @@ internal static class ReadAlongNavigationTests
     [STAThread]
     private static int Main(string[] args)
     {
+        if (args.Length >= 1 && args[0] == "--reply-history-probe") return ReplyHistoryRegressionTests.Run(args);
+        if (args.Length >= 1 && args[0] == "--speech-options-probe") return SpeechOptionsRegressionTests.Run(args);
+        if (args.Length >= 1 && args[0] == "--speech-capabilities-probe") return SpeechCapabilityRegressionTests.Run(args);
+        if (args.Length >= 1 && args[0] == "--speech-capability-starvation-child") return SpeechCapabilityRegressionTests.StarvationChild(args);
+        if (args.Length >= 1 && args[0] == "--speech-capability-child") return SpeechCapabilityRegressionTests.Child(args);
+        if (args.Length >= 1 && args[0] == "--settings-probe") return SettingsRegressionTests.Run(args);
+        if (args.Length >= 1 && args[0] == "--settings-child") return SettingsRegressionTests.Child(args);
+        if (args.Length == 2 && args[0] == "--native-reader-probe") return NativeReaderRegressionTests.Run(args[1]);
         if (args.Length == 2 && args[0] == "--reader-playback-probe") return ReaderPlaybackRegressionTests.Run(args[1]);
         if (args.Length == 2 && args[0] == "--reader-model-probe") return ReaderModelRegressionTests.Run(args[1]);
         if (args.Length >= 1 && args[0] == "--contracts-probe") return ContractRegressionTests.Run(args);
@@ -392,6 +441,7 @@ internal static class ReadAlongNavigationTests
         VerifyOwnership();
         VerifyTransitions();
         VerifyVersions();
+        VerifyAtomicPublish();
         VerifyPreferences();
         ReaderWindow window = new ReaderWindow(null, null, IntPtr.Zero, null, PreferenceFile);
         try

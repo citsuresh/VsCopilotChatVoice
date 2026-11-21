@@ -36,6 +36,14 @@ internal sealed class SpeechWorkerHost : IDisposable
     private bool paused;
     private long command;
     private StateRequest? pendingState;
+    private OptionsRequest? pendingOptions;
+
+    private sealed class OptionsRequest
+    {
+        public long Generation;
+        public SpeechOptionsSnapshot Options = null!;
+        public readonly TaskCompletionSource<SpeechOptionsSnapshot> Completion = new TaskCompletionSource<SpeechOptionsSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
+    }
 
     private sealed class StateRequest
     {
@@ -49,6 +57,7 @@ internal sealed class SpeechWorkerHost : IDisposable
     public event Action<long>? Completed;
     public event Action<string>? Faulted;
     public event Action<long, bool>? StateChanged;
+    public event Action<long, SpeechOptionsSnapshot>? OptionsApplied;
 
     // Tests pass null to drive the pipe with a fake worker; production always supplies the launched process id.
     internal SpeechWorkerHost(string pipeName, int? expectedClientProcessId)
@@ -134,7 +143,18 @@ internal sealed class SpeechWorkerHost : IDisposable
 
     public long Speak(string text) => SpeakAsync(text).GetAwaiter().GetResult();
 
-    public async Task<long> SpeakAsync(string text, CancellationToken cancellation = default)
+    public Task<long> SpeakAsync(string text, CancellationToken cancellation = default) => SpeakCoreAsync(text, null, cancellation);
+
+    // Completion proves the worker's applied getters, not natural speech completion.
+    public Task<long> SpeakWithOptionsAsync(string text, SpeechOptionsSnapshot options, CancellationToken cancellation = default)
+    {
+        if (options == null) throw new ArgumentNullException(nameof(options));
+        var snapshot = new SpeechOptionsSnapshot(options.Voice, options.Rate, options.Volume);
+        WorkerProtocol.Serialize(new WorkerMessage { Type = WorkerProtocol.SpeakWithOptions, Generation = 1, Text = text, Options = snapshot });
+        return SpeakCoreAsync(text, snapshot, cancellation);
+    }
+
+    private async Task<long> SpeakCoreAsync(string text, SpeechOptionsSnapshot? options, CancellationToken cancellation)
     {
         if (string.IsNullOrWhiteSpace(text) || text.Length > WorkerProtocol.MaxSpeakChars)
             throw new ArgumentException("Readable text of bounded length is required.", nameof(text));
@@ -144,13 +164,18 @@ internal sealed class SpeechWorkerHost : IDisposable
         using var timeout = new CancellationTokenSource(WriteTimeout);
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token, cancellation, timeout.Token);
         bool acquired = false;
+        OptionsRequest? request = null;
         try
         {
             await sendGate.WaitAsync(deadline.Token).ConfigureAwait(false);
             acquired = true;
             long gen;
             lock (sync) { EnsureUsable(); gen = generation + 1; }
-            byte[] bytes = WorkerProtocol.Serialize(new WorkerMessage { Type = WorkerProtocol.Speak, Generation = gen, Text = text });
+            byte[] bytes = WorkerProtocol.Serialize(new WorkerMessage
+            {
+                Type = options == null ? WorkerProtocol.Speak : WorkerProtocol.SpeakWithOptions,
+                Generation = gen, Text = text, Options = options,
+            });
             lock (sync)
             {
                 EnsureUsable();
@@ -159,19 +184,43 @@ internal sealed class SpeechWorkerHost : IDisposable
                 generation = gen;
                 completedGeneration = 0;
                 EndPendingState();
+                EndPendingOptions();
+                if (options != null)
+                {
+                    request = new OptionsRequest { Generation = gen, Options = options };
+                    pendingOptions = request;
+                }
                 active = true;
                 paused = false;
                 activeLength = text.Length;
             }
             await WriteAsync(bytes, deadline.Token).ConfigureAwait(false);
+            if (request != null)
+            {
+                sendGate.Release();
+                acquired = false;
+                using var cancelWait = deadline.Token.Register(() => request.Completion.TrySetCanceled());
+#pragma warning disable VSTHRD003 // Correlated worker getters complete this deadline-bounded task.
+                await request.Completion.Task.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
+            }
             return gen;
         }
         catch (OperationCanceledException) when (timeout.IsCancellationRequested && !cancellation.IsCancellationRequested)
         {
-            Fault("The speech command timed out.");
+            if (options == null || request != null) Fault("The speech command timed out.", request?.Generation);
             throw new TimeoutException("The speech command timed out.");
         }
-        finally { if (acquired) sendGate.Release(); }
+        catch (OperationCanceledException) when (options != null && cancellation.IsCancellationRequested)
+        {
+            if (request != null) Fault("The configured speech acknowledgement was cancelled.", request.Generation);
+            throw;
+        }
+        finally
+        {
+            if (acquired) sendGate.Release();
+            lock (sync) { if (request != null && pendingOptions == request) pendingOptions = null; }
+        }
     }
 
     // Returns false when nothing was active. Events for the cancelled generation are dropped immediately,
@@ -196,6 +245,7 @@ internal sealed class SpeechWorkerHost : IDisposable
             paused = false;
             gen = generation;
             EndPendingState();
+            EndPendingOptions();
         }
         using var timeout = new CancellationTokenSource(WriteTimeout);
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token, cancellation, timeout.Token);
@@ -279,6 +329,13 @@ internal sealed class SpeechWorkerHost : IDisposable
         pendingState = null;
     }
 
+    private void EndPendingOptions(string? error = null)
+    {
+        if (error == null) pendingOptions?.Completion.TrySetCanceled();
+        else pendingOptions?.Completion.TrySetException(new InvalidOperationException(error));
+        pendingOptions = null;
+    }
+
     private void EnsureUsable()
     {
         if (disposed) throw new ObjectDisposedException(nameof(SpeechWorkerHost));
@@ -315,6 +372,7 @@ internal sealed class SpeechWorkerHost : IDisposable
                 string? line = await reader.ReadLineAsync(lifetime.Token).ConfigureAwait(false);
                 if (line == null) { Fault("The speech worker disconnected."); return; }
                 WorkerMessage? message = WorkerProtocol.TryParse(line);
+                if (reader.LastLineHadInvalidUtf8 && message?.Type == WorkerProtocol.OptionsApplied) message = null;
                 if (message == null) { Fault("The speech worker sent an invalid message."); return; }
                 if (!Handle(message)) return;
             }
@@ -336,8 +394,23 @@ internal sealed class SpeechWorkerHost : IDisposable
             if (disposed || faulted) return false;
             switch (message.Type)
             {
+                case WorkerProtocol.OptionsApplied:
+                    OptionsRequest? optionsRequest = pendingOptions;
+                    if (active && message.Command == 0 && optionsRequest != null && message.Generation == generation &&
+                        message.Generation == optionsRequest.Generation)
+                    {
+                        SpeechOptionsSnapshot applied = message.Options!;
+                        if (applied.Voice.Length == 0 || applied.Rate != optionsRequest.Options.Rate ||
+                            applied.Volume != optionsRequest.Options.Volume || (optionsRequest.Options.Voice.Length != 0 &&
+                            applied.Voice != optionsRequest.Options.Voice)) { violation = true; break; }
+                        pendingOptions = null;
+                        optionsRequest.Completion.TrySetResult(applied);
+                        long gen = generation;
+                        raise = () => OptionsApplied?.Invoke(gen, applied);
+                    }
+                    break;
                 case WorkerProtocol.Progress:
-                    if (active && !paused && message.Generation == generation && message.Offset < activeLength)
+                    if (active && pendingOptions == null && !paused && message.Generation == generation && message.Offset < activeLength)
                     {
                         long gen = message.Generation; int offset = message.Offset;
                         raise = () => Progress?.Invoke(gen, offset);
@@ -346,10 +419,12 @@ internal sealed class SpeechWorkerHost : IDisposable
                 case WorkerProtocol.Completed:
                     if (active && message.Generation == generation)
                     {
+                        if (pendingOptions != null) { violation = true; break; }
                         active = false;
                         paused = false;
                         completedGeneration = generation;
                         EndPendingState(true);
+                        EndPendingOptions("Speech completed without applied-option evidence.");
                         long gen = message.Generation;
                         raise = () => Completed?.Invoke(gen);
                     }
@@ -370,7 +445,7 @@ internal sealed class SpeechWorkerHost : IDisposable
                     break;
                 case WorkerProtocol.Cancelled:
                     // A confirmation of our own cancel is expected and ignored; an unrequested stop is a fault.
-                    if (active && message.Generation == generation) { active = false; paused = false; EndPendingState(); raise = () => Faulted?.Invoke("The speech worker stopped speech unexpectedly."); }
+                    if (active && message.Generation == generation) { active = false; paused = false; EndPendingState(); EndPendingOptions("The speech worker stopped speech unexpectedly."); raise = () => Faulted?.Invoke("The speech worker stopped speech unexpectedly."); }
                     break;
                 case WorkerProtocol.Error:
                     if ((message.Command == 0 || (pendingState != null && message.Command == pendingState.Command)) &&
@@ -381,6 +456,7 @@ internal sealed class SpeechWorkerHost : IDisposable
                         completedGeneration = 0;
                         EndPendingState();
                         string text = message.Message ?? "Speech failed.";
+                        EndPendingOptions(text);
                         raise = () => Faulted?.Invoke(text);
                     }
                     break;
@@ -395,16 +471,17 @@ internal sealed class SpeechWorkerHost : IDisposable
         return true;
     }
 
-    private void Fault(string reason)
+    private void Fault(string reason, long? expectedGeneration = null)
     {
         lock (sync)
         {
-            if (disposed || faulted) return;
+            if (disposed || faulted || (expectedGeneration.HasValue && generation != expectedGeneration.Value)) return;
             faulted = true;
             active = false;
             paused = false;
             completedGeneration = 0;
             EndPendingState();
+            EndPendingOptions(reason);
         }
         Faulted?.Invoke(reason);
         Teardown(false);
@@ -421,6 +498,7 @@ internal sealed class SpeechWorkerHost : IDisposable
             paused = false;
             completedGeneration = 0;
             EndPendingState();
+            EndPendingOptions();
             wasConnected = connected && !faulted;
         }
         // The shutdown handshake and process wait can take seconds, so they never run on the caller (UI) thread.

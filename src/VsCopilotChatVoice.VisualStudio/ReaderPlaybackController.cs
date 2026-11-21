@@ -74,6 +74,12 @@ internal sealed class ReaderPlaybackController : IDisposable
     internal long SpeechGeneration { get { dispatcher.VerifyAccess(); return active?.Generation ?? 0; } }
     internal WordAnchor? SelectedWord { get { dispatcher.VerifyAccess(); return segments[index].FindWord(position); } }
 
+    // Changed is synchronous on the supplied dispatcher; BackgroundWork passes tasks only, including queued drains.
+    internal event Action<ReaderPlaybackController>? Changed;
+    internal event Action<Task>? BackgroundWork;
+    private void Notify() => Changed?.Invoke(this);
+    private void Track(Task task) => BackgroundWork?.Invoke(task);
+
     internal Task PlayAsync()
     {
         VerifyAlive();
@@ -102,8 +108,11 @@ internal sealed class ReaderPlaybackController : IDisposable
         promptBase = 0;
         error = null;
         phase = paused ? ReaderPlaybackPhase.Paused : ReaderPlaybackPhase.Stopped;
-        Task release = InvalidateAsync(true);
-        return playing ? StartSegmentAsync() : release;
+        long selectedVersion = version;
+        Task release = InvalidateAsync(true, out long selectedAt);
+        Notify();
+        return playing && operation == selectedAt && version == selectedVersion && phase == ReaderPlaybackPhase.Stopped ?
+            StartSegmentAsync() : release;
     }
 
     internal Task NavigateAsync(int direction, bool paragraph)
@@ -127,7 +136,9 @@ internal sealed class ReaderPlaybackController : IDisposable
         promptBase = 0;
         error = null;
         phase = ReaderPlaybackPhase.Paused;
-        return InvalidateAsync(true);
+        Task release = InvalidateAsync(true);
+        Notify();
+        return release;
     }
 
     internal Task StopAsync()
@@ -135,7 +146,9 @@ internal sealed class ReaderPlaybackController : IDisposable
         VerifyAlive();
         phase = ReaderPlaybackPhase.Stopped;
         error = null;
-        return InvalidateAsync(true);
+        Task release = InvalidateAsync(true);
+        Notify();
+        return release;
     }
 
     internal Task HideAsync() => StopAsync();
@@ -144,8 +157,10 @@ internal sealed class ReaderPlaybackController : IDisposable
     {
         dispatcher.VerifyAccess();
         if (phase == ReaderPlaybackPhase.Disposed) return;
-        _ = InvalidateAsync(true);
+        Task release = InvalidateAsync(true);
         phase = ReaderPlaybackPhase.Disposed;
+        Notify();
+        Track(release);
     }
 
     private void VerifyAlive()
@@ -154,7 +169,8 @@ internal sealed class ReaderPlaybackController : IDisposable
         if (phase == ReaderPlaybackPhase.Disposed) throw new ObjectDisposedException(nameof(ReaderPlaybackController));
     }
 
-    private bool Current(PromptOperation value) => active == value && phase != ReaderPlaybackPhase.Disposed;
+    private bool Current(PromptOperation value) => active == value && value.Id == operation && value.Version == version &&
+        phase != ReaderPlaybackPhase.Disposed;
 
     private Task OnDispatcherAsync(Action action)
     {
@@ -169,6 +185,8 @@ internal sealed class ReaderPlaybackController : IDisposable
         var value = new PromptOperation(this, ++operation, version, promptBase, segments[index].Spoken.Substring(promptBase));
         active = value;
         phase = ReaderPlaybackPhase.Starting;
+        Notify();
+        if (!Current(value)) return Task.CompletedTask;
         value.Start = StartAsync(value, session, retirement);
         return value.Start;
     }
@@ -214,7 +232,8 @@ internal sealed class ReaderPlaybackController : IDisposable
                 if (generation < 1) { Fail("The speech backend returned an invalid generation."); return; }
                 value.Generation = generation;
                 phase = ReaderPlaybackPhase.Speaking;
-                value.Ready();
+                Notify();
+                if (Current(value)) value.Ready();
             }).ConfigureAwait(false);
         }
         catch (Exception ex) when (ex is IOException || ex is InvalidOperationException || ex is OperationCanceledException ||
@@ -235,6 +254,8 @@ internal sealed class ReaderPlaybackController : IDisposable
         PromptOperation value = active!;
         long command = ++value.Command;
         phase = pause ? ReaderPlaybackPhase.Pausing : ReaderPlaybackPhase.Resuming;
+        Notify();
+        if (!Current(value) || value.Command != command) return;
         try
         {
             Task<bool> acknowledgement = pause ? value.Session!.PauseAsync(value.Generation, value.Token) :
@@ -243,7 +264,10 @@ internal sealed class ReaderPlaybackController : IDisposable
             await OnDispatcherAsync(() =>
             {
                 if (Current(value) && value.Command == command)
+                {
                     phase = pause ? ReaderPlaybackPhase.Paused : ReaderPlaybackPhase.Speaking;
+                    Notify();
+                }
             }).ConfigureAwait(false);
         }
         catch (Exception ex) when (ex is IOException || ex is InvalidOperationException || ex is OperationCanceledException || ex is TimeoutException)
@@ -253,16 +277,18 @@ internal sealed class ReaderPlaybackController : IDisposable
         }
     }
 
-    private Task InvalidateAsync(bool retire)
+    private Task InvalidateAsync(bool retire) => InvalidateAsync(retire, out _);
+
+    private Task InvalidateAsync(bool retire, out long retiredAt)
     {
         PromptOperation? previous = active;
         active = null;
-        operation++;
+        retiredAt = ++operation;
         previous?.Close();
         if (!retire || session == null) return previous?.Start ?? Task.CompletedTask;
         IReaderSpeechSession owned = session;
         session = null;
-        retirement = ReleaseAsync(owned, operation);
+        retirement = ReleaseAsync(owned, retiredAt);
         return retirement;
     }
 
@@ -275,7 +301,7 @@ internal sealed class ReaderPlaybackController : IDisposable
                 await OnDispatcherAsync(() =>
                 {
                     if (operation == retiredAt && (phase == ReaderPlaybackPhase.Stopped || phase == ReaderPlaybackPhase.Paused))
-                    { error = "Speech cancellation failed: " + ex.Message; phase = ReaderPlaybackPhase.Error; }
+                    { error = "Speech cancellation failed: " + ex.Message; phase = ReaderPlaybackPhase.Error; Notify(); }
                 }).ConfigureAwait(false);
         }
         finally { owned.Dispose(); }
@@ -283,9 +309,11 @@ internal sealed class ReaderPlaybackController : IDisposable
 
     private void Fail(string message)
     {
-        _ = InvalidateAsync(true);
+        Task release = InvalidateAsync(true);
         error = message;
         phase = ReaderPlaybackPhase.Error;
+        Notify();
+        Track(release);
     }
 
     private void Drain(PromptOperation value, int offset, bool completed, string? fault)
@@ -298,18 +326,21 @@ internal sealed class ReaderPlaybackController : IDisposable
         {
             value.LastOffset = offset;
             WordAnchor? word = segments[index].FindWord(value.Base + offset);
-            if (word != null) position = word.Start;
+            if (word != null) { position = word.Start; Notify(); }
         }
-        if (!completed) return;
+        // Presentation notifications can synchronously close, seek or switch versions via BringIntoView.
+        if (!completed || !Current(value)) return;
         bool pause = phase == ReaderPlaybackPhase.Paused || phase == ReaderPlaybackPhase.Pausing;
         bool statePending = phase == ReaderPlaybackPhase.Pausing || phase == ReaderPlaybackPhase.Resuming;
-        _ = InvalidateAsync(statePending);
-        if (index + 1 == segments.Count) { phase = ReaderPlaybackPhase.Finished; return; }
+        Task release = InvalidateAsync(statePending, out long completedAt);
+        Track(release);
+        if (operation != completedAt || version != value.Version || phase == ReaderPlaybackPhase.Disposed) return;
+        if (index + 1 == segments.Count) { phase = ReaderPlaybackPhase.Finished; Notify(); return; }
         index++;
         position = 0;
         promptBase = 0;
-        if (pause) phase = ReaderPlaybackPhase.Paused;
-        else _ = StartSegmentAsync();
+        if (pause) { phase = ReaderPlaybackPhase.Paused; Notify(); }
+        else Track(StartSegmentAsync());
     }
 
     // A single queued dispatcher callback and at most 16 early generation slots per prompt. Progress coalesces
@@ -388,6 +419,7 @@ internal sealed class ReaderPlaybackController : IDisposable
         {
             if (!ready || queued != null || owner.dispatcher.HasShutdownStarted) return;
             queued = owner.dispatcher.InvokeAsync(Drain);
+            owner.Track(queued.Task);
         }
 
         private void Drain()

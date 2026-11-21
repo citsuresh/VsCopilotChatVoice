@@ -68,22 +68,72 @@ reply, Deny outcome, second chat, very long transcript.
 	routes (speech 104); both approved queued-cancel/legacy-timeout fixes pass independent closure.
 	Local transport checkpoint `bdb1328`/continuation approved, not push. Parent independently
   verified fixed-snapshot 0.4.2 transport/loading, actual installed-worker pause/resume and old
-  preview completion/cleanup in Exp (native Cancel UI remains unproved). Installed Exp is 0.4.2.
-  The bounded 0.4.3 single-reply owner and typed real-worker adapter are implemented but unwired;
+	preview completion/cleanup in Exp (native Cancel UI remains unproved). That checkpoint installed 0.4.2.
+  The bounded 0.4.3 single-reply owner and typed real-worker adapter were implemented unwired;
 	actual-DLL playback 220 and all eight preserved routes pass (speech110), with VS MSBuild/DeployExtension=false
   and only the existing toolbar warning. Independent review reproduced a completion/state race;
 	the approved explicit terminal-outcome correction and independent actual-host/controller closure pass.
-  Next: gated native
-  view/preferences/frame and full acceptance. No full Phase 2 or 0.4.3 Exp acceptance is claimed.
-  PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp;
-  still to prove: docking/pinning, keyboard focus without activation stealing, live theme change, two instances,
-  and migration of the real reader features (navigation, Concise/Detailed, pause/resume).
+	Parent frozen 0.4.3 loading/transport proof now passes: official install/refresh, matching binaries,
+  installed owner220/Reader1,868, raw worker pause/resume/shutdown, pinned metadata, zero package errors
+	and graceful task-only cleanup. Subsequent frozen 0.4.5 install/hash and installed native301/playback220/
+  Reader1,868 checks passed, as did bounded floating X/worker cleanup/reopen without autoplay. Task Exp
+  and workers exited gracefully; protected main stayed intact. Installed Exp is 0.4.5, not full Phase 2 acceptance.
+	Source 0.4.8 implements the gated paired-fixture native view/preferences/frame increment with 560
+  synthetic actual-DLL presentation/gate/resource/keyboard/lifetime checks. Old ungated/standalone
+	behavior is preserved; source 0.4.8 is uninstalled (0.4.6/0.4.7 were never installed). The approved notification-reentrancy correction
+  first reproduced synchronous highlighted-Run close reviving playback against the original 0.4.4 DLL;
+  prompt/version/operation and tightly coupled view continuation fences now pass synthetic close/Stop/
+	Dispose/version/seek cases while preserving playback220/speech110; independent 0.4.5 closure passed.
+  Native status/warning Names were verified generic, and actual WPF peer Select checked a version without
+  applying/saving it. 0.4.6 binds displayed accessible text and supports non-click Checked plus once-only
+	native Click/fallback saving. Independent 0.4.6 closure reproduced genuine peer selection dropped by
+  refresh-wide suppression during highlighted-Run Follow (checked=True/modelConcise=False/Speaking/cancels=0).
+  0.4.7 uses model-match synchronization filtering, native-toggle-only Click deduplication and early retirement
+  of shutdown intent. Actual peer/Click nested choices, newest preferences, lifetime and late/model-sync
+	negatives pass synthetically; the 0.4.7 Follow case closed independently. A newer peer during native Checked
+  still lost to older Click, in both directions. 0.4.8 replaces equality/toggle-wide inference with explicit
+  per-event origins and captured request revisions, preserving matching-mode/round-trip saves and rejecting
+  superseded Click/same-version continuations. Owned Play/radio Esc refusal was reproduced and corrected;
+  native560 covers nested peers/native Clicks, setter callbacks, same-version save failures, disposal and all
+  scoped-control Esc/negative paths. Owner/transport/standalone are unchanged. Next: independent narrow closure,
+	blocked first on repeatable final native verification: isolated560 passed, but both final serial runs failed
+  saved-choice/radio assertions (one visible File.Replace save error; last failure cause unconfirmed). Stop
+  source0.4.8 before installation; do not claim all-ten/source/native acceptance or add speculative retries.
+  live read-only Name proof and
+  full native Exp acceptance, including actual frame subscription/close retention and layout/focus/
+  theme/DPI/Follow/two-instance cleanup. No full Phase 2 native acceptance is claimed.
+	Native version selection is parked: toolkit refusal occurred before action (missing selection container),
+  and a separate physical radio click was blocked by foreground interference; neither proves a native mutation.
+  PoC 2 (0.3.0 preview) proved floating window, external worker speech, progress/cancel and highlight in Exp.
+  The 2026-11-21 manual Exp check confirmed docking/pinning, keyboard navigation, live theme change, DPI and
+  two-instance independence; arrow keys intentionally navigate sentences/paragraphs. Automatic reopen after a
+  hidden or unpinned reader receives a new live reply, and Concise/Detailed acceptance against real replies,
+  are deferred to Phase 6 because they require the reply-delivery path.
 - [ ] Phase 3: global/solution/window settings, inheritance, supported speech controls and
   accessible theme/font/color overrides, including distinct voices for same-solution instances.
+  Independent0.5.0 storage/model foundation proceeds while native0.4.8 acceptance is parked: immutable
+  reading-mode/desired-Speaker/voice/rate/volume values and origins, app-local strict XML, canonical
+  solution keys, atomic field-merged updates under bounded file-handle locks, untouched one-time legacy
+  import and metadata-only invalidation. Linked126/combined actual-DLL253 and all ten preserved routes
+	pass once, with no-deploy VS MSBuild/package and IDE builds. Fresh independent settings verification
+  failed during real concurrent updates with a File.Replace IOException; child/linked-DLL leg and cause
+  are unconfirmed. Park the 0.5.0 persistence gate/frozen package without retry or acceptance, and advance
+  independent read-only external speech capability discovery. Do not infer a common cause with native IO.
+  Source0.5.2 has external headless capability JSON and an unwired speech-free query, capability152
+  passing independently. The reproduced queued-deadline issue is closed: API-entry deadline and dedicated
+  orchestration/drains pass isolated starvation/timeout/cancel/expired-entry checks. An earlier real-child
+  ten-second timeout is cause-unconfirmed. No cold/native/settings/voice-application acceptance.
+	No active Settings/toolbar consumer, appearance controls or voice-option application from settings,
+  and no full Phase3/native acceptance yet. Native560's subsequent pass does not resolve earlier failures.
+	Source0.5.4 implements the external immutable voice/rate/volume execution boundary, options422 passing
+	with real silent-worker proof and independent once-review closure; no Settings consumption/UI Preview/activation.
 - [ ] Phase 4: external VoiceType-derived capture/transcription/pill, model discovery and
   atomic recording ownership. Engine/models are external; no model downloads.
 - [ ] Phase 5: mouse/optional Ctrl modes, cancellation and safe originating-chat insert/send.
 - [ ] Phase 6: verified reply delivery, remembered Speaker, queue policies and captured history.
+  Independent0.5.3 speech-free immutable in-memory captured-history catalog passes651 and bounded
+  independent review, with legacy parity preserved. It enables no feed/Speaker/UI/audio, fabricates no Concise and
+  does not bypass parked native/storage/source-permission/transport gates.
   Companion policy is already authored/installed/committed in the separate skills repository;
   production protocol coordination remains separate and must not invent an automatic hook.
 - [ ] Phase 7: optional precise chat-scroll experiment and final hardening. Drop scrolling if

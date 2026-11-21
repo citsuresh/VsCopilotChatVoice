@@ -24,12 +24,16 @@ internal sealed class WorkerMessage
     [DataMember(Name = "offset")] public int Offset;
     [DataMember(Name = "text")] public string? Text;
     [DataMember(Name = "message")] public string? Message;
+    [IgnoreDataMember] public SpeechOptionsSnapshot? Options;
 }
 #pragma warning restore CS0649
 
 internal static class WorkerProtocol
 {
     public const string Speak = "speak";
+    public const string SpeakWithOptions = "speak-options";
+    public const string OptionsApplied = "speech-options-applied";
+    public const string QueryOptions = "speech-options-query";
     public const string Cancel = "cancel";
     public const string Pause = "pause";
     public const string Resume = "resume";
@@ -54,6 +58,8 @@ internal static class WorkerProtocol
 
     public static byte[] Serialize(WorkerMessage message)
     {
+        if (message.Type == SpeakWithOptions || message.Type == OptionsApplied || message.Type == QueryOptions)
+            return SpeechOptionsWire.Serialize(message);
         using var buffer = new MemoryStream();
         new DataContractJsonSerializer(typeof(WorkerMessage)).WriteObject(buffer, message);
         buffer.WriteByte((byte)'\n');
@@ -72,6 +78,10 @@ internal static class WorkerProtocol
             if (message == null) return null;
             switch (message.Type)
             {
+                case SpeakWithOptions:
+                case OptionsApplied:
+                case QueryOptions:
+                    return SpeechOptionsWire.Parse(line);
                 case Speak:
                     if (message.Generation < 1 || string.IsNullOrWhiteSpace(message.Text) ||
                         message.Text!.Length > MaxSpeakChars) return null;
@@ -99,7 +109,7 @@ internal static class WorkerProtocol
             }
         }
         catch (Exception ex) when (ex is SerializationException || ex is ArgumentException ||
-            ex is InvalidCastException || ex is FormatException)
+            ex is InvalidCastException || ex is FormatException || ex is InvalidDataException || ex is OverflowException)
         {
             return null;
         }
@@ -115,6 +125,7 @@ internal sealed class BoundedLineReader
     private readonly byte[] chunk = new byte[4096];
     private int position;
     private int length;
+    internal bool LastLineHadInvalidUtf8 { get; private set; }
 
     public BoundedLineReader(Stream stream, int maxBytes = WorkerProtocol.MaxLineBytes, bool strictUtf8 = false)
     {
@@ -138,7 +149,14 @@ internal sealed class BoundedLineReader
             while (position < length)
             {
                 byte value = chunk[position++];
-                if (value == (byte)'\n') return encoding.GetString(line.ToArray()).TrimEnd('\r');
+                if (value == (byte)'\n')
+                {
+                    byte[] bytes = line.ToArray();
+                    LastLineHadInvalidUtf8 = false;
+                    try { SpeechCapabilities.Utf8.GetCharCount(bytes); }
+                    catch (DecoderFallbackException) { LastLineHadInvalidUtf8 = true; }
+                    return encoding.GetString(bytes).TrimEnd('\r');
+                }
                 if (line.Length >= maxBytes) throw new InvalidDataException("A worker line exceeded the size bound.");
                 line.WriteByte(value);
             }

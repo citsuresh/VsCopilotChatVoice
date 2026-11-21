@@ -10,7 +10,11 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\SpeechOptions.cs" Link="Shared\SpeechOptions.cs" />
+    <Compile Include="..\Shared\SpeechCapabilities.cs" Link="Shared\SpeechCapabilities.cs" />
+    <Compile Include="..\Shared\SpeechCapabilityQuery.cs" Link="Shared\SpeechCapabilityQuery.cs" />
     <Compile Include="..\Shared\ReaderDocument.cs" Link="Shared\ReaderDocument.cs" />
+    <Compile Include="..\Shared\ReaderBlockValidation.cs" Link="Shared\ReaderBlockValidation.cs" />
     <Compile Include="..\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
   </ItemGroup>
   <ItemGroup>

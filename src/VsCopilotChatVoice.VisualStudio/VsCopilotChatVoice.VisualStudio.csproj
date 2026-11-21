@@ -19,7 +19,14 @@
     <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\SpeechOptions.cs" Link="Shared\SpeechOptions.cs" />
+    <Compile Include="..\Shared\SpeechCapabilities.cs" Link="Shared\SpeechCapabilities.cs" />
+    <Compile Include="..\Shared\SpeechCapabilityQuery.cs" Link="Shared\SpeechCapabilityQuery.cs" />
     <Compile Include="..\Shared\ReaderDocument.cs" Link="Shared\ReaderDocument.cs" />
+    <Compile Include="..\Shared\ReaderBlockValidation.cs" Link="Shared\ReaderBlockValidation.cs" />
+    <Compile Include="..\Shared\CapturedReplyCatalog.cs" Link="Shared\CapturedReplyCatalog.cs" />
+    <Compile Include="..\Shared\SettingsIdentity.cs" Link="Shared\SettingsIdentity.cs" />
+    <Compile Include="..\Shared\ScopedVoiceSettings.cs" Link="Shared\ScopedVoiceSettings.cs" />
     <Compile Include="..\Shared\ChatBridgeContracts.cs" Link="Shared\ChatBridgeContracts.cs" />
     <Compile Include="..\Shared\ChatMetadataServer.cs" Link="Shared\ChatMetadataServer.cs" />
     <Compile Include="..\Shared\PipePeerIdentity.cs" Link="Shared\PipePeerIdentity.cs" />

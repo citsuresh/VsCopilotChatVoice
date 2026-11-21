@@ -21,11 +21,13 @@ theme/DPI/accessibility and chat-recreation matrix remains pending.
 No VoiceType source or engine/model assets have been copied.
 The reader retains prototype branding and a pale-yellow palette.
 
-The 0.2.10 diagnostic build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
-gated to Debug + Exp + launch environment opt-in. Its current-user-only named pipe only inspects
+The 0.2.12 PoC build retains that toolbar appearance and adds `ChatBridgePoc`, explicitly
+gated to Debug + Exp + launch environment opt-in. Its current-user-only named pipe defaults to inspecting
 live WPF metadata through observed Session/Composer/ChatLog and composer-input/action paths,
 plus inspected typed session-ID fields and passive draft-revision/trust/responding observation;
-it cannot insert/send or deliver replies. Production plans in
+an additional launch gate accepts insertion-capability requests through `ChatDraftPoc` but always
+refuses unproved native atomic editing. The unfenced draft getter/setter transaction was removed.
+It cannot send or deliver replies. Production plans in
 IMPLEMENTATION_PLAN.md supersede optional-VoiceType-app discovery with selective external-host
 source reuse and move only reader presentation into a native VS tool window; neither is migrated.
 
@@ -37,8 +39,9 @@ source reuse and move only reader presentation into a native VS tool window; nei
 | --- | --- | --- |
 | `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; owns/disposes toolbar integration and provides dynamic VS resource references and activity logging. |
 | `ChatToolbarIntegration` | `src\VsCopilotChatVoice.VisualStudio\ChatToolbarIntegration.cs` | Bounded visible-picker discovery, conservative placement, disabled accessible controls, duplicate/lifetime handling; no speech or SDK dependencies. |
-| `ChatBridgePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatBridgePoc.cs` | Opt-in Exp-only read-only pipe; bounded WPF control discovery and binding/identity metadata inspection. No production input/reply protocol. |
+| `ChatBridgePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatBridgePoc.cs` | Opt-in Exp pipe, bounded native target discovery and separately gated atomic-insertion capability refusal. No draft mutation or send/reply protocol. |
 | `ChatTargetObservation` | `src\VsCopilotChatVoice.VisualStudio\ChatTargetObservation.cs` | Passive native-target epoch and draft-notification counter, trust/responding streams, automatic terminal teardown and primitive diagnostic retention. Does not read/write a draft or invoke commands. |
+| `ChatDraftPoc` | `src\VsCopilotChatVoice.VisualStudio\ChatDraftPoc.cs` | Explicit unsupported-atomic-edit refusal, bounded request validation, cancellation, non-evicting request deduplication and immutable-slot metadata checks; no draft access or send. |
 
 ### VsCopilotChatVoice.Reader
 
@@ -60,6 +63,7 @@ All reader symbols retain the `ReadAlongTrial` namespace.
 | `ReadAlongNavigationTests` | `tests\VsCopilotChatVoice.Reader.Tests\ReaderRegressionTests.cs` | Executable WPF/navigation/preference/ownership and child-process regression checks; no Test Explorer adapter. |
 | `ToolbarRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ToolbarRegressionTests.cs` | Optional reflection-based checks against the actual VSIX toolbar class using offscreen synthetic WPF chat controls; no speech/preferences. |
 | `BridgePocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\BridgePocRegressionTests.cs` | Optional actual-VSIX checks for gating, metadata, public/interface identity fields, private/content getter exclusion and hidden windows, plus isolated real-listener timeout/recovery/shutdown checks. No VS input/speech/preferences. |
+| `DraftPocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\DraftPocRegressionTests.cs` | Actual-VSIX mutation-surface removal, capability refusal, validation, cancellation, deduplication/conflicts/capacity and immutable-slot checks; no live VS input. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.
 

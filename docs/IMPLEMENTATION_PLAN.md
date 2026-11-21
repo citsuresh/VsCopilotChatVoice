@@ -290,6 +290,17 @@ the reusable helper intentionally reads exact requested types and reports failur
 
 ### Production phases
 
+Current bounded testing increment: 0.2.12 withdraws 0.2.11's unfenced native insertion after
+independent review reproduced edits and trust/busy changes after final snapshot capture.
+The additional Debug/Exp gate accepts only explicit unsupported-atomic-edit refusals; no native
+draft getter/setter transaction remains. Client writes/reads share an actual disposal deadline.
+Build, 209 bridge/IPC and 62 toolbar assertions plus real client backpressure/output-shape tests
+pass. Independent re-review closed both findings and the live task-result leak. Safe Exp tests
+verified default refusal/recovery and optional refusal/reconciliation/conflicts without mutation.
+No native target was present, so no positive insertion proof is claimed. Native insertion requires
+an authoritative atomic API, not copied snapshots or observer locks. PoC 1 remains incomplete.
+Current testing is complete: stop as requested; do not advance to send, reply feed, mic or another phase.
+
 1. **Contracts, lifetime and capability probes.** Establish live VS/conversation identity,
    request generations and a current-user-only local bridge with validated messages, correlated
    acknowledgements, process ownership and bounded payloads. Validate native floating tool-window

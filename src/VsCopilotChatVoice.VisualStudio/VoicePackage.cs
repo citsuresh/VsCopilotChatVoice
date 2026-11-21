@@ -34,7 +34,9 @@ public sealed class VoicePackage : AsyncPackage
         {
             bridgePoc = new ChatBridgePoc(error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
                 "Diagnostic bridge failed: " + error.GetType().FullName + " (" + error.HResult + ")."));
-            ActivityLog.LogInformation(nameof(VsCopilotChatVoice), "Exp-only read-only chat diagnostic bridge enabled.");
+            ActivityLog.LogInformation(nameof(VsCopilotChatVoice), ChatBridgePoc.IsDraftEnabled()
+                ? "Exp-only atomic-insertion capability probe enabled; native edits and send remain unsupported."
+                : "Exp-only read-only chat diagnostic bridge enabled.");
         }
     }
 

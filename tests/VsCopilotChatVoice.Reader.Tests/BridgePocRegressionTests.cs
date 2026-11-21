@@ -7,6 +7,8 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -127,6 +129,7 @@ internal static class BridgePocRegressionTests
                 "Composer inspection read a draft or followed unrelated content.");
 
             VerifyObservation(assembly, window, control);
+            assertions += DraftPocRegressionTests.Run(assembly);
             control.DataContext = null;
             snapshot = inspect.Invoke(null, new object[] { new[] { window } });
             object empty = ((IEnumerable)Property(snapshot, "Controls")).Cast<object>().Single();
@@ -137,6 +140,7 @@ internal static class BridgePocRegressionTests
             snapshot = inspect.Invoke(null, new object[] { new[] { window } });
             Check(!((IEnumerable)Property(snapshot, "Controls")).Cast<object>().Any(), "Hidden windows were inspected.");
             VerifyConnections(type);
+            VerifyDraftConnections(type);
             Console.WriteLine("PASS: " + assertions + " bridge probe/IPC assertions; no VS input, speech or user preferences.");
             return 0;
         }
@@ -424,6 +428,14 @@ internal static class BridgePocRegressionTests
                 string baseline = ValidReply(name);
                 Check(baseline.Contains("\"Visited\":1"), "Baseline diagnostic request failed.");
                 Check(!baseline.Contains("NativeTargets"), "Native WPF references escaped the diagnostic JSON contract.");
+                Check(!baseline.Contains("NativeInput"), "Native input references escaped the diagnostic JSON contract.");
+                using (NamedPipeClientStream client = Connect(name))
+                {
+                    Write(client, "insert\n");
+                    Check(Read(client) == "", "The inspect-only listener accepted draft insertion without its gate.");
+                }
+                ExpectError<InvalidDataException>(errors, reported);
+                Check(ValidReply(name).Contains("\"Visited\":1"), "A disabled insertion command killed the listener.");
                 using (NamedPipeClientStream client = Connect(name))
                 {
                     Write(client, "bad\n");
@@ -565,6 +577,121 @@ internal static class BridgePocRegressionTests
         Exception error;
         Check(errors.TryDequeue(out error) && (error is InvalidDataException || error is IOException),
             "Disconnect did not produce an explicit framing/transport rejection: " + error);
+    }
+
+    private static int framedInsertCalls;
+
+    private static void VerifyDraftConnections(Type type)
+    {
+        Type core = type.Assembly.GetType("VsCopilotChatVoice.VisualStudio.ChatDraftPoc", true);
+        Type requestType = core.GetNestedType("InsertRequest", BindingFlags.NonPublic);
+        Type resultType = core.GetNestedType("InsertResult", BindingFlags.NonPublic);
+        Type snapshotType = type.Assembly.GetType(type.FullName + "+ProbeSnapshot", true);
+        Type captureType = typeof(Func<,>).MakeGenericType(typeof(CancellationToken), typeof(Task<>).MakeGenericType(snapshotType));
+        Type insertType = typeof(Func<,,>).MakeGenericType(requestType, typeof(CancellationToken), typeof(Task<>).MakeGenericType(resultType));
+        MethodInfo captureFactory = typeof(BridgePocRegressionTests).GetMethod(nameof(Capture), BindingFlags.Static | BindingFlags.NonPublic)
+            .MakeGenericMethod(snapshotType);
+        MethodInfo insertFactory = typeof(BridgePocRegressionTests).GetMethod(nameof(FramedInsert), BindingFlags.Static | BindingFlags.NonPublic)
+            .MakeGenericMethod(requestType, resultType);
+        Delegate capture = Delegate.CreateDelegate(captureType, captureFactory);
+        Delegate handler = Delegate.CreateDelegate(insertType, insertFactory);
+        ConstructorInfo constructor = type.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null,
+            new[] { typeof(Action<Exception>), typeof(string), typeof(TimeSpan), captureType, insertType }, null);
+        var errors = new ConcurrentQueue<Exception>();
+        using (var reported = new SemaphoreSlim(0))
+        {
+            string name = "VsCopilotChatVoice.InsertTest." + Guid.NewGuid().ToString("N");
+            using (var server = (IDisposable)constructor.Invoke(new object[] {
+                new Action<Exception>(error => { errors.Enqueue(error); reported.Release(); }),
+                name, TimeSpan.FromSeconds(1), capture, handler }))
+            {
+                Task worker = (Task)type.GetField("worker", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(server);
+                object payload = Activator.CreateInstance(requestType, true);
+                requestType.GetProperty("Version").SetValue(payload, 1);
+                requestType.GetProperty("RequestId").SetValue(payload, Guid.NewGuid());
+                requestType.GetProperty("SessionId").SetValue(payload, Context.Session);
+                requestType.GetProperty("ClientId").SetValue(payload, "test-client");
+                requestType.GetProperty("Generation").SetValue(payload, Guid.NewGuid().ToString("N"));
+                requestType.GetProperty("DraftRevision").SetValue(payload, 0L);
+                requestType.GetProperty("Transcript").SetValue(payload, "POC_FRAME_INSERT");
+                byte[] json;
+                using (var data = new MemoryStream())
+                {
+                    new DataContractJsonSerializer(requestType).WriteObject(data, payload);
+                    json = data.ToArray();
+                }
+                int before = framedInsertCalls;
+                using (NamedPipeClientStream client = Connect(name))
+                {
+                    Write(client, "insert\n");
+                    byte[] length = BitConverter.GetBytes((uint)json.Length);
+                    foreach (byte value in length) client.WriteByte(value);
+                    foreach (byte value in json) client.WriteByte(value);
+                    string response = Read(client);
+                    Check(response.Contains("\"Status\":\"Rejected\"") &&
+                        response.Contains("NativeAtomicInsertionUnsupported") &&
+                        response.Contains("\"MutationAttempted\":false") && !response.Contains("POC_FRAME_INSERT"),
+                        "Framed capability refusal failed, claimed mutation, or echoed transcript content.");
+                }
+                Check(framedInsertCalls == before + 1, "One framed request invoked its handler more than once.");
+                Check(ValidReply(name).Contains("\"Visited\":1"), "Insertion broke legacy inspection.");
+                foreach (uint invalidLength in new[] { 0U, 32769U })
+                {
+                    using (NamedPipeClientStream client = Connect(name))
+                    {
+                        Write(client, "insert\n");
+                        byte[] length = BitConverter.GetBytes(invalidLength);
+                        client.Write(length, 0, length.Length);
+                        Check(Read(client) == "", "Invalid framed payload length was accepted.");
+                    }
+                    ExpectError<InvalidDataException>(errors, reported);
+                }
+                using (NamedPipeClientStream client = Connect(name))
+                {
+                    Write(client, "insert\n");
+                    byte[] body = Encoding.UTF8.GetBytes("{}");
+                    byte[] length = BitConverter.GetBytes((uint)body.Length);
+                    client.Write(length, 0, length.Length);
+                    client.Write(body, 0, body.Length);
+                    Check(Read(client) == "", "Required request members were not enforced.");
+                }
+                ExpectError<SerializationException>(errors, reported);
+                using (NamedPipeClientStream stalled = Connect(name))
+                {
+                    Write(stalled, "insert\n");
+                    stalled.WriteByte(10);
+                    ExpectError<TimeoutException>(errors, reported);
+                    Check(ValidReply(name).Contains("\"Visited\":1"), "A partial length prefix blocked the listener.");
+                }
+                using (NamedPipeClientStream stalled = Connect(name))
+                {
+                    Write(stalled, "insert\n");
+                    byte[] length = BitConverter.GetBytes(100U);
+                    stalled.Write(length, 0, length.Length);
+                    stalled.WriteByte((byte)'{');
+                    ExpectError<TimeoutException>(errors, reported);
+                    Check(ValidReply(name).Contains("\"Visited\":1"), "A partial insertion body blocked the listener.");
+                }
+                Check(framedInsertCalls == before + 1, "Malformed/expired framing reached the insertion handler.");
+                server.Dispose();
+                Check(worker.Wait(5000) && worker.Status == TaskStatus.RanToCompletion, "Draft-enabled listener shutdown failed.");
+                Check(errors.IsEmpty, "Draft-enabled shutdown left unreported errors.");
+            }
+        }
+    }
+
+    private static Task<TResult> FramedInsert<TRequest, TResult>(TRequest request, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if ((string)Property(request, "Transcript") != "POC_FRAME_INSERT")
+            throw new InvalidDataException("The framing fixture received unexpected text.");
+        framedInsertCalls++;
+        Type core = typeof(TRequest).DeclaringType;
+        object service = Activator.CreateInstance(core, BindingFlags.Instance | BindingFlags.NonPublic, null,
+            new object[] { new Action<Exception>(error => { throw new InvalidOperationException("Unexpected refusal error.", error); }), 128 }, null);
+        object response = core.GetMethod("RejectInsert", BindingFlags.Instance | BindingFlags.NonPublic)
+            .Invoke(service, new object[] { request, cancellationToken });
+        return Task.FromResult((TResult)response);
     }
 
     private static object Property(object value, string name) => value.GetType().GetProperty(name).GetValue(value);

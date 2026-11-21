@@ -4,13 +4,31 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
-Latest increment: independently reviewed 0.2.10 passive native observation and automatic
-terminal teardown are installed and live-validated in Exp. PoC 1 remains incomplete: native
+Current 0.2.12 source removes the unsafe 0.2.11 native draft transaction. Independent review
+reproduced trust/busy and concurrent-draft races after final snapshot capture. All valid insertion
+requests now explicitly refuse unproved atomic editing; no draft getter/setter path remains.
+Client asynchronous writes and reads share a disposal deadline. Build, 209 actual-DLL bridge/IPC
+and 62 toolbar assertions pass; a real non-reading peer disposed in 369 ms for a 350 ms test deadline.
+Package 0.2.12 and built DLL match SHA256 6D58E224D2C19726B2F85431B7F430A562097B6C76AAA15C43B0396293134904.
+Independent re-review closed both findings with no new in-scope issues. A live PowerShell task-result
+leak was fixed with explicit output suppression; the successful real-pipe output-shape test was also
+independently reviewed and passed. Optional-gate Exp tests verified unsupported refusal, exact-request
+reconciliation and conflicting-ID refusal, no transcript echo and MutationAttempted=false.
+Default-gate inspect, insertion-header EOF rejection, listener recovery and activity-log loading passed.
+Both live tests had NoNativeTarget: no positive native insertion or unchanged-draft proof is claimed.
+Installed 0.2.12 matches the same package/DLL hash above. Task Exp was gracefully closed; original
+host PID 29572/HWND 0x311C0 was verified foreground, cursor cleared and launch gates restored.
+Graph refresh: five changed C# files, 410 nodes, 2,551 edges, 11.57 seconds; generated dependencies
+renamed immediately, with truthful pre-save ed28de3 commit metadata. Current testing is complete;
+stop as requested. PoC 1 remains blocked/incomplete; no send, reply, microphone or later phase.
+
+Earlier stable increment: independently reviewed 0.2.10 passive native observation and automatic
+terminal teardown were installed and live-validated in Exp. PoC 1 remains incomplete: native
 guarded insertion/send and completed-reply delivery are the next required capabilities.
 Local checkpoint `b72d3dd` saves this reviewed increment and live evidence; no push. Subsequent
-read-only SDK contract research/helper work does not change the installed 0.2.10 bridge.
-The following progress notes retain earlier checkpoints; the latest 0.2.10 results supersede
-their pending-review/install statuses. No microphone or later production phase has started.
+read-only SDK contract research/helper work left that bridge unchanged. Current 0.2.12 supersedes
+the installed package; the following progress notes retain historical checkpoints and do not
+supersede the tested status above. No microphone or later production phase has started.
 
 Foundation and approved toolbar preview are committed locally through `ee55bb6`; no push.
 The user ended the design discussion and requested an implementation plan. The new draft
@@ -273,9 +291,12 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 
 ## Open tasks / limitations
 
+- Current 0.2.12 testing is complete; stop here. Positive native insertion remains blocked by
+  unproved atomic editing; never deploy the withdrawn writer or treat refusal as insertion proof.
 - PoC 1: resolve native command parameters/acceptance, exact input-replacement lifetime and
   atomic target/draft/readiness guards; prove completed-reply delivery and negative/two-instance
-  matrix before declaring completion. The diagnostic pipe is inspect-only.
+	matrix before declaring completion. The pipe defaults to inspect-only; the additional draft gate
+  accepts explicit capability refusals, not mutation.
   Metadata contracts and a version-specific constructor-only input-slot proof are now known;
   their native runtime guard/feed integration is not implemented or live-validated.
 - 0.2.3 Mic/Speaker/Settings controls are intentionally disabled; earlier placement/lifecycle
@@ -303,6 +324,9 @@ fix 2 remains unapplied. Only the task's Exp instance is an installation target.
 
 ## Recently changed files
 
+- `ChatDraftPoc.cs`, `ChatBridgePoc.cs`, `VoicePackage.cs`, manifest 0.2.12, draft/IPC regressions,
+  Invoke-GuardedChatDraftPoc and Test-GuardedChatDraftTransport: remove unfenced native mutation,
+  return explicit capability refusal, and bound actual client writes/reads with disposal and no retry.
 - `ChatTargetObservation.cs`, `ChatBridgePoc.cs`, `BridgePocRegressionTests.cs` and VSIX manifest:
   0.2.10 passive native-state observation, automatic terminal cleanup and 138 actual-DLL checks.
 - README, implementation plan, memory/flow docs and registered graph pair: reviewed behavior,

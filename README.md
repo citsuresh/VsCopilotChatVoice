@@ -37,13 +37,14 @@ No main-instance deployment was performed.
 
 ### Chat-bridge PoC in progress
 
-The 0.2.10 diagnostic build adds an opt-in, read-only binding/state probe, not production
+The 0.2.12 PoC build adds an opt-in binding/state probe and separately gated insertion-capability refusal, not production
 dictation/reply delivery. It is enabled only in Debug, with `/RootSuffix Exp` and the
 launch-process environment variable `VSCOPILOTCHATVOICE_BRIDGE_POC=1`. All toolbar controls
-remain disabled. The current-user-only pipe accepts only `inspect`; the read helper verifies
+remain disabled. By default the current-user-only pipe accepts only `inspect`; the read helper verifies
 the server PID and bounds response size/time. See `docs/SCRIPTS.md`. Do not enable this in
 normal VS or treat accessibility runtime IDs/chat titles as stable conversation identities.
-Capability validation is in progress; insertion/send and automatic reply capture are not proved.
+Atomic native editing is unproved: the unsafe insertion prototype was withdrawn after review.
+Native insertion, send and automatic reply capture remain unimplemented.
 The solution and targeted 56-probe/IPC and 62-toolbar checks pass. The corrected 0.2.5 Exp-only
 installer and configuration refresh both exited 0. The installed manifest and DLL hash match
 the independently reviewed package. Foreground access recovered after the desktop obstruction
@@ -130,6 +131,32 @@ The reusable `scripts\agent\Read-PublicAssemblyContract.ps1` reads exact public 
 in Windows PowerShell with explicit dependency folders and bounded member counts; its optional
 constructor-only-property check reads metadata, never private field values. See `docs/SCRIPTS.md`.
 
+### Atomic-insertion capability probe (0.2.12)
+
+Set the additional **launch-process-only** gate `VSCOPILOTCHATVOICE_DRAFT_POC=1` in Debug Exp
+to enable the framed `insert` request; without it the pipe remains inspect-only. No send request
+exists. The helper in `docs/SCRIPTS.md` supplies explicit SessionId/ClientId, observation
+generation/revision and a retained unique request ID, but every valid insertion request is
+rejected with `NativeAtomicInsertionUnsupported` and `MutationAttempted=false`.
+Review reproduced draft/trust/busy changes after the last copied snapshot; immutable input-slot
+metadata and observer locks cannot fence native producers. The draft getter/setter transaction
+was removed, rather than adding another racy check. No draft is read or changed by this request.
+The response never echoes a draft/transcript. No request is retried automatically.
+Retain the complete original request for reconciliation: replaying its exact ID and parameters
+returns the saved refusal; changed parameters with that ID are rejected.
+The non-evicting in-process ledger holds at most 128 requests; capacity exhaustion is explicit.
+Payloads are bounded to 32 KiB and transcripts to 4,096 characters. Client writes and reads share
+a 15-second deadline that disposes the pipe on expiry; retain the complete request if outcome is unknown.
+Build and 209 actual-DLL bridge/IPC plus 62 toolbar assertions pass. The real non-reading-pipe
+regression verifies backpressure and disposal within 369 ms for a 350 ms test deadline.
+Independent re-review closed both findings with no new in-scope issues. Safe Exp tests verified
+default-gate refusal/recovery, optional-gate refusal, explicit reconciliation and request-ID conflict
+with no mutation or transcript echo. The target remained unavailable; these are capability-refusal
+tests, not positive native insertion tests. A live PowerShell task-result leak was fixed and its
+real-pipe output-shape regression independently passed. Task Exp is closed and host focus restored.
+Current testing is complete; stop here as requested. PoC 1 is incomplete and atomic native editing
+remains blocked. No microphone, send, reply delivery or later production phase is enabled.
+
 Incremental packaging retained manifest version 0.2.4 after the source was bumped to 0.2.5.
 An explicit no-deploy VSIX Rebuild corrected it. The actual ZIP now reports 0.2.5 and contains
 the identical independently reviewed DLL (SHA256 `0810376689126D67D228C496ADFE80F1D76BB47701EF8E1E68DAF66599EB4516`).
@@ -176,7 +203,7 @@ integration assertions with seven live progress mappings. A successful build pro
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
 
-The isolated `--bridge-probe` route passes 138 assertions for opt-in gating, binding metadata,
+The isolated `--bridge-probe` route passes 209 assertions for opt-in gating, binding metadata,
 no unrelated content getter reads, hidden windows and the actual listener with a test capture
 callback. IPC checks cover malformed/early-disconnected/unterminated requests, idle/partial
 request deadlines, oversized responses, next-client recovery and clean shutdown. They do not
@@ -187,6 +214,10 @@ switching for UI cleanup; the standalone observer harness supplies its WPF dispa
 They do not
 prove live Copilot identity, insertion/send or automatic capture. The production deadline remains
 15 seconds; tests inject a one-second deadline, not a production setting change.
+Insertion-capability checks prove removal of the unfenced mutation surface, explicit unsupported
+refusal, cancellation, request deduplication/conflicts/capacity and actual framed-pipe recovery/deadlines.
+Run `& .\tests\Test-GuardedChatDraftTransport.ps1` for client parsing, completed transmission,
+pre-write expiry and a real non-reading peer deadline. These are refusal proofs, not positive insertion proofs.
 
 Independent review resolved the cached-placement finding after the approved fix. Its latest
 low-severity test-only finding remains unapplied: the glyph-height assertion does not prove
@@ -284,7 +315,7 @@ file is distributed. Storage errors remain visible in the reader.
 The discussion is consolidated in [the draft implementation plan](docs/IMPLEMENTATION_PLAN.md).
 Its phase breakdown needs confirmation before production code changes. Working defaults that
 were not explicitly settled are labelled in the plan; none of these features are shipped.
-The user has authorized PoC 1 only; its read-only diagnostic build is described above.
+The user has authorized PoC 1 only; its read-only diagnostics and separately gated capability-refusal build are described above.
 The plan evolves with implementation/testing and approved enhancements. Start with bounded
 Exp proofs for exact chat routing/delivery, a native reader with external speech, and safe
 Ctrl-only capture before committing to the full migration; optional hooks may be dropped.
@@ -324,8 +355,8 @@ No automatic main-instance installation, commits or pushes.
   or committed worktree status.
   See `docs\PROJECT_STATE.md` for current validation results, including the intermittent
   preference-persistence harness failure observed before the first foundation commit.
-  The latest diagnostic incremental update analyzed three changed C# files across two projects:
-  348 nodes and 2,243 edges in 14.1 seconds. Metadata describes the analyzed working tree,
+	The latest diagnostic incremental update analyzed five changed C# files across two projects:
+  410 nodes and 2,551 edges in 11.57 seconds. Metadata describes the analyzed working tree,
   not a new commit.
 - Independent pre-commit review passed the solution build and both executable checks on
   their first audit runs. Its one viewer-wording finding was corrected in the upstream

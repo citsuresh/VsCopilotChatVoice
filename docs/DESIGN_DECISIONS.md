@@ -197,3 +197,33 @@ Append-only dated log. Supersede a decision with a new entry rather than rewriti
 - **Alternatives:** Do not assume native lifetime from synthetic fixtures, blindly construct a
   backend send request, infer completed-reply identity from response Content, or silently skip
   metadata dependency failures. Use exact public-type reads instead of whole-assembly inventory.
+
+## 2026-11-21 - Separate guarded draft insertion from native send
+
+Superseded before deployment by the fail-closed decision below; these snapshot guards were not atomic.
+
+- **Decision:** Add an additional process-local Debug/Exp gate for native UI-thread draft insertion.
+  Revalidate exact session/client/epoch/revision/input, readiness and supported immutable input
+  lifetime before the setter; preserve existing drafts with an append and verify read-back.
+  Do not expose send while its acceptance and reply correlation remain unverified.
+- **Rationale:** Native insertion can be tested independently without changing the approved
+  disabled toolbar or trusting foreground input. A setter/transport failure may occur after
+  mutation; store uncertain outcomes and deduplicate the complete request rather than retry.
+- **Bounds:** The 128-entry ledger never silently evicts identities. Report capacity/refusal
+  explicitly; keep original request parameters for reconciliation. Responses/logs contain no draft.
+- **Alternatives:** No foreground paste, draft overwrite, combined-draft auto-send, blind retries,
+  or success-shaped acknowledgement after failed read-back. Keep normal/ungated VS unchanged.
+
+## 2026-11-21 - Refuse native insertion without authoritative atomic editing
+
+- **Decision:** Remove the native draft read/write transaction and its callback surface. Every
+  valid insertion request returns `Rejected / NativeAtomicInsertionUnsupported`, with no mutation.
+  Keep bounded framing, explicit capability reporting and non-evicting request reconciliation.
+- **Evidence:** Independent review reproduced trust/busy changes and concurrent draft replacement
+  after the last copied snapshot. Neither constructor-only input metadata nor observer/ledger locks
+  fence native producers; post-write uncertainty cannot restore an overwritten draft.
+- **Transport:** Start one deadline before the first asynchronous write and include response reads.
+  Dispose the actual pipe on expiry, preserve the complete request and never retry automatically.
+  A real non-reading-peer test verifies backpressure and elapsed disposal, not just parsing.
+- **Boundary:** Test safe refusal only, save the verified increment and stop as requested. Native
+  insertion remains blocked; no send, reply delivery, microphone or production migration is enabled.

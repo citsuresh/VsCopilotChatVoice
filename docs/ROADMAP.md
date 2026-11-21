@@ -12,6 +12,11 @@ explicitly approved normal-instance installation.
 
 ## Near term (priority order)
 
+Current authorized testing stops at the verified 0.2.12 capability refusal. PoC 1 is incomplete:
+native insertion requires an authoritative atomic-edit contract; copied snapshots and immutable
+input-slot metadata are insufficient. Do not resume send/reply/microphone or later phases without
+a new user request.
+
 - [ ] Confirm the decomposition in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 - [ ] Phase 1: instance/conversation contracts, local bridge/lifetime and capability probes.
 - [ ] Phase 2: native floating/dockable reader presentation with external speech, preserving

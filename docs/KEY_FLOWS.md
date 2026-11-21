@@ -12,3 +12,7 @@
 - `ChatBridgePoc.CaptureOnUiThread -> ChatTargetObservation.ChatTargetObservation -> IObservable.Subscribe -> ChatTargetObservation.Snapshot`
 - `ChatTargetObservation.VisibilityChanged / Unloaded / ContextChanged / ComposerChanged / StateEnded -> ChatTargetObservation.TryInvalidate -> ChatTargetObservation.QueueCleanup -> ChatBridgePoc.ScheduleOnUiThreadAsync -> ChatTargetObservation.Detach`
 - `ChatBridgePoc.Dispose -> ChatTargetObservation.RequestDisposal -> ChatTargetObservation.QueueCleanup -> ChatTargetObservation.Detach`
+- `VoicePackage.InitializeAsync -> ChatBridgePoc.IsDraftEnabled -> ChatDraftPoc.ChatDraftPoc`
+- `ChatBridgePoc.RunAsync -> ChatBridgePoc.ReadExactlyAsync -> ChatBridgePoc.InsertDraftAsync -> ChatDraftPoc.RejectInsert -> InsertResult (NativeAtomicInsertionUnsupported; no draft access)`
+- `Invoke-GuardedChatDraftPoc -> shared deadline -> Write-PocFrame -> WriteAsync / bounded Wait -> ReadAsync / bounded Wait -> acknowledgement; timeout -> actual pipe disposal -> unknown outcome, no retry`
+- `ChatBridgePoc.CaptureOnUiThread -> ChatDraftPoc.HasConstructorOnlyBinding -> FieldInfo metadata validation`

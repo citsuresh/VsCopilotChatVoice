@@ -20,7 +20,7 @@ using Microsoft.VisualStudio.Shell;
 
 namespace VsCopilotChatVoice.VisualStudio;
 
-// Diagnostic-only capability probe. No input, submission or skill activation is exposed.
+// Exp-only probe and separately gated atomic-edit capability refusal. No mutation is exposed.
 internal sealed class ChatBridgePoc : IDisposable
 {
     private readonly CancellationTokenSource lifetime = new CancellationTokenSource();
@@ -29,6 +29,8 @@ internal sealed class ChatBridgePoc : IDisposable
     private readonly string pipeName;
     private readonly TimeSpan connectionTimeout;
     private readonly Func<CancellationToken, Task<ProbeSnapshot>> capture;
+    private readonly Func<ChatDraftPoc.InsertRequest, CancellationToken, Task<ChatDraftPoc.InsertResult>>? insertDraft;
+    private readonly ChatDraftPoc? draftPoc;
     private NamedPipeServerStream? activePipe;
     private ChatTargetObservation? observation;
     private readonly Task worker;
@@ -48,18 +50,26 @@ internal sealed class ChatBridgePoc : IDisposable
 
     internal ChatBridgePoc(Action<Exception> reportError)
         : this(reportError, "VsCopilotChatVoice.Poc." + Process.GetCurrentProcess().Id,
-            TimeSpan.FromSeconds(15), null, true)
+            TimeSpan.FromSeconds(15), null, null, true)
     {
     }
 
     internal ChatBridgePoc(Action<Exception> reportError, string pipeName, TimeSpan connectionTimeout,
         Func<CancellationToken, Task<ProbeSnapshot>> capture)
-        : this(reportError, pipeName, connectionTimeout, capture, false)
+        : this(reportError, pipeName, connectionTimeout, capture, null, false)
+    {
+    }
+
+    internal ChatBridgePoc(Action<Exception> reportError, string pipeName, TimeSpan connectionTimeout,
+        Func<CancellationToken, Task<ProbeSnapshot>> capture,
+        Func<ChatDraftPoc.InsertRequest, CancellationToken, Task<ChatDraftPoc.InsertResult>> insertDraft)
+        : this(reportError, pipeName, connectionTimeout, capture, insertDraft, false)
     {
     }
 
     private ChatBridgePoc(Action<Exception> reportError, string pipeName, TimeSpan connectionTimeout,
-        Func<CancellationToken, Task<ProbeSnapshot>>? capture, bool nativeCapture)
+        Func<CancellationToken, Task<ProbeSnapshot>>? capture,
+        Func<ChatDraftPoc.InsertRequest, CancellationToken, Task<ChatDraftPoc.InsertResult>>? insertDraft, bool nativeCapture)
     {
         this.reportError = reportError ?? throw new ArgumentNullException(nameof(reportError));
         this.pipeName = pipeName ?? throw new ArgumentNullException(nameof(pipeName));
@@ -67,8 +77,17 @@ internal sealed class ChatBridgePoc : IDisposable
             throw new ArgumentOutOfRangeException(nameof(connectionTimeout));
         this.connectionTimeout = connectionTimeout;
         this.capture = nativeCapture ? CaptureAsync : capture ?? throw new ArgumentNullException(nameof(capture));
+        if (nativeCapture && IsDraftEnabled())
+        {
+            draftPoc = new ChatDraftPoc(reportError);
+            this.insertDraft = InsertDraftAsync;
+        }
+        else this.insertDraft = insertDraft;
         worker = Task.Run(RunAsync);
     }
+
+    internal static bool IsDraftEnabled() => IsEnabled() &&
+        Environment.GetEnvironmentVariable("VSCOPILOTCHATVOICE_DRAFT_POC") == "1";
 
     private async Task<ProbeSnapshot> CaptureAsync(CancellationToken cancellationToken)
     {
@@ -98,6 +117,7 @@ internal sealed class ChatBridgePoc : IDisposable
             object composer = ReadObservedBinding(context, "Composer");
             object input = ReadObservedBinding(composer, "PromptInput");
             if (session.GetType().FullName != "Microsoft.VisualStudio.Conversations.Backends.CopilotSdk.CopilotSdkSession" ||
+                composer.GetType().FullName != "Microsoft.VisualStudio.Copilot.UI.HarnessUi.Sessions.PromptComposerViewModel" ||
                 input.GetType().FullName != "Microsoft.VisualStudio.Copilot.UI.HarnessUi.Sessions.Composer.PromptTextInputViewModel" ||
                 !(context is INotifyPropertyChanged contextChanges) || !(input is INotifyPropertyChanged inputChanges) ||
                 !(ReadObservedBinding(session, "IsTrusted") is IObservable<bool> trusted) ||
@@ -118,8 +138,29 @@ internal sealed class ChatBridgePoc : IDisposable
             snapshot.TargetStatus = "Observed";
             snapshot.IsReadOnly = isReadOnly;
             snapshot.IsTranscript = isTranscript;
+            snapshot.NativeInput = input;
+            snapshot.HasStableInputBinding = ChatDraftPoc.HasConstructorOnlyBinding(
+                FindBindingProperty(composer.GetType(), "PromptInput") ??
+                throw new InvalidDataException("The native input-binding property is unavailable."));
+            object sessionId = ReadObservedBinding(session, "SessionId");
+            if (sessionId.GetType().FullName != "Microsoft.VisualStudio.Copilot.CopilotSessionId")
+                throw new InvalidDataException("The native session identity contract is unsupported.");
+            snapshot.SessionId = (Guid)RequireIdentityProperty(sessionId.GetType(), "Guid", typeof(Guid)).GetValue(sessionId);
+            object clientId = ReadObservedBinding(sessionId, "ClientId");
+            if (clientId.GetType().FullName != "Microsoft.VisualStudio.Copilot.CopilotClientId")
+                throw new InvalidDataException("The native client identity contract is unsupported.");
+            snapshot.ClientId = (string?)RequireIdentityProperty(clientId.GetType(), "Id", typeof(string)).GetValue(clientId);
+            if (string.IsNullOrWhiteSpace(snapshot.ClientId) || snapshot.ClientId!.Length > 256)
+                throw new InvalidDataException("The native client identity is invalid.");
             return snapshot;
         }
+    }
+
+    private Task<ChatDraftPoc.InsertResult> InsertDraftAsync(ChatDraftPoc.InsertRequest request,
+        CancellationToken cancellationToken)
+    {
+        ChatDraftPoc core = draftPoc ?? throw new InvalidOperationException("Guarded draft insertion is disabled.");
+        return Task.FromResult(core.RejectInsert(request, cancellationToken));
     }
 
     private static async Task ScheduleOnUiThreadAsync(Action action)
@@ -166,14 +207,38 @@ internal sealed class ChatBridgePoc : IDisposable
                                 if (request[count] == '\n') { terminated = true; break; }
                                 count += read;
                             }
-                            if (!terminated || Encoding.ASCII.GetString(request, 0, count) != "inspect")
-                                throw new InvalidDataException("The diagnostic bridge accepts only inspect.");
-
-                            ProbeSnapshot snapshot = await capture(connection.Token).ConfigureAwait(false);
+                            if (!terminated) throw new InvalidDataException("The PoC command is unterminated.");
+                            string command = Encoding.ASCII.GetString(request, 0, count);
+                            object responseObject;
+                            Type responseType;
+                            if (command == "inspect")
+                            {
+                                responseObject = await capture(connection.Token).ConfigureAwait(false);
+                                responseType = typeof(ProbeSnapshot);
+                            }
+                            else if (command == "insert" && insertDraft != null)
+                            {
+                                byte[] length = new byte[4];
+                                await ReadExactlyAsync(pipe, length, connection.Token).ConfigureAwait(false);
+                                uint size = BitConverter.ToUInt32(length, 0);
+                                if (size == 0 || size > ChatDraftPoc.MaxRequestBytes)
+                                    throw new InvalidDataException("The guarded draft payload exceeds its limit.");
+                                byte[] body = new byte[(int)size];
+                                await ReadExactlyAsync(pipe, body, connection.Token).ConfigureAwait(false);
+                                using (var data = new MemoryStream(body, false))
+                                {
+                                    var payload = (ChatDraftPoc.InsertRequest?)new DataContractJsonSerializer(
+                                        typeof(ChatDraftPoc.InsertRequest)).ReadObject(data) ??
+                                        throw new InvalidDataException("The guarded draft payload is unavailable.");
+                                    responseObject = await insertDraft(payload, connection.Token).ConfigureAwait(false);
+                                }
+                                responseType = typeof(ChatDraftPoc.InsertResult);
+                            }
+                            else throw new InvalidDataException("The PoC command is unsupported or disabled.");
                             connection.Token.ThrowIfCancellationRequested();
                             using (var output = new MemoryStream())
                             {
-                                new DataContractJsonSerializer(typeof(ProbeSnapshot)).WriteObject(output, snapshot);
+                                new DataContractJsonSerializer(responseType).WriteObject(output, responseObject);
                                 byte[] response = output.ToArray();
                                 if (response.Length > 262144) throw new InvalidDataException("Probe response exceeds its limit.");
                                 await pipe.WriteAsync(response, 0, response.Length, connection.Token).ConfigureAwait(false);
@@ -202,6 +267,18 @@ internal sealed class ChatBridgePoc : IDisposable
             error is InvalidOperationException || error is System.Security.SecurityException)
         {
             reportError(error);
+        }
+    }
+
+    private static async Task ReadExactlyAsync(Stream stream, byte[] bytes, CancellationToken cancellationToken)
+    {
+        int count = 0;
+        while (count < bytes.Length)
+        {
+            int read = await stream.ReadAsync(bytes, count, bytes.Length - count, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+            if (read == 0) throw new InvalidDataException("The guarded draft payload ended early.");
+            count += read;
         }
     }
 
@@ -362,12 +439,17 @@ internal sealed class ChatBridgePoc : IDisposable
     internal sealed class ProbeSnapshot
     {
         internal List<FrameworkElement> NativeTargets { get; } = new List<FrameworkElement>();
+        internal object? NativeInput { get; set; }
         [DataMember] public int Visited { get; set; }
         [DataMember] public List<ProbeControl> Controls { get; set; } = new List<ProbeControl>();
         [DataMember] public string TargetStatus { get; set; } = "NotObserved";
         [DataMember] public ChatTargetObservation.ObservationSnapshot? Target { get; set; }
         [DataMember] public bool? IsReadOnly { get; set; }
         [DataMember] public bool? IsTranscript { get; set; }
+        [DataMember] public bool? HasStableInputBinding { get; set; }
+        [DataMember] public bool NativeAtomicInsertionSupported { get; set; }
+        [DataMember] public Guid? SessionId { get; set; }
+        [DataMember] public string? ClientId { get; set; }
     }
 
     [DataContract]

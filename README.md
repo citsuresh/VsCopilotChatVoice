@@ -160,13 +160,13 @@ Additional live scenarios on Exp (unattended, nothing sent), all exact read-back
 accents, CJK, emoji, shell/SendKeys special characters and padded spaces via paste; a 20,000-character
 paste (20,001 refused); clipboard text, image and file-list contents restored after a paste (a text
 clipboard regains synthesized `System.String`/`Text` formats); a clipboard locked by another process gives
-`Failed` with the draft verified unchanged; a caret placed mid-draft gives `CaretNotAtEnd`. Not yet tested
-(need the person to set up the state or approve focus/tab changes): selected text, input not focused, Exp in
-the background, chat tab hidden, chat busy, two chat inputs, `#file`/`/command`/attachment chips, an open
-autocomplete popup, undo of a long paste, typing during the call and the blocked-input Exp state.
-Still not
-atomic: text
-typed by the person during the few seconds of the call can interleave (reported, never cleared).
+`Failed` with the draft verified unchanged; a caret placed mid-draft or a selection gives `CaretNotAtEnd` (typed and paste); `-PlaceCaret` collapses a
+selection with Ctrl+End and appends without replacing text; one Ctrl+Z removes a whole 2,200-character paste;
+Exp behind another window gives `ExpNotForeground`. Not yet tested (need the person to set up the state or
+approve tab/focus changes inside Exp): input not focused, chat tab hidden, chat busy, two chat inputs,
+`#file`/`/command`/attachment chips, an open autocomplete popup, typing during the call and the
+blocked-input Exp state. Still not atomic: text typed by the person during the few seconds of the call can
+interleave (reported, never cleared).
 The orchestrator's own Send script clears the input, so it is unsuitable here.
 
 ### Atomic-insertion capability probe (0.2.12)

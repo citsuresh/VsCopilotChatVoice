@@ -4,7 +4,7 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
-Latest: added read-only `scripts\agent\Wait-ChatReplyUia.ps1` (polls the observer for a new completed,
+Latest: sent orchestrator suggestions to the skills-repo agent (it confirmed target safety, draft protection, quote handling, reply classification, approval state; read-only, nothing changed there) and, on its finding that a cost-only footer can lack `PART_LikeButton`, added a footer-name fallback to `Read-ChatRepliesUia.ps1` (live-checked on Exp; reply with a cost-only footer now reads `Complete`). Before that: added read-only `scripts\agent\Wait-ChatReplyUia.ps1` (polls the observer for a new completed,
 settled reply; duplicate guard via `-AfterSha256`), verified on an idle chat only. Parked by user: cancelled
 reply, Deny, second chat, long transcript. Before that: added read-only `scripts\agent\Read-ChatRepliesUia.ps1` (one inspect call, no input or focus
 change, Exp-only). It reads the `ChatSessionList` transcript, reports message roles, lengths, SHA-256 and

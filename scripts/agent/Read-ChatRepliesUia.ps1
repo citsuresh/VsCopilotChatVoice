@@ -120,6 +120,9 @@ function Get-DescendantIds($n, $set) {
 #   Footer    contains PART_LikeButton
 #   Body      contains PART_FlowScrollViewer (a user or assistant message; role comes from the turn)
 #   Tool      contains toolCallExpander or HeaderSite (a tool call or task group)
+#   Footer    fallback: a cost-only footer can lack PART_LikeButton, so a name such as "The response cost 1.0
+#             credits." or "The response used the <model> model. The response cost N credits." also counts
+#             (only when the item has no body or tool marker)
 #   Header    short item without those markers; "GitHub Copilot" starts an assistant turn, any other
 #             header (author name, "Restore Checkpoint") starts a user turn. Inside an open assistant
 #             turn (no footer yet) only "GitHub Copilot" or "Restore Checkpoint" counts as a header,
@@ -137,6 +140,7 @@ foreach ($item in @($lists[0].Children)) {
     if ($ids.Contains('PART_LikeButton')) { $role = 'Footer'; $thisTurn = $turn; $turnRole = $null }
     elseif ($ids.Contains('PART_FlowScrollViewer')) { $role = if ($turnRole) { $turnRole } else { 'Unknown' }; $thisTurn = $turn }
     elseif ($ids.Contains('toolCallExpander') -or $ids.Contains('HeaderSite')) { $role = 'Tool'; $thisTurn = $turn }
+    elseif ($name.Length -le 200 -and $name -match '^The response (used the .+ model\. The response )?cost [\d.]+ credits?\.?$|^The response used the .+ model\.?$') { $role = 'Footer'; $thisTurn = $turn; $turnRole = $null }
     elseif (@($item.Children).Count -le 2 -and $name.Length -le 60 -and ($turnRole -ne 'Assistant' -or $name -eq 'GitHub Copilot' -or $name -eq 'Restore Checkpoint' -or $userHeaders.Contains($name))) {
         $role = 'Header'
         # An author name seen outside an open assistant turn is remembered, so it still ends an unfinished reply.

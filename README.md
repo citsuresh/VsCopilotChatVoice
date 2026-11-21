@@ -185,7 +185,9 @@ transcript (`AmbiguousChat`) and a truncated tree. Observed on Exp (2026-11-21):
 The tree keeps only a window of recent items (a very long reply can sit far above the viewport, with
 negative Y), so `MessageCount` and the earliest turns can change between calls. Items are classified by
 structural markers, never by length or position alone: a footer contains `PART_LikeButton` (name "The
-response cost N credits.", sometimes prefixed "The response used the <model> model."), a message body
+response cost N credits.", sometimes prefixed "The response used the <model> model."; a cost-only footer
+seen on Exp can lack the Like button, so an item with no body or tool marker whose name matches that wording
+is also a footer), a message body
 contains `PART_FlowScrollViewer` (its full text is the item's UIA Name), a tool call or task group contains
 `toolCallExpander` or `HeaderSite` (for example "Run command: ...", "Worked on 7 tasks", "Read 2 items"),
 and a short item (at most 2 children, name up to 60 characters) is a header: `GitHub Copilot` starts an

@@ -283,3 +283,60 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   integration check "Selecting Detailed did not replace Concise on disk" (preference-save test, unrelated to this
   change) appeared once; two later runs passed. Not investigated here.
 - **Result:** Proceed with caveats; see IMPLEMENTATION_PLAN.md section 6 for what was and was not tested live.
+
+## 2026-11-21 - PoC 3: pure gestures, explicit fake lifecycle and thread-owned arbitration
+
+- **Decision:** Keep Ctrl decisions in a pure, serialized state machine with generation-tagged backend
+  acknowledgements. Request on down; defer hold finalization until ready if release wins startup.
+  A first toggle tap is tentative until up; later Ctrl combinations invalidate only a tentative stop
+  tap, not the established toggle. Esc/focus cancel all phases and invalidate late results/releases.
+- **Boundary:** This proof has no microphone, recording, transcription or delivery. The VSIX observer
+  uses Debug + exact Exp suffix + launch opt-in; preview handlers observe already-handled events
+  without changing `Handled`. It shares conservative toolbar picker discovery and accepts only
+  active-window Chat keyboard focus. Log only counters and decision/state/generation, never key
+  contents, draft/reply text or audio. Launch Left/Toggle flags are test knobs, not saved settings.
+- **Ownership:** Use a current-user ACL-restricted named `Local\` mutex with `WaitOne(0)`, not a PID
+  file or live-owner takeover. Report abandonment separately as a crashed previous owner. Windows
+  mutex ownership is thread-affine, so fake acquire/stop/release/dispose stay on the UI thread;
+  future external capture must marshal stop acknowledgement to that owning thread. Prevent same-
+  thread recursive acquisition from creating two local owners. Hold until capture-stop acknowledgement,
+  not until a potentially long transcription finishes; serialize finalization in the state machine.
+- **Alternatives rejected:** A timing threshold before requesting capture, global keyboard hooks,
+  arbitrary foreground input, silent abandoned-owner recovery and treating synthetic WPF events as
+  physical-key proof. An intentionally queued dispatcher callback models fake backend readiness,
+  not an artificial gesture activation delay; its narrow analyzer suppression documents that distinction.
+- **Evidence/decision:** 165 full gesture assertions include actual-DLL fixtures and real two-process
+  contention/crash recovery. Installed observer attached in Exp and normal Ctrl+V/A/C preserved exact
+  scratch text; reader Speak/Cancel remained usable. Physical Right Ctrl/repeat/Esc/focus/toggle and
+  two VS instances remain open because the toolkit cannot send side-specific held modifiers.
+  **Adapt:** retain the optional gate pending manual coexistence proof; mouse/reader are independent.
+
+## 2026-11-21 - PoC 3 release-side guards for native suppressed key-down
+
+- **Evidence:** Physical Left Ctrl Toggle starts and second solitary tap stops in Exp. Native Chat
+  sometimes exposes other key-up without its key-down, including the requested shortcut/Esc exercise.
+  The old detector mistook a tentative stop chord for a solitary Ctrl tap. Exact actual-DLL reflection
+  reproduced 0.3.1 `Stopping / FinalizeCapture`; the same sequence on 0.3.2 stays `Listening / None`.
+- **Decision:** Any other release invalidates a tentative gesture. Sample other held inputs again on
+  Ctrl release to guard the opposite release ordering. Escape release cancels if its down was not
+  observed. Preserve immediate capture request, normal routing, established toggle, generation guards
+  and the no-hook boundary. Cancel-on-release is a fallback, not a claim of immediate native down delivery.
+- **Validation:** All six suites pass; gesture 209 full / 196 pure checks include both release orders,
+  startup and active toggle plus Escape release in every lifecycle stage. Official Exp install/refresh
+  exited 0 with matching 0.3.2 DLL; observer reattached. Patched physical Toggle/shortcut/Esc checks
+  remain pending. Keep the optional gate; do not promote to production or invent an early-down capability.
+
+## 2026-11-21 - PoC 3 final bounded result: accept with native release-side adaptation
+
+- **Evidence:** Patched Left Ctrl Toggle remains Listening through Ctrl+A/C (StopTapInvalidated),
+  finalizes once on a later solitary tap and cancels on EscapeRelease. Two live task Exp instances
+  cancel/release before the other acquires; both allow a later start. No focus-loss finalization/result
+  or overlapping active owner appeared; both dedicated logs have zero package errors. Live-VS proof
+  is safe focus handoff, not crash/Busy proof; real two-process tests separately prove Busy/abandonment.
+- **Decision:** Accept the authorized fake-capture PoC, with an explicit release-side native adaptation.
+  Keep Ctrl optional/gated, default Right Ctrl unchanged, configurable Left Ctrl used for live testing.
+  Direct native shortcut/Esc down, physical Right Ctrl, microphone latency/hardware, cross-session,
+  missing decisive key-up and live-VS crash recovery remain unproved. No production phase is authorized.
+- **Fallback:** If a later native surface suppresses both decisive edges, defer/drop Ctrl rather than
+  install global hooks or claim immediate cancellation. Mouse delivery and external reader playback
+  stay independent. This supersedes the earlier pending physical/two-instance result, not its history.

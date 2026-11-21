@@ -5,16 +5,23 @@ with a themed reader and companion skill. Not an official Microsoft or GitHub pr
 
 ## Current status: toolbar-shell preview under validation
 
+Bounded PoC 1 uses Exp-verified external guarded-insertion and completed-reply observation
+helpers; native atomic editing and a production reply feed remain unsupported. PoC 2
+(native reader/external speech) is accepted with documented caveats. PoC 3 (0.3.2) is accepted
+with a release-side adaptation: fake Ctrl capture, real two-process ownership and two live
+Exp-instance handoff are proved. Physical Right Ctrl and early native shortcut/Esc down
+remain unproved. These proofs do not activate the toolbar or implement a microphone.
+
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
 The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with a disabled chat-toolbar preview and a preview native reader tool window (0.3.0, View > Other Windows); bundles the reader under `Reader` and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with disabled chat-toolbar controls, a native reader preview and opt-in log-only gesture PoC (0.3.2); bundles the reader under `Reader` and starts it only as the headless speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
-| `src\Shared` | Speech-worker protocol and host source files, compiled into the VSIX, the Reader and the tests (not a separate assembly). |
-| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader regression harness plus an isolated toolbar mode against the built VSIX; not a Test Explorer test adapter project. |
+| `src\Shared` | Speech-worker protocol/host compiled into VSIX, Reader and tests; pure Ctrl detector and recording mutex compiled into VSIX/tests. Not a separate assembly. |
+| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker and gesture regression routes; not a Test Explorer adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
 VoiceType's dictation engine. The `ReadAlongTrial` namespace and sample labels are
@@ -51,7 +58,50 @@ the Exp IDE closes; the floating window is restored on the next launch. Not yet 
 pinning, keyboard focus, live theme change, two instances, high DPI. See IMPLEMENTATION_PLAN.md section 6.
 Installed only into Exp; no main-instance install.
 
-### Chat-bridge PoC in progress
+### Ctrl gesture PoC 3 (0.3.2 preview; accepted with adaptation)
+
+Only Debug + `/RootSuffix Exp` + launch-process `VSCOPILOTCHATVOICE_GESTURE_POC=1`
+enables this log-only observer. Right Ctrl/Hold defaults; launch-only
+`VSCOPILOTCHATVOICE_GESTURE_LEFT=1` selects Left Ctrl and
+`VSCOPILOTCHATVOICE_GESTURE_TOGGLE=1` selects toggle for the proof. No setting is persisted.
+The nearest supported chat panel contains the picker, native input and transcript. Preview
+handlers use `handledEventsToo: true`, accept only active-window/inside-Chat keyboard focus,
+and never change `Handled`. Logs contain counters and decisions/state/generation, no individual
+keys, chat contents or audio. Toolbar controls remain disabled and reader playback independent.
+
+The pure detector requests fake capture immediately on down, suppresses repeats/held inputs,
+finalizes hold on release (deferred until ready if release wins startup), and confirms toggle
+on solitary up. Other keys/buttons invalidate a tentative gesture without swallowing shortcuts;
+Ctrl+A/C keeps an established toggle running. Esc/focus cancels all phases and rejects later
+readiness/releases/results. Native Chat sometimes suppresses shortcut/Esc key-down: 0.3.2
+also invalidates on other releases, rechecks still-held inputs on Ctrl up and cancels on Escape
+release. This is a release-side fallback, not a promise of immediate native chord/Esc cancellation.
+
+The fake adapter queues ready/stopped/result acknowledgements; it never records, transcribes,
+inserts or sends. A current-user ACL-restricted `Local\` mutex acquires without waiting,
+refuses a live owner, reports abandonment and has no persisted PID. Acquire/release/dispose
+stay on one thread, with local recursive-acquire suppression. Release follows fake stop
+acknowledgement; finalization is independently serialized. `Local\` covers the current Windows
+session, not separate logon sessions.
+
+Verified 2026-11-21: all six suites pass, including 209 full gesture assertions (196 without
+VSIX fixtures), real two-process contention/race/abandonment, startup-release and late-result
+races, and actual-DLL observer focus/Handled/teardown checks. Exp-only installer/configuration
+refresh exited 0; installed 0.3.2 version/DLL matched the package. Live configurable Left Ctrl
+Hold/repeat/release and focus/mouse cancellation passed; normal Ctrl+V/A/C read back exactly
+with clipboard restoration and nothing sent. Patched Toggle kept running through Ctrl+A/C,
+then stopped on a solitary tap; Escape release cancelled a fresh toggle. Two task Exp instances
+cancelled/released before the other acquired and allowed later reacquisition, with no focus-loss
+result/finalization. Both logs have zero package errors. Reader Speak/Cancel remained usable.
+
+Decision: **adapt / accept this bounded proof; keep optional Ctrl gated**. Physical Right Ctrl
+(the test keyboard lacks it), early native key-down cancellation, actual capture startup/hardware,
+missing key-up, lock/sleep, cross-session and live-VS crash recovery remain unproved. Live two-VS
+proof is focus-cancelled handoff; simultaneous Busy and abandonment are real child-process tests,
+not live-VS crash claims. No recording, models/downloads, VoiceType copying, global hooks,
+production settings or production delivery. See IMPLEMENTATION_PLAN section 6 for detailed evidence.
+
+### PoC 1 bridge research and fallback proof (historical native increments)
 
 The 0.2.12 PoC build adds an opt-in binding/state probe and separately gated insertion-capability refusal, not production
 dictation/reply delivery. It is enabled only in Debug, with `/RootSuffix Exp` and the
@@ -305,7 +355,18 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --toolbar .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --bridge-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --speech-worker-probe
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --gesture-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
+
+`--gesture-probe [built-VSIX-DLL]` checks the pure detector with a fake capture owner,
+startup/release races, cancellation and real two-process local mutex contention/abandonment.
+Supplying the DLL also checks the actual observer's gates, chat-root selection, handled-events-too
+input, unchanged Handled flags, focus refusal and teardown. No audio or models are used.
+It passes 196 assertions without the DLL and 209 with it; the observer fixture uses an isolated
+mutex name. Run the DLL route for the full proof. The internal `--gesture-owner-child` route
+is only the harness's child-process handshake, not a recording tool.
+Missing-key-down regressions cover both release orders, startup and established toggle,
+Ctrl-up held-input revalidation, and Escape-up cancellation across all lifecycle stages.
 
 The harness suppresses speech output, uses temporary preferences, and briefly opens
 offscreen test windows. The separate `--toolbar <built-VSIX-DLL>` mode checks placement,
@@ -317,6 +378,11 @@ integration assertions with seven live progress mappings. A successful build pro
 `src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.vsix`.
 Automatic deployment is disabled. Runtime extension testing must use an experimental
 VS instance (`/RootSuffix Exp`) first, not the main development instance.
+
+Clear inherited `DOTNET_ROOT` before invoking the installed VS MSBuild, as in the task's
+Developer PowerShell environment. The existing preference-save flake remains unresolved;
+one additional unchanged layout-sensitive integration failure was seen during PoC 3, followed
+by passing reruns. Neither is fixed by this proof.
 
 The isolated `--bridge-probe` route passes 209 assertions for opt-in gating, binding metadata,
 no unrelated content getter reads, hidden windows and the actual listener with a test capture
@@ -430,7 +496,8 @@ file is distributed. Storage errors remain visible in the reader.
 The discussion is consolidated in [the draft implementation plan](docs/IMPLEMENTATION_PLAN.md).
 Its phase breakdown needs confirmation before production code changes. Working defaults that
 were not explicitly settled are labelled in the plan; none of these features are shipped.
-The user has authorized PoC 1 only; its read-only diagnostics and separately gated capability-refusal build are described above.
+Bounded PoC 1/2 proofs are accepted with the caveats above; only the fake-capture PoC 3 is
+currently authorized. The full production decomposition still needs confirmation.
 The plan evolves with implementation/testing and approved enhancements. Start with bounded
 Exp proofs for exact chat routing/delivery, a native reader with external speech, and safe
 Ctrl-only capture before committing to the full migration; optional hooks may be dropped.

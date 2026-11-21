@@ -8,6 +8,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Shared\CtrlGestureDetector.cs" Link="Shared\CtrlGestureDetector.cs" />
+    <Compile Include="..\..\src\Shared\RecordingOwnership.cs" Link="Shared\RecordingOwnership.cs" />
     <Compile Include="..\..\src\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
     <Compile Include="..\..\src\Shared\SpeechWorkerHost.cs" Link="Shared\SpeechWorkerHost.cs" />
   </ItemGroup>

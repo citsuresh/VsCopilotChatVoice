@@ -25,6 +25,8 @@ internal sealed class ChatToolbarIntegration : IDisposable
     private string? lastStatus;
     private bool disposed;
 
+    internal FrameworkElement? ChatPicker => picker;
+
     internal ChatToolbarIntegration(Action<FrameworkElement> configureTheme, Action<string> reportStatus,
         Action<Exception> reportError)
     {

@@ -29,7 +29,8 @@ an additional launch gate accepts insertion-capability requests through `ChatDra
 refuses unproved native atomic editing. The unfenced draft getter/setter transaction was removed.
 It cannot send or deliver replies. Production plans in
 IMPLEMENTATION_PLAN.md supersede optional-VoiceType-app discovery with selective external-host
-source reuse and move only reader presentation into a native VS tool window; neither is migrated.
+source reuse and native reader presentation. Capture source reuse and full reader-feature migration
+are still planned; the native presentation preview is implemented below.
 
 The 0.3.0 PoC 2 build adds a native floating tool window (View > Other Windows > Copilot Voice
 Reader (Preview)) with an external headless speech worker. devenv hosts presentation only; the worker
@@ -37,17 +38,28 @@ is the bundled `VsCopilotChatVoice.Reader.exe --speech-worker <pipe>`, talking J
 current-user-only named pipe. The shared protocol/host files in `src\Shared` are compiled into the
 VSIX, the Reader and the test project. This is a preview proof, not the production reader.
 
+The 0.3.2 PoC 3 build adds a Debug/Exp/environment-gated log-only `ChatGesturePoc`, a pure
+Ctrl gesture state machine and a same-user/session nonblocking recording mutex. The observer
+shares the toolbar's verified picker, attaches to the nearest chat panel and queues fake
+capture acknowledgements. It never handles input, opens a microphone, edits or sends. Physical
+Right Ctrl proof remains unavailable; ordinary Ctrl shortcuts passed live in Exp.
+Release-side invalidation and Ctrl-up held-input checks guard native shortcut key-down suppression;
+Escape up also cancels. Patched physical Toggle/shortcut/Escape-release passed in Exp;
+two live Exp instances proved focus-cancelled ownership handoff and reacquisition. The bounded
+result is accepted with release-side adaptation; microphone/production input remains unimplemented.
+
 ## Structural symbols
 
 ### VsCopilotChatVoice.VisualStudio
 
 | Symbol | File | Responsibility |
 | --- | --- | --- |
-| `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; owns/disposes toolbar integration and provides dynamic VS resource references and activity logging. |
+| `VsCopilotChatVoice.VisualStudio.VoicePackage` | `src\VsCopilotChatVoice.VisualStudio\VoicePackage.cs` | Background-loadable package; owns/disposes toolbar and gated bridge/gesture observers; provides tool-window creation, dynamic VS resources and activity logging. |
 | `ChatToolbarIntegration` | `src\VsCopilotChatVoice.VisualStudio\ChatToolbarIntegration.cs` | Bounded visible-picker discovery, conservative placement, disabled accessible controls, duplicate/lifetime handling; no speech or SDK dependencies. |
 | `ChatBridgePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatBridgePoc.cs` | Opt-in Exp pipe, bounded native target discovery and separately gated atomic-insertion capability refusal. No draft mutation or send/reply protocol. |
 | `ChatTargetObservation` | `src\VsCopilotChatVoice.VisualStudio\ChatTargetObservation.cs` | Passive native-target epoch and draft-notification counter, trust/responding streams, automatic terminal teardown and primitive diagnostic retention. Does not read/write a draft or invoke commands. |
 | `ChatDraftPoc` | `src\VsCopilotChatVoice.VisualStudio\ChatDraftPoc.cs` | Explicit unsupported-atomic-edit refusal, bounded request validation, cancellation, non-evicting request deduplication and immutable-slot metadata checks; no draft access or send. |
+| `ChatGesturePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatGesturePoc.cs` | Gated chat-root preview-event observer, focus/lifetime cancellation, counters/decisions, fake asynchronous readiness/stop/result and thread-affine mutex adapter. No audio or delivery. |
 
 | `ReaderToolWindow` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindow.cs` | `ToolWindowPane` registered `Style=Float`; hosts the control and disposes it. |
 | `ReaderToolWindowControl` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindowControl.cs` | Code-built WPF: Speak/Cancel, status, sample reply, VS-themed word highlight, lazy worker launch, UI-thread generation guard. No speech in-process. |
@@ -59,6 +71,13 @@ VSIX, the Reader and the test project. This is a preview proof, not the producti
 | --- | --- | --- |
 | `SpeechWorkerProtocol` / `WorkerMessage` / `BoundedLineReader` / `ReplyText` | `src\Shared\SpeechWorkerProtocol.cs` | Message DTO, size limits, strict parser, bounded line reader and the word/offset model. |
 | `SpeechWorkerHost` | `src\Shared\SpeechWorkerHost.cs` | Pipe server, single active generation, worker PID check, fault handling, background-thread teardown. |
+
+Gesture sources are compiled into VSIX and Tests only:
+
+| Symbol | File | Responsibility |
+| --- | --- | --- |
+| `CtrlGestureDetector` / `GestureDecision` | `src\Shared\CtrlGestureDetector.cs` | Serialized pure Hold/Toggle state machine, configurable Ctrl side, tentative gestures, startup races and cancellation/late-result fencing. |
+| `RecordingOwnership` / `OwnershipResult` | `src\Shared\RecordingOwnership.cs` | Current-user ACL-restricted Local mutex, nonblocking ownership, abandonment reporting, local recursive-acquire refusal and thread-affine release/disposal. |
 
 ### VsCopilotChatVoice.Reader
 
@@ -82,6 +101,7 @@ All reader symbols retain the `ReadAlongTrial` namespace.
 | `ToolbarRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ToolbarRegressionTests.cs` | Optional reflection-based checks against the actual VSIX toolbar class using offscreen synthetic WPF chat controls; no speech/preferences. |
 | `BridgePocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\BridgePocRegressionTests.cs` | Optional actual-VSIX checks for gating, metadata, public/interface identity fields, private/content getter exclusion and hidden windows, plus isolated real-listener timeout/recovery/shutdown checks. No VS input/speech/preferences. |
 | `SpeechWorkerRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\SpeechWorkerRegressionTests.cs` | `--speech-worker-probe`: protocol, word model, fake and real silent worker (progress/cancel/replace), fault paths, disposal. 51 assertions. |
+| `GestureRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\GestureRegressionTests.cs` | `--gesture-probe [VSIX-DLL]`: pure/fake lifecycle including suppressed key-down and both release orders, real two-process contention/abandonment and actual-DLL WPF observer; 196 / 209 assertions. Isolated mutex names; no microphone. |
 | `DraftPocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\DraftPocRegressionTests.cs` | Actual-VSIX mutation-surface removal, capability refusal, validation, cancellation, deduplication/conflicts/capacity and immutable-slot checks; no live VS input. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.

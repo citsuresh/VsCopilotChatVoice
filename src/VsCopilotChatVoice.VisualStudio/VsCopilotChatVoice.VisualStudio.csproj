@@ -19,6 +19,8 @@
     <ProjectReference Include="..\VsCopilotChatVoice.Reader\VsCopilotChatVoice.Reader.csproj" ReferenceOutputAssembly="false" IncludeInVSIX="false" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\CtrlGestureDetector.cs" Link="Shared\CtrlGestureDetector.cs" />
+    <Compile Include="..\Shared\RecordingOwnership.cs" Link="Shared\RecordingOwnership.cs" />
     <Compile Include="..\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />
     <Compile Include="..\Shared\SpeechWorkerHost.cs" Link="Shared\SpeechWorkerHost.cs" />
     <VSCTCompile Include="VoiceCommands.vsct">

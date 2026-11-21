@@ -9,13 +9,23 @@ explicitly approved normal-instance installation.
 - [x] Independent three-project solution, reader bundling, executable regression harness and ignore rules.
 - [x] Preserve reader navigation/highlighting and remembered Concise/Detailed selection.
 - [x] Build/package verification and actual VS Experimental package initialization.
+- [x] Bounded PoC 3 fake-capture Ctrl lifecycle and user-local ownership, accepted with release-side adaptation.
 
 ## Near term (priority order)
 
-Current authorized testing stops at the verified 0.2.12 capability refusal. PoC 1 is incomplete:
-native insertion requires an authoritative atomic-edit contract; copied snapshots and immutable
-input-slot metadata are insufficient. Do not resume send/reply/microphone or later phases without
-a new user request.
+Current authorization: bounded fake-capture PoC 3 (0.3.2), not production migration or microphone
+work. PoC 1's external guarded UIA fallback/observer is accepted with parked edge cases; native
+atomic insertion and a production reply feed remain unsupported. PoC 2 is accepted with caveats.
+PoC 3's detector, user-local mutex and log-only native observer pass 209 checks and are installed
+in Exp; normal Ctrl+V/A/C and Left Ctrl hold/repeat/focus/mouse cancellation passed live. Native
+shortcut key-down suppression exposed a Toggle guard gap; 0.3.2 adds release-side and held-input
+guards, proven against the old/new actual DLLs. Patched Toggle/shortcut/Escape-release passed
+live; two Exp instances passed focus-cancelled ownership handoff and later reacquisition.
+Physical Right Ctrl is unavailable on the test keyboard; early native shortcut/Escape down
+is not established.
+The authorized bounded proof is complete. Keep Ctrl gated pending actual capture integration
+and broader native checks; defer/drop it if decisive edges are suppressed, without blocking
+mouse delivery or reader playback. No next production phase is authorized by this result.
 
 User decision 2026-11-21: use guarded UIA typing with read-back (`Insert-ChatDraftUia.ps1`) as the
 insertion fallback; positive live Exp proof is done (paste and `-Append -PlaceCaret` on fresh Exp).

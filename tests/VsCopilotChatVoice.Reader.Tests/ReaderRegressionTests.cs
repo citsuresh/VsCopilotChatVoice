@@ -354,6 +354,8 @@ internal static class ReadAlongNavigationTests
     [STAThread]
     private static int Main(string[] args)
     {
+        if (args.Length >= 1 && args[0] == "--gesture-probe") return GestureRegressionTests.Run(args);
+        if (args.Length == 3 && args[0] == "--gesture-owner-child") return GestureRegressionTests.OwnerChild(args[1], args[2]);
         if (args.Length == 1 && args[0] == "--speech-worker-probe") return SpeechWorkerRegressionTests.Run();
         if (args.Length == 2 && args[0] == "--toolbar") return ToolbarRegressionTests.Run(args[1]);
         if (args.Length == 2 && args[0] == "--bridge-probe") return BridgePocRegressionTests.Run(args[1]);

@@ -22,3 +22,12 @@
 - `ReaderToolWindowControl.Cancel -> uiGeneration = 0 -> SpeechWorkerHost.Cancel (deactivates generation, writes cancel) -> late progress/completed dropped`
 - `SpeechWorkerHost fault (EOF / bad line / PID mismatch / unrequested cancelled) -> Faulted -> ReaderToolWindowControl.OnWorkerFaulted -> DropHost -> SpeechWorkerHost.Dispose -> Task.Run shutdown handshake, then kill`
 - `ReaderToolWindow.Dispose -> ReaderToolWindowControl.Dispose -> DropHost -> SpeechWorkerHost.Dispose`
+- `VoicePackage.InitializeAsync -> ChatGesturePoc.IsEnabled -> ChatGesturePoc -> DispatcherTimer.Tick -> ChatToolbarIntegration.ChatPicker -> FindChatRoot -> AddHandler(PreviewKeyDown/PreviewKeyUp, handledEventsToo)`
+- `ChatGesturePoc.KeyDown -> active-window/chat-focus check -> OtherInputsHeld -> CtrlGestureDetector.KeyDown -> RequestCapture -> RecordingOwnership.TryAcquire(WaitOne(0)) -> queued fake CaptureReady`
+- `ChatGesturePoc.KeyUp -> CtrlGestureDetector.KeyUp -> FinalizeCapture (or ReleaseBeforeReady -> CaptureReady -> FinalizeCapture) -> queued fake CaptureStopped -> RecordingOwnership.Release -> queued ResultReady -> log-only AcceptResult`
+- `CtrlGestureDetector.KeyUp (first toggle tap) -> ToggleConfirmed -> established listening; second tentative Ctrl chord -> StopTapInvalidated -> listening retained`
+- `ChatGesturePoc.FocusChanged / Deactivated / Detach / Escape -> CtrlGestureDetector.FocusLost / Cancel -> Cancelling -> queued CaptureStopped -> RecordingOwnership.Release -> Idle; later ready/release/result ignored`
+- `VoicePackage.Dispose -> ChatGesturePoc.Dispose -> Detach preview/focus/lifetime handlers -> DispatcherTimer.Stop -> RecordingOwnership.Dispose; queued callbacks check disposed`
+- `GestureRegressionTests.Processes -> two OwnerChild processes -> real Local mutex race -> one Acquired / one Busy -> winner Release -> loser retry; crashed child -> AbandonedMutexException -> AcquiredAfterAbandonment`
+- `ChatGesturePoc.KeyUp -> other-input release -> CtrlGestureDetector.InvalidatePress; Ctrl release -> OtherInputsHeld -> tentative cancellation / StopTapInvalidated; Escape release -> Cancel(EscapeRelease) when native down was suppressed`
+- `Exp A Toggle -> window focus loss -> CancelCapture -> fake CaptureStopped -> mutex Release -> Exp B RequestCapture -> mutex Acquired -> focus loss -> Release -> Exp A later RequestCapture -> Acquired (live sequential handoff; no focus-loss result)`

@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
+using VsCopilotChatVoice.Gestures;
 
 namespace VsCopilotChatVoice.VisualStudio;
 
@@ -26,6 +27,7 @@ public sealed class VoicePackage : AsyncPackage
 
     private ChatToolbarIntegration? toolbar;
     private ChatBridgePoc? bridgePoc;
+    private ChatGesturePoc? gesturePoc;
 
     public override IVsAsyncToolWindowFactory? GetAsyncToolWindowFactory(Guid toolWindowType) =>
         toolWindowType == typeof(ReaderToolWindow).GUID ? this : null;
@@ -50,6 +52,16 @@ public sealed class VoicePackage : AsyncPackage
                 "Toolbar integration failed: " + error.GetType().FullName + " (" + error.HResult + ")."));
         ActivityLog.LogInformation(nameof(VsCopilotChatVoice),
             "Toolbar preview loaded. Reader bundled; voice backends and delivery bridge are not connected yet.");
+        if (ChatGesturePoc.IsEnabled())
+        {
+            gesturePoc = new ChatGesturePoc(() => toolbar?.ChatPicker,
+                message => ActivityLog.LogInformation(nameof(VsCopilotChatVoice), message),
+                error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
+                    "Gesture PoC failed: " + error.GetType().FullName + " (" + error.HResult + ")."),
+                Environment.GetEnvironmentVariable("VSCOPILOTCHATVOICE_GESTURE_TOGGLE") == "1" ? GestureMode.Toggle : GestureMode.Hold,
+                Environment.GetEnvironmentVariable("VSCOPILOTCHATVOICE_GESTURE_LEFT") == "1" ? GestureKey.LeftCtrl : GestureKey.RightCtrl);
+            ActivityLog.LogInformation(nameof(VsCopilotChatVoice), "Exp-only log-only Ctrl gesture PoC enabled; no microphone or delivery.");
+        }
         if (ChatBridgePoc.IsEnabled())
         {
             bridgePoc = new ChatBridgePoc(error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
@@ -86,8 +98,10 @@ public sealed class VoicePackage : AsyncPackage
 
     protected override void Dispose(bool disposing)
     {
+        ThreadHelper.ThrowIfNotOnUIThread();
         if (disposing)
         {
+            gesturePoc?.Dispose();
             bridgePoc?.Dispose();
             toolbar?.Dispose();
         }

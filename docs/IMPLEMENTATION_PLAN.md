@@ -185,7 +185,9 @@ reusable where sound, but do not migrate the whole reader/VoiceType app just to 
 3. **Ctrl-only gesture and capture lifecycle.** In the actual Chat textbox/panel, prove solitary
    Right Ctrl down/up, normal Ctrl shortcuts, repeat suppression, startup/release races, Esc
    during capture/transcription, focus loss and competing starts from two instances. Use an
-   existing engine/model for one end-to-end recording when available. Observe actual startup
+	 existing engine/model for one end-to-end recording when available. For the currently authorized
+   bounded PoC 3, use fake capture only: no recording, microphone, model download or source copying.
+   Observe actual startup
    behavior rather than claiming immediate readiness. Do not use global hooks as a shortcut.
    If Ctrl cannot coexist safely, defer this optional gesture and retain mouse-mode delivery.
 
@@ -193,6 +195,11 @@ For each PoC record tested behavior, unsupported cases and a proceed/adapt/drop 
 this plan or existing project-state docs. Required bridge/window failures require a reported
 architecture decision before migration; optional Ctrl/scroll failures do not block mouse input
 or reader playback. No independent new markdown tracking files are needed.
+
+The following PoC 1 native-probe increments are historical. The accepted bounded fallback is
+the external guarded UIA insertion/read-back and completed-reply observer described in README;
+native atomic editing and production automatic delivery remain unsupported. Later "stop" notes
+apply to their historical increments, not the currently authorized fake-capture PoC 3.
 
 PoC 1 progress: the current UIA surface exposes input/messages but no verified stable
 conversation ID. A Debug/Exp/environment-gated, current-user-only read-only diagnostic pipe
@@ -312,9 +319,60 @@ or not attempted: speech from a worker the package did not start, and an automat
 the identity side). Decision: proceed to the production reader phase on this design; adapt by adding the
 docking/focus/theme checks to that phase's acceptance gates. Does not start PoC 3 or any later phase.
 
+PoC 3 result (2026-11-21, 0.3.2, Exp only): **adapt / proceed with the bounded design, keeping optional Ctrl gated.**
+
+- Implemented: pure serialized `CtrlGestureDetector`, Right Ctrl/Hold defaults and configurable Left
+  Ctrl/Toggle; immediate capture request on down, repeat/held-input suppression, tentative key/mouse
+  cancellation, solitary-up toggle confirmation/stop, release-before-ready deferral and generation-fenced
+  ready/stop/result. Esc/focus cancellation prevents later release/results from finalizing or sending.
+- Implemented: ACL-restricted current-user `Local\` recording mutex, zero-wait acquire, explicit Busy
+  and AcquiredAfterAbandonment, no persisted PID/live-owner takeover, same-thread lifetime and recursive
+  local-acquire suppression. Release follows capture-stop acknowledgement; finalization stays serialized.
+- Implemented: Debug + exact Exp suffix + `VSCOPILOTCHATVOICE_GESTURE_POC=1` log-only observer on the
+  nearest supported chat panel via the toolbar's verified picker. Preview down/up use handledEventsToo;
+  no handler changes Handled. Only active-window/inside-chat keyboard focus is accepted. Mouse, focus,
+  visibility, unload, binding replacement and deactivation invalidate tentative/active work as appropriate.
+  Counters/decisions/state/generation only are logged; no individual keys, chat contents or audio.
+- Native adaptation: Chat sometimes suppresses ordinary shortcut/Esc key-down while delivering key-up.
+  The 0.3.1 Toggle proof exposed a stop-tap guard gap. 0.3.2 invalidates tentative gestures on other key
+  releases, samples still-held inputs at Ctrl release for the opposite release ordering, and cancels on
+  Escape release. Actual old/new DLL reproduction changed Stopping/FinalizeCapture to Listening/None.
+  No global hook, Handled change, activation delay or promise of early native down cancellation was added.
+- Automated: 196 pure/fake/real-process assertions; 209 including actual-DLL WPF observer fixtures.
+  Both shortcut release orders, startup races, Esc release at all stages, focus/late callbacks and
+  unchanged Handled/focused-scope/teardown are covered. Two real child processes racing elect exactly
+  one owner, refuse a live owner without waiting, acquire after release and report a crashed owner as
+  abandonment. Prior suites pass: speech51, toolbar62, bridge209, self1,868, integration292/seven mappings.
+  An earlier unchanged integration layout-sensitive failure passed reruns; the known preference-save
+  flake remains unresolved. Neither is claimed fixed.
+- Deployment: official Exp-only 0.3.1 and 0.3.2 installer/configuration routes exited0. Current packaged,
+  built and installed 0.3.2 DLL match SHA256 8CE4EB2C72E7F487851C3C00A555E457369EB7CD8BC56F89CB362C6D38594E83.
+  Both live task Exp observers attached with zero package errors. No main-instance install/deployment.
+- Live Hold (0.3.1, unchanged hold/repeat logic): configurable Left Ctrl because the keyboard has no
+  Right Ctrl. 2.67-second/68-repeat and 6.07-second/173-repeat holds each requested once and finalized
+  once on release; 241 repeat-ignore decisions across runs. Active focus loss and mouse cancellation
+  produced no finalization/result, and a later release was ignored. User confirmed Ctrl+A/C/V work;
+  independent toolkit Ctrl+V/A/C scratch tests read back exactly, restored clipboard and sent nothing.
+- Live Toggle (patched0.3.2): first tap confirmed Listening; Ctrl+A/C each StopTapInvalidated and retained
+  Listening; next solitary tap finalized once. A fresh toggle cancelled on EscapeRelease without
+  finalization/result; ordinary mouse and reader Speak/Cancel remained available.
+- Live two instances (same solution, patched0.3.2): first owner cancelled on focus loss at09:09:04.346UTC
+  before second acquired at09:09:04.988; second cancelled at09:09:06.518 before first reacquired at
+  09:09:07.116. Final focus loss cancelled that owner. No overlapping active owners, no late result or
+  finalization on focus loss and zero package errors. This proves focus-cancelled ownership handoff,
+  not simultaneous live-VS Busy/abandonment; those cases are independently real-process-tested above.
+- Unsupported/unmeasured: physical Right Ctrl, early native shortcut/Esc down delivery, actual microphone
+  startup latency, capture/transcription/hardware/model failures, cross-logon-session arbitration, live-VS
+  crash recovery, missing native key-up, lock/sleep and the broader input/layout/SDK matrix. Fake readiness
+  is not microphone latency. No recording, model/download, VoiceType copying, settings UI or insert/send.
+- Decision: accept the bounded PoC with the release-side adaptation; keep the optional gesture gated until
+  production capture integration and wider native checks establish safe behavior. If a future Chat surface
+  suppresses both decisive edges, defer/drop Ctrl and retain mouse delivery/reader playback. This completes
+  the authorized fake-capture proof, not production phases or a promise of immediate chord cancellation.
+
 ### Production phases
 
-Current bounded testing increment: 0.2.12 withdraws 0.2.11's unfenced native insertion after
+Historical native-probe gate: 0.2.12 withdrew 0.2.11's unfenced native insertion after
 independent review reproduced edits and trust/busy changes after final snapshot capture.
 The additional Debug/Exp gate accepts only explicit unsupported-atomic-edit refusals; no native
 draft getter/setter transaction remains. Client writes/reads share an actual disposal deadline.
@@ -322,8 +380,9 @@ Build, 209 bridge/IPC and 62 toolbar assertions plus real client backpressure/ou
 pass. Independent re-review closed both findings and the live task-result leak. Safe Exp tests
 verified default refusal/recovery and optional refusal/reconciliation/conflicts without mutation.
 No native target was present, so no positive insertion proof is claimed. Native insertion requires
-an authoritative atomic API, not copied snapshots or observer locks. PoC 1 remains incomplete.
-Current testing is complete: stop as requested; do not advance to send, reply feed, mic or another phase.
+an authoritative atomic API, not copied snapshots or observer locks. Native insertion remains unsupported;
+the later accepted PoC 1 proof uses the separately documented guarded external fallback. This historical
+gate is not authorization to implement production send, reply feed, microphone or another phase.
 
 1. **Contracts, lifetime and capability probes.** Establish live VS/conversation identity,
    request generations and a current-user-only local bridge with validated messages, correlated
@@ -414,5 +473,7 @@ from synthetic tests alone. Update README and affected design/flow documentation
 
 The deliverable is working behavior verified in Exp, not just builds or disabled controls.
 Keep automatic deployment disabled. No main-instance installation, commit or push without
-explicit user approval. Only PoC 1 is underway; its authorization is not approval to implement
-the entire migration or proceed past an unresolved capability/audit gate.
+explicit user approval. Bounded PoC 1/2 proofs are accepted with their documented limitations;
+PoC 3's fake-capture proof is accepted with release-side adaptation. Physical Right Ctrl and early
+native down delivery remain unproved. This is not approval for
+production migration, actual microphone work or proceeding past an unresolved required capability.

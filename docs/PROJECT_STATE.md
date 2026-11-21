@@ -1,8 +1,17 @@
 # Project state
 
-Updated: 2026-11-21 (late). Source/manifest 0.5.5 is built/tested but uninstalled; Exp remains 0.4.5. Root cause of the File.Replace failures found (transient scanner/indexer locks, location dependent) and a bounded retry added; blocker closure still needs independent review. VoiceType reuse is permitted. Phase 4 is explicitly paused; the user is finishing Phase 3 in this chat.
+Updated: 2026-11-21. Source/manifest 0.5.6 is built/tested but uninstalled; last recorded Exp remains 0.4.5. Phase 3 increment 1 retry-deadline and preference-cleanup corrections are independently closed. The responsible locker remains unidentified. Phase 4 stays paused until Phase 3 is implemented, verified, documented and committed.
 
 ## Latest session summary (read first)
+
+- Current HEAD is 05e409b; working tree was clean before this increment. The earlier 556fdd9/two-local-commit state below is historical, not current branch evidence.
+- Independent baseline review ran build/settings253/native560/integration298 once; all exited0. It found R1 (a retry could start after expiry) and R2 (legacy cleanup could mask a save failure). The user explicitly approved both corrections and their tests.
+- Implemented0.5.6: cap retry sleeps to remaining time and refuse another attempt after expiry; preserve both operational save/cleanup causes in a caller-compatible IOException. Private retry/cleanup boundaries support deterministic tests; no public API, preference path, token or paused-switch behavior changes.
+- Once-serial validation passed: integration320/seven live mappings, settings253, native560, model379 and Reader self1868; VS MSBuild/DeployExtension=false and IDE build pass. Only existing toolbar VSTHRD010 warning. Independent closure separately rebuilt and ran integration320/settings253/native560 once; all exit0, R1/R2 closed, no new in-scope findings. These are isolated/synthetic checks, not new native Exp or full Phase3 acceptance. Full Save double-failure wiring is source-reviewed; tests exercise its real cleanup path with a locked file and injected original failure.
+- Changed this increment: shared ReaderDocument; ReaderRegressionTests; VSIX manifest; README and relevant memory/plan docs. No deployment, UI action, capture, commit or push. No new reusable script was written.
+- Approved continuation: one combined review after execution/UI increments2/3, with targeted tests after coherent edits. Wire Settings only; Mic/Speaker disabled. Audio policy applies to Preview and native reader. Global Reset restores defaults; Solution/Window clear overrides, with per-field inheritance. Complete automated/Exp testing before requesting remaining perceptual checks. Commit Phase3 only after acceptance/manual review, then Phase4a.
+
+### Earlier checkpoint evidence (historical)
 
 - 0.5.5: shared AtomicFileReplace.Publish (ReaderDocument.cs) retries Win32 1175/32/33 for 1s; used by ReplyVersionPreference.Save and ScopedSettingsStore.Save. New VerifyAtomicPublish in ReaderRegressionTests (integration 298). Evidence and limits are in DESIGN_DECISIONS 2026-11-21. After the fix: settings route 5/5 pass (253), native route 3/3 pass (560), integration 298 pass. Other routes were NOT rerun after 0.5.5 (user asked for targeted runs only). Not yet independently reviewed; a fresh reviewer should run settings and native once.
 - Standalone stress showed %TEMP% fails 1.5-12% vs 0% in the repo bin folder. Real settings folder (%LOCALAPPDATA%\VsCopilotChatVoice) was NOT yet measured; process of the locker unidentified (needs admin tooling, e.g. Procmon, or a Defender exclusion experiment by the user).

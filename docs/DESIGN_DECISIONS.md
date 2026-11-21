@@ -835,3 +835,41 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
 - **Rationale:** The current reader preview has no real reply producer, so testing those behaviors now would
   prove only a proxy. Keeping the boundary explicit prevents Phase 3 settings work from claiming live-chat
   behavior while preserving the requirement for later delivery validation.
+
+## 2026-11-21 - Approved persistence deadline and diagnostic closure (0.5.6)
+
+- **Decision:** After independent0.5.5 baseline build/settings253/native560/integration298 passed once,
+  the user explicitly approved R1/R2. Cap lock-retry sleep to remaining time and refuse another attempt
+  after expiry; retain both operational preference save/cleanup failures as an IOException with visible
+  messages and AggregateException inner causes, compatible with existing reader failure handlers.
+- **Rationale:** A pre-sleep expiry check alone admits late successful retries; a finally cleanup failure
+  can otherwise replace the original save diagnostic. Private retry/cleanup boundaries permit controlled
+  clock and real locked-file tests without a public test API or changed caller signatures.
+- **Alternatives:** Do not replace atomic primitives, silently swallow cleanup, expose a top-level aggregate
+  outside existing IOException filters, or rely solely on scheduling-sensitive sleep tests. Native calls
+  remain nonpreemptible; a retry budget is not an unconditional whole-call deadline. Locker identity remains
+  unproven despite the earlier location-dependent stress evidence.
+- **Executed evidence:** No-deploy VS MSBuild/IDE builds pass; integration320/seven mappings (22 added
+  deadline/cleanup assertions), settings253/native560/model379/Reader1868 pass once serially. Independent
+  correction closure remains pending; no new Exp installation, audible proof, commit or push.
+
+## 2026-11-21 - Phase 3 completion before capture; combined execution/UI review
+
+- **Decision:** Finish persistence increment1, execution increment2 and combined Settings/reader-appearance
+  UI increment3, then acceptance/documentation/manual commit review in increment4. The user approved one
+  combined2/3 audit, while targeted tests still run after coherent edits. Only Settings enables; Mic/Speaker
+  remain disabled. Audio policy applies to both Preview and native reader, independently of skill TTS.
+- **Reset:** Global Restore defaults resets built-ins; Solution/Window Clear overrides inherits the lower
+  scope. Individual fields offer inheritance. Never erase another scope or change Windows settings.
+- **Sequencing:** Complete automated/official isolated Exp checks before asking for remaining perceptual
+  user checks. Phase3 acceptance and commit precede any Phase4a capture. Real-chat reopen/variant acceptance
+  stay Phase6 requirements, not Phase3 blockers. No push/main-instance installation is authorized.
+
+## 2026-11-21 - Persistence correction independent closure (0.5.6)
+
+- **Evidence:** Independent no-deploy build and once-serial integration320/seven mappings,
+  settings253/native560 pass with exit0; diff whitespace check passes. R1/R2 are closed, with no new
+  in-scope finding. Private tests exercise actual production methods; the original failure in the real
+  locked-file cleanup test is injected, while full Save double-failure wiring is source-reviewed.
+- **Boundary:** No native Exp, audible, full Phase3 or broad persistence-reliability acceptance follows.
+  Locker identity remains unproven; no installation, capture, commit or push occurred during review.

@@ -159,6 +159,7 @@ ReaderPrototype locations below apply only to Program/ReaderWindow.
 | `ReadingNavigation` / `ReadingPosition` | `src\Shared\ReaderDocument.cs` | Sentence/paragraph movement and text-pointer seeking. |
 | `Segment` / `WordAnchor` | `src\Shared\ReaderDocument.cs` | Section identity and spoken-offset-to-display mapping. |
 | `ReplyVersionPreference` | `src\Shared\ReaderDocument.cs` | Immediate, atomic Concise/Detailed preference persistence. |
+| `AtomicFileReplace` | `src\Shared\ReaderDocument.cs` | Shared Replace/Move publisher for preference and scoped settings; only 1175/32/33 retry within remaining budget. Private deterministic retry boundary; legacy preference cleanup retains simultaneous causes as IOException. No storage-path or token changes. |
 | `SpeechWorker` | `src\VsCopilotChatVoice.Reader\SpeechWorker.cs` | Headless pipe client (`--speech-worker <pipe> [--silent]`): owns synthesis, real prompt-preserving pause/resume and correlated state acknowledgements; reports progress and ignores superseded prompts. |
 | `SpeechCapabilityDiscovery` | `src\VsCopilotChatVoice.Reader\SpeechCapabilityDiscovery.cs` | Reader-only headless `--speech-capabilities` collection/output before window construction; owns/disposes System.Speech, returns actual installed/default metadata, no Speak/selection/preference writes. Not linked into Tests/VSIX. |
 

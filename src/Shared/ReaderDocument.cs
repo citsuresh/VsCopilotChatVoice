@@ -247,18 +247,29 @@ namespace ReadAlongTrial
         public static void Publish(string pending, string path, TimeSpan budget)
         {
             System.Diagnostics.Stopwatch clock = System.Diagnostics.Stopwatch.StartNew();
+            PublishWithRetry(() =>
+            {
+                if (File.Exists(path)) File.Replace(pending, path, null);
+                else File.Move(pending, path);
+            }, budget, () => clock.Elapsed, System.Threading.Thread.Sleep);
+        }
+
+        private static void PublishWithRetry(Action publish, TimeSpan budget, Func<TimeSpan> elapsed, Action<int> sleep)
+        {
             int delay = 2;
             while (true)
             {
                 try
                 {
-                    if (File.Exists(path)) File.Replace(pending, path, null);
-                    else File.Move(pending, path);
+                    publish();
                     return;
                 }
-                catch (IOException ex) when (IsTransientLock(ex) && clock.Elapsed < budget)
+                catch (IOException ex) when (IsTransientLock(ex) && elapsed() < budget)
                 {
-                    System.Threading.Thread.Sleep(delay);
+                    double remainingMilliseconds = (budget - elapsed()).TotalMilliseconds;
+                    if (remainingMilliseconds <= 0) throw;
+                    sleep((int)Math.Min(delay, Math.Ceiling(remainingMilliseconds)));
+                    if (elapsed() >= budget) throw;
                     delay = Math.Min(delay * 2, 100);
                 }
             }
@@ -289,12 +300,31 @@ namespace ReadAlongTrial
             path = Path.GetFullPath(path);
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             string pending = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            Exception failure = null;
             try
             {
                 File.WriteAllText(pending, concise ? "Concise" : "Detailed", new UTF8Encoding(false));
                 AtomicFileReplace.Publish(pending, path);
             }
-            finally { File.Delete(pending); }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
+            {
+                failure = ex;
+                throw;
+            }
+            finally { CleanupPending(pending, failure); }
+        }
+
+        private static void CleanupPending(string pending, Exception failure)
+        {
+            try { File.Delete(pending); }
+            catch (Exception cleanup) when (failure != null &&
+                (cleanup is IOException || cleanup is UnauthorizedAccessException))
+            {
+                throw new IOException(
+                    "Reading mode save failed: " + failure.Message +
+                    " Temporary-file cleanup also failed: " + cleanup.Message,
+                    new AggregateException(failure, cleanup));
+            }
         }
     }
 }

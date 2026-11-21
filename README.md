@@ -33,7 +33,7 @@ verified and committed locally as `bdb1328`, not pushed. The independently audit
 (0.4.3, checkpoint `556fdd9`) adds a single-reply playback controller and actual-DLL regression route.
 The parent verified frozen 0.4.3 and 0.4.5 packages in Exp. Native 0.4.8 selection/persistence verification
 is parked after two final-run failures; its package is preserved outside the repository, not installed.
-Current 0.5.4 source adds an independently reviewed external speech-option boundary and retains the reviewed
+Current 0.5.6 source retains the independently reviewed external speech-option boundary and the reviewed
 unused captured-history data model, parked
 scoped-storage foundation and independently reviewed read-only external voice capability discovery,
 without activating settings or accepting native runtime
@@ -50,7 +50,7 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.5.4 source, uninstalled) with disabled chat-toolbar controls, preserved ungated reader PoC, shared model/audited playback owner, gated native paired-fixture view/frame, independent gesture/metadata gates and unwired storage/capability/options/history foundations; bundles the external speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.5.6 source, uninstalled) with disabled chat-toolbar controls, preserved ungated reader PoC, shared model/audited playback owner, gated native paired-fixture view/frame, independent gesture/metadata gates and unwired storage/capability/options/history foundations; bundles the external speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>` or read-only `--speech-capabilities`. |
 | `src\Shared` | Speech-free reader model/pure block validation, speech framing/options, capability contracts/query and unused scoped-storage/captured-history foundations compiled into their consumers. Not a separate assembly. |
 | `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker/capability/options, gesture, metadata-contract, shared-reader-model, actual-DLL playback/native-presentation, scoped-settings and captured-history regression routes; not a Test Explorer adapter project. |
@@ -532,6 +532,26 @@ ran once: settings failed its existing child File.Replace check; the other twelv
 once-probe422/source review found no significant issue and left zero owned Readers/fixtures.
 Source0.5.4 is uninstalled; native/storage/Exp/audible/fullPhase3 gates remain open.
 
+### Phase 3 increment 1 persistence closure (0.5.6; tests and review passed)
+
+The shared atomic publisher retains File.Replace/File.Move and retries only Win32 1175/32/33.
+Retry sleeps are capped to the remaining one-second budget, and expiry is checked before another
+attempt. Native filesystem calls and scheduling are not preemptible; this is a retry budget,
+not an unconditional wall-clock deadline. A preference save plus cleanup failure remains a visible
+IOException containing both messages and both original causes, preserving existing reader handlers.
+Private implementation boundaries support deterministic deadline tests and real locked-file cleanup
+tests without changing public APIs, preference tokens, paused switching or storage locations.
+
+The independent baseline build/settings253/native560/integration298 checks passed once. After the
+approved R1/R2 corrections, no-deploy VS MSBuild and IDE build passed; integration320 (seven live
+progress mappings), settings253, native560, model379 and Reader self1868 passed once serially.
+Integration adds 22 deterministic deadline/cleanup assertions. Independent closure rebuilt and ran
+integration320/settings253/native560 once serially: all exited0, R1/R2 closed, no new in-scope findings.
+Cleanup tests exercise the real private cleanup path with a locked file and injected original failure;
+the full Save double-failure sequence is source-reviewed, not independently fault-injected.
+Settings UI, audio policy and appearance remain unimplemented; Mic and Speaker remain disabled.
+Phase 4 cannot start until Phase 3 automated/Exp/manual acceptance, documentation and commit are complete.
+
 ### PoC 1 bridge research and fallback proof (historical native increments)
 
 The 0.2.12 PoC build adds an opt-in binding/state probe and separately gated insertion-capability refusal, not production
@@ -801,7 +821,7 @@ Remove-Item Env:DOTNET_ROOT -ErrorAction SilentlyContinue
 Run these fourteen routes serially after the final edit: options 422, history 651, capabilities 152, settings 253,
 native 560, playback 220, speech 110,
 toolbar 62, bridge 209, gesture 209, contracts 136, model 379, Reader self 1,868 and
-integration 292/seven progress mappings. These counts describe automated checks, not native acceptance.
+integration 320/seven progress mappings. These counts describe automated checks, not native acceptance.
 Settings253 describes the earlier passing count; fresh 0.5.0/0.5.1/0.5.2/0.5.3/0.5.4 runs failed before completion. Do not
 silently retry those parked gates or describe this source as all-green.
 
@@ -832,7 +852,7 @@ offscreen test windows. The separate `--toolbar <built-VSIX-DLL>` mode checks pl
 control states/accessibility, theme callbacks, compact sizing, flat icons/shared border,
 duplicate suppression, reordering, chat recreation,
 ambiguity, hidden windows and disposal. It does not launch speech or access user preferences.
-Current checks pass: 62 toolbar assertions, 1,868 reader self-test assertions and 292 reader
+Current documented counts: 62 toolbar assertions, 1,868 reader self-test assertions and 320 reader
 integration assertions with seven live progress mappings. A successful build produces
 `src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.vsix`.
 Automatic deployment is disabled. Runtime extension testing must use an experimental

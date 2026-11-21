@@ -127,6 +127,12 @@ reply, Deny outcome, second chat, very long transcript.
   and no full Phase3/native acceptance yet. Native560's subsequent pass does not resolve earlier failures.
 	Source0.5.4 implements the external immutable voice/rate/volume execution boundary, options422 passing
 	with real silent-worker proof and independent once-review closure; no Settings consumption/UI Preview/activation.
+  Current0.5.6 completes approved R1/R2 persistence corrections with once-serial integration320,
+	settings253/native560/model379/Reader1868 and no-deploy/IDE builds passing. Independent once-serial
+  build/integration320/settings253/native560 review closes R1/R2 without new in-scope findings.
+  Next: scoped execution/audio policy, then one combined Settings/reader-appearance UI increment and
+  combined2/3 review. Only Settings enables; Mic/Speaker stay disabled. Finish automated/Exp/user
+  acceptance and documentation/manual commit review before the Phase3 commit and any Phase4 work.
 - [ ] Phase 4: external VoiceType-derived capture/transcription/pill, model discovery and
   atomic recording ownership. Engine/models are external; no model downloads.
 - [ ] Phase 5: mouse/optional Ctrl modes, cancellation and safe originating-chat insert/send.

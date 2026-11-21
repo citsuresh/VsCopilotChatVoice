@@ -257,6 +257,7 @@ internal static class ReadAlongNavigationTests
 
     private static void VerifyAtomicPublish()
     {
+        VerifyAtomicRetryBoundaries();
         string directory = Path.Combine(Path.GetTempPath(), "ReadAlongAtomic-" + Guid.NewGuid().ToString("N"));
         string target = Path.Combine(directory, "version.txt");
         Directory.CreateDirectory(directory);
@@ -284,7 +285,7 @@ internal static class ReadAlongNavigationTests
                 try { AtomicFileReplace.Publish(pending, target, TimeSpan.FromMilliseconds(250)); Check(false, "A persistent lock did not surface"); }
                 catch (IOException) { }
             }
-            Check(clock.ElapsedMilliseconds >= 200 && clock.ElapsedMilliseconds < 3000, "Persistent lock retry was not bounded");
+            Check(clock.ElapsedMilliseconds >= 200 && clock.ElapsedMilliseconds < 1250, "Persistent lock retry was not bounded");
             Check(ReplyVersionPreference.Load(target) && File.Exists(pending), "Persistent lock changed the target or lost the pending file");
             File.Delete(pending);
 
@@ -292,8 +293,93 @@ internal static class ReadAlongNavigationTests
             try { AtomicFileReplace.Publish(Path.Combine(directory, "missing.tmp"), target, TimeSpan.FromMilliseconds(1000)); Check(false, "A missing pending file did not surface"); }
             catch (IOException) { }
             Check(clock.ElapsedMilliseconds < 500, "A non-transient error was retried");
+
+            VerifyPreferenceCleanup(pending);
         }
         finally { try { Directory.Delete(directory, true); } catch (IOException) { } }
+    }
+
+    private static Exception InvocationFailure(MethodInfo method, params object[] arguments)
+    {
+        try { method.Invoke(null, arguments); }
+        catch (TargetInvocationException ex) { return ex.InnerException; }
+        throw new InvalidOperationException("The tested operation unexpectedly succeeded.");
+    }
+
+    private static void VerifyAtomicRetryBoundaries()
+    {
+        MethodInfo retry = typeof(AtomicFileReplace).GetMethod("PublishWithRetry", BindingFlags.Static | BindingFlags.NonPublic);
+        Check(retry != null, "Missing atomic retry boundary");
+        foreach (int code in new[] { 1175, 32, 33 })
+        {
+            int attempts = 0;
+            TimeSpan elapsed = TimeSpan.FromMilliseconds(249);
+            var sleeps = new List<int>();
+            var locked = new IOException("Transient publication lock", unchecked((int)0x80070000) | code);
+            Exception terminal = InvocationFailure(retry,
+                (Action)(() => { attempts++; if (attempts == 1) throw locked; }),
+                TimeSpan.FromMilliseconds(250), (Func<TimeSpan>)(() => elapsed),
+                (Action<int>)(milliseconds => { sleeps.Add(milliseconds); elapsed += TimeSpan.FromMilliseconds(milliseconds); }));
+            Check(ReferenceEquals(terminal, locked), "Expiry replaced the original lock exception");
+            Check(attempts == 1, "Publication retried after expiry and could succeed late");
+            Check(sleeps.Count == 1 && sleeps[0] == 1, "Retry sleep exceeded the remaining budget");
+        }
+
+        int calls = 0, waits = 0, reads = 0;
+        var failure = new IOException("Lock outlasted budget", unchecked((int)0x80070020));
+        Exception expired = InvocationFailure(retry,
+            (Action)(() => { calls++; throw failure; }), TimeSpan.FromMilliseconds(250),
+            (Func<TimeSpan>)(() => TimeSpan.FromMilliseconds(++reads == 1 ? 249 : 251)),
+            (Action<int>)(milliseconds => waits++));
+        Check(ReferenceEquals(expired, failure) && calls == 1 && waits == 0,
+            "Expiry between retry admission and sleep was not refused");
+
+        calls = 0; waits = 0;
+        TimeSpan clock = TimeSpan.Zero;
+        retry.Invoke(null, new object[]
+        {
+            (Action)(() => { if (++calls == 1) throw failure; }), TimeSpan.FromMilliseconds(250),
+            (Func<TimeSpan>)(() => clock),
+            (Action<int>)(milliseconds => { waits++; clock += TimeSpan.FromMilliseconds(milliseconds); })
+        });
+        Check(calls == 2 && waits == 1 && clock == TimeSpan.FromMilliseconds(2), "An in-budget retry did not succeed");
+
+        calls = 0; waits = 0;
+        Exception exactExpiry = InvocationFailure(retry,
+            (Action)(() => { calls++; throw failure; }), TimeSpan.FromMilliseconds(250),
+            (Func<TimeSpan>)(() => TimeSpan.FromMilliseconds(250)), (Action<int>)(milliseconds => waits++));
+        Check(ReferenceEquals(exactExpiry, failure) && calls == 1 && waits == 0, "Exact expiry admitted another retry");
+
+        calls = 0; waits = 0;
+        Exception overshoot = InvocationFailure(retry,
+            (Action)(() => { calls++; if (calls == 1) throw failure; }), TimeSpan.FromMilliseconds(250),
+            (Func<TimeSpan>)(() => clock), (Action<int>)(milliseconds => { waits++; clock = TimeSpan.FromMilliseconds(400); }));
+        Check(ReferenceEquals(overshoot, failure) && calls == 1 && waits == 1, "Scheduling overshoot started a late publication");
+    }
+
+    private static void VerifyPreferenceCleanup(string pending)
+    {
+        MethodInfo cleanup = typeof(ReplyVersionPreference).GetMethod("CleanupPending", BindingFlags.Static | BindingFlags.NonPublic);
+        Check(cleanup != null, "Missing preference cleanup boundary");
+        File.WriteAllText(pending, "Detailed");
+        var publication = new IOException("Original publication failure", unchecked((int)0x80070020));
+        using (new FileStream(pending, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Exception terminal = InvocationFailure(cleanup, pending, publication);
+            Check(terminal is IOException, "Double failure escaped the reader's IOException reporting contract");
+            var causes = terminal.InnerException as AggregateException;
+            Check(causes != null && causes.InnerExceptions.Count == 2 && ReferenceEquals(causes.InnerExceptions[0], publication),
+                "Double failure lost the original publication exception");
+            Check(causes.InnerExceptions[1] is IOException || causes.InnerExceptions[1] is UnauthorizedAccessException,
+                "Double failure lost its cleanup exception");
+            Check(terminal.Message.Contains(publication.Message) && terminal.Message.Contains(causes.InnerExceptions[1].Message),
+                "Double failure did not expose both causes to the existing reader warning");
+            Check(File.ReadAllText(pending) == "Detailed", "Failed cleanup changed pending content");
+            Exception single = InvocationFailure(cleanup, pending, null);
+            Check(single is IOException && !(single.InnerException is AggregateException), "Single cleanup failure changed its exception contract");
+        }
+        cleanup.Invoke(null, new object[] { pending, publication });
+        Check(!File.Exists(pending), "Successful cleanup did not remove its owned pending file");
     }
 
     private static void VerifyPreferences()

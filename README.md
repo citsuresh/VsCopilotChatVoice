@@ -163,8 +163,10 @@ clipboard regains synthesized `System.String`/`Text` formats); a clipboard locke
 `Failed` with the draft verified unchanged; a caret placed mid-draft or a selection gives `CaretNotAtEnd` (typed and paste); `-PlaceCaret` collapses a
 selection with Ctrl+End and appends without replacing text; one Ctrl+Z removes a whole 2,200-character paste;
 Exp behind another window gives `ExpNotForeground`; focus in the Exp code editor gives `ChatInputNotFocused`
-(editor untouched), and `-PlaceCaret` from that state refocuses the chat input and appends. Not yet tested (need the person to set up the state or
-approve tab/focus changes inside Exp): chat tab hidden, chat busy, two chat inputs,
+(editor untouched), and `-PlaceCaret` from that state refocuses the chat input and appends; with the Chat tab
+hidden behind another tab of its group (composer out of the UI tree) every mode refuses with
+`ChatInputNotVisible` and no tab is switched. Not yet tested (need the person to set up the state or
+approve tab/focus changes inside Exp): chat busy, two chat inputs,
 `#file`/`/command`/attachment chips, an open autocomplete popup, typing during the call and the
 blocked-input Exp state. Still not atomic: text typed by the person during the few seconds of the call can
 interleave (reported, never cleared).

@@ -203,7 +203,18 @@ AutomationId, so reply identity is the first body's position plus length and SHA
 lengths and hashes only; `-IncludeText` adds the last reply text. Live checks on Exp: a finished 45,096-character
 reply; a 22,252-character reply that followed a run-command approval (Allow clicked); and a later
 three-body, two-tool-item turn reporting `Complete: true`. The main host is refused. Not yet observed: a
-second chat, a cancelled reply, a Deny outcome, and very long transcripts.
+second chat, a cancelled reply, a Deny outcome, and very long transcripts (parked by user decision).
+
+`scripts\agent\Wait-ChatReplyUia.ps1 -Hwnd <Exp hwnd> [-AfterSha256 <hash>] [-TimeoutSeconds 120] [-IncludeText]`
+polls the observer (read-only, one inspect per poll) until the last reply is `Complete`, differs from
+`-AfterSha256` (the duplicate-delivery guard: pass the hash seen before sending) and the same hash was seen
+on two consecutive polls. Statuses: `Completed`, `TimedOut`, and an immediate `Refused`/`Failed` from the
+observer. A new reply with text identical to `-AfterSha256` is accepted only after the wait saw the chat busy
+or a newer turn. `-PollSeconds` must be at most half of `-TimeoutSeconds`; a wait can overrun its timeout by
+one observer call, and a hung inspect call is not interrupted. Verified on Exp against an idle finished chat
+only: delivery after two polls, the duplicate guard timing out, a different hash delivering, bad input and a
+stale handle refused, no text unless requested. Not
+yet verified: waiting across a live streaming reply (needs an approved send).
 
 ### Atomic-insertion capability probe (0.2.12)
 

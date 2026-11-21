@@ -4,7 +4,9 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 ## Current focus
 
-Latest: added read-only `scripts\agent\Read-ChatRepliesUia.ps1` (one inspect call, no input or focus
+Latest: added read-only `scripts\agent\Wait-ChatReplyUia.ps1` (polls the observer for a new completed,
+settled reply; duplicate guard via `-AfterSha256`), verified on an idle chat only. Parked by user: cancelled
+reply, Deny, second chat, long transcript. Before that: added read-only `scripts\agent\Read-ChatRepliesUia.ps1` (one inspect call, no input or focus
 change, Exp-only). It reads the `ChatSessionList` transcript, reports message roles, lengths, SHA-256 and
 completion (footer present and Send/Cancel idle), and was live-checked on finished, streaming and
 approval-bearing replies. It classifies items structurally (footer `PART_LikeButton`, body

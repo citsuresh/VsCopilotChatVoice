@@ -100,11 +100,19 @@ internal static class WorkerProtocol
 internal sealed class BoundedLineReader
 {
     private readonly Stream stream;
+    private readonly int maxBytes;
+    private readonly Encoding encoding;
     private readonly byte[] chunk = new byte[4096];
     private int position;
     private int length;
 
-    public BoundedLineReader(Stream stream) { this.stream = stream; }
+    public BoundedLineReader(Stream stream, int maxBytes = WorkerProtocol.MaxLineBytes, bool strictUtf8 = false)
+    {
+        this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
+        if (maxBytes < 1) throw new ArgumentOutOfRangeException(nameof(maxBytes));
+        this.maxBytes = maxBytes;
+        encoding = strictUtf8 ? new UTF8Encoding(false, true) : Encoding.UTF8;
+    }
 
     public async Task<string?> ReadLineAsync(CancellationToken cancellation)
     {
@@ -120,8 +128,8 @@ internal sealed class BoundedLineReader
             while (position < length)
             {
                 byte value = chunk[position++];
-                if (value == (byte)'\n') return Encoding.UTF8.GetString(line.ToArray()).TrimEnd('\r');
-                if (line.Length >= WorkerProtocol.MaxLineBytes) throw new InvalidDataException("A worker line exceeded the size bound.");
+                if (value == (byte)'\n') return encoding.GetString(line.ToArray()).TrimEnd('\r');
+                if (line.Length >= maxBytes) throw new InvalidDataException("A worker line exceeded the size bound.");
                 line.WriteByte(value);
             }
         }

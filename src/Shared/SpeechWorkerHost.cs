@@ -3,11 +3,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
+using VsCopilotChatVoice.Ipc;
 
 // Pipe writes are tiny and bounded by WriteTimeout; the other waits run on background threads.
 #pragma warning disable VSTHRD002
@@ -43,13 +41,8 @@ internal sealed class SpeechWorkerHost : IDisposable
     {
         if (!WorkerProtocol.IsValidPipeName(pipeName)) throw new ArgumentException("Invalid speech pipe name.", nameof(pipeName));
         this.expectedClientProcessId = expectedClientProcessId;
-        var security = new PipeSecurity();
-        security.SetAccessRuleProtection(true, false);
-        SecurityIdentifier user = WindowsIdentity.GetCurrent().User ??
-            throw new InvalidOperationException("The current user SID is unavailable.");
-        security.AddAccessRule(new PipeAccessRule(user, PipeAccessRights.FullControl, AccessControlType.Allow));
         pipe = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte,
-            PipeOptions.Asynchronous, 4096, 262144, security);
+            PipeOptions.Asynchronous, 4096, 262144, PipePeerIdentity.UserOnlySecurity());
     }
 
     public bool IsActive { get { lock (sync) return active && !disposed && !faulted; } }
@@ -92,9 +85,10 @@ internal sealed class SpeechWorkerHost : IDisposable
         }
         if (expectedClientProcessId.HasValue)
         {
-            uint client;
-            if (!GetNamedPipeClientProcessId(pipe.SafePipeHandle.DangerousGetHandle(), out client) ||
-                client != (uint)expectedClientProcessId.Value)
+            bool expected;
+            try { expected = PipePeerIdentity.Client(pipe) == (uint)expectedClientProcessId.Value; }
+            catch (System.ComponentModel.Win32Exception) { expected = false; }
+            if (!expected)
             {
                 Dispose();
                 throw new UnauthorizedAccessException("An unexpected process connected to the speech pipe.");
@@ -296,6 +290,4 @@ internal sealed class SpeechWorkerHost : IDisposable
         worker.Dispose();
     }
 
-    [DllImport("kernel32.dll", SetLastError = true)]
-    private static extern bool GetNamedPipeClientProcessId(IntPtr pipe, out uint clientProcessId);
 }

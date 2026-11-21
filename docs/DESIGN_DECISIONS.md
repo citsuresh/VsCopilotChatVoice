@@ -340,3 +340,72 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
 - **Fallback:** If a later native surface suppresses both decisive edges, defer/drop Ctrl rather than
   install global hooks or claim immediate cancellation. Mouse delivery and external reader playback
   stay independent. This supersedes the earlier pending physical/two-instance result, not its history.
+
+## 2026-11-21 - Phase 1 approved: metadata before production delivery
+
+- **Scope:** Start the confirmed production decomposition with contracts/lifetime/metadata IPC only.
+  Native session GUID plus client ID identifies a conversation; an observation epoch and fresh instance
+  GUID fence lifetimes. PIDs/HWNDs/solution paths/titles alone do not substitute for these identities.
+- **Transport:** A current-user-only per-PID discovery pipe performs a fresh instance handshake;
+  kernel peer PID checks bind its endpoints. GUIDs are correlation, not secrets/authentication tokens.
+  Request ID/sequence replay guards are per connection, bounded to 64 requests; reconnects are fresh
+  read-only queries. Mutating retry/dedup semantics must be designed when actual delivery is integrated.
+- **Reuse:** Extract exact existing native capture rules and share safe-handle pipe identity/security
+  and bounded framing. Preserve default speech framing behavior; metadata requests select strict UTF-8
+  and a smaller bound. Do not replace passive counters with an invented native atomic-edit authority.
+- **Evidence:** Reproduced framework JSON reader accepting a second trailing root; explicit root-end
+  validation now rejects it. Seven routes pass, including 54 contracts assertions. Native acceptance
+  and independent audit remain open; no Phase 2, microphone, delivery or main installation is implied.
+- **Audit checkpoint:** Independent review found binding ambiguity escaping the new listener's
+  per-request capture handler; parent reproduced permanent fault and retry timeout on the binary.
+  Correction and stronger capacity/acknowledgement negative tests await user approval. No deployment
+  before resolution; this evidence does not revise the accepted PoC results.
+
+## 2026-11-21 - Phase 1 approved recovery fix; native conversation gate stays open
+
+- **Decision:** Contain binding ambiguity narrowly at the metadata capture boundary, log it and
+  return `TargetUnavailable` rather than fault the listener. Preserve explicit capacity/correlation
+  refusals; do not add a broad catch or silently assume a valid target.
+- **Evidence:** User-approved recovery, request 64/65 boundary and independently wrong acknowledgement
+  ID/sequence tests pass. Contracts now have 131 full / 126 pure assertions; independent targeted
+  audit closed all three items. Other suites passed, with an unchanged preference-save I/O failure
+  passing on immediate integration rerun.
+- **Native result so far:** Exp-only 0.4.0 installation/refresh exited 0 with matching DLL. Two same-
+  solution instances have distinct lifetime GUIDs, pinned reconnections and a background query that
+  preserved the other instance's foreground. Both package logs have zero errors. No speech or Send.
+- **Acceptance boundary:** The fresh blank session currently returns no native target; its cause
+  remains unconfirmed. Require populated-chat, two-chat and recreation/epoch evidence before accepting
+  Phase 1. Do not substitute a title or successful instance handshake for conversation identity,
+  auto-send a probe to make a target appear, or proceed to Phase 2 on synthetic tests alone.
+
+## 2026-11-21 - Phase 1 exact native status and observed-epoch lifetime proof
+
+- **Decision:** Add only a read-only test-executable status inspector, reusing typed exchange,
+  bounded framing, kernel peer identity and pinned handshake. No production/VSIX runtime change,
+  auto-send or diagnostic content channel is needed for native exact-target refusal checks.
+- **Evidence:** Five isolated inspector assertions bring contracts to 136 full / 131 pure. All seven
+  routes and VS MSBuild/IDE build pass; the installed VSIX DLL remains unchanged. Exp A's populated
+  SDK target retains its identity/epoch across reads, refuses wrong epochs, retires on history
+  navigation and acquires a new epoch on reopening the same verified session. The old epoch remains
+  refused; the current one succeeds. Background populated status preserves the other instance's focus.
+- **Limits:** Four deliberate UnknownTarget probes log expected InvalidDataException failures.
+  Exp B's selected history view and fresh blank views expose no native target; their cause remains
+  unconfirmed. Refusing A's tuple in B is not proof of a second positive binding. Keep Phase 1 open
+  until distinct live conversation origin/isolation and task-instance shutdown are verified.
+
+## 2026-11-21 - Phase 1 final result: accept metadata-only live-binding foundation
+
+- **Evidence:** Two same-solution Exp instances expose distinct live SDK session/epoch tuples under
+  distinct instance lifetimes. Exact status succeeds, A's old conversation is refused after switching,
+  and each instance refuses the other's tuple. Earlier history/reopen and background-focus proofs
+  remain valid. Seven expected UnknownTarget failures are logged, with no other package errors.
+- **Cleanup:** Both task instances accepted CloseMainWindow, completed waited exit and disappeared;
+  their endpoints no longer accept clients. Exit codes were not retrieved. Main VS stayed running;
+  no forced/main-instance shutdown, deployment, speech, recording or bridge Send was performed.
+- **Decision/limits:** Accept the approved metadata-only phase; all seven regression routes and
+  targeted runtime audit closure pass. Blank/history-only surfaces without a supported live binding
+  remain unavailable; do not fabricate IDs or readiness. Native ambiguity/capacity/timeout/pending-
+  IPC failure injection is not claimed. Reader migration/delivery stay in separately gated phases.
+- **Commit boundary:** Source/project/doc changes are reviewed and uncommitted. Local commit and
+  push require explicit approval; no personal settings, reply/audio contents or proof logs belong in it.
+- **Approval:** The user subsequently approved the local Phase 1 commit only; no push approval.

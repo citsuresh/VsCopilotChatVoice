@@ -28,6 +28,7 @@ public sealed class VoicePackage : AsyncPackage
     private ChatToolbarIntegration? toolbar;
     private ChatBridgePoc? bridgePoc;
     private ChatGesturePoc? gesturePoc;
+    private ChatMetadataBridge? metadataBridge;
 
     public override IVsAsyncToolWindowFactory? GetAsyncToolWindowFactory(Guid toolWindowType) =>
         toolWindowType == typeof(ReaderToolWindow).GUID ? this : null;
@@ -61,6 +62,14 @@ public sealed class VoicePackage : AsyncPackage
                 Environment.GetEnvironmentVariable("VSCOPILOTCHATVOICE_GESTURE_TOGGLE") == "1" ? GestureMode.Toggle : GestureMode.Hold,
                 Environment.GetEnvironmentVariable("VSCOPILOTCHATVOICE_GESTURE_LEFT") == "1" ? GestureKey.LeftCtrl : GestureKey.RightCtrl);
             ActivityLog.LogInformation(nameof(VsCopilotChatVoice), "Exp-only log-only Ctrl gesture PoC enabled; no microphone or delivery.");
+        }
+        if (ChatMetadataBridge.IsEnabled())
+        {
+            metadataBridge = new ChatMetadataBridge(
+                message => ActivityLog.LogInformation(nameof(VsCopilotChatVoice), message),
+                error => ActivityLog.LogError(nameof(VsCopilotChatVoice),
+                    "Metadata bridge failed: " + error.GetType().FullName + " (" + error.HResult + ")."));
+            ActivityLog.LogInformation(nameof(VsCopilotChatVoice), "Exp-only metadata bridge enabled; no contents, edit, send or reply feed.");
         }
         if (ChatBridgePoc.IsEnabled())
         {
@@ -101,6 +110,7 @@ public sealed class VoicePackage : AsyncPackage
         ThreadHelper.ThrowIfNotOnUIThread();
         if (disposing)
         {
+            metadataBridge?.Dispose();
             gesturePoc?.Dispose();
             bridgePoc?.Dispose();
             toolbar?.Dispose();

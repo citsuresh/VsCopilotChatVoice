@@ -12,16 +12,23 @@ with a release-side adaptation: fake Ctrl capture, real two-process ownership an
 Exp-instance handoff are proved. Physical Right Ctrl and early native shortcut/Esc down
 remain unproved. These proofs do not activate the toolbar or implement a microphone.
 
+Production decomposition approved 2026-11-21. Phase 1 metadata foundation (0.4.0) is implemented
+and automated checks pass. The approved binding-ambiguity recovery fix and stronger negative
+tests passed independent audit closure. Exp installation, native instance checks and the first
+conversation's identity/status/epoch checks passed. Two distinct live chats, bidirectional instance
+isolation and graceful task-instance shutdown now pass; Phase 1 metadata-only verification is complete.
+No production reader migration, microphone, delivery or main-instance installation is enabled.
+
 In Visual Studio, use **File > Open > Project/Solution** and select
 `VsCopilotChatVoice.slnx` (rather than **Open Folder**). No restart is required.
 The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX with disabled chat-toolbar controls, a native reader preview and opt-in log-only gesture PoC (0.3.2); bundles the reader under `Reader` and starts it only as the headless speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.4.0) with disabled chat-toolbar controls, native reader preview and independently gated gesture/metadata foundations; bundles the reader and starts it only as the headless speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>`. |
-| `src\Shared` | Speech-worker protocol/host compiled into VSIX, Reader and tests; pure Ctrl detector and recording mutex compiled into VSIX/tests. Not a separate assembly. |
-| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker and gesture regression routes; not a Test Explorer adapter project. |
+| `src\Shared` | Speech framing compiled into Reader/VSIX/tests; speech host, pipe identity, metadata contracts/server, Ctrl detector and recording mutex compiled into VSIX/tests. Not a separate assembly. |
+| `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker, gesture and metadata-contract regression routes; not a Test Explorer adapter project. |
 
 The reader and tests were migrated from the audited session prototype, not from
 VoiceType's dictation engine. The `ReadAlongTrial` namespace and sample labels are
@@ -59,6 +66,8 @@ pinning, keyboard focus, live theme change, two instances, high DPI. See IMPLEME
 Installed only into Exp; no main-instance install.
 
 ### Ctrl gesture PoC 3 (0.3.2 preview; accepted with adaptation)
+
+The gesture proof is preserved in 0.4.0; its optional gate remains independent of metadata IPC.
 
 Only Debug + `/RootSuffix Exp` + launch-process `VSCOPILOTCHATVOICE_GESTURE_POC=1`
 enables this log-only observer. Right Ctrl/Hold defaults; launch-only
@@ -100,6 +109,62 @@ missing key-up, lock/sleep, cross-session and live-VS crash recovery remain unpr
 proof is focus-cancelled handoff; simultaneous Busy and abandonment are real child-process tests,
 not live-VS crash claims. No recording, models/downloads, VoiceType copying, global hooks,
 production settings or production delivery. See IMPLEMENTATION_PLAN section 6 for detailed evidence.
+
+### Phase 1 metadata foundation (0.4.0 preview; verified in Exp)
+
+Debug + exact `/RootSuffix Exp` + `VSCOPILOTCHATVOICE_METADATA_POC=1` enables a separate
+metadata-only endpoint, `VsCopilotChatVoice.Metadata.<VS-PID>`. A fresh instance GUID is returned
+by `hello`; a PID/solution path alone is not a lifetime identity. `list` and `status` use correlated
+request IDs, strictly increasing per-connection sequences and the pinned instance GUID. A status
+target includes native session GUID + client ID + observation epoch; stale/missing/ambiguous targets
+are explicitly refused. Unknown trust/responding remains unknown, not ready. Chat/input/context
+replacement and hide/unload/ended observations invalidate epochs; shutdown closes owned pending IPC.
+
+Audit reproduced a binding `AmbiguousMatchException` permanently faulting the listener. The approved
+fix contains it at the capture boundary, logs the failure and returns `TargetUnavailable`; the next
+client can recover. Independent targeted closure also passed the request 64/65 capacity boundary
+and independently wrong acknowledgement ID/sequence tests, with no outstanding targeted finding.
+
+Current-user ACL and kernel client/server PID checks bind the selected endpoint; instance/request
+GUIDs are correlation fences, not credentials. Limits: 65,536-byte strict UTF-8 frames, 32 targets,
+64 requests per connection and a 15-second connection deadline. Duplicate request IDs are rejected
+within a connection; reconnects start a fresh metadata-only handshake. This is not a mutating-command
+deduplication guarantee. Bad schema/version/fields, capacity, timeouts and provider failures surface
+explicitly; late provider callbacks cannot deliver into a new connection. No draft/reply text is in
+the protocol or logs, and no edit, Send, reply-feed or speech command exists. Toolbar stays disabled.
+
+`--contracts-probe [VSIX-DLL]` passes 131 assertions without the DLL, 136 with actual-DLL gate/schema
+checks; real child processes prove independent lifetime/peer isolation. All six prior routes also
+pass; an unchanged preference-save `File.Replace` I/O failure passed on immediate integration rerun.
+The official 0.4.0 Exp installer/configuration refresh exited 0 and the installed DLL matched the build.
+Two task Exp instances of the same solution returned distinct lifetime GUIDs and accepted pinned
+handshake/list reconnections. Querying background Exp A preserved Exp B's foreground window;
+before negative probes both package logs had zero errors; logs contain no chat contents.
+No speech was started; restored sample reader windows were hidden.
+
+Exp A's user-selected populated SDK conversation exposes session GUID/client ID/epoch, known trusted
+and idle state, and explicit read-only/transcript flags. Repeated reads keep the epoch; exact status
+returns `Ok`. Wrong epochs are refused. Returning to history retires the target; reopening the same
+verified session creates a new epoch, refuses the old one and accepts the current one. A populated
+background status query also preserves Exp B's foreground. Seven deliberately refused status probes
+produced expected `InvalidDataException` log entries (five A, two B); no other package errors appeared.
+
+Both user-prepared live SDK chats now expose distinct session GUIDs/epochs under their respective
+instance lifetimes. Both exact statuses succeed; changing A's conversation refuses its old tuple,
+and each instance refuses the other's current tuple. Both task Exp instances accepted graceful
+`CloseMainWindow`, completed waited exit and disappeared; neither endpoint accepted a later client.
+The hosting main VS stayed running and untouched. Exit codes were not retrieved for these closes.
+
+Decision: accept this metadata-only foundation. Blank new-session and some history-only surfaces
+were observed with no targets; their cause is not established and they remain unsupported until a
+live binding is available. Do not infer readiness or fabricate identity for them. Live failure injection
+for ambiguity/capacity/timeouts/pending-IPC shutdown remains untested; isolated automated fixtures
+cover those cases. Phase 2 and production delivery remain separate gates. `--metadata-inspect <Exp-PID> [instance-guid]`
+performs a read-only handshake/list, checks the kernel server PID and optional expected lifetime,
+and prints bounded metadata JSON. No capture, speech or UI input is performed by this helper.
+`--metadata-status <Exp-PID> <instance-guid> <session-guid> <client-id> <epoch-guid>` performs the
+same bounded, peer/lifetime-checked handshake followed by an exact-target status request. It prints
+the correlated response and exits 0 for `Ok`, 1 for refusal/failure. It never edits or sends.
 
 ### PoC 1 bridge research and fallback proof (historical native increments)
 
@@ -356,6 +421,7 @@ msbuild .\VsCopilotChatVoice.slnx /restore /m /p:Configuration=Debug /p:DeployEx
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --bridge-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --speech-worker-probe
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --gesture-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
+& .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe --contracts-probe .\src\VsCopilotChatVoice.VisualStudio\bin\Debug\net48\VsCopilotChatVoice.VisualStudio.dll
 ```
 
 `--gesture-probe [built-VSIX-DLL]` checks the pure detector with a fake capture owner,
@@ -494,13 +560,14 @@ file is distributed. Storage errors remain visible in the reader.
 ## Approved direction (not yet implemented)
 
 The discussion is consolidated in [the draft implementation plan](docs/IMPLEMENTATION_PLAN.md).
-Its phase breakdown needs confirmation before production code changes. Working defaults that
-were not explicitly settled are labelled in the plan; none of these features are shipped.
-Bounded PoC 1/2 proofs are accepted with the caveats above; only the fake-capture PoC 3 is
-currently authorized. The full production decomposition still needs confirmation.
+All three bounded PoCs are complete and pushed through `64451c8`, with the caveats above.
+The production decomposition was approved 2026-11-21. Section 6 decomposes Phase 1 into contracts,
+target lifetime, metadata-only IPC and Exp acceptance. Its 0.4.0 metadata-only foundation is verified as
+described above; full production functionality is not implemented. Working defaults not explicitly
+settled remain labelled in the plan, and later phases require their own acceptance gates.
 The plan evolves with implementation/testing and approved enhancements. Start with bounded
-Exp proofs for exact chat routing/delivery, a native reader with external speech, and safe
-Ctrl-only capture before committing to the full migration; optional hooks may be dropped.
+production increments under their acceptance gates; do not reopen accepted PoCs
+or treat their completion as automatic approval of the full migration.
 
 - Activate the existing toolbar only as its backends become available; Settings remains
   independent of model/skill availability. Report missing capabilities with accessible badges.

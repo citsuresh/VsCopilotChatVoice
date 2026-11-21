@@ -8,6 +8,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Shared\ChatBridgeContracts.cs" Link="Shared\ChatBridgeContracts.cs" />
+    <Compile Include="..\..\src\Shared\ChatMetadataServer.cs" Link="Shared\ChatMetadataServer.cs" />
+    <Compile Include="..\..\src\Shared\PipePeerIdentity.cs" Link="Shared\PipePeerIdentity.cs" />
     <Compile Include="..\..\src\Shared\CtrlGestureDetector.cs" Link="Shared\CtrlGestureDetector.cs" />
     <Compile Include="..\..\src\Shared\RecordingOwnership.cs" Link="Shared\RecordingOwnership.cs" />
     <Compile Include="..\..\src\Shared\SpeechWorkerProtocol.cs" Link="Shared\SpeechWorkerProtocol.cs" />

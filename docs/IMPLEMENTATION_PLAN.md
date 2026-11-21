@@ -1,8 +1,9 @@
 # Voice input and reader implementation plan
 
 Draft: 2026-11-20. Records the design discussion after toolbar checkpoint `ee55bb6`.
-The user authorized PoC 1 (exact chat bridge); the remaining production phases are planned,
-not implemented. Confirm later phase gates before proceeding. Implement one independently
+Updated: 2026-11-21. All three bounded PoCs are accepted with recorded limitations and pushed
+through `64451c8`. Production decomposition approved 2026-11-21; Phase 1 is now under implementation
+and validation. Later phase acceptance gates still apply. Implement one independently
 reviewable phase at a time, keeping it within approved scope.
 This is a living plan: update it from implementation/testing evidence and user-approved
 enhancements as work proceeds. Do not treat every design suggestion as approved scope.
@@ -415,6 +416,113 @@ gate is not authorization to implement production send, reply feed, microphone o
 7. **Optional chat-scroll experiment and release hardening.** Attempt precise reply/block
    scrolling; remove/defer it if unreliable. Complete multi-instance, hardware, lifecycle,
    keyboard/accessibility, theme/high-contrast/DPI, deployment and failure-matrix checks.
+
+### Phase 1 implementation decomposition (approved 2026-11-21)
+
+Purpose: turn the reusable proof boundaries into instance/conversation contracts and lifetime
+management before migrating reader features. Approval covers starting Phase 1, not automatic
+deployment, commits/pushes or skipping later acceptance gates. Retain the existing preview gates.
+
+1. **Typed identities and metadata contracts.** Define a versioned envelope with a fresh
+   VS-instance lifetime ID, request correlation ID, native conversation identity and target epoch.
+   The existing probe reads `CopilotSessionId.Guid` and `CopilotClientId.Id`; carry both, rather
+   than substituting chat titles, solution paths, HWNDs, PIDs or UIA runtime IDs. Keep observation,
+   speech and capture generations distinct. Validate required fields, bounds and supported versions;
+   reject unknown/invalid identities explicitly. No draft/reply text in this increment.
+2. **Originating-target lifetime.** Adapt the conservative discovery and passive observation
+   boundaries rather than reimplementing their reflection/notification rules. Register each supported
+   chat binding under its verified identity and epoch; refuse ambiguity and stale epochs. Preserve
+   unknown trust/responding state rather than assuming ready. Chat/context/input replacement,
+   hide/unload, ended notifications and package shutdown invalidate the binding and pending work.
+   Marshal WPF operations/cleanup through the existing UI-thread scheduling pattern. A notification
+   counter remains advisory metadata, not an authoritative atomic-edit permission.
+3. **Bounded, metadata-only IPC.** Add per-instance discovery, handshake and capability/status
+   requests with correlated acknowledgements. Reuse proven current-user ACL, bounded framing,
+   real read/write deadline and lifetime-disposal patterns. Verify live peer identity for the selected
+   endpoint; a PID alone is not a lifetime identity. Malformed/version-mismatched, cancelled,
+   disconnected, duplicate and out-of-order requests must not affect another instance or survive
+   target/instance disposal. Advertise only actual capabilities: native atomic editing and a production
+   reply feed remain unsupported. Do not add insertion, Send, reply capture or speech commands here.
+4. **Regression and native acceptance.** Extend the existing executable harness with an isolated
+   contract/lifetime route; retain all six documented baseline suites. Test identical solution paths
+   in different instance lifetimes, multiple conversation bindings, changed/reused identities, unknown
+   state, malformed/oversize messages, timeout/recovery, cancellation and late callbacks. Exercise real
+   two-process endpoint isolation. Build with VS MSBuild, bump the manifest for runtime changes and
+   validate only in Exp: two chats, two instances, recreation, correct-origin metadata, no focus steal
+   and no draft/reply content in logs. Obtain the independent phase regression audit and resolve its
+   findings under the approval gate; no main-instance installation, automatic commit or push.
+
+Reuse boundaries confirmed from current source: `ChatBridgePoc.CaptureOnUiThread` reads the
+native composite identity and calls `ChatTargetObservation.Snapshot`; the observation manages
+binding generations, draft notifications and lifetime cleanup. Shared speech framing already
+exists, but its speech-command envelope is not the production chat contract. Extract only a genuinely
+shared mechanism when implementation needs it; preserve the existing proof routes and speech behavior.
+
+**Exit gate:** origin/lifetime and metadata IPC pass their regression/native checks without enabling
+Mic, changing reader behavior or claiming an insertion/reply authority. Guarded external UIA delivery
+remains a separately proved fallback; mapping it to production identities must be validated when
+integrated, not assumed from titles/runtime IDs. Only then proceed to Phase 2's real reader migration.
+Recording, VoiceType reuse, models, settings, delivery/history and broader UI work stay in later phases.
+
+Phase 1 checkpoint (0.4.0, 2026-11-21): typed metadata contracts, per-target passive observation
+epochs, per-process discovery/fresh instance handshake and metadata-only list/status are implemented.
+The native adapter reuses the extracted `ChatBridgePoc.CaptureTarget` verification; unknown readiness
+is retained. Shared `PipePeerIdentity` and bounded framing serve metadata and existing speech routes.
+Frames use strict UTF-8 and reject unknown/duplicate root fields and trailing JSON roots (the framework
+reader's trailing-root acceptance was reproduced and fixed). Limits are 65,536 bytes, 32 targets,
+64 requests per connection and a 15-second whole-connection deadline. Replay/order fences are scoped
+to a connection; a reconnect is fresh read-only metadata, not a production mutation retry protocol.
+Provider cancellation is bounded even when a test provider ignores cancellation; its late result
+cannot cross connections. No input, content, send, speech or automatic reply operation is exposed.
+VS MSBuild and seven routes pass: contracts 136 (131 without DLL), gesture 209, speech 51, toolbar 62,
+bridge 209, self 1,868, integration 292. Only the existing toolbar analyzer warning remains.
+An unchanged preference-save `File.Replace` I/O failure passed on immediate integration rerun;
+it was not fixed here. Independent audit reproduced capture's `AmbiguousMatchException` escaping
+per-request containment and permanently faulting the listener; parent confirmed EOF and retry timeout.
+The user approved narrow capture-boundary containment and regression strengthening. The failure now
+logs and returns `TargetUnavailable`, and next-client recovery passes. Request 64 succeeds, request
+65 refuses without capture and closes the connection, and a new client recovers. Independently wrong
+acknowledgement request IDs and sequences are rejected. Independent targeted closure ran the full
+131-assertion route and closed all three items with no outstanding targeted finding.
+
+Native checkpoint: official 0.4.0 Exp installation/configuration refresh exited 0; the installed DLL
+matched the built SHA256 `7D19774A76A06B3DEDBCFB461D61154568FB9DF56CE503D1D3579CB69C8570CA`.
+Two task Exp instances opened the same solution, returned distinct instance GUIDs and accepted
+fresh handshake/list connections pinned to their respective lifetimes. An Exp A query while Exp B's
+settled main window was foreground left that same window foreground. Both package logs have zero
+errors before negative status probes, and only counts/decisions, not draft/reply contents. Restored sample readers were hidden;
+no speech, input insertion or Send was initiated.
+
+The user-selected populated SDK conversation in Exp A now returns a real session GUID/client ID/epoch,
+trusted=true, responding=false and explicit read-only/transcript=false flags. Repeated list/status
+queries preserve the epoch and exact status succeeds. Returning to history removes the target and
+refuses its old tuple. Reopening the uniquely selected same conversation (identity verified by GUID,
+not title) creates a new epoch; the old epoch stays refused and the current one succeeds. A populated
+background status query preserves Exp B's foreground. Seven controlled UnknownTarget probes (five
+in A, two in B) logged expected InvalidDataException errors; no other package errors appeared.
+
+A test-executable-only --metadata-status route adds five isolated assertions and reuses typed
+ExchangeAsync, strict framing, kernel server-PID and pinned-lifetime checks under one 15-second
+deadline. VS MSBuild/IDE build and all seven suites pass on the first rerun after this helper;
+the installed VSIX DLL hash is unchanged. No new extension deployment/version bump was needed.
+
+Final native proof: both user-prepared live SDK conversations return distinct session GUIDs/epochs
+under their own instance GUIDs, with exact status Ok and known trusted/idle/read-only/transcript state.
+A's conversation switch changes session/epoch and refuses its old tuple. Both A-to-B and B-to-A
+foreign tuples are UnknownTarget while own tuples succeed. Both task instances accepted
+CloseMainWindow, completed waited exit and were confirmed absent; their named endpoints then timed
+out on bounded connection attempts. Exit codes were not retrieved. Hosting main VS stayed running
+and untouched; no forced shutdown or main installation.
+
+Decision: **proceed / accept Phase 1's metadata-only foundation**. The blank New session and some
+history-only surfaces exposed no target, cause unconfirmed; retain explicit unavailable behavior
+until a supported live SDK binding exists, without inventing identity/readiness. Carry that limitation
+into delivery integration rather than auto-send a probe to make a session appear.
+Native ambiguity/capacity/timeouts and pending-IPC shutdown are still automated/child-process proof,
+not live-VS failure-injection claims. No bridge Send is used to create a session.
+Phase 1's regression, targeted audit closure and required native origin/lifetime gates pass. Phase 2
+has not started. Changes are manually reviewed and the user explicitly approved a local commit;
+no additional push or main-instance deployment is approved.
 
 **Reply identity design note (PoC 1 findings, 2026-11-21; design input only, not implemented in the
 extension).** `scripts\agent\Read-ChatRepliesUia.ps1` and `Wait-ChatReplyUia.ps1` are read-only UIA

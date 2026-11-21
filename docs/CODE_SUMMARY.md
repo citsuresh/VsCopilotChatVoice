@@ -50,6 +50,16 @@ result is accepted with release-side adaptation; microphone/production input rem
 
 ## Structural symbols
 
+The 0.4.0 Phase 1 foundation adds a separately gated metadata-only endpoint. `ChatMetadataBridge`
+reuses conservative discovery and extracted exact native binding capture, tracking one observation
+epoch per supported chat anchor. Shared typed requests/targets/responses and the server/client handle
+current-user, kernel-peer-checked discovery and per-connection correlation/lifetime fences. No draft,
+reply, editing, send or microphone is exposed. The approved ambiguity-recovery fix and stronger
+negative tests passed independent audit closure. Native instance checks passed; conversation-target
+status and epoch retirement/recreation passed on the first populated SDK chat. Acceptance remains
+metadata-only: two live SDK chats, cross-instance isolation and graceful shutdown are now verified.
+Blank/history-only surfaces without a live supported binding still expose no target.
+
 ### VsCopilotChatVoice.VisualStudio
 
 | Symbol | File | Responsibility |
@@ -60,6 +70,7 @@ result is accepted with release-side adaptation; microphone/production input rem
 | `ChatTargetObservation` | `src\VsCopilotChatVoice.VisualStudio\ChatTargetObservation.cs` | Passive native-target epoch and draft-notification counter, trust/responding streams, automatic terminal teardown and primitive diagnostic retention. Does not read/write a draft or invoke commands. |
 | `ChatDraftPoc` | `src\VsCopilotChatVoice.VisualStudio\ChatDraftPoc.cs` | Explicit unsupported-atomic-edit refusal, bounded request validation, cancellation, non-evicting request deduplication and immutable-slot metadata checks; no draft access or send. |
 | `ChatGesturePoc` | `src\VsCopilotChatVoice.VisualStudio\ChatGesturePoc.cs` | Gated chat-root preview-event observer, focus/lifetime cancellation, counters/decisions, fake asynchronous readiness/stop/result and thread-affine mutex adapter. No audio or delivery. |
+| `ChatMetadataBridge` | `src\VsCopilotChatVoice.VisualStudio\ChatMetadataBridge.cs` | Gated metadata endpoint adapter; composite native identity/epoch capture, per-anchor passive observation, UI-thread retirement and package disposal. |
 
 | `ReaderToolWindow` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindow.cs` | `ToolWindowPane` registered `Style=Float`; hosts the control and disposes it. |
 | `ReaderToolWindowControl` | `src\VsCopilotChatVoice.VisualStudio\ReaderToolWindowControl.cs` | Code-built WPF: Speak/Cancel, status, sample reply, VS-themed word highlight, lazy worker launch, UI-thread generation guard. No speech in-process. |
@@ -73,6 +84,12 @@ result is accepted with release-side adaptation; microphone/production input rem
 | `SpeechWorkerHost` | `src\Shared\SpeechWorkerHost.cs` | Pipe server, single active generation, worker PID check, fault handling, background-thread teardown. |
 
 Gesture sources are compiled into VSIX and Tests only:
+
+Metadata contracts/server and `PipePeerIdentity` are also compiled into VSIX/Tests; only the
+bounded speech/framing source is compiled into the Reader. `ChatBridgeContracts.cs` defines
+`BridgeRequest`, `BridgeTarget`, `BridgeResponse` and strict bounded schema parsing;
+`ChatMetadataServer.cs` defines the owned endpoint and read-only peer/lifetime-verifying client.
+`PipePeerIdentity.cs` shares current-user pipe ACL and safe-handle kernel peer checks with speech.
 
 | Symbol | File | Responsibility |
 | --- | --- | --- |
@@ -102,6 +119,7 @@ All reader symbols retain the `ReadAlongTrial` namespace.
 | `BridgePocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\BridgePocRegressionTests.cs` | Optional actual-VSIX checks for gating, metadata, public/interface identity fields, private/content getter exclusion and hidden windows, plus isolated real-listener timeout/recovery/shutdown checks. No VS input/speech/preferences. |
 | `SpeechWorkerRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\SpeechWorkerRegressionTests.cs` | `--speech-worker-probe`: protocol, word model, fake and real silent worker (progress/cancel/replace), fault paths, disposal. 51 assertions. |
 | `GestureRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\GestureRegressionTests.cs` | `--gesture-probe [VSIX-DLL]`: pure/fake lifecycle including suppressed key-down and both release orders, real two-process contention/abandonment and actual-DLL WPF observer; 196 / 209 assertions. Isolated mutex names; no microphone. |
+| `ContractRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\ContractRegressionTests.cs` | `--contracts-probe [VSIX-DLL]`: schema/framing, lifetime/target/order/replay guards, real peer/process isolation, cancellation/late-provider, ambiguity recovery, capacity and acknowledgement tests plus DLL gates; 131 / 136 assertions. `--metadata-inspect` and exact-target `--metadata-status` are read-only. |
 | `DraftPocRegressionTests` | `tests\VsCopilotChatVoice.Reader.Tests\DraftPocRegressionTests.cs` | Actual-VSIX mutation-surface removal, capability refusal, validation, cancellation, deduplication/conflicts/capacity and immutable-slot checks; no live VS input. |
 
 See `docs/KEY_FLOWS.md` for traced end-to-end call flows.

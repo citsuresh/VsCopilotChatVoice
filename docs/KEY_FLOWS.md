@@ -31,3 +31,12 @@
 - `GestureRegressionTests.Processes -> two OwnerChild processes -> real Local mutex race -> one Acquired / one Busy -> winner Release -> loser retry; crashed child -> AbandonedMutexException -> AcquiredAfterAbandonment`
 - `ChatGesturePoc.KeyUp -> other-input release -> CtrlGestureDetector.InvalidatePress; Ctrl release -> OtherInputsHeld -> tentative cancellation / StopTapInvalidated; Escape release -> Cancel(EscapeRelease) when native down was suppressed`
 - `Exp A Toggle -> window focus loss -> CancelCapture -> fake CaptureStopped -> mutex Release -> Exp B RequestCapture -> mutex Acquired -> focus loss -> Release -> Exp A later RequestCapture -> Acquired (live sequential handoff; no focus-loss result)`
+- `VoicePackage.InitializeAsync -> ChatMetadataBridge.IsEnabled -> ChatMetadataServer -> current-user per-PID pipe -> kernel client PID -> hello -> fresh instance GUID -> correlated list/status`
+- `ChatMetadataBridge.CaptureAsync -> UI switch -> ChatBridgePoc.Inspect -> CaptureTarget -> native session GUID/client ID -> ChatTargetObservation.Snapshot -> bounded metadata acknowledgement (no edit authority)`
+- `ChatMetadataServer -> request ID/sequence/version/instance checks -> bounded provider capture -> exact composite identity/epoch filter -> response correlation; cancelled deadline closes owned pipe and rejects late provider completion`
+- `ChatMetadataBridge.Prune / Dispose -> UI-thread observation retirement -> timer stop -> ChatMetadataServer.Dispose -> pending IPC cancelled; next connection cannot inherit earlier provider work`
+- `ChatMetadataServer capture handler -> binding AmbiguousMatchException -> reportError -> Reply(TargetUnavailable) -> correlated WriteAsync -> next request/connection (listener survives)`
+- `ContractRegressionTests.Inspect (--metadata-status) -> QueryStatus -> PipePeerIdentity.Server -> ChatMetadataClient.ExchangeAsync(hello) -> pinned instance -> ExchangeAsync(status) -> bounded correlated metadata`
+- `Exp A chat -> Back/history -> ChatMetadataBridge.CaptureAsync -> Retire -> old epoch UnknownTarget; reopen same verified session -> new observation epoch -> old refused / current Ok (native proof)`
+- `Exp A conversation switch -> new session/epoch -> old tuple UnknownTarget; Exp A/B distinct live tuples -> own status Ok / other-instance tuple UnknownTarget -> recovery (native proof)`
+- `Task Exp B/A CloseMainWindow -> waited process exit -> metadata endpoints unavailable; hosting main VS stays running (native cleanup proof)`

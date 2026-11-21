@@ -111,7 +111,15 @@ internal sealed class ChatBridgePoc : IDisposable
                 observation = null;
                 return snapshot;
             }
-            FrameworkElement anchor = targets[0];
+            CaptureTarget(snapshot, targets[0], ref observation, reportError, ScheduleOnUiThreadAsync);
+            return snapshot;
+        }
+    }
+
+    internal static void CaptureTarget(ProbeSnapshot snapshot, FrameworkElement anchor,
+        ref ChatTargetObservation? observation, Action<Exception> reportError, Func<Action, Task> scheduleOnUi)
+    {
+            ThreadHelper.ThrowIfNotOnUIThread();
             object context = anchor.DataContext;
             object session = ReadObservedBinding(context, "Session");
             object composer = ReadObservedBinding(context, "Composer");
@@ -132,7 +140,7 @@ internal sealed class ChatBridgePoc : IDisposable
                 observation?.Dispose();
                 observation = null;
                 observation = new ChatTargetObservation(anchor, contextChanges, session, composer, inputChanges,
-                    trusted, responding, reportError, ScheduleOnUiThreadAsync);
+                    trusted, responding, reportError, scheduleOnUi);
             }
             snapshot.Target = observation.Snapshot();
             snapshot.TargetStatus = "Observed";
@@ -152,8 +160,6 @@ internal sealed class ChatBridgePoc : IDisposable
             snapshot.ClientId = (string?)RequireIdentityProperty(clientId.GetType(), "Id", typeof(string)).GetValue(clientId);
             if (string.IsNullOrWhiteSpace(snapshot.ClientId) || snapshot.ClientId!.Length > 256)
                 throw new InvalidDataException("The native client identity is invalid.");
-            return snapshot;
-        }
     }
 
     private Task<ChatDraftPoc.InsertResult> InsertDraftAsync(ChatDraftPoc.InsertRequest request,

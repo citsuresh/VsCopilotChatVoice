@@ -162,8 +162,9 @@ paste (20,001 refused); clipboard text, image and file-list contents restored af
 clipboard regains synthesized `System.String`/`Text` formats); a clipboard locked by another process gives
 `Failed` with the draft verified unchanged; a caret placed mid-draft or a selection gives `CaretNotAtEnd` (typed and paste); `-PlaceCaret` collapses a
 selection with Ctrl+End and appends without replacing text; one Ctrl+Z removes a whole 2,200-character paste;
-Exp behind another window gives `ExpNotForeground`. Not yet tested (need the person to set up the state or
-approve tab/focus changes inside Exp): input not focused, chat tab hidden, chat busy, two chat inputs,
+Exp behind another window gives `ExpNotForeground`; focus in the Exp code editor gives `ChatInputNotFocused`
+(editor untouched), and `-PlaceCaret` from that state refocuses the chat input and appends. Not yet tested (need the person to set up the state or
+approve tab/focus changes inside Exp): chat tab hidden, chat busy, two chat inputs,
 `#file`/`/command`/attachment chips, an open autocomplete popup, typing during the call and the
 blocked-input Exp state. Still not atomic: text typed by the person during the few seconds of the call can
 interleave (reported, never cleared).

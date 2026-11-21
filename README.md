@@ -217,8 +217,10 @@ one observer call, and a hung inspect call is not interrupted. Verified on Exp a
 only: delivery after two polls, the duplicate guard timing out, a different hash delivering, bad input and a
 stale handle refused, no text unless requested. It was also run across a live reply sent to Exp with the
 current last-reply hash as `-AfterSha256`: it returned `Completed` after 24 seconds and 2 polls with a new
-hash. That reply was short, so a long-running streaming reply and an approval pause mid-wait are not yet
-observed. How these findings could feed Phase 6 reply identity is a design note in
+hash. A second live run with a 4321-character text-only reply also returned `Completed` after 3 polls with a
+new hash; the send call outlasted most of the streaming, so mid-stream polling was not seen, and the visible
+transcript window shrank from 6 to 3 messages with turn ordinals restarting (virtualization). An approval pause
+mid-wait and an in-progress streaming poll are not yet observed. How these findings could feed Phase 6 reply identity is a design note in
 [the implementation plan](docs/IMPLEMENTATION_PLAN.md); it is not implemented in the extension.
 
 ### Atomic-insertion capability probe (0.2.12)

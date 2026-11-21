@@ -19,8 +19,9 @@ a new user request.
 
 User decision 2026-11-21: use guarded UIA typing with read-back (`Insert-ChatDraftUia.ps1`) as the
 insertion fallback; positive live Exp proof is done (paste and `-Append -PlaceCaret` on fresh Exp).
-Read-only completed-reply observation (`Read-ChatRepliesUia.ps1`) is live-proved on a finished reply.
-Next: observe the streaming state and tool/approval items, then decide how reply identity feeds Phase 6.
+Read-only completed-reply observation (`Read-ChatRepliesUia.ps1`) is live-proved on finished replies,
+streaming (Send offscreen, Cancel visible), an approval item and multi-body tool turns.
+Next: decide how reply identity feeds Phase 6; still unobserved: cancelled reply, Deny, second chat.
 
 - [ ] Confirm the decomposition in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md).
 - [ ] Phase 1: instance/conversation contracts, local bridge/lifetime and capability probes.

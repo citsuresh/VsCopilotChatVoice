@@ -6,10 +6,12 @@ Updated: 2026-11-21. This file is overwritten, not appended, at the end of each 
 
 Latest: added read-only `scripts\agent\Read-ChatRepliesUia.ps1` (one inspect call, no input or focus
 change, Exp-only). It reads the `ChatSessionList` transcript, reports message roles, lengths, SHA-256 and
-completion (footer "The response used ..." plus SendButton present), and was live-checked on a finished
-45,096-character reply. Streaming state, tool/approval items and a second chat are not yet observed.
-Insertion helper additions since: relaunch-chat-tab and chat-busy scenarios passed (see README); all
-work is pushed to origin/main up to 35b6ab9, the reply helper is uncommitted until reviewed.
+completion (footer present and Send/Cancel idle), and was live-checked on finished, streaming and
+approval-bearing replies. It classifies items structurally (footer `PART_LikeButton`, body
+`PART_FlowScrollViewer`, tool `toolCallExpander`/`HeaderSite`) and reports the last assistant turn. A cancelled
+reply, a Deny outcome and a second chat are not yet observed. Insertion helper additions since:
+relaunch-chat-tab and chat-busy scenarios passed (see README); origin/main is at 35b6ab9, the first reply
+helper (52096d7) and its classifier rewrite are local until pushed.
 
 Earlier (user decisions 2026-11-21): insertion fallback is guarded UIA typing with read-back; Exp
 installs/tests and stable local commits are approved. Live proof on a restarted Exp (the earlier Exp was

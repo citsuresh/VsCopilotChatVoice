@@ -181,18 +181,29 @@ The orchestrator's own Send script clears the input, so it is unsuitable here.
 and reads the chat transcript. It sends no key, click or paste and changes no focus, window, tab or draft.
 It refuses a non-Exp `devenv.exe` (unless `-AllowMainInstance`), a missing transcript, more than one
 transcript (`AmbiguousChat`) and a truncated tree. Observed on Exp (2026-11-21): the transcript is a
-`ChatSessionList` of `ChatMessageItem` ListItems that is not virtualized (earlier messages stay in the tree).
-Items alternate header, body: a short item (name up to 60 characters, at most 2 children) in the header
-position is an author header (`GitHub Copilot` precedes an assistant reply), the next item is the message
-body whatever its length, and its full text is the item's UIA Name. An item in the header position that
-does not look like a header is reported `Unknown`. An item named "The response
-used ..." after a reply is the completion footer. A reply is reported `Complete` only when that footer is
-present and the SendButton exists (a missing SendButton means busy). The UI exposes no per-message
-AutomationId, so reply identity is its position plus length and SHA-256. Default output is lengths and
-hashes only; `-IncludeText` adds the last reply text. Live check: a finished 45,096-character reply gave
-one user message, one assistant reply with `Complete: true` and a text length equal to the reported length;
-the main host was refused. Not yet observed: the streaming state (footer absent while a reply arrives), tool
-or approval items in the transcript, a second chat, and very long transcripts.
+`ChatSessionList` (AutomationId `session`) of `ChatMessageItem` ListItems in chronological layout order.
+The tree keeps only a window of recent items (a very long reply can sit far above the viewport, with
+negative Y), so `MessageCount` and the earliest turns can change between calls. Items are classified by
+structural markers, never by length or position alone: a footer contains `PART_LikeButton` (name "The
+response cost N credits.", sometimes prefixed "The response used the <model> model."), a message body
+contains `PART_FlowScrollViewer` (its full text is the item's UIA Name), a tool call or task group contains
+`toolCallExpander` or `HeaderSite` (for example "Run command: ...", "Worked on 7 tasks", "Read 2 items"),
+and a short item (at most 2 children, name up to 60 characters) is a header: `GitHub Copilot` starts an
+assistant turn and any other header (author name, `Restore Checkpoint`) starts a user turn. Inside an open
+assistant turn only `GitHub Copilot` or `Restore Checkpoint` counts as a header, so file chips such as
+`README.md` stay `Unknown`. An assistant turn can hold several bodies and tool items before its footer;
+`LastReply` is the last assistant turn (bodies joined with a line feed) with `FirstIndex`, `BodyCount`,
+`ToolItems`, `Length`, `Sha256` and `LaterTurns` (turns after it, so a newer user prompt makes it non-zero). It
+is `Complete` only when the footer is present, no later turn exists and the chat is idle. A turn with no body
+yet (tool items only, or just started) is still selected, with `BodyCount: 0`.
+Busy signals: idle means a visible SendButton and an offscreen CancelButton; while a reply streams (and
+while an approval such as Run command / Allow / Deny is pending) Send is offscreen and Cancel is visible and
+enabled; the helper reports `ChatBusy`, `SendButton` and `CancelButton`. The UI exposes no per-message
+AutomationId, so reply identity is the first body's position plus length and SHA-256. Default output is
+lengths and hashes only; `-IncludeText` adds the last reply text. Live checks on Exp: a finished 45,096-character
+reply; a 22,252-character reply that followed a run-command approval (Allow clicked); and a later
+three-body, two-tool-item turn reporting `Complete: true`. The main host is refused. Not yet observed: a
+second chat, a cancelled reply, a Deny outcome, and very long transcripts.
 
 ### Atomic-insertion capability probe (0.2.12)
 
@@ -408,6 +419,7 @@ No automatic main-instance installation, commits or pushes.
 
 ## Contributing and documentation
 
+- [History of Astronomy](docs\history-of-astronomy.md) is a standalone historical essay.
 - Persistent project memory is in `docs\CODE_SUMMARY.md`, `KEY_FLOWS.md`,
   `DESIGN_DECISIONS.md`, `PROJECT_STATE.md` and `ROADMAP.md`. The contributor instructions
   register the per-solution graph/dependencies files. Open `docs\graph-viewer.html` and

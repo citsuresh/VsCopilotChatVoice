@@ -210,7 +210,7 @@ internal sealed class ReaderToolWindowControl : UserControl, IDisposable
         highlighted = index >= 0 && index < runs.Count ? index : -1;
         if (highlighted < 0) return;
         Run run = runs[highlighted];
-        run.SetResourceReference(TextElement.BackgroundProperty, EnvironmentColors.SystemHighlightBrushKey);
+        run.SetResourceReference(TextElement.BackgroundProperty, EnvironmentColors.MainWindowActiveDefaultBorderBrushKey);
         run.SetResourceReference(TextElement.ForegroundProperty, EnvironmentColors.SystemHighlightTextBrushKey);
         run.BringIntoView();
     }

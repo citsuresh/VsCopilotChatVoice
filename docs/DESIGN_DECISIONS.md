@@ -899,6 +899,8 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   the Settings command with IVsUIShell.PostExecCommand (theme, font size and voice live in Settings).
 - **2026-11-22 Theme switching:** Reader controls must not hold locally assigned resolved brushes (they freeze the
   theme active at that moment: black squares after dark to light). Controls follow dynamic resources via the style and
-  NativeReaderView re-applies its theme on VSColorTheme.ThemeChanged. Settings checkbox/slider use AccentMedium to
-  follow the theme accent like Tools > Options. Rejected: VS's public VsResourceKeys control styles (they render the
+  NativeReaderView re-applies its theme on VSColorTheme.ThemeChanged. Settings checkbox/slider use
+  MainWindowActiveDefaultBorder (AccentMedium and the tab keys are pale greys; this key matches the Options checkbox)
+  as the single accent, also for the selected Concise/Detailed segment, hover/press borders and text highlight. Inherited
+  tri-state checkboxes show the inherited value dimmed. Rejected: VS's public VsResourceKeys control styles (they render the
   classic tool-window look, not the modern Options controls).

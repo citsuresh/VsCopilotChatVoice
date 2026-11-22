@@ -316,6 +316,10 @@ internal sealed class SettingsView : UserControl, IDisposable
     {
         speaker.IsThreeState = true; speaker.IsChecked = selected.SpeakerEnabled;
         concise.IsThreeState = true; concise.IsChecked = selected.Concise;
+        // Inherited (unset) boxes show the value they inherit, dimmed, instead of an ambiguous mark.
+        speaker.Tag = inheritedValues.SpeakerEnabled.Value ? "On" : "Off";
+        concise.Tag = inheritedValues.Concise.Value ? "On" : "Off";
+        speaker.ToolTip = concise.ToolTip = "Dimmed means the value is inherited. Click to override it.";
         rate.Value = selected.Rate ?? 0; volume.Value = selected.Volume ?? 100;
         audioPolicy.SelectedIndex = selected.AudioPolicy ?? 0; duckPercent.Value = selected.DuckPercent ?? 25;
         theme.SelectedIndex = selected.Theme ?? 0; fontSize.Value = selected.FontSize ?? 13;

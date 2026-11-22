@@ -431,7 +431,7 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         // An accent border marks Follow as on, like the POC's tinted check; fills render as light plates in dark themes.
         if (following)
         {
-            follow.SetResourceReference(Control.BorderBrushProperty, EnvironmentColors.SystemHighlightBrushKey);
+            follow.SetResourceReference(Control.BorderBrushProperty, EnvironmentColors.MainWindowActiveDefaultBorderBrushKey);
             follow.BorderThickness = new Thickness(1);
         }
         else
@@ -522,7 +522,7 @@ internal sealed class NativeReaderView : UserControl, IDisposable
 
     private object TextKey => highContrast ? SystemColors.WindowTextBrushKey : EnvironmentColors.ToolWindowTextBrushKey;
     private object BackgroundKey => highContrast ? SystemColors.WindowBrushKey : EnvironmentColors.ToolWindowBackgroundBrushKey;
-    private object HighlightKey => highContrast ? SystemColors.HighlightBrushKey : EnvironmentColors.SystemHighlightBrushKey;
+    private object HighlightKey => highContrast ? SystemColors.HighlightBrushKey : EnvironmentColors.MainWindowActiveDefaultBorderBrushKey;
     private object HighlightTextKey => highContrast ? SystemColors.HighlightTextBrushKey : EnvironmentColors.SystemHighlightTextBrushKey;
     private object ErrorKey => highContrast ? SystemColors.WindowTextBrushKey : EnvironmentColors.ToolWindowTextBrushKey;
     private void OnSystemChanged(object? sender, PropertyChangedEventArgs e)
@@ -554,7 +554,7 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         {
             if (!(control is ContentControl contentControl) || !(contentControl.Content is TextBlock content)) continue;
             if (control.IsEnabled)
-                content.SetBinding(TextElement.ForegroundProperty, new Binding(nameof(Foreground)) { Source = this });
+                content.SetBinding(TextElement.ForegroundProperty, new Binding(nameof(Foreground)) { Source = control is RadioButton ? (object)control : this });
             else
                 content.SetResourceReference(TextElement.ForegroundProperty, SystemColors.GrayTextBrushKey);
         }
@@ -612,6 +612,13 @@ internal sealed class NativeReaderView : UserControl, IDisposable
             var disabled = new Trigger { Property = IsEnabledProperty, Value = false };
             disabled.Setters.Add(new Setter(Control.ForegroundProperty, new DynamicResourceExtension(SystemColors.GrayTextBrushKey)));
             disabled.Setters.Add(new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(SystemColors.GrayTextBrushKey)));
+            if (control is RadioButton && !highContrast)
+            {
+                var selected = new Trigger { Property = ToggleButton.IsCheckedProperty, Value = true };
+                selected.Setters.Add(new Setter(Control.ForegroundProperty, new DynamicResourceExtension(EnvironmentColors.SystemHighlightTextBrushKey)));
+                selected.Setters.Add(new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(EnvironmentColors.SystemHighlightTextBrushKey)));
+                style.Triggers.Add(selected);
+            }
             style.Triggers.Add(disabled);
             control.Style = style; control.FocusVisualStyle = focusStyle;
             if (!highContrast && appearance.Theme == 1)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Markup;
@@ -45,15 +45,15 @@ internal static class VsThemedStyles
         Disabled("chrome") +
         "</ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>");
 
-    // Segmented-strip choice (Concise/Detailed): the selected segment is marked by an accent border.
+    // Segmented-strip choice (Concise/Detailed): drawn like Visual Studio tool window tabs (selected segment in the theme accent with white text, hot-tab hover).
     internal static Style VersionChoice() => Parse(Header + "TargetType='RadioButton'>" +
         Common("ToolWindowBackground", "ToolWindowText", "ToolWindowBorder", "0", "0") +
         "<Setter Property='Template'><Setter.Value><ControlTemplate TargetType='RadioButton'>" +
         "<Border x:Name='chrome' CornerRadius='3' Background='Transparent' BorderBrush='Transparent' BorderThickness='1' SnapsToDevicePixels='True'>" +
-        "<ContentPresenter HorizontalAlignment='Center' VerticalAlignment='Center' RecognizesAccessKey='True'/></Border>" +
+        "<ContentPresenter x:Name='content' HorizontalAlignment='Center' VerticalAlignment='Center' RecognizesAccessKey='True'/></Border>" +
         "<ControlTemplate.Triggers>" +
-        "<Trigger Property='IsMouseOver' Value='True'><Setter TargetName='chrome' Property='Background' Value='@ToolWindowButtonHoverActive@'/></Trigger>" +
-        "<Trigger Property='IsChecked' Value='True'><Setter TargetName='chrome' Property='Background' Value='@ToolWindowButtonHoverActive@'/><Setter TargetName='chrome' Property='BorderBrush' Value='@ToolWindowButtonHoverActiveBorder@'/></Trigger>" +
+        "<Trigger Property='IsMouseOver' Value='True'><Setter TargetName='chrome' Property='Background' Value='@ToolWindowTabMouseOverBackgroundBegin@'/><Setter TargetName='chrome' Property='BorderBrush' Value='@ToolWindowTabMouseOverBorder@'/><Setter TargetName='content' Property='TextElement.Foreground' Value='@ToolWindowTabMouseOverText@'/></Trigger>" +
+        "<Trigger Property='IsChecked' Value='True'><Setter TargetName='chrome' Property='Background' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='chrome' Property='BorderBrush' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='content' Property='TextElement.Foreground' Value='@SystemHighlightText@'/></Trigger>" +
         Disabled("chrome") +
         "</ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>");
 
@@ -75,14 +75,16 @@ internal static class VsThemedStyles
         Common("ToolWindowBackground", "ToolWindowText", "ToolWindowBorder", "0", "0") +
         "<Setter Property='Template'><Setter.Value><ControlTemplate TargetType='CheckBox'>" +
         "<Border x:Name='root' Background='Transparent' SnapsToDevicePixels='True'><StackPanel Orientation='Horizontal'>" +
-        "<Grid Width='16' Height='16' VerticalAlignment='Center' Margin='0,0,8,0'>" +
-        "<Border x:Name='box' BorderThickness='1' CornerRadius='3' BorderBrush='@ComboBoxBorder@' Background='@ToolWindowBackground@'/>" +
-        "<Path x:Name='mark' Data='M 4,8 L 7,11 L 12,5' Stroke='@SystemHighlightText@' StrokeThickness='1.6' Visibility='Collapsed'/>" +
-        "<Rectangle x:Name='mixed' Width='6' Height='6' Fill='@SystemHighlightText@' Visibility='Collapsed'/></Grid>" +
+        "<Grid Width='20' Height='20' VerticalAlignment='Center' Margin='0,0,10,0'>" +
+        "<Border x:Name='box' BorderThickness='1' CornerRadius='4' BorderBrush='@ComboBoxBorder@' Background='@ToolWindowBackground@'/>" +
+        "<Path x:Name='mark' Data='M 5,10 L 8.5,13.5 L 15,6.5' Stroke='@SystemHighlightText@' StrokeThickness='2' StrokeStartLineCap='Round' StrokeEndLineCap='Round' StrokeLineJoin='Round' Visibility='Collapsed'/>" +
+        "<Rectangle x:Name='mixed' Width='10' Height='2' RadiusX='1' RadiusY='1' Fill='@SystemHighlightText@' Visibility='Collapsed'/></Grid>" +
         "<ContentPresenter VerticalAlignment='Center' RecognizesAccessKey='True'/></StackPanel></Border>" +
         "<ControlTemplate.Triggers>" +
-        "<Trigger Property='IsChecked' Value='True'><Setter TargetName='mark' Property='Visibility' Value='Visible'/><Setter TargetName='box' Property='Background' Value='@AccentMedium@'/><Setter TargetName='box' Property='BorderBrush' Value='@AccentMedium@'/></Trigger>" +
-        "<Trigger Property='IsChecked' Value='{x:Null}'><Setter TargetName='mixed' Property='Visibility' Value='Visible'/><Setter TargetName='box' Property='Background' Value='@AccentMedium@'/><Setter TargetName='box' Property='BorderBrush' Value='@AccentMedium@'/></Trigger>" +
+        "<Trigger Property='IsChecked' Value='True'><Setter TargetName='mark' Property='Visibility' Value='Visible'/><Setter TargetName='box' Property='Background' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='box' Property='BorderBrush' Value='@MainWindowActiveDefaultBorder@'/></Trigger>" +
+        "<Trigger Property='IsChecked' Value='{x:Null}'><Setter TargetName='mixed' Property='Visibility' Value='Visible'/><Setter TargetName='box' Property='Background' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='box' Property='BorderBrush' Value='@MainWindowActiveDefaultBorder@'/></Trigger>" +
+        "<MultiTrigger><MultiTrigger.Conditions><Condition Property='IsChecked' Value='{x:Null}'/><Condition Property='Tag' Value='On'/></MultiTrigger.Conditions><Setter TargetName='mixed' Property='Visibility' Value='Collapsed'/><Setter TargetName='mark' Property='Visibility' Value='Visible'/><Setter TargetName='box' Property='Opacity' Value='0.55'/><Setter TargetName='mark' Property='Opacity' Value='0.55'/></MultiTrigger>" +
+        "<MultiTrigger><MultiTrigger.Conditions><Condition Property='IsChecked' Value='{x:Null}'/><Condition Property='Tag' Value='Off'/></MultiTrigger.Conditions><Setter TargetName='mixed' Property='Visibility' Value='Collapsed'/><Setter TargetName='box' Property='Background' Value='@ToolWindowBackground@'/><Setter TargetName='box' Property='BorderBrush' Value='@ComboBoxBorder@'/><Setter TargetName='box' Property='Opacity' Value='0.55'/></MultiTrigger>" +
         "<Trigger Property='IsMouseOver' Value='True'><Setter TargetName='box' Property='BorderBrush' Value='@ToolWindowButtonHoverActiveBorder@'/></Trigger>" +
         Disabled("root") +
         "</ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>");
@@ -109,8 +111,8 @@ internal static class VsThemedStyles
         "<Setter Property='Template'><Setter.Value><ControlTemplate TargetType='ComboBoxItem'>" +
         "<Border x:Name='row' Background='Transparent' Padding='8,3' SnapsToDevicePixels='True'><ContentPresenter/></Border>" +
         "<ControlTemplate.Triggers>" +
-        "<Trigger Property='IsSelected' Value='True'><Setter TargetName='row' Property='Background' Value='@SystemHighlight@'/><Setter TargetName='row' Property='TextElement.Foreground' Value='@SystemHighlightText@'/></Trigger>" +
-        "<Trigger Property='IsHighlighted' Value='True'><Setter TargetName='row' Property='Background' Value='@SystemHighlight@'/><Setter TargetName='row' Property='TextElement.Foreground' Value='@SystemHighlightText@'/></Trigger>" +
+        "<Trigger Property='IsSelected' Value='True'><Setter TargetName='row' Property='Background' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='row' Property='TextElement.Foreground' Value='@SystemHighlightText@'/></Trigger>" +
+        "<Trigger Property='IsHighlighted' Value='True'><Setter TargetName='row' Property='Background' Value='@MainWindowActiveDefaultBorder@'/><Setter TargetName='row' Property='TextElement.Foreground' Value='@SystemHighlightText@'/></Trigger>" +
         Disabled("row") +
         "</ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>");
 
@@ -120,9 +122,9 @@ internal static class VsThemedStyles
         "<Grid Height='22'>" +
         "<Border Height='4' VerticalAlignment='Center' Background='@ToolWindowBorder@'/>" +
         "<Track x:Name='PART_Track'>" +
-        "<Track.DecreaseRepeatButton><RepeatButton Command='Slider.DecreaseLarge' Focusable='False'><RepeatButton.Template><ControlTemplate TargetType='RepeatButton'><Border Background='Transparent'/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>" +
+        "<Track.DecreaseRepeatButton><RepeatButton Command='Slider.DecreaseLarge' Focusable='False'><RepeatButton.Template><ControlTemplate TargetType='RepeatButton'><Grid Background='Transparent'><Border Height='4' VerticalAlignment='Center' Background='@MainWindowActiveDefaultBorder@'/></Grid></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>" +
         "<Track.IncreaseRepeatButton><RepeatButton Command='Slider.IncreaseLarge' Focusable='False'><RepeatButton.Template><ControlTemplate TargetType='RepeatButton'><Border Background='Transparent'/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>" +
-        "<Track.Thumb><Thumb Focusable='False'><Thumb.Template><ControlTemplate TargetType='Thumb'><Border Width='8' Height='16' CornerRadius='2' Background='@AccentMedium@'/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>" +
+        "<Track.Thumb><Thumb Focusable='False'><Thumb.Template><ControlTemplate TargetType='Thumb'><Border Width='8' Height='16' CornerRadius='2' Background='@MainWindowActiveDefaultBorder@'/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>" +
         "</Track></Grid>" +
         "<ControlTemplate.Triggers><Trigger Property='IsEnabled' Value='False'><Setter Property='Opacity' Value='" + DisabledOpacity.ToString(System.Globalization.CultureInfo.InvariantCulture) + "'/></Trigger></ControlTemplate.Triggers>" +
         "</ControlTemplate></Setter.Value></Setter></Style>");
@@ -140,7 +142,7 @@ internal static class VsThemedStyles
     {
         // ToolWindowButtonHoverActive/Down fills render as light plates in the VS dark theme (unreadable under tool window
         // text), so interaction states keep the normal fill and show an accent border from the proven SystemHighlight brush.
-        xaml = xaml.Replace("@ToolWindowButtonHoverActiveBorder@", "@SystemHighlight@").Replace("@ToolWindowButtonDownBorder@", "@SystemHighlight@")
+        xaml = xaml.Replace("@ToolWindowButtonHoverActiveBorder@", "@MainWindowActiveDefaultBorder@").Replace("@ToolWindowButtonDownBorder@", "@MainWindowActiveDefaultBorder@")
             .Replace("@ToolWindowButtonHoverActive@", "@ToolWindowBackground@").Replace("@ToolWindowButtonDown@", "@ToolWindowBackground@");
         string resolved = Regex.Replace(xaml, "@(\\w+)@", "{DynamicResource {x:Static vs:EnvironmentColors.$1BrushKey}}");
         return (Style)XamlReader.Parse(resolved);

@@ -54,7 +54,7 @@ Selected, hover and pressed states keep the normal fill and use an accent (`Syst
 tint and the selected Concise/Detailed segment follow the same rule. The enabled chat-pane Settings gear uses normal
 tool-window text, while the unconnected Mic/Speaker previews stay grey. Reader controls follow VS theme resources
 dynamically and the reader re-applies its theme on `VSColorTheme.ThemeChanged` (a dark-to-light switch previously left
-frozen dark brushes on the icon buttons); the Settings checkbox and slider thumb use the theme accent (`AccentMedium`).
+frozen dark brushes on the icon buttons); the Settings checkbox and slider use the theme accent (`MainWindowActiveDefaultBorder`, the colour behind the Tools > Options checkbox), also used for the selected Concise/Detailed segment (white text), button hover/press borders and text highlight; inherited (unset) solution-scope checkboxes show the inherited value dimmed.
 Actual-DLL settings271, toolbar62, native626 and speech-options422 pass, including a real-worker Preview check
 that the selected voice runs to completion. An audible, temporary real-voice run was heard by the user. Both windows
 were reviewed visually outside VS in dark and light with stand-in theme brushes (temporary harness, removed). The

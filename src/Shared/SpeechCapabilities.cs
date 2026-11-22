@@ -16,6 +16,8 @@ internal sealed class SpeechVoiceCapability
     [DataMember(Name = "name", IsRequired = true, Order = 0)] public string Name = "";
     [DataMember(Name = "culture", IsRequired = true, Order = 1)] public string Culture = "";
     [DataMember(Name = "enabled", IsRequired = true, Order = 2)] public bool Enabled;
+
+    public override string ToString() => Name;
 }
 
 internal enum RememberedVoiceAvailability { NotSelected, Available, Missing, Disabled, Ambiguous }

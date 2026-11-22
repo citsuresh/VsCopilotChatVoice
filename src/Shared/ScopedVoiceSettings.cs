@@ -13,7 +13,7 @@ using ReadAlongTrial;
 namespace VsCopilotChatVoice.Settings;
 
 internal enum SettingOrigin { BuiltIn, Global, Solution, Window }
-internal enum VoiceSetting { SpeakerEnabled, Concise, VoiceName, Rate, Volume }
+internal enum VoiceSetting { SpeakerEnabled, Concise, VoiceName, Rate, Volume, AudioPolicy, DuckPercent, Theme, FontSize }
 
 internal readonly struct EffectiveSetting<T>
 {
@@ -29,9 +29,14 @@ internal sealed class VoiceOverrides
     internal string? VoiceName { get; }
     internal int? Rate { get; }
     internal int? Volume { get; }
+    internal int? AudioPolicy { get; }
+    internal int? DuckPercent { get; }
+    internal int? Theme { get; }
+    internal int? FontSize { get; }
 
     internal VoiceOverrides(bool? speakerEnabled = null, bool? concise = null,
-        string? voiceName = null, int? rate = null, int? volume = null)
+        string? voiceName = null, int? rate = null, int? volume = null, int? audioPolicy = null,
+        int? duckPercent = null, int? theme = null, int? fontSize = null)
     {
         if (voiceName != null && (voiceName.Length > 256 || voiceName.Any(char.IsControl) ||
             !string.Equals(voiceName, voiceName.Trim(), StringComparison.Ordinal)))
@@ -40,11 +45,23 @@ internal sealed class VoiceOverrides
             throw new ArgumentOutOfRangeException(nameof(rate));
         if (volume.HasValue && (volume.Value < 0 || volume.Value > 100))
             throw new ArgumentOutOfRangeException(nameof(volume));
+        if (audioPolicy.HasValue && (audioPolicy.Value < 0 || audioPolicy.Value > 2))
+            throw new ArgumentOutOfRangeException(nameof(audioPolicy));
+        if (duckPercent.HasValue && (duckPercent.Value < 0 || duckPercent.Value > 100))
+            throw new ArgumentOutOfRangeException(nameof(duckPercent));
+        if (theme.HasValue && (theme.Value < 0 || theme.Value > 3))
+            throw new ArgumentOutOfRangeException(nameof(theme));
+        if (fontSize.HasValue && (fontSize.Value < 10 || fontSize.Value > 28))
+            throw new ArgumentOutOfRangeException(nameof(fontSize));
         SpeakerEnabled = speakerEnabled;
         Concise = concise;
         VoiceName = voiceName;
         Rate = rate;
         Volume = volume;
+        AudioPolicy = audioPolicy;
+        DuckPercent = duckPercent;
+        Theme = theme;
+        FontSize = fontSize;
     }
 }
 
@@ -55,6 +72,10 @@ internal sealed class EffectiveVoiceSettings
     internal EffectiveSetting<string> VoiceName { get; }
     internal EffectiveSetting<int> Rate { get; }
     internal EffectiveSetting<int> Volume { get; }
+    internal EffectiveSetting<int> AudioPolicy { get; }
+    internal EffectiveSetting<int> DuckPercent { get; }
+    internal EffectiveSetting<int> Theme { get; }
+    internal EffectiveSetting<int> FontSize { get; }
 
     internal EffectiveVoiceSettings(VoiceOverrides global, VoiceOverrides solution, VoiceOverrides window)
     {
@@ -65,6 +86,10 @@ internal sealed class EffectiveVoiceSettings
         Concise = Resolve(false, global.Concise, solution.Concise, window.Concise);
         Rate = Resolve(0, global.Rate, solution.Rate, window.Rate);
         Volume = Resolve(100, global.Volume, solution.Volume, window.Volume);
+        AudioPolicy = Resolve(0, global.AudioPolicy, solution.AudioPolicy, window.AudioPolicy);
+        DuckPercent = Resolve(25, global.DuckPercent, solution.DuckPercent, window.DuckPercent);
+        Theme = Resolve(0, global.Theme, solution.Theme, window.Theme);
+        FontSize = Resolve(13, global.FontSize, solution.FontSize, window.FontSize);
         VoiceName = window.VoiceName != null ? new EffectiveSetting<string>(window.VoiceName, SettingOrigin.Window) :
             solution.VoiceName != null ? new EffectiveSetting<string>(solution.VoiceName, SettingOrigin.Solution) :
             global.VoiceName != null ? new EffectiveSetting<string>(global.VoiceName, SettingOrigin.Global) :
@@ -101,7 +126,11 @@ internal sealed class VoiceSettingsPatch
             fields.Contains(VoiceSetting.Concise) ? values.Concise : current.Concise,
             fields.Contains(VoiceSetting.VoiceName) ? values.VoiceName : current.VoiceName,
             fields.Contains(VoiceSetting.Rate) ? values.Rate : current.Rate,
-            fields.Contains(VoiceSetting.Volume) ? values.Volume : current.Volume);
+            fields.Contains(VoiceSetting.Volume) ? values.Volume : current.Volume,
+            fields.Contains(VoiceSetting.AudioPolicy) ? values.AudioPolicy : current.AudioPolicy,
+            fields.Contains(VoiceSetting.DuckPercent) ? values.DuckPercent : current.DuckPercent,
+            fields.Contains(VoiceSetting.Theme) ? values.Theme : current.Theme,
+            fields.Contains(VoiceSetting.FontSize) ? values.FontSize : current.FontSize);
     }
 }
 
@@ -121,7 +150,7 @@ internal sealed class ScopedSettingsStore
 {
     private readonly string root;
     private readonly string legacyPath;
-    private static readonly string[] Attributes = { "version", "revision", "speaker", "concise", "voice", "rate", "volume" };
+    private static readonly string[] Attributes = { "version", "revision", "speaker", "concise", "voice", "rate", "volume", "audioPolicy", "duckPercent", "theme", "fontSize" };
     internal static string DefaultRoot => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "VsCopilotChatVoice", "Settings");
     internal static string DefaultLegacyPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ChatVoice", "reader-version.txt");
 
@@ -219,10 +248,13 @@ internal sealed class ScopedSettingsStore
                 long revision = XmlConvert.ToInt64(reader.GetAttribute("revision") ?? throw new InvalidDataException("Missing settings revision."));
                 if (revision < 1) throw new InvalidDataException("Invalid settings revision.");
                 string? speaker = reader.GetAttribute("speaker"), concise = reader.GetAttribute("concise");
-                string? rate = reader.GetAttribute("rate"), volume = reader.GetAttribute("volume");
+                string? rate = reader.GetAttribute("rate"), volume = reader.GetAttribute("volume"), audioPolicy = reader.GetAttribute("audioPolicy"),
+                    duckPercent = reader.GetAttribute("duckPercent"), theme = reader.GetAttribute("theme"), fontSize = reader.GetAttribute("fontSize");
                 var values = new VoiceOverrides(speaker == null ? null : XmlConvert.ToBoolean(speaker),
                     concise == null ? null : XmlConvert.ToBoolean(concise), reader.GetAttribute("voice"),
-                    rate == null ? null : XmlConvert.ToInt32(rate), volume == null ? null : XmlConvert.ToInt32(volume));
+                    rate == null ? null : XmlConvert.ToInt32(rate), volume == null ? null : XmlConvert.ToInt32(volume),
+                    audioPolicy == null ? null : XmlConvert.ToInt32(audioPolicy), duckPercent == null ? null : XmlConvert.ToInt32(duckPercent),
+                    theme == null ? null : XmlConvert.ToInt32(theme), fontSize == null ? null : XmlConvert.ToInt32(fontSize));
                 bool empty = reader.IsEmptyElement;
                 reader.ReadStartElement();
                 if (!empty) reader.ReadEndElement();
@@ -258,6 +290,10 @@ internal sealed class ScopedSettingsStore
                     if (values.VoiceName != null) writer.WriteAttributeString("voice", values.VoiceName);
                     if (values.Rate.HasValue) writer.WriteAttributeString("rate", XmlConvert.ToString(values.Rate.Value));
                     if (values.Volume.HasValue) writer.WriteAttributeString("volume", XmlConvert.ToString(values.Volume.Value));
+                    if (values.AudioPolicy.HasValue) writer.WriteAttributeString("audioPolicy", XmlConvert.ToString(values.AudioPolicy.Value));
+                    if (values.DuckPercent.HasValue) writer.WriteAttributeString("duckPercent", XmlConvert.ToString(values.DuckPercent.Value));
+                    if (values.Theme.HasValue) writer.WriteAttributeString("theme", XmlConvert.ToString(values.Theme.Value));
+                    if (values.FontSize.HasValue) writer.WriteAttributeString("fontSize", XmlConvert.ToString(values.FontSize.Value));
                     writer.WriteEndElement();
                     writer.Flush();
                     stream.Flush(true);

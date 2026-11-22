@@ -71,8 +71,8 @@ internal sealed class NativeReaderView : UserControl, IDisposable
             concise = Load(conciseDocument, conciseFixture);
             DocumentBuilder.ValidateVersions(detailed, concise);
         }
-        bool preferredConcise = false;
-        try { preferredConcise = ReplyVersionPreference.Load(preferencePath); }
+        bool preferredConcise = VoiceRuntimeSettings.ConciseOverride ?? false;
+        try { if (!VoiceRuntimeSettings.ConciseOverride.HasValue) preferredConcise = ReplyVersionPreference.Load(preferencePath); }
         catch (Exception ex) when (PreferenceFailure(ex))
         { preferenceNotice.Text = "Could not load reading mode; using Detailed for this reply: " + ex.Message; }
         if (preferredConcise && concise == null)
@@ -87,22 +87,61 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         IdentifyText(status, "NativeReaderStatus");
         IdentifyText(preferenceNotice, "NativeReaderPreferenceNotice");
         IdentifyText(frameNotice, "NativeReaderFrameNotice");
-        var toolbar = new WrapPanel { Margin = new Thickness(4) };
-        AddButton(toolbar, play, "Play", "NativeReaderPlay", TogglePlaybackAsync);
-        AddButton(toolbar, stop, "Stop", "NativeReaderStop", StopAsync);
-        AddButton(toolbar, new Button(), "Previous sentence", "NativeReaderPreviousSentence", () => NavigateAsync(-1, false));
-        AddButton(toolbar, new Button(), "Next sentence", "NativeReaderNextSentence", () => NavigateAsync(1, false));
-        AddButton(toolbar, new Button(), "Previous paragraph", "NativeReaderPreviousParagraph", () => NavigateAsync(-1, true));
-        AddButton(toolbar, new Button(), "Next paragraph", "NativeReaderNextParagraph", () => NavigateAsync(1, true));
-        AddButton(toolbar, follow, "Following speech", "NativeReaderFollow", () => { SetFollowing(!following); return Task.CompletedTask; });
-        ConfigureChoice(toolbar, detailedChoice, "NativeReaderDetailed", false);
-        ConfigureChoice(toolbar, conciseChoice, "NativeReaderConcise", true);
+        // POC arrangement: header (title left, Follow right), version strip top-left, paragraph rail beside the
+        // text, sentence transport centered at the bottom with Stop at the right, then status and notices.
+        var heading = new TextBlock { Text = "Prepared fixture only — not a Copilot reply", TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeights.SemiBold };
+        var header = new DockPanel { Margin = new Thickness(8, 6, 8, 4), LastChildFill = true };
+        AddButton(header, follow, "Following speech", "NativeReaderFollow", "\uE73E", () => { SetFollowing(!following); return Task.CompletedTask; });
+        follow.Margin = new Thickness(8, 0, 0, 0);
+        DockPanel.SetDock(follow, Dock.Right);
+        var close = new Button();
+        AddButton(header, close, "Close", "NativeReaderClose", "\uE8BB", () => HideAsync(true));
+        DockPanel.SetDock(close, Dock.Right);
+        header.Children.Remove(follow); header.Children.Add(follow);
+        var settingsButton = new Button();
+        AddButton(header, settingsButton, "Settings", "NativeReaderSettings", "\uE713", () => { OpenSettings?.Invoke(); return Task.CompletedTask; });
+        DockPanel.SetDock(settingsButton, Dock.Right);
+        header.Children.Add(heading);
+        var versionChoices = new StackPanel { Orientation = Orientation.Horizontal };
+        var versionStrip = new Border { CornerRadius = new CornerRadius(5), Padding = new Thickness(2), BorderThickness = new Thickness(1), Child = versionChoices,
+            HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(8, 0, 0, 6) };
+        versionStrip.SetResourceReference(Border.BorderBrushProperty, EnvironmentColors.ToolWindowBorderBrushKey);
+        ConfigureChoice(versionChoices, conciseChoice, "NativeReaderConcise", true);
+        ConfigureChoice(versionChoices, detailedChoice, "NativeReaderDetailed", false);
+        var transport = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
+        AutomationProperties.SetAutomationId(transport, "NativeReaderSentenceTransport");
+        var previousSentence = new Button();
+        AddButton(transport, previousSentence, "Previous sentence", "NativeReaderPreviousSentence", "\uE76B", () => NavigateAsync(-1, false));
+        previousSentence.Margin = new Thickness(0, 0, 10, 0);
+        AddButton(transport, play, "Play", "NativeReaderPlay", "\uE768", TogglePlaybackAsync);
+        play.Width = 42; play.Height = 42; play.BorderThickness = new Thickness(1);
+        var nextSentence = new Button();
+        AddButton(transport, nextSentence, "Next sentence", "NativeReaderNextSentence", "\uE76C", () => NavigateAsync(1, false));
+        nextSentence.Margin = new Thickness(10, 0, 0, 0);
+        var controlRow = new Grid { Margin = new Thickness(8, 6, 8, 4) };
+        controlRow.ColumnDefinitions.Add(new ColumnDefinition());
+        controlRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        controlRow.ColumnDefinitions.Add(new ColumnDefinition());
+        Grid.SetColumn(transport, 1); controlRow.Children.Add(transport);
+        AddButton(controlRow, stop, "Stop", "NativeReaderStop", "\uE71A", StopAsync);
+        stop.HorizontalAlignment = HorizontalAlignment.Right; stop.VerticalAlignment = VerticalAlignment.Center;
+        Grid.SetColumn(stop, 2);
+        var bottom = new StackPanel();
+        foreach (UIElement item in new UIElement[] { controlRow, status, preferenceNotice }) bottom.Children.Add(item);
+        var paragraphRail = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(4, 0, 4, 0) };
+        AutomationProperties.SetAutomationId(paragraphRail, "NativeReaderParagraphNavigation");
+        var previousParagraph = new Button();
+        AddButton(paragraphRail, previousParagraph, "Previous paragraph", "NativeReaderPreviousParagraph", "\uE70E", () => NavigateAsync(-1, true));
+        previousParagraph.Margin = new Thickness(1, 0, 1, 8);
+        AddButton(paragraphRail, new Button(), "Next paragraph", "NativeReaderNextParagraph", "\uE70D", () => NavigateAsync(1, true));
         conciseChoice.ToolTip = concise == null ? "No Concise version supplied for this reply." : "Choose the supplied Concise version; stays paused.";
         var layout = new DockPanel();
-        var heading = new TextBlock { Text = "Prepared fixture only — not a Copilot reply", TextWrapping = TextWrapping.Wrap,
-            Margin = new Thickness(8), FontWeight = FontWeights.SemiBold };
-        foreach (FrameworkElement top in new FrameworkElement[] { heading, toolbar, status, preferenceNotice, frameNotice })
-        { DockPanel.SetDock(top, Dock.Top); layout.Children.Add(top); }
+        DockPanel.SetDock(header, Dock.Top); layout.Children.Add(header);
+        DockPanel.SetDock(versionStrip, Dock.Top); layout.Children.Add(versionStrip);
+        DockPanel.SetDock(frameNotice, Dock.Top); layout.Children.Add(frameNotice);
+        DockPanel.SetDock(bottom, Dock.Bottom); layout.Children.Add(bottom);
+        DockPanel.SetDock(paragraphRail, Dock.Right); layout.Children.Add(paragraphRail);
         layout.Children.Add(reader);
         Content = layout;
         KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Continue);
@@ -111,10 +150,38 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         reader.AddHandler(ScrollBar.ScrollEvent, new ScrollEventHandler(OnScroll), true);
         PreviewKeyDown += OnKeyDown;
         SystemParameters.StaticPropertyChanged += OnSystemChanged;
+        VoiceRuntimeSettings.Changed += OnRuntimeSettingsChanged;
+        VSColorTheme.ThemeChanged += OnVsThemeChanged;
         ApplyTheme(SystemParameters.HighContrast);
+        Loaded += OnLoaded;
         Refresh();
     }
 
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (disposed) return;
+        ApplyTheme(SystemParameters.HighContrast);
+        ApplyResolvedDocumentColors();
+        Refresh();
+    }
+
+    private void ApplyResolvedDocumentColors()
+    {
+        Brush? foreground = reader.Foreground as Brush;
+        Brush? background = reader.Background as Brush;
+        if (foreground == null || background == null) return;
+        foreach (FlowDocument document in conciseDocument == null ? new[] { detailedDocument } : new[] { detailedDocument, conciseDocument })
+        {
+            document.Foreground = foreground;
+            document.Background = background;
+            foreach (Paragraph paragraph in document.Blocks)
+                foreach (Inline inline in paragraph.Inlines)
+                    if (inline != highlighted) inline.Foreground = foreground;
+        }
+    }
+
+    // Set by the hosting tool window; the reader itself owns no settings UI, it only asks the host to open it.
+    internal Action? OpenSettings { get; set; }
     internal ReaderPlaybackController Controller { get { Dispatcher.VerifyAccess(); return controller; } }
     internal bool Following { get { Dispatcher.VerifyAccess(); return following; } }
     internal bool IsDisposed { get { Dispatcher.VerifyAccess(); return disposed; } }
@@ -179,19 +246,31 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         }
     }
 
-    private void AddButton(Panel panel, Button button, string label, string id, Func<Task> action)
+    private void AddButton(Panel panel, Button button, string label, string id, string glyph, Func<Task> action)
     {
-        Label(button, label);
+        Label(button, label, glyph);
         Identify(button, id, label);
-        button.Margin = new Thickness(3);
-        button.Padding = new Thickness(7, 4, 7, 4);
+        button.Width = 32;
+        button.Height = 32;
+        button.MinWidth = 0;
+        button.MinHeight = 0;
+        button.Background = Brushes.Transparent;
+        button.BorderThickness = new Thickness(0);
+        button.Margin = new Thickness(1, 0, 1, 0);
+        button.Padding = new Thickness(3);
+        button.ToolTip = label;
+        ToolTipService.SetShowOnDisabled(button, true);
         button.Click += (s, e) => { if (!disposed) Observe(action); };
         controls.Add(button); panel.Children.Add(button);
     }
     private void ConfigureChoice(Panel panel, VersionChoice choice, string id, bool useConcise)
     {
-        choice.Margin = new Thickness(6);
-        Identify(choice, id, (string)choice.Content);
+        choice.Margin = new Thickness(0);
+        choice.Width = 82; choice.Height = 28;
+        choice.FontWeight = FontWeights.SemiBold;
+        string label = (string)choice.Content;
+        choice.Content = ControlText(label);
+        Identify(choice, id, label);
         choice.BeginClick = RegisterSelection;
         choice.Checked += (s, e) => { if (!disposed && !choice.IgnoreChecked(e)) Observe(() => ChooseVersionAsync(useConcise)); };
         choice.Click += (s, e) =>
@@ -202,8 +281,31 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         controls.Add(choice); panel.Children.Add(choice);
     }
     private long RegisterSelection() { Dispatcher.VerifyAccess(); return checked(++selectionRequest); }
-    private static void Label(Button button, string value)
-    { button.Content = value; button.ToolTip = value; AutomationProperties.SetName(button, value); }
+    private static void Label(Button button, string value, string? glyph = null)
+    {
+        glyph ??= value == "Play" ? "\uE768" : value == "Pause" ? "\uE769" : value == "Resume" ? "\uE768" : value == "Stop" ? "\uE71A" : value == "Previous sentence" ? "\uE76B" : value == "Next sentence" ? "\uE76C" : value == "Previous paragraph" ? "\uE70E" : value == "Next paragraph" ? "\uE70D" : value == "Following speech" ? "\uE73E" : value == "Follow speech" ? "\uE72A" : "";
+        TextBlock content = ControlText(glyph);
+        content.FontFamily = new FontFamily("Segoe MDL2 Assets");
+        content.FontSize = 14;
+        button.Content = content;
+        button.ToolTip = value;
+        AutomationProperties.SetName(button, value);
+    }
+
+    private static TextBlock ControlText(string value)
+    {
+        var text = new TextBlock
+        {
+            Text = value,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        text.SetBinding(TextElement.ForegroundProperty, new Binding(nameof(Control.Foreground))
+        {
+            RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Control), 1)
+        });
+        return text;
+    }
 
     private void Observe(Func<Task> action) => observe(PresentFailuresAsync(action));
     private void ObserveBackground(Task task) => Observe(() => task);
@@ -325,8 +427,19 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         stop.IsEnabled = !disposed && phase != ReaderPlaybackPhase.Stopped;
         Label(play, phase == ReaderPlaybackPhase.Speaking || phase == ReaderPlaybackPhase.Pausing ? "Pause" :
             phase == ReaderPlaybackPhase.Paused || phase == ReaderPlaybackPhase.Resuming ? "Resume" : "Play");
-        ReadingPosition position = controller.Position;
-        status.Text = unexpectedError ?? controller.Error ?? (phase + " — " + (controller.IsConcise ? "Concise" : "Detailed") +
+        ApplyControlContentTheme();
+        // An accent border marks Follow as on, like the POC's tinted check; fills render as light plates in dark themes.
+        if (following)
+        {
+            follow.SetResourceReference(Control.BorderBrushProperty, EnvironmentColors.SystemHighlightBrushKey);
+            follow.BorderThickness = new Thickness(1);
+        }
+        else
+        {
+            follow.SetResourceReference(Control.BorderBrushProperty, EnvironmentColors.ToolWindowBorderBrushKey);
+            follow.BorderThickness = new Thickness(0);
+        }
+        ReadingPosition position = controller.Position;        status.Text = unexpectedError ?? controller.Error ?? (phase + " — " + (controller.IsConcise ? "Concise" : "Detailed") +
             ", section " + (position.Segment + 1) + " of " + Segments.Count + ". " +
             (following ? "Following speech." : "Follow suspended.") +
             (phase == ReaderPlaybackPhase.Paused ? " Press Resume to continue." : ""));
@@ -415,21 +528,53 @@ internal sealed class NativeReaderView : UserControl, IDisposable
     private void OnSystemChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(SystemParameters.HighContrast)) return;
-        ObserveBackground(Dispatcher.InvokeAsync(() => { if (!disposed) { ApplyTheme(SystemParameters.HighContrast); Refresh(); } }).Task);
+        ObserveBackground(Dispatcher.InvokeAsync(() => { if (!disposed) { ApplyTheme(SystemParameters.HighContrast); ApplyResolvedDocumentColors(); Refresh(); } }).Task);
+    }
+
+    private void OnVsThemeChanged(ThemeChangedEventArgs e)
+    {
+        if (disposed) return;
+        // Run after VS has finished swapping its theme brushes so resolved values are the new theme's.
+        ObserveBackground(Dispatcher.InvokeAsync(() => { if (!disposed) { ApplyTheme(SystemParameters.HighContrast); ApplyResolvedDocumentColors(); Refresh(); } },
+            System.Windows.Threading.DispatcherPriority.Background).Task);
+    }
+
+    private void OnRuntimeSettingsChanged(object? sender, EventArgs e)
+    {
+        ObserveBackground(Dispatcher.InvokeAsync(() => { if (!disposed) { ApplyTheme(SystemParameters.HighContrast); ApplyResolvedDocumentColors(); Refresh(); } }).Task);
+    }
+    private Brush? ResolveBrush(object key)
+    {
+        if (Resources.Contains(key) && Resources[key] is Brush local) return local;
+        return TryFindResource(key) as Brush;
+    }
+    private void ApplyControlContentTheme()
+    {
+        foreach (Control control in controls)
+        {
+            if (!(control is ContentControl contentControl) || !(contentControl.Content is TextBlock content)) continue;
+            if (control.IsEnabled)
+                content.SetBinding(TextElement.ForegroundProperty, new Binding(nameof(Foreground)) { Source = this });
+            else
+                content.SetResourceReference(TextElement.ForegroundProperty, SystemColors.GrayTextBrushKey);
+        }
     }
     internal void ApplyTheme(bool systemHighContrast)
     {
         Dispatcher.VerifyAccess();
         if (disposed) return;
         highContrast = systemHighContrast;
+        VoiceAppearanceSettings appearance = VoiceRuntimeSettings.Appearance;
         SetResourceReference(BackgroundProperty, BackgroundKey);
         SetResourceReference(ForegroundProperty, TextKey);
         reader.SetResourceReference(Control.BackgroundProperty, BackgroundKey);
         reader.SetResourceReference(Control.ForegroundProperty, TextKey);
         reader.SetResourceReference(TextBoxBase.SelectionBrushProperty, HighlightKey);
         reader.SetResourceReference(TextBoxBase.SelectionTextBrushProperty, HighlightTextKey);
+        reader.FontSize = appearance.FontSize;
         foreach (FlowDocument document in conciseDocument == null ? new[] { detailedDocument } : new[] { detailedDocument, conciseDocument })
         {
+            document.FontSize = appearance.FontSize;
             document.SetResourceReference(FlowDocument.BackgroundProperty, BackgroundKey);
             document.SetResourceReference(TextElement.ForegroundProperty, TextKey);
             foreach (Paragraph paragraph in document.Blocks)
@@ -442,18 +587,51 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         focusShape.SetValue(FrameworkElement.MarginProperty, new Thickness(1));
         var focusStyle = new Style(typeof(Control));
         focusStyle.Setters.Add(new Setter(Control.TemplateProperty, new ControlTemplate(typeof(Control)) { VisualTree = focusShape }));
+        if (!highContrast && appearance.Theme == 1)
+        {
+            Background = Brushes.White; Foreground = Brushes.Black; reader.Background = Brushes.White; reader.Foreground = Brushes.Black;
+            foreach (FlowDocument document in conciseDocument == null ? new[] { detailedDocument } : new[] { detailedDocument, conciseDocument })
+            { document.Background = Brushes.White; document.Foreground = Brushes.Black; }
+        }
+        else if (!highContrast && appearance.Theme == 2)
+        {
+            Brush dark = new SolidColorBrush(Color.FromRgb(30, 30, 30)); Brush light = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+            Background = dark; Foreground = light; reader.Background = dark; reader.Foreground = light;
+            foreach (FlowDocument document in conciseDocument == null ? new[] { detailedDocument } : new[] { detailedDocument, conciseDocument })
+            { document.Background = dark; document.Foreground = light; }
+        }
         foreach (Control control in controls)
         {
             Type nativeType = control is RadioButton ? typeof(RadioButton) : control.GetType();
-            var style = new Style(nativeType, TryFindResource(nativeType) as Style);
+            Style? themed = control is RadioButton ? VsThemedStyles.VersionChoice() : control is Button ? VsThemedStyles.IconButton() : null;
+            var style = new Style(nativeType, themed ?? TryFindResource(nativeType) as Style);
             style.Setters.Add(new Setter(Control.ForegroundProperty, new DynamicResourceExtension(TextKey)));
+            style.Setters.Add(new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(TextKey)));
             style.Setters.Add(new Setter(Control.BackgroundProperty, new DynamicResourceExtension(BackgroundKey)));
             style.Setters.Add(new Setter(Control.BorderBrushProperty, new DynamicResourceExtension(highContrast ? SystemColors.WindowTextBrushKey : EnvironmentColors.ToolWindowBorderBrushKey)));
             var disabled = new Trigger { Property = IsEnabledProperty, Value = false };
             disabled.Setters.Add(new Setter(Control.ForegroundProperty, new DynamicResourceExtension(SystemColors.GrayTextBrushKey)));
+            disabled.Setters.Add(new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(SystemColors.GrayTextBrushKey)));
             style.Triggers.Add(disabled);
             control.Style = style; control.FocusVisualStyle = focusStyle;
+            if (!highContrast && appearance.Theme == 1)
+            {
+                control.Foreground = Brushes.Black;
+                control.Background = Brushes.White;
+            }
+            else if (!highContrast && appearance.Theme == 2)
+            {
+                control.Foreground = Brushes.WhiteSmoke;
+                control.Background = new SolidColorBrush(Color.FromRgb(30, 30, 30));
+            }
+            else
+            {
+                // Local brushes would freeze the colors of the theme that was active at this moment; let the style's dynamic resources win.
+                control.ClearValue(Control.ForegroundProperty);
+                if (control is Button) control.Background = Brushes.Transparent; else control.ClearValue(Control.BackgroundProperty);
+            }
         }
+        ApplyControlContentTheme();
         reader.FocusVisualStyle = focusStyle;
         highlighted = null;
     }
@@ -466,6 +644,9 @@ internal sealed class NativeReaderView : UserControl, IDisposable
         controller.Changed -= OnChanged;
         controller.BackgroundWork -= ObserveBackground;
         SystemParameters.StaticPropertyChanged -= OnSystemChanged;
+        VoiceRuntimeSettings.Changed -= OnRuntimeSettingsChanged;
+        VSColorTheme.ThemeChanged -= OnVsThemeChanged;
+        Loaded -= OnLoaded;
         reader.RemoveHandler(Mouse.PreviewMouseWheelEvent, new MouseWheelEventHandler(OnWheel));
         reader.RemoveHandler(Mouse.PreviewMouseDownEvent, new MouseButtonEventHandler(OnReaderMouseDown));
         reader.RemoveHandler(ScrollBar.ScrollEvent, new ScrollEventHandler(OnScroll));

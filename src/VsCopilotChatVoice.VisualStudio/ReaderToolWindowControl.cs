@@ -52,13 +52,21 @@ internal sealed class ReaderToolWindowControl : UserControl, IDisposable
         cancelButton.Click += OnCancel;
         viewer.Document = BuildDocument();
         viewer.SetResourceReference(BackgroundProperty, EnvironmentColors.ToolWindowBackgroundBrushKey);
+        viewer.SetResourceReference(Control.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
         status.SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
+        foreach (Button button in new[] { speakButton, cancelButton })
+        {
+            button.SetResourceReference(Control.ForegroundProperty, EnvironmentColors.ToolWindowTextBrushKey);
+            button.SetResourceReference(Control.BackgroundProperty, EnvironmentColors.ToolWindowBackgroundBrushKey);
+            button.SetResourceReference(Control.BorderBrushProperty, EnvironmentColors.ToolWindowBorderBrushKey);
+        }
 
         var buttons = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(8) };
         buttons.Children.Add(speakButton);
         buttons.Children.Add(cancelButton);
         buttons.Children.Add(status);
         var layout = new DockPanel();
+        layout.SetResourceReference(Panel.BackgroundProperty, EnvironmentColors.ToolWindowBackgroundBrushKey);
         DockPanel.SetDock(buttons, Dock.Top);
         layout.Children.Add(buttons);
         layout.Children.Add(viewer);

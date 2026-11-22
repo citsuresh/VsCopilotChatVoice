@@ -70,6 +70,8 @@ internal static class NativeReaderRegressionTests
             KeyboardAndFollow();
             FrameAndLifetime();
             DispatcherAndShutdown();
+            SettingsPreviewWaitsForSpeech();
+            SettingsUsesThemedControls();
             Console.WriteLine("PASS: actual-DLL native reader synthetic checks, " + assertions + " assertions (native Exp gates unverified)");
             return 0;
         }
@@ -975,13 +977,65 @@ internal static class NativeReaderRegressionTests
         }
     }
 
+    private static Rect BoundsIn(FrameworkElement root, FrameworkElement element) =>
+        element.TransformToAncestor(root).TransformBounds(new Rect(element.RenderSize));
+
+    private static T Named<T>(FrameworkElement root, string id) where T : FrameworkElement
+    {
+        var stack = new Stack<DependencyObject>(); stack.Push(root);
+        while (stack.Count > 0)
+        {
+            DependencyObject node = stack.Pop();
+            if (node is T found && AutomationProperties.GetAutomationId(found) == id) return found;
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(node); i++) stack.Push(VisualTreeHelper.GetChild(node, i));
+        }
+        throw new InvalidOperationException("Missing element " + id);
+    }
+
+    private static void ReaderPlacementMatchesPoc(Fixture f)
+    {
+        var view = (FrameworkElement)f.View;
+        view.Measure(new Size(520, 400)); view.Arrange(new Rect(0, 0, 520, 400)); view.UpdateLayout();
+        Rect reader = BoundsIn(view, f.Reader);
+        Rect concise = BoundsIn(view, Named<RadioButton>(view, "NativeReaderConcise"));
+        Rect detailed = BoundsIn(view, Named<RadioButton>(view, "NativeReaderDetailed"));
+        Rect follow = BoundsIn(view, Named<Button>(view, "NativeReaderFollow"));
+        Rect previous = BoundsIn(view, Named<Button>(view, "NativeReaderPreviousSentence"));
+        Rect play = BoundsIn(view, f.Play);
+        Rect next = BoundsIn(view, Named<Button>(view, "NativeReaderNextSentence"));
+        Rect stop = BoundsIn(view, Named<Button>(view, "NativeReaderStop"));
+        Rect up = BoundsIn(view, Named<Button>(view, "NativeReaderPreviousParagraph"));
+        Rect close = BoundsIn(view, Named<Button>(view, "NativeReaderClose"));
+        Check(close.Right > follow.Right && close.Right > 480 && Math.Abs(close.Top - follow.Top) < 2, "Close is not the rightmost header button beside Follow.");
+        var settingsButton = Named<Button>(view, "NativeReaderSettings");
+        Rect settings = BoundsIn(view, settingsButton);
+        Check(settings.Right <= follow.Left + 1 && Math.Abs(settings.Top - follow.Top) < 2, "Settings is not in the header immediately left of Follow.");
+        int opened = 0;
+        view.GetType().GetProperty("OpenSettings", Members).SetValue(view, new Action(() => opened++));
+        settingsButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Check(opened == 1, "Reader Settings button did not ask the host to open Settings.");
+        Rect down = BoundsIn(view, Named<Button>(view, "NativeReaderNextParagraph"));
+        Check(concise.Bottom <= reader.Top && detailed.Left > concise.Left && concise.Left < 40, "Version strip is not top-left above the text.");
+        Check(follow.Right > 460 && follow.Bottom <= concise.Top + 1, "Follow is not in the header's right corner.");
+        Check(previous.Left < play.Left && play.Left < next.Left && play.Top >= reader.Bottom - 1, "Previous/Play/Next are not below the text in order.");
+        Check(Math.Abs((play.Left + play.Right) / 2 - 260) < 6, "Sentence transport is not centered at the bottom.");
+        Check(stop.Left > next.Right + 20 && stop.Right > 460 && Math.Abs((stop.Top + stop.Bottom) / 2 - (play.Top + play.Bottom) / 2) < 6, "Stop is not right-aligned on the transport row.");
+        Check(up.Left >= reader.Right - 1 && down.Left >= reader.Right - 1 && up.Bottom <= down.Top, "Paragraph up/down rail is not beside the text.");
+        var stopButton = Named<Button>(view, "NativeReaderStop");
+        Check(!stopButton.IsEnabled, "Fixture Stop expected disabled before playback.");
+        var chrome = stopButton.Template.FindName("chrome", stopButton) as Border;
+        Check(stopButton.Style.BasedOn != null && stopButton.Style.BasedOn.Setters.OfType<Setter>().Any(s => s.Property == Control.TemplateProperty), "Stop does not derive from the themed button template.");
+        var plate = chrome?.Background as SolidColorBrush;
+        Check(plate == null || plate.Color != Color.FromRgb(244, 244, 244), "Disabled Stop still paints the stock light plate.");
+    }
+
     private static void PresentationAndNavigation()
     {
         using (var f = new Fixture())
         {
             Check(f.Reader.IsReadOnly && f.Reader.Focusable && f.Reader.HorizontalScrollBarVisibility == ScrollBarVisibility.Disabled, "Native document is not accessible/read-only/wrapping.");
             Check(f.Reader.Document.ColumnWidth == double.PositiveInfinity, "Document retained newspaper columns at narrow width.");
-            Check(((DockPanel)((UserControl)f.View).Content).Children.OfType<WrapPanel>().Any(), "Native toolbar cannot wrap at narrow width.");
+            ReaderPlacementMatchesPoc(f);
             foreach (Control control in Field<List<Control>>(f.View, "controls"))
             {
                 Check(!string.IsNullOrWhiteSpace(AutomationProperties.GetAutomationId(control)), "Native control lacks automation identity.");
@@ -990,17 +1044,17 @@ internal static class NativeReaderRegressionTests
             }
             f.Click(f.Play);
             PumpUntil(() => Phase(f.View) == "Speaking");
-            Check((string)f.Play.Content == "Pause" && f.Status.Text.Contains("Speaking"), "Speaking notification did not update presentation.");
+            Check(AutomationProperties.GetName(f.Play) == "Pause" && f.Status.Text.Contains("Speaking"), "Speaking notification did not update presentation.");
             Task.Run(() => f.Session.ProgressAt(6)).GetAwaiter().GetResult(); Settle();
             Check(Offset(f.View) == 6 && Field<Run>(f.View, "highlighted").Text == "beta", "Worker progress did not select the exact displayed word.");
             Check(f.Session.WrongThreadCommands == 0, "UI operation left its owning dispatcher.");
             f.Click(f.Play);
             PumpUntil(() => Phase(f.View) == "Paused");
-            Check((string)f.Play.Content == "Resume" && f.Status.Text.Contains("Paused"), "Pause acknowledgement did not update presentation.");
+            Check(AutomationProperties.GetName(f.Play) == "Resume" && f.Status.Text.Contains("Paused"), "Pause acknowledgement did not update presentation.");
             f.Click(f.Play); PumpUntil(() => Phase(f.View) == "Speaking");
             Check(f.Session.Speeches.Count == 1 && f.Session.Resumes == 1, "Resume restarted the prompt.");
             Await(Call(f.View, "StopAsync"));
-            Check(Offset(f.View) == 6 && (string)f.Play.Content == "Play", "Stop lost selection or presentation state.");
+            Check(Offset(f.View) == 6 && AutomationProperties.GetName(f.Play) == "Play", "Stop lost selection or presentation state.");
             f.Seek(0, 0); Await(Call(f.View, "NavigateAsync", 1, false));
             Check(Segment(f.View) == 0 && Offset(f.View) == 18, "Sentence navigation skipped its intra-paragraph destination.");
             Await(Call(f.View, "NavigateAsync", 1, true));
@@ -1017,7 +1071,7 @@ internal static class NativeReaderRegressionTests
             f.Session.Finish(); Settle();
             Check(Segment(f.View) == 1 && f.Status.Text.Contains("section 2"), "Sequential completion did not notify the view.");
             f.Session.Finish(); Settle();
-            Check(Phase(f.View) == "Finished" && f.Status.Text.Contains("Finished") && (string)f.Play.Content == "Play", "Natural final completion did not update the view.");
+            Check(Phase(f.View) == "Finished" && f.Status.Text.Contains("Finished") && AutomationProperties.GetName(f.Play) == "Play", "Natural final completion did not update the view.");
             f.Start(); Check(Segment(f.View) == 0 && Offset(f.View) == 0, "Finished Play did not restart reply bounds.");
         }
     }
@@ -1031,7 +1085,7 @@ internal static class NativeReaderRegressionTests
             f.Choose(true);
             Check(Phase(f.View) == "Paused" && Segment(f.View) == 0 && Offset(f.View) == 0, "Reordered version switch did not pause/map section identity.");
             Check(old.Cancels == 1 && old.Disposals == 1 && f.Backend.Launches.Count == 1, "Switch retained old prompt or auto-started Concise.");
-            Check(f.Reader.Document == Field<FlowDocument>(f.View, "conciseDocument") && (string)f.Play.Content == "Resume", "Switched document/control state is inconsistent.");
+            Check(f.Reader.Document == Field<FlowDocument>(f.View, "conciseDocument") && AutomationProperties.GetName(f.Play) == "Resume", "Switched document/control state is inconsistent.");
             late(old.Last.Generation, 12); Settle();
             Check(Offset(f.View) == 0 && Phase(f.View) == "Paused", "Stale progress revived switched version.");
             f.Choose(false);
@@ -1074,16 +1128,31 @@ internal static class NativeReaderRegressionTests
             view.Resources[text] = Brushes.DarkBlue; view.Resources[background] = Brushes.Beige;
             view.Resources[highlight] = Brushes.Navy; view.Resources[highlightedText] = Brushes.White;
             view.Resources[SystemColors.GrayTextBrushKey] = Brushes.Gray;
+            Void(view, "ApplyTheme", false); Void(view, "Refresh");
             var marker = f.Reader.Document.Blocks.Cast<Paragraph>().Last().Inlines.OfType<Run>().First();
             Check(marker.Foreground == Brushes.DarkBlue && view.Foreground == Brushes.DarkBlue, "Body/marker/header did not inherit dynamic owning-theme text.");
             Check(f.Reader.Background == Brushes.Beige && f.Reader.SelectionBrush == Brushes.Navy, "Content/selection did not use owning dynamic resources.");
             Check(Field<Run>(view, "highlighted").Background == Brushes.Navy && Field<Run>(view, "highlighted").Foreground == Brushes.White, "Highlight/foreground did not use owning resources.");
             Check(Field<Button>(view, "stop").Foreground == Brushes.Gray, "Disabled control did not use dynamic system gray text.");
+            Check(((TextBlock)Field<Button>(view, "play").Content).Foreground == Brushes.DarkBlue,
+                "Button glyph did not inherit the owning theme text brush: " + ((TextBlock)Field<Button>(view, "play").Content).Foreground);
+            Check(((TextBlock)Field<RadioButton>(view, "conciseChoice").Content).Foreground == Brushes.DarkBlue,
+                "Radio label did not inherit the owning theme text brush: " + ((TextBlock)Field<RadioButton>(view, "conciseChoice").Content).Foreground);
             view.Resources[text] = Brushes.DarkGreen;
+            Void(view, "ApplyTheme", false);
             Check(marker.Foreground == Brushes.DarkGreen, "Live resource change left hard-coded marker colors.");
+            var playButton = Field<Button>(view, "play");
+            Check(playButton.ReadLocalValue(Control.ForegroundProperty) == DependencyProperty.UnsetValue && playButton.Foreground == Brushes.DarkGreen,
+                "Icon button foreground was frozen to a resolved brush instead of following the VS theme resource: " + playButton.ReadLocalValue(Control.ForegroundProperty));
+            view.Resources[text] = Brushes.DarkRed; Settle();
+            Check(playButton.Foreground == Brushes.DarkRed, "Icon button did not follow a VS theme switch without re-applying the theme.");
+            view.Resources[text] = Brushes.DarkGreen;
             view.Measure(new Size(180, 650)); view.Arrange(new Rect(0, 0, 180, 650)); view.UpdateLayout();
-            var toolbar = ((DockPanel)view.Content).Children.OfType<WrapPanel>().Single();
-            Check(toolbar.ActualWidth <= 180 && toolbar.ActualHeight > f.Play.ActualHeight * 2, "Narrow-window toolbar did not wrap usable controls.");
+            foreach (Control control in Field<List<Control>>(view, "controls"))
+            {
+                Rect box = control.TransformToAncestor(view).TransformBounds(new Rect(control.RenderSize));
+                Check(box.Left >= -0.5 && box.Right <= 180.5, "Narrow-window control is clipped: " + AutomationProperties.GetAutomationId(control));
+            }
             Check(f.Reader.ActualWidth <= 180 && f.Reader.HorizontalScrollBarVisibility == ScrollBarVisibility.Disabled, "Narrow-window reply forced horizontal scrolling.");
             Void(view, "ApplyTheme", true); Void(view, "Refresh");
             Check(Get(view, "TextKey") == SystemColors.WindowTextBrushKey && Get(view, "BackgroundKey") == SystemColors.WindowBrushKey,
@@ -1116,7 +1185,7 @@ internal static class NativeReaderRegressionTests
         {
             f.Start(); Task pause = Call(f.View, "TogglePlaybackAsync");
             f.Session.PauseReady.SetResult(false); f.Session.Finish(); Await(pause); Settle();
-            Check(Phase(f.View) == "Paused" && Segment(f.View) == 1 && f.Status.Text.Contains("section 2") && (string)f.Play.Content == "Resume",
+            Check(Phase(f.View) == "Paused" && Segment(f.View) == 1 && f.Status.Text.Contains("section 2") && AutomationProperties.GetName(f.Play) == "Resume",
                 "Natural completion before Pause confirmation did not publish the audited next-section state.");
         }
         using (var f = new Fixture(backend: new FakeBackend { Configure = s => s.BeforeSpeakReturn = (session, speech) => session.ProgressAt(6, speech.Generation) }))
@@ -1260,6 +1329,87 @@ internal static class NativeReaderRegressionTests
             f.Session.CancelReady.SetResult(true); Await(hidden);
             Check(f.Session.Disposals == 1, "Delayed cancellation did not dispose exact worker.");
         }
+    }
+
+    private static object PreviewMember(object target, string name)
+    {
+        PropertyInfo property = target.GetType().GetProperty(name, Members);
+        FieldInfo field = property == null ? target.GetType().GetField(name, Members) : null;
+        if (property == null && field == null) throw new MissingMemberException(target.GetType().FullName, name);
+        return property != null ? property.GetValue(target) : field.GetValue(target);
+    }
+
+    // The worker acknowledges options before it starts speaking, so Preview must keep the worker alive until Completed.
+    private static void SettingsPreviewWaitsForSpeech()
+    {
+        string worker = Path.Combine(AppContext.BaseDirectory, "VsCopilotChatVoice.Reader.exe");
+        Check(File.Exists(worker), "Preview worker fixture exists.");
+        Type previewHelper = assembly.GetType("VsCopilotChatVoice.VisualStudio.SpeechPreview", true);
+        Type hostType = assembly.GetType("VsCopilotChatVoice.Speech.SpeechWorkerHost", true);
+        Type snapshotType = assembly.GetType("VsCopilotChatVoice.Speech.SpeechOptionsSnapshot", true);
+        Type queryType = assembly.GetType("VsCopilotChatVoice.Speech.SpeechCapabilityQuery", true);
+        MethodInfo speak = previewHelper.GetMethod("SpeakAsync", Static);
+        Task<object> StartPreview(string voiceName, CancellationToken token, out object host)
+        {
+            Task launch = (Task)hostType.GetMethod("LaunchAsync", new[] { typeof(string), typeof(bool), typeof(TimeSpan), typeof(CancellationToken) })
+                .Invoke(null, new object[] { worker, true, TimeSpan.FromSeconds(15), CancellationToken.None });
+            launch.GetAwaiter().GetResult();
+            host = launch.GetType().GetProperty("Result").GetValue(launch);
+            object options = Activator.CreateInstance(snapshotType, voiceName, 0, 100);
+            Task task = (Task)speak.Invoke(null, new[] { host, "This is a preview.", options, TimeSpan.FromSeconds(30), token });
+            return task.ContinueWith(t => { t.GetAwaiter().GetResult(); return (object)null; });
+        }
+        Task capability = (Task)queryType.GetMethod("QueryAsync", Static).Invoke(null, new object[] { worker, TimeSpan.FromSeconds(15), CancellationToken.None });
+        capability.GetAwaiter().GetResult();
+        object voices = capability.GetType().GetProperty("Result").GetValue(capability);
+        string voice = ((IEnumerable)PreviewMember(voices, "Voices")).Cast<object>()
+            .Where(v => (bool)PreviewMember(v, "Enabled")).Select(v => (string)PreviewMember(v, "Name")).First();
+        object host;
+        Task<object> selected = StartPreview(voice, CancellationToken.None, out host);
+        try
+        {
+            selected.GetAwaiter().GetResult();
+            Check(true, "Preview with the selected voice runs to the worker's Completed event before teardown.");
+        }
+        finally { ((IDisposable)host).Dispose(); }
+        Task<object> missing = StartPreview("Missing preview voice " + Guid.NewGuid().ToString("N"), CancellationToken.None, out host);
+        try { Reject(() => missing.GetAwaiter().GetResult(), typeof(InvalidOperationException), "Missing preview voice is reported, not substituted."); }
+        finally { ((IDisposable)host).Dispose(); }
+        using (var stop = new CancellationTokenSource())
+        {
+            stop.Cancel();
+            Reject(() => StartPreview(voice, stop.Token, out host).GetAwaiter().GetResult(), typeof(OperationCanceledException), "Cancelled Preview stops without fault.");
+            ((IDisposable)host).Dispose();
+        }
+    }
+
+    private static void SettingsUsesThemedControls()
+    {
+        Type styles = assembly.GetType("VsCopilotChatVoice.VisualStudio.VsThemedStyles", true);
+        Func<string, Style> build = name => (Style)styles.GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+        var button = new Button { Style = build("Button"), Content = "Text" };
+        button.Measure(new Size(200, 40)); button.Arrange(new Rect(0, 0, 200, 40)); button.UpdateLayout();
+        var buttonChrome = button.Template.FindName("chrome", button) as Border;
+        Check(buttonChrome != null && buttonChrome.Opacity == 1, "Themed button template lacks chrome or starts dimmed.");
+        button.IsEnabled = false; button.UpdateLayout();
+        Check(buttonChrome.Opacity < 1, "Disabled themed button is not dimmed (stock light plate risk).");
+        Check(buttonChrome.Background is not SolidColorBrush plate || plate.Color != Color.FromRgb(244, 244, 244), "Themed button paints the stock light plate.");
+        foreach (string name in new[] { "RadioButton", "CheckBox", "ComboBox", "ComboBoxItem", "IconButton", "VersionChoice" })
+        {
+            Style built = build(name);
+            Control control = name == "RadioButton" || name == "VersionChoice" ? new RadioButton { Content = "x" } : name == "CheckBox" ? new CheckBox { Content = "x" }
+                : name == "IconButton" ? new Button { Content = "x" } : name == "ComboBox" ? new ComboBox { Width = 120 } : (Control)new ComboBoxItem { Content = "x" };
+            control.Style = built; control.Measure(new Size(200, 40)); control.Arrange(new Rect(0, 0, 200, 40)); control.UpdateLayout();
+            Check(control.Template != null && VisualTreeHelper.GetChildrenCount(control) > 0, "Themed " + name + " template did not build.");
+            control.IsEnabled = false; control.UpdateLayout();
+            Check(control.Opacity < 1 || (VisualTreeHelper.GetChild(control, 0) as UIElement)?.Opacity < 1, "Disabled themed " + name + " is not dimmed.");
+        }
+        var slider = new Slider { Style = build("Slider"), Width = 200 };
+        slider.Measure(new Size(200, 40)); slider.Arrange(new Rect(0, 0, 200, 40)); slider.ApplyTemplate(); slider.UpdateLayout();
+        Check(slider.Template.FindName("PART_Track", slider) is System.Windows.Controls.Primitives.Track track && track.Thumb != null,
+            "Themed settings slider template lacks a working track and thumb.");
+        slider.IsEnabled = false;
+        Check(slider.Opacity < 1, "Disabled themed slider is not dimmed.");
     }
 
     private static void DispatcherAndShutdown()

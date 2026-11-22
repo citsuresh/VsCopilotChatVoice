@@ -68,8 +68,9 @@ internal static class SettingsRegressionTests
         private static object Construct(Type type, params object?[] args) =>
             Invoke(type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Single(), null, args) ?? throw new InvalidOperationException("Missing settings instance.");
         internal string Key(string path) => (string)Invoke(identity.GetMethod("SolutionKey", Members)!, null, path)!;
-        internal object Values(bool? speaker = null, bool? concise = null, string? voice = null, int? rate = null, int? volume = null) =>
-            Construct(values, speaker, concise, voice, rate, volume);
+        internal object Values(bool? speaker = null, bool? concise = null, string? voice = null, int? rate = null, int? volume = null,
+            int? audioPolicy = null, int? duckPercent = null, int? theme = null, int? fontSize = null) =>
+            Construct(values, speaker, concise, voice, rate, volume, audioPolicy, duckPercent, theme, fontSize);
         internal object Effective(object global, object solution, object window) => Construct(effective, global, solution, window);
         internal object Patch(object desired, params string[] names)
         {
@@ -126,7 +127,16 @@ internal static class SettingsRegressionTests
         Check(Context.EffectiveValue<string>(inherited, "VoiceName") == "Voice-A" && Context.Origin(inherited, "VoiceName") == "Global", "Global voice did not inherit.");
         object partial = c.Effective(global, c.Values(volume: 50), empty);
         Check(Context.EffectiveValue<int>(partial, "Volume") == 50 && Context.EffectiveValue<int>(partial, "Rate") == 10, "Partial overrides discard inherited values.");
+        object extendedGlobal = c.Values(audioPolicy: 2, duckPercent: 40, theme: 2, fontSize: 20);
+        object extendedSolution = c.Values(duckPercent: 60);
+        object extended = c.Effective(extendedGlobal, extendedSolution, empty);
+        Check(Context.EffectiveValue<int>(extended, "AudioPolicy") == 2 && Context.Origin(extended, "AudioPolicy") == "Global", "Audio policy did not inherit from global scope.");
+        Check(Context.EffectiveValue<int>(extended, "DuckPercent") == 60 && Context.Origin(extended, "DuckPercent") == "Solution", "Duck percentage did not override its inherited value.");
+        Check(Context.EffectiveValue<int>(extended, "Theme") == 2 && Context.EffectiveValue<int>(extended, "FontSize") == 20, "Appearance values did not inherit.");
         foreach (int invalid in new[] { -11, 11 }) Refused<ArgumentException>(() => c.Values(rate: invalid), "Invalid rate accepted.");
+        foreach (int invalid in new[] { -1, 101 }) Refused<ArgumentException>(() => c.Values(duckPercent: invalid), "Invalid duck percentage accepted.");
+        foreach (int invalid in new[] { -1, 4 }) Refused<ArgumentException>(() => c.Values(theme: invalid), "Invalid theme accepted.");
+        foreach (int invalid in new[] { 9, 29 }) Refused<ArgumentException>(() => c.Values(fontSize: invalid), "Invalid font size accepted.");
         foreach (int invalid in new[] { -1, 101 }) Refused<ArgumentException>(() => c.Values(volume: invalid), "Invalid volume accepted.");
         foreach (string invalid in new[] { " Voice-A", "Voice-A ", "Voice\nA", new string('X', 257) }) Refused<ArgumentException>(() => c.Values(voice: invalid), "Invalid voice name accepted.");
         Refused<ArgumentException>(() => c.Patch(empty, "Rate", "Rate"), "Duplicate patch field accepted.");

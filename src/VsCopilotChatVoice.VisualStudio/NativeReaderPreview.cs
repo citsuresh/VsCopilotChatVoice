@@ -44,11 +44,12 @@ internal static class NativeReaderPreview
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ChatVoice", "reader-version.txt");
     }
 
-    internal static NativeReaderView Create(string workerPath, bool silent, Action hide)
+    internal static NativeReaderView Create(string workerPath, bool silent, Action hide, Action? openSettings = null)
     {
         if (!IsEnabled()) throw new InvalidOperationException("The native reader preview requires Debug, /RootSuffix Exp and explicit opt-in.");
-        return new NativeReaderView(new ReaderSpeechBackend(workerPath, silent), PreferencePath(),
-            DetailedFixture, ConciseFixture, hide, Observe);
+        return new NativeReaderView(new ReaderSpeechBackend(workerPath, silent,
+                () => VoiceRuntimeSettings.Speech, () => VoiceRuntimeSettings.Audio), PreferencePath(),
+            DetailedFixture, ConciseFixture, hide, Observe) { OpenSettings = openSettings };
     }
 
     private static void Observe(Task task) =>

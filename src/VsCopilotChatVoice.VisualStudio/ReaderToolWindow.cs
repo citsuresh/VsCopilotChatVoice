@@ -25,11 +25,21 @@ public sealed class ReaderToolWindow : ToolWindowPane
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
                 ErrorHandler.ThrowOnFailure(((IVsWindowFrame)Frame).Hide());
-            });
+            }, OpenSettings);
             Content = view;
             lifecycle = new ReaderFrameLifecycle(view);
         }
         else Content = new ReaderToolWindowControl(workerPath, silent);
+    }
+
+    // Runs the package's Settings command, so the reader needs no reference to the package or the settings store.
+    private static void OpenSettings()
+    {
+        ThreadHelper.ThrowIfNotOnUIThread();
+        if (!(Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SVsUIShell)) is IVsUIShell shell)) throw new InvalidOperationException("The Visual Studio shell is unavailable.");
+        Guid commandSet = VoicePackage.CommandSet;
+        object? argument = null;
+        ErrorHandler.ThrowOnFailure(shell.PostExecCommand(ref commandSet, (uint)VoicePackage.ShowSettingsToolWindowCommandId, 0, ref argument));
     }
 
     public override void OnToolWindowCreated()

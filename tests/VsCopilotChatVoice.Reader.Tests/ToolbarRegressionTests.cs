@@ -75,7 +75,7 @@ internal static class ToolbarRegressionTests
             {
                 var button = buttons.Children[i] as ButtonBase;
                 Check(button != null && AutomationProperties.GetAutomationId(button) == ids[i], "Wrong toolbar order");
-                Check(!button.IsEnabled, "Unconnected backend control was enabled");
+                Check(i == 2 ? button.IsEnabled : !button.IsEnabled, i == 2 ? "Settings control was not enabled" : "Unconnected backend control was enabled");
                 Check(button.ActualWidth == 28 && button.ActualHeight == 22, "Theme minimums expanded an icon-only button");
                 Check(button.Content is TextBlock glyph && glyph.FontSize == 14 && glyph.ActualHeight <= button.ActualHeight,
                     "Tighter group changed the icon size or clipped its height");
@@ -83,7 +83,7 @@ internal static class ToolbarRegressionTests
                     "Toolbar icon has an individual dialog-style border or background");
                 Check(!String.IsNullOrEmpty(AutomationProperties.GetName(button)), "Missing accessible name");
                 Check(!String.IsNullOrEmpty(AutomationProperties.GetHelpText(button)), "Missing unavailable-state explanation");
-                Check(ToolTipService.GetShowOnDisabled(button) && button.ToolTip != null, "Disabled control cannot explain its state");
+                Check(i == 2 ? button.ToolTip != null : ToolTipService.GetShowOnDisabled(button) && button.ToolTip != null, i == 2 ? "Settings control has no tooltip" : "Disabled control cannot explain its state");
             }
             Check(buttons.Children[1] is ToggleButton && ((ToggleButton)buttons.Children[1]).IsChecked == false,
                 "Speaker is not an unchecked preview toggle");

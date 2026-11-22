@@ -10,12 +10,19 @@
           <ButtonText>Copilot Voice Reader (Preview)</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidVoiceCmdSet" id="ShowSettingsToolWindowCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Strings>
+          <ButtonText>Copilot Voice Settings</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
   <Symbols>
     <GuidSymbol name="guidVoicePackage" value="{048978d7-5859-4691-8e64-d90e00c0462f}" />
     <GuidSymbol name="guidVoiceCmdSet" value="{6f2c4b1a-3d5e-4f7a-9b8c-1e2d3c4b5a69}">
       <IDSymbol name="ShowReaderToolWindowCommandId" value="0x0100" />
+      <IDSymbol name="ShowSettingsToolWindowCommandId" value="0x0101" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -17,6 +17,7 @@ internal sealed class ChatToolbarIntegration : IDisposable
     private readonly Action<FrameworkElement> configureTheme;
     private readonly Action<string> reportStatus;
     private readonly Action<Exception> reportError;
+    private readonly Action showSettings;
     private readonly DispatcherTimer timer;
     private StackPanel? parent;
     private FrameworkElement? picker;
@@ -29,10 +30,17 @@ internal sealed class ChatToolbarIntegration : IDisposable
 
     internal ChatToolbarIntegration(Action<FrameworkElement> configureTheme, Action<string> reportStatus,
         Action<Exception> reportError)
+        : this(configureTheme, reportStatus, reportError, () => { })
+    {
+    }
+
+    internal ChatToolbarIntegration(Action<FrameworkElement> configureTheme, Action<string> reportStatus,
+        Action<Exception> reportError, Action showSettings)
     {
         this.configureTheme = configureTheme ?? throw new ArgumentNullException(nameof(configureTheme));
         this.reportStatus = reportStatus ?? throw new ArgumentNullException(nameof(reportStatus));
         this.reportError = reportError ?? throw new ArgumentNullException(nameof(reportError));
+        this.showSettings = showSettings ?? throw new ArgumentNullException(nameof(showSettings));
         timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(2) };
         timer.Tick += Tick;
         timer.Start();
@@ -169,9 +177,33 @@ internal sealed class ChatToolbarIntegration : IDisposable
             "Voice dictation is not connected in this preview. VoiceType integration is planned.");
         AddButton(view, new ToggleButton { IsChecked = false }, "VsCopilotChatVoiceSpeaker", "Automatic read-aloud unavailable", "\uE767",
             "The reader bridge and saved Speaker state are not connected in this preview.");
-        AddButton(view, new Button(), "VsCopilotChatVoiceSettings", "Voice settings unavailable", "\uE713",
-            "Voice, speed, volume and speech-mode settings are not implemented in this preview.");
+        AddSettingsButton(view);
         return group;
+    }
+
+    private void AddSettingsButton(Panel view)
+    {
+        var button = new Button();
+        button.Width = 28;
+        button.Height = 22;
+        button.MinWidth = 0;
+        button.MinHeight = 0;
+        button.Background = Brushes.Transparent;
+        button.BorderThickness = new Thickness(0);
+        button.Padding = new Thickness(3);
+        button.Margin = new Thickness(1, 0, 1, 0);
+        button.Content = new TextBlock
+        {
+            Text = "\uE713", FontFamily = new FontFamily("Segoe MDL2 Assets"), FontSize = 14,
+            HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center
+        };
+        AutomationProperties.SetAutomationId(button, "VsCopilotChatVoiceSettings");
+        AutomationProperties.SetName(button, "Voice settings");
+        AutomationProperties.SetHelpText(button, "Open scoped voice, audio and reader appearance settings.");
+        button.ToolTip = "Open scoped voice, audio and reader appearance settings.";
+        button.Click += (sender, args) => showSettings();
+        configureTheme(button);
+        view.Children.Add(button);
     }
 
     private void AddButton(Panel view, ButtonBase button, string id, string name, string glyph, string explanation)

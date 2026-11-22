@@ -873,3 +873,32 @@ Superseded before deployment by the fail-closed decision below; these snapshot g
   locked-file cleanup test is injected, while full Save double-failure wiring is source-reviewed.
 - **Boundary:** No native Exp, audible, full Phase3 or broad persistence-reliability acceptance follows.
   Locker identity remains unproven; no installation, capture, commit or push occurred during review.
+
+## 2026-11-21 - Settings UI/runtime increment (0.5.7)
+
+- **Decision:** Complete the approved Settings surface through the existing toolbar button while keeping
+  Mic and Speaker disabled. Store speech, audio-policy and appearance fields through the existing scoped
+  global/solution/window model with window > solution > global precedence and explicit Clear/Restore behavior.
+- **Rationale:** This keeps user settings local and reversible, preserves Concise/Detailed persistence, and
+  avoids activating microphone or automatic reply delivery before their later phases. Preview and native
+  reader playback use the same effective runtime snapshot, while speech remains external to devenv.exe.
+- **Audio boundary:** Duck/suppress other application sessions only; exclude VS and the external reader worker,
+  snapshot each session before mutation, restore unchanged sessions after success/cancellation/failure, and
+  attempt rollback on partial mutation failure. Unavailable selected voices are reported rather than silently
+  substituted.
+- **Validation boundary:** Actual-DLL settings271, toolbar62 and native560 pass. Exp installation, audible
+  preview, audio restoration perception, live theme/DPI/High Contrast/accessibility and final commit remain
+  manual/official validation gates; real-chat reopen and Concise/Detailed acceptance remain Phase6 work.
+
+- **2026-11-22 Settings as a tool window with apply-on-change:** Tools > Options is dockable and applies changes
+  immediately, so Settings moved from a modal DialogWindow to SettingsToolWindow/SettingsView (floating by default)
+  and the Apply button was removed (checkbox/combo/theme save on change, sliders debounce 400 ms). Rejected: keeping the
+  dialog (not dockable, Apply is not VS tool-window convention). Lessons: VS reads ToolWindowPane.Content before
+  OnToolWindowCreated, so build the view in the pane constructor; a persisted floating window is restored before
+  package InitializeAsync, so the settings store is created lazily. The reader header has a Settings gear that posts
+  the Settings command with IVsUIShell.PostExecCommand (theme, font size and voice live in Settings).
+- **2026-11-22 Theme switching:** Reader controls must not hold locally assigned resolved brushes (they freeze the
+  theme active at that moment: black squares after dark to light). Controls follow dynamic resources via the style and
+  NativeReaderView re-applies its theme on VSColorTheme.ThemeChanged. Settings checkbox/slider use AccentMedium to
+  follow the theme accent like Tools > Options. Rejected: VS's public VsResourceKeys control styles (they render the
+  classic tool-window look, not the modern Options controls).

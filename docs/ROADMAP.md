@@ -111,28 +111,17 @@ reply, Deny outcome, second chat, very long transcript.
   are deferred to Phase 6 because they require the reply-delivery path.
 - [ ] Phase 3: global/solution/window settings, inheritance, supported speech controls and
   accessible theme/font/color overrides, including distinct voices for same-solution instances.
-  Independent0.5.0 storage/model foundation proceeds while native0.4.8 acceptance is parked: immutable
-  reading-mode/desired-Speaker/voice/rate/volume values and origins, app-local strict XML, canonical
-  solution keys, atomic field-merged updates under bounded file-handle locks, untouched one-time legacy
-  import and metadata-only invalidation. Linked126/combined actual-DLL253 and all ten preserved routes
-	pass once, with no-deploy VS MSBuild/package and IDE builds. Fresh independent settings verification
-  failed during real concurrent updates with a File.Replace IOException; child/linked-DLL leg and cause
-  are unconfirmed. Park the 0.5.0 persistence gate/frozen package without retry or acceptance, and advance
-  independent read-only external speech capability discovery. Do not infer a common cause with native IO.
-  Source0.5.2 has external headless capability JSON and an unwired speech-free query, capability152
-  passing independently. The reproduced queued-deadline issue is closed: API-entry deadline and dedicated
-  orchestration/drains pass isolated starvation/timeout/cancel/expired-entry checks. An earlier real-child
-  ten-second timeout is cause-unconfirmed. No cold/native/settings/voice-application acceptance.
-	No active Settings/toolbar consumer, appearance controls or voice-option application from settings,
-  and no full Phase3/native acceptance yet. Native560's subsequent pass does not resolve earlier failures.
-	Source0.5.4 implements the external immutable voice/rate/volume execution boundary, options422 passing
-	with real silent-worker proof and independent once-review closure; no Settings consumption/UI Preview/activation.
-  Current0.5.6 completes approved R1/R2 persistence corrections with once-serial integration320,
-	settings253/native560/model379/Reader1868 and no-deploy/IDE builds passing. Independent once-serial
-  build/integration320/settings253/native560 review closes R1/R2 without new in-scope findings.
-  Next: scoped execution/audio policy, then one combined Settings/reader-appearance UI increment and
-  combined2/3 review. Only Settings enables; Mic/Speaker stay disabled. Finish automated/Exp/user
-  acceptance and documentation/manual commit review before the Phase3 commit and any Phase4 work.
+  The 0.5.7 Settings increment now wires the Settings button, scoped speech/audio/appearance persistence,
+  external Preview, worker-aware audio restoration and native reader runtime settings. Automated actual-DLL
+  settings271/toolbar62/native560 pass; Exp, audible, audio-restoration, theme/DPI/accessibility and final
+  local commit gates remain.
+  The 0.5.7 increment completes the automated Settings surface: scoped speech, Concise/Detailed, audio
+  policy and appearance values; external Preview/Stop; worker-aware session exclusion/restoration; and native
+  reader runtime application. Actual-DLL settings271, toolbar62, native560, playback220, integration320 and
+  the remaining documented routes pass after the final compatibility and audit fixes. Mic and Speaker remain
+  disabled. Remaining Phase3 gates are official isolated Exp installation, audible Preview, live duck/suppress
+  restoration, theme/DPI/High Contrast/accessibility checks and local commit review. Phase4 remains paused
+  until those gates are completed; real-chat reopen and live-reply Concise/Detailed acceptance remain Phase6.
 - [ ] Phase 4: external VoiceType-derived capture/transcription/pill, model discovery and
   atomic recording ownership. Engine/models are external; no model downloads.
 - [ ] Phase 5: mouse/optional Ctrl modes, cancellation and safe originating-chat insert/send.

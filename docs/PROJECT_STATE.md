@@ -1,14 +1,17 @@
-# Project state
+﻿# Project state
 
-Updated: 2026-11-21. Source/manifest 0.5.6 is built/tested but uninstalled; last recorded Exp remains 0.4.5. Phase 3 increment 1 retry-deadline and preference-cleanup corrections are independently closed. The responsible locker remains unidentified. Phase 4 stays paused until Phase 3 is implemented, verified, documented and committed.
+Updated: 2026-11-22. Source/manifest 0.5.7 Settings UI/runtime increment is implemented and targeted actual-DLL routes pass. The 0.5.7 VSIX is installed in the isolated Exp hive and launched. The Settings dialog uses the Visual Studio SDK dialog surface, is modal like Tools > Options, is compact, follows dynamic theme resources, places Preview beside voice selection, and Preview resolves inherited or engine-default voices. The native reader preview now uses the approved POC control grouping/glyphs and reapplies theme brushes to recreated button/radio content. Package-load verification, audible/audio, theme/DPI/High Contrast/accessibility checks and final local commit remain before Phase 4.
+This file is overwritten at the end of each working session.
 
 ## Latest session summary (read first)
 
-- Current HEAD is 05e409b; working tree was clean before this increment. The earlier 556fdd9/two-local-commit state below is historical, not current branch evidence.
+- Current HEAD is 05e409b; working tree was clean before this increment. The earlier 556fdd9/two-local-commit state below is historical, not current branch evidence. This increment is still uncommitted.
 - Independent baseline review ran build/settings253/native560/integration298 once; all exited0. It found R1 (a retry could start after expiry) and R2 (legacy cleanup could mask a save failure). The user explicitly approved both corrections and their tests.
 - Implemented0.5.6: cap retry sleeps to remaining time and refuse another attempt after expiry; preserve both operational save/cleanup causes in a caller-compatible IOException. Private retry/cleanup boundaries support deterministic tests; no public API, preference path, token or paused-switch behavior changes.
 - Once-serial validation passed: integration320/seven live mappings, settings253, native560, model379 and Reader self1868; VS MSBuild/DeployExtension=false and IDE build pass. Only existing toolbar VSTHRD010 warning. Independent closure separately rebuilt and ran integration320/settings253/native560 once; all exit0, R1/R2 closed, no new in-scope findings. These are isolated/synthetic checks, not new native Exp or full Phase3 acceptance. Full Save double-failure wiring is source-reviewed; tests exercise its real cleanup path with a locked file and injected original failure.
-- Changed this increment: shared ReaderDocument; ReaderRegressionTests; VSIX manifest; README and relevant memory/plan docs. No deployment, UI action, capture, commit or push. No new reusable script was written.
+- Latest (2026-11-22, later): Settings is now a floating tool window (SettingsToolWindow/SettingsView) with apply-on-change (no Apply), a Settings gear in the reader header, theme-switch fix (reader re-applies on VSColorTheme.ThemeChanged, no frozen brushes) and accent-coloured Settings checkbox/slider (AccentMedium). Routes pass: native626, settings271, toolbar62, speech-options422; build deployed to Exp (hash matched). User is testing in Exp (dark/light/pink); local commit approved by the user, no push.
+- Latest (2026-11-22): added `VsThemedStyles.cs` (self-contained EnvironmentColors-only styles; removed VsResourceKeys/ThemedDialog dependency), redesigned Settings (sections, label column, footer Apply/Reset), aligned the reader to the POC (Close button, segmented Concise/Detailed strip, icon buttons, Follow tint). Visual review outside VS (dark+light) approved by the user; temporary review harness removed. Build passes; native611, settings271, toolbar62 and speech-options422 pass. 0.5.7 VSIX (DLL hash C37CF7FA...16C8BC) installed in Exp 063a2394 and Exp launched with READER_PREVIEW=1. Later fixes: selected/hover/pressed states use an accent SystemHighlight border instead of light ToolWindowButtonHoverActive/Down fills (Follow, Concise/Detailed segment, combo items), and the enabled Settings toolbar gear uses ToolWindowText instead of GrayText. User confirmed the dark-theme control look is now correct in Exp. Still to verify: light theme in Exp, audible Preview, High Contrast/DPI. Open question: convert Settings from DialogWindow to a docked tool window (user noted Tools > Options is dockable); not started. No commit or push.
+- Changed earlier this increment: Preview fix (SettingsWindow now uses new SpeechPreview, which waits for the worker's Completed/Faulted before teardown; previously the host was disposed at the options acknowledgement, cutting speech), NativeReaderView POC placement (header/Follow, version strip, paragraph rail, bottom transport + Stop) and themed button template (disabled Stop was light), NativeReaderRegressionTests (placement and disabled-Stop assertions, SettingsPreviewWaitsForSpeech, real worker), README and this state record. Build passed; native582, settings271, speech-options422 and toolbar62 passed; a temporary audible real-voice run was confirmed by the user and removed. Exp still has the pre-fix VSIX; no commit or push was made. No new reusable script was written.
 - Approved continuation: one combined review after execution/UI increments2/3, with targeted tests after coherent edits. Wire Settings only; Mic/Speaker disabled. Audio policy applies to Preview and native reader. Global Reset restores defaults; Solution/Window clear overrides, with per-field inheritance. Complete automated/Exp testing before requesting remaining perceptual checks. Commit Phase3 only after acceptance/manual review, then Phase4a.
 
 ### Earlier checkpoint evidence (historical)
@@ -21,26 +24,30 @@ Updated: 2026-11-21. Source/manifest 0.5.6 is built/tested but uninstalled; last
 
 ## Remaining blockers (for the user)
 
-1. Phase 3 Settings UI and live settings application: voice/rate/volume, duck/suppress-other-audio, persistence and Exp validation.
-2. Real-chat integration: automatic reader reopen for a new live reply and Concise/Detailed acceptance; these are deferred to Phase 6 and do not block Phase 3.
-3. Phase 4: explicitly paused; no capture/model work in this chat.
-4. Approvals: main-instance install, push, and manual commit review for the accumulated source/docs changes.
+1. Phase 3 manual gates: package-load verification for the isolated 0.5.7 Exp installation, audible Preview,
+   live duck/suppress restoration, theme/DPI/High Contrast/accessibility checks and manual commit review. Automated Settings/runtime work is complete.
+2. Real-chat integration: automatic reader reopen for a new live reply and live Concise/Detailed acceptance;
+   these are deferred to Phase 6 and do not block Phase 3.
+3. Phase 4: explicitly paused until Phase 3 manual gates and local commit are complete; no capture/model work here.
+4. Main-instance installation and push remain separately unauthorized.
 
 ## Current focus and authorization
 
 - Bounded PoCs1/2/3 and metadata-only Phase1 are complete/pushed. Shared extraction da8fd78 is pushed. Last verified HEAD556fdd9258dcbc203b5a00783bd586bdf56249f6; local transport bdb1328 and owner556fdd9 are two ahead/zero behind, not pushed.
 - User authorizes autonomous remaining-phase work, relevant audit fixes and local commits when required. Park blockers and continue truly independent work; user will revisit blockers on return. Push/main-instance installation still require separate approval.
 - Native0.4.8 and scoped-storage0.5.0 are implemented but reliable closure is PARKED. Do not commit/install an unaccepted aggregate, weaken assertions, retry-to-green or speculate about a common IO cause.
-- External read-only capability0.5.2 scheduling correction is independently CLOSED. Phase 2 manual Exp checks for docking, keyboard navigation, themes, DPI and two-instance independence passed; live-reply reopen and Concise/Detailed checks remain deferred to Phase 6. Phase 3/4/5/6/7 and the requested combined cross-phase review remain incomplete.
+- External read-only capability0.5.2 scheduling correction is independently CLOSED. Phase 2 manual Exp checks for docking, keyboard navigation, themes, DPI and two-instance independence passed; live-reply reopen and Concise/Detailed checks remain deferred to Phase 6. Phase 3 automated work is complete pending manual gates; Phase 4/5/6/7 and the requested combined cross-phase review remain incomplete.
 - Captured-history0.5.3 data foundation passes651 and fresh independent bounded review; unused, no feed/UI/Speaker/queue integration. Parent IDE build passes.
 
 ## Runtime boundaries
 
 - Installed Exp0.4.5 has gated prepared-pair native reader/external speech; bounded floating X/worker cleanup/silent reopen passed. Manual Exp checks for docking, keyboard navigation, themes, DPI and two-instance independence passed. Automatic reopen after a new live reply and real-chat Concise/Detailed acceptance remain deferred to Phase 6.
-- Toolbar controls stay disabled. No production Settings/Speaker/feed/history/insert/send, microphone, recording, transcription, models/downloads, VoiceType copying or global hooks is enabled.
+- Settings is the only enabled toolbar action. Mic and Speaker remain disabled. No feed/history/insert/send,
+  microphone, recording, transcription, models/downloads, VoiceType copying or global hooks is enabled.
 - Metadata remains Debug + exact Exp + VSCOPILOTCHATVOICE_METADATA_POC=1, peer-checked hello/list/status with instance/session/client/epoch fences. No mutating/content/speech command.
 - Standalone reader and ungated PoC behavior are preserved. All System.Speech stays outside devenv; VSIX bundles Reader as content, not an assembly reference.
-- New scoped store has no UI/worker consumer. Capability CLI/query is read-only and unwired. Captured-history module is implemented in-memory data only, no capture authority or automatic playback. Speech options are a pending external API boundary, not active settings.
+- Scoped store, Settings UI and runtime snapshot now consume speech/audio/appearance values; speech remains external
+  to devenv.exe. Capability CLI/query remains read-only. Captured-history is data-only with no feed or automatic playback.
 
 ## Latest verified increment: external capabilities0.5.2
 
@@ -88,10 +95,10 @@ Implementer74a831e7-1e74-4e8e-9863-0a2bd2742067 and fresh reviewer97693598-59c7-
 
 ## Next steps for the new chat
 
-- Update nothing speculative: parked gates (native0.4.8, scoped storage0.5.0 File.Replace) need the user's blocker review first.
-- Candidate independent increment (0.5.5): Phase6 pure reply-queue policy model (finish current then latest / switch immediately / read all in order), unwired, no audio/Speaker/feed. Graph found no prior art.
-- Still pending: Phase2 native acceptance, Phase3 Settings UI, Phase4 capture (VoiceType source permission + hardware), Phase5 mouse/Ctrl modes, Phase6 delivery, Phase7 hardening, then combined cross-phase review.
-- Phase status: 1 done/pushed; 2 shared extraction pushed, native parked; 3 foundations reviewed, not accepted; 4 blocked; 5 and 7 not started; 6 history model only.
+- Complete the remaining Phase 3 manual/official Exp gates and perform the local commit review; do not install into main VS or push.
+- After Phase 3 commit, begin Phase 4a capture only: external net48 lifecycle probe, bounded WAV/PCM statistics and hardware probe gated by VSCOPILOTCHATVOICE_CAPTURE_HW=1; no transcription/model work.
+- Phase 2 real-reply reopen and live Concise/Detailed acceptance remain deferred to Phase 6. Phase 5 input modes, Phase 6 delivery and Phase 7 hardening remain future work.
+- Phase status: 1 done/pushed; 2 shared extraction done with native/live-reply caveats; 3 automated Settings work complete pending manual gates; 4 paused; 5/6/7 not started for production behavior.
 
 - Plan: immutable voice/default/rate/volume snapshot, distinct configured-speech protocol + unique Host API, actual external voice availability/selection at new prompt boundaries, explicit correlated failures/applied evidence, no missing/ambiguous fallback or midprompt/Windows mutation/default bleed into legacy.
 - Existing signatures/legacywire/generation/pause-resume/epoch/offset/lifetime behavior preserved; real silent worker checks, no audible output/voice identifiers in summaries. Current store/toolbar/reader backend not wired; native/persistence gates unchanged.

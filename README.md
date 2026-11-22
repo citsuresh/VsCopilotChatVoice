@@ -33,12 +33,37 @@ verified and committed locally as `bdb1328`, not pushed. The independently audit
 (0.4.3, checkpoint `556fdd9`) adds a single-reply playback controller and actual-DLL regression route.
 The parent verified frozen 0.4.3 and 0.4.5 packages in Exp. Native 0.4.8 selection/persistence verification
 is parked after two final-run failures; its package is preserved outside the repository, not installed.
-Current 0.5.6 source retains the independently reviewed external speech-option boundary and the reviewed
-unused captured-history data model, parked
-scoped-storage foundation and independently reviewed read-only external voice capability discovery,
-without activating settings or accepting native runtime
-behavior. Installed Exp remains 0.4.5. Bounded floating X/worker cleanup/reopen passed there,
-not the full migrated native matrix.
+Current 0.5.7 source retains the independently reviewed external speech-option boundary and captured-history
+foundation, and now activates the Settings button through scoped speech/audio/appearance runtime settings.
+The external worker remains the speech boundary; Mic and Speaker remain disabled. Settings is a dockable tool window
+(`SettingsToolWindow` hosting `SettingsView`, floating by default, View > Other Windows > Copilot Voice Settings, also
+opened by the chat-toolbar gear and a gear in the reader header). Like Tools > Options it has no Apply button: checkboxes,
+combos and theme save on change and sliders save after a short debounce; Reset is the only footer button. Preview sits
+beside voice selection and resolves inherited or engine-default voices. Its layout is titled sections
+with a label column and a footer bar (status left, Reset right) styled by `VsThemedStyles`. Preview now keeps the worker
+alive until it reports speech completion (the worker acknowledges options before it speaks, so tearing down on that
+acknowledgement silenced Preview); the logic lives in `SpeechPreview`. The native reader preview
+now follows the approved POC placement (header with Follow at right, version strip top-left, paragraph up/down rail beside
+the text, centered Previous/Play/Next with Stop right-aligned beneath, then status) and MDL2 glyphs; a Close (X)
+button sits at the far right of the header, and Concise/Detailed is a bordered segmented strip. Settings and the
+reader no longer depend on Visual Studio's internal themed-dialog styles: the self-contained `VsThemedStyles`
+(Button, IconButton, VersionChoice, RadioButton, CheckBox, ComboBox, ComboBoxItem, Slider) are driven only by
+`EnvironmentColors` brushes, and disabled controls dim with opacity instead of painting the stock light plate.
+Selected, hover and pressed states keep the normal fill and use an accent (`SystemHighlight`) border, because the
+`ToolWindowButtonHoverActive`/`ToolWindowButtonDown` fills render as light plates in the real dark theme; the Follow
+tint and the selected Concise/Detailed segment follow the same rule. The enabled chat-pane Settings gear uses normal
+tool-window text, while the unconnected Mic/Speaker previews stay grey. Reader controls follow VS theme resources
+dynamically and the reader re-applies its theme on `VSColorTheme.ThemeChanged` (a dark-to-light switch previously left
+frozen dark brushes on the icon buttons); the Settings checkbox and slider thumb use the theme accent (`AccentMedium`).
+Actual-DLL settings271, toolbar62, native626 and speech-options422 pass, including a real-worker Preview check
+that the selected voice runs to completion. An audible, temporary real-voice run was heard by the user. Both windows
+were reviewed visually outside VS in dark and light with stand-in theme brushes (temporary harness, removed). The
+current 0.5.7 build is installed in Exp (installed DLL hash matches the build) and the user confirmed the dark-theme
+control look there; light/pink-theme and Settings accent checks are in progress. The Settings view is built in the pane
+constructor and its store is created lazily, because VS restores a persisted floating tool window before package
+initialization finishes.
+package-load verification, audible/audio, theme/DPI/High Contrast/accessibility and final local commit gates remain.
+
 
 The in-memory captured-reply history foundation from plan section 3 is implemented and reviewed but unused,
 while active Settings/native/source-reuse/production delivery gates remain parked. It enables no reply feed,
@@ -50,7 +75,7 @@ The solution contains:
 
 | Project | Responsibility |
 |---|---|
-| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.5.6 source, uninstalled) with disabled chat-toolbar controls, preserved ungated reader PoC, shared model/audited playback owner, gated native paired-fixture view/frame, independent gesture/metadata gates and unwired storage/capability/options/history foundations; bundles the external speech worker. |
+| `src\VsCopilotChatVoice.VisualStudio` | Thin VSIX (0.5.7 source, uninstalled) with Settings wired through scoped speech/audio/appearance runtime settings, Mic/Speaker disabled, preserved reader PoC, gated native paired-fixture view/frame, independent gesture/metadata gates and bundled external speech worker. |
 | `src\VsCopilotChatVoice.Reader` | Independent x64 WPF reader with Windows speech, word highlighting, sentence/paragraph navigation, pause/resume, Stop, Follow and Concise/Detailed selection; also runs headless as `--speech-worker <pipe>` or read-only `--speech-capabilities`. |
 | `src\Shared` | Speech-free reader model/pure block validation, speech framing/options, capability contracts/query and unused scoped-storage/captured-history foundations compiled into their consumers. Not a separate assembly. |
 | `tests\VsCopilotChatVoice.Reader.Tests` | Executable reader, toolbar, bridge, speech-worker/capability/options, gesture, metadata-contract, shared-reader-model, actual-DLL playback/native-presentation, scoped-settings and captured-history regression routes; not a Test Explorer adapter project. |
@@ -62,7 +87,8 @@ Preliminary read-only VoiceType capture/runner/gesture/pill/clipboard comparison
 IMPLEMENTATION_PLAN.md section 6. Source permission/notices are unresolved before selective copying;
 this is not runtime parity proof and no VoiceType source, capture or models are included.
 The standalone reader still uses the prototype's pale-yellow palette. The gated native view uses
-dynamic owning VS/system resources; live native theme/High Contrast acceptance remains pending.
+ dynamic owning VS/system resources; native reader controls and radio labels inherit the resolved
+ Light/Dark/VS/High Contrast text and background brushes.
 The 0.2.3 VSIX adds a conservative internal-WPF toolbar shell:
 **Mic | Speaker toggle | Settings | Customize AI**, inside Chat below its message box,
 not in the main IDE toolbar. All three new controls are disabled with explanatory tooltips
@@ -328,7 +354,7 @@ Dispatcher-bound owner changes update controls without polling; queued drains, a
 cleanup and UI event tasks are observed through FileAndForget or the injected test reporter. Unexpected
 failures remain faulted and visible/reported; intentionally aborted stale drains do not create false errors.
 
-`--native-reader-probe <actual VSIX DLL>` has **560 synthetic assertions** using the actual view/controller;
+`--native-reader-probe <actual VSIX DLL>` has **611 synthetic assertions** using the actual view/controller;
 an isolated run passed, but the final serial native gate is blocked as recorded below. It uses
 and the existing internal typed playback fakes, not a Compile-linked owner. It covers gate/preference
 refusal/failures, silent construction, state/progress/completion, reordered paused versions, exact word/
@@ -549,8 +575,25 @@ Integration adds 22 deterministic deadline/cleanup assertions. Independent closu
 integration320/settings253/native560 once serially: all exited0, R1/R2 closed, no new in-scope findings.
 Cleanup tests exercise the real private cleanup path with a locked file and injected original failure;
 the full Save double-failure sequence is source-reviewed, not independently fault-injected.
-Settings UI, audio policy and appearance remain unimplemented; Mic and Speaker remain disabled.
-Phase 4 cannot start until Phase 3 automated/Exp/manual acceptance, documentation and commit are complete.
+### Phase 3 increment 2 Settings UI/runtime (0.5.7; automated checks pass, Exp/manual acceptance pending)
+
+The Settings toolbar button is now functional while Mic and Speaker remain disabled. It opens one scoped WPF
+editor for Global defaults, the current solution and the temporary VS window, with window > solution > global
+precedence, explicit effective-origin status and Reset semantics. Speech voice, rate, volume, Speaker intent and
+Concise/Detailed preference use the existing validated atomic store; audio policy (Off, configurable duck or
+suppress), theme choice and reader font size are stored in the same schema and inherit by scope. Corrupt,
+missing or unavailable voice data is reported; Preview refuses a missing/disabled selected voice and always uses
+the external worker.
+
+Native reader playback now uses the effective speech snapshot and applies other-application audio policy outside
+devenv.exe. The policy excludes both VS and the external reader worker, records each session before mutation,
+restores only unchanged sessions after completion/cancellation/failure, and surfaces restoration failures. Reader
+appearance follows VS resources by default, supports Light/Dark/font-size overrides, and High Contrast retains
+system-color precedence. This remains a preview: no Mic/Speaker activation or real-chat reply delivery is added.
+
+The actual-DLL settings route passes 271 assertions, toolbar 62 and native reader 560 after the increment. These
+are synthetic/isolated checks; Exp installation, audible Preview, audio restoration perception, live theme/DPI and
+accessibility acceptance remain manual gates. Phase 4 remains paused until those Phase 3 gates and the local commit.
 
 ### PoC 1 bridge research and fallback proof (historical native increments)
 
@@ -818,12 +861,13 @@ Remove-Item Env:DOTNET_ROOT -ErrorAction SilentlyContinue
 & .\tests\VsCopilotChatVoice.Reader.Tests\bin\Debug\net48\VsCopilotChatVoice.Reader.Tests.exe
 ```
 
-Run these fourteen routes serially after the final edit: options 422, history 651, capabilities 152, settings 253,
+Run these fourteen routes serially after the final edit: options 422, history 651, capabilities 152, settings 271,
 native 560, playback 220, speech 110,
 toolbar 62, bridge 209, gesture 209, contracts 136, model 379, Reader self 1,868 and
 integration 320/seven progress mappings. These counts describe automated checks, not native acceptance.
-Settings253 describes the earlier passing count; fresh 0.5.0/0.5.1/0.5.2/0.5.3/0.5.4 runs failed before completion. Do not
-silently retry those parked gates or describe this source as all-green.
+The 0.5.7 settings271 route and the toolbar/native routes pass with the actual rebuilt DLL. Official Exp
+installation, audible/audio restoration, live theme/DPI/High Contrast/accessibility and final local commit
+remain Phase 3 gates; real-chat reopen and Concise/Detailed acceptance remain Phase 6 work.
 
 Final 0.4.6 no-deploy solution build/package and complete ten-route serial run passed; packaged version
 and tested-DLL SHA256 match. The first sequence had one five-second actual-worker startup timeout in

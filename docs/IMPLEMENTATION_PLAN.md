@@ -885,21 +885,13 @@ binding workarounds or preference edits. All-ten source closure is not passed; 0
 
 ### Phase 3 independent foundation (0.5.0; storage/model only)
 
-**Current continuation (2026-11-21, 0.5.6):** Independent0.5.5 baseline build/settings253/native560/
-integration298 passed once. The user approved R1/R2: no retry after expiry, capped remaining-budget
-sleep, and caller-compatible preservation of simultaneous preference save/cleanup failures.
-No-deploy MSBuild/IDE build and once-serial integration320/settings253/native560/model379/Reader1868
-pass after the corrections. Independent closure separately rebuilt and ran integration320/settings253/
-native560 once: all exit0, R1/R2 closed, no new in-scope findings. Earlier parked evidence below remains
-historical and does not imply a newly observed failure or identify a scanner/indexer.
-
-Approved remaining increments: (2) scoped execution/audio/appearance settings and synchronization;
-(3) all Settings-button UI and reader appearance changes together; one combined review after2/3,
-with targeted checks throughout; (4) automated/official isolated Exp acceptance, remaining user
-perceptual checks, documentation/manual commit review and Phase3 commit. Keep Mic/Speaker disabled.
-Audio policy applies to Preview and native reader. Global Restore defaults uses built-ins; Solution/
-Window Clear overrides inherits; individual fields can inherit. Phase4 starts only after Phase3
-acceptance and commit, not after persistence alone. No push or main-instance installation.
+**Current continuation (2026-11-21, 0.5.7):** Independent0.5.5 baseline build/settings253/native560/
+integration298 passed once. The approved R1/R2 persistence corrections remain closed. The 0.5.7
+Settings increment wires the Settings button, scoped speech/audio/appearance persistence, external Preview,
+worker-aware audio restoration and native reader runtime appearance. Actual-DLL settings271, toolbar62 and
+native560 pass after the increment; the independent audit fixes scope persistence, worker exclusion and
+partial-mutation rollback. Exp installation, audible/audio/theme/accessibility acceptance and final commit
+remain pending. Keep Mic/Speaker disabled; Phase4 starts only after those Phase3 gates and the local commit.
 
 User-approved adaptation: park native0.4.8's two final verification failures and continue independent
 work. Its verified frozen package remains outside the repository and is not installed. Current0.5.0
